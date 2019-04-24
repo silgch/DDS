@@ -1,5 +1,7 @@
 package test;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +18,6 @@ public class testPrenda {
 	}
 	@Test
 	public void testEsDeInvierno() {
-		bufanda.esDeInvierno();
+		assertTrue(bufanda.esDeInvierno());
 	}
 }
