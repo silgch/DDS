@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Objects;
 
 public class Prenda {
 	TipoDePrenda tipoDePrenda;
@@ -9,11 +10,21 @@ public class Prenda {
 	
 	//Constructor
 	public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorUno, Color colorDos) {
-		     this.tipoDePrenda = tipoDePrenda;
-		     this.material = material;
-		     this.colorPrimario = colorUno;
-		     this.colorSecundario = colorDos;
-		  }
+		try {
+			if(colorUno.esIgualA(colorDos)) {
+				throw new IllegalArgumentException("Los colores deben ser distintos");
+			}
+			else {
+				this.tipoDePrenda = Objects.requireNonNull(tipoDePrenda,"falta tipoDePrenda");
+			    this.material = Objects.requireNonNull(material,"falta material");
+			    this.colorPrimario =  Objects.requireNonNull(colorUno,"falta color primario");
+			    this.colorSecundario = colorDos;
+			}
+		}
+		catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 	
 	//Metodos
 	public Categoria categoria(){
