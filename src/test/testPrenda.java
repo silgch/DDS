@@ -1,23 +1,38 @@
 package test;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import main.Categoria;
+import main.Color;
+import main.Material;
 import main.Prenda;
+import main.TipoDePrenda;
 
 
 public class testPrenda {
-
-	Prenda bufanda;
+	Prenda pantalon;
 	
 	@BeforeEach
 	public void init() {
-		bufanda = new Prenda();
+		pantalon = new Prenda(new TipoDePrenda(Categoria.PARTE_INFERIOR), Material.Algodon, new Color(0,0,200));
+			
+	}
+	
+	@Test
+	public void testCategoria() {
+		
+		assertEquals(Categoria.PARTE_INFERIOR, pantalon.categoria());
 	}
 	@Test
-	public void testEsDeInvierno() {
-		assertTrue(bufanda.esDeInvierno());
+	public void esDeInvierno(){
+		assertTrue(pantalon.esDeInvierno());
+	}
+	@Test
+	public void esDeVerano(){
+		assertTrue(pantalon.esDeVerano());
 	}
 }

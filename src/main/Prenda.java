@@ -1,5 +1,6 @@
 package main;
 
+
 public class Prenda {
 	TipoDePrenda tipoDePrenda;
 	Material material;
