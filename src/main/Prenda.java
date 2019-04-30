@@ -3,7 +3,7 @@ package main;
 
 public class Prenda {
 	TipoDePrenda tipoDePrenda;
-	Material material;
+	Material material; 
 	Color colorPrimario;
 	Color colorSecundario;
 	
