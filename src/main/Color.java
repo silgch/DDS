@@ -2,15 +2,24 @@ package main;
 
 public class Color {
 	// EL usuario aportara una una terna RGB
-	int rojo, verde, azul;
+	int rojo, amarillo, azul;
 	
 	//Constructor.
-	public Color (int ro, int ve, int az) {
+	public Color (int ro, int am, int az) {
 		this.rojo=ro;
-		this.verde=ve;
+		this.amarillo=am;
 		this.azul=az;
 	}
-
+	//Metodos
+	
+	public boolean esIgualA(Color otroColor) {
+		
+		return (this.rojo==otroColor.rojo&&
+				this.azul==otroColor.azul&&
+				this.amarillo==otroColor.amarillo);
+	}
+	
+	//Getters & Setters
 	public int getRojo() {
 		return rojo;
 	}
@@ -19,12 +28,12 @@ public class Color {
 		this.rojo = rojo;
 	}
 
-	public int getVerde() {
-		return verde;
+	public int getAmarillo() {
+		return amarillo;
 	}
 
-	public void setVerde(int verde) {
-		this.verde = verde;
+	public void setAmarillo(int amarillo) {
+		this.amarillo = amarillo;
 	}
 
 	public int getAzul() {

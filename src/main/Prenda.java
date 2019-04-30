@@ -10,20 +10,30 @@ public class Prenda {
 	
 	//Constructor
 	public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorUno, Color colorDos) {
-		try {
-			if(colorUno.esIgualA(colorDos)) {
-				throw new IllegalArgumentException("Los colores deben ser distintos");
+		
+		if(colorDos!=null) {
+			try {
+				if(colorUno.esIgualA(colorDos)) {
+					throw new IllegalArgumentException("Los colores deben ser distintos");
+				}
+				else {
+					this.tipoDePrenda = Objects.requireNonNull(tipoDePrenda,"falta tipoDePrenda");
+				    this.material = Objects.requireNonNull(material,"falta material");
+				    this.colorPrimario =  Objects.requireNonNull(colorUno,"falta color primario");
+				    this.colorSecundario = colorDos;
+				}
 			}
-			else {
-				this.tipoDePrenda = Objects.requireNonNull(tipoDePrenda,"falta tipoDePrenda");
-			    this.material = Objects.requireNonNull(material,"falta material");
-			    this.colorPrimario =  Objects.requireNonNull(colorUno,"falta color primario");
-			    this.colorSecundario = colorDos;
+			catch(IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
-		catch(IllegalArgumentException e) {
-			System.out.println(e.getMessage());
+		else {
+			this.tipoDePrenda = Objects.requireNonNull(tipoDePrenda,"falta tipoDePrenda");
+		    this.material = Objects.requireNonNull(material,"falta material");
+		    this.colorPrimario =  Objects.requireNonNull(colorUno,"falta color primario");
+		    this.colorSecundario = colorDos;
 		}
+		
 	}
 	
 	//Metodos
