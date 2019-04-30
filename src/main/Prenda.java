@@ -38,7 +38,7 @@ public class Prenda {
 	
 	//Metodos
 	public Categoria categoria(){
-		return tipoDePrenda.categoria();
+		return tipoDePrenda.getCategoria();
 		
 	}
 	public boolean esDeInvierno() {

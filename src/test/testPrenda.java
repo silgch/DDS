@@ -10,6 +10,7 @@ import main.Categoria;
 import main.Color;
 import main.Material;
 import main.Prenda;
+import main.PrendaDeVestir;
 import main.TipoDePrenda;
 
 
@@ -18,14 +19,14 @@ public class testPrenda {
 	
 	@BeforeEach
 	public void init() {
-		pantalon = new Prenda(new TipoDePrenda(Categoria.PARTE_INFERIOR), Material.Algodon, new Color(0,0,200), new Color(110,10,0));
+		pantalon = new Prenda(new TipoDePrenda(Categoria.PARTE_INFERIOR,PrendaDeVestir.PANTALON), Material.Algodon, new Color(0,0,200), new Color(110,10,0));
 			
 	}
 	
 	@Test
 	public void testCategoria() {
 		
-		assertEquals(pantalon.categoria(),Categoria.PARTE_INFERIOR);
+		assertEquals( pantalon.categoria(),Categoria.PARTE_INFERIOR);
 	}
 	@Test
 	public void esDeInvierno(){
