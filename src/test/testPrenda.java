@@ -18,14 +18,14 @@ public class testPrenda {
 	
 	@BeforeEach
 	public void init() {
-		pantalon = new Prenda(new TipoDePrenda(Categoria.PARTE_INFERIOR), Material.Algodon, new Color(0,0,200));
+		pantalon = new Prenda(new TipoDePrenda(Categoria.PARTE_INFERIOR), Material.Algodon, new Color(0,0,200), new Color(110,10,0));
 			
 	}
 	
 	@Test
 	public void testCategoria() {
 		
-		assertEquals(Categoria.PARTE_INFERIOR, pantalon.categoria());
+		assertEquals(pantalon.categoria(),Categoria.PARTE_INFERIOR);
 	}
 	@Test
 	public void esDeInvierno(){
