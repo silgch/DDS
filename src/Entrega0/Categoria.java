@@ -1,4 +1,4 @@
-package main;
+package Entrega0;
 
 public enum Categoria {
 	CALZADO, 

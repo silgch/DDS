@@ -1,4 +1,4 @@
-package test;
+package Entrega0_TEST;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -6,12 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import main.Categoria;
-import main.Color;
-import main.Material;
-import main.Prenda;
-import main.PrendaDeVestir;
-import main.TipoDePrenda;
+import Entrega0.Categoria;
+import Entrega0.Color;
+import Entrega0.Material;
+import Entrega0.Prenda;
+import Entrega0.PrendaDeVestir;
+import Entrega0.TipoDePrenda;
 
 
 public class testPrenda {

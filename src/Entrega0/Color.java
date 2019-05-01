@@ -1,4 +1,4 @@
-package main;
+package Entrega0;
 
 public class Color {
 	// EL usuario aportara una una terna RGB

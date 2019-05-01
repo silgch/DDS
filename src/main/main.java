@@ -1,5 +1,13 @@
 package main;
 
+
+import Entrega0.Categoria;
+import Entrega0.Color;
+import Entrega0.Material;
+import Entrega0.Prenda;
+import Entrega0.PrendaDeVestir;
+import Entrega0.TipoDePrenda;
+
 public class main {
 
 	public static void main(String[] args) {
