@@ -2,7 +2,7 @@ package Entrega0;
 
 public class Color {
 	// EL usuario aportara una una terna RGB
-	int rojo, amarillo, azul;
+	private int rojo, amarillo, azul;
 	
 	//Constructor.
 	public Color (int ro, int am, int az) {
@@ -14,9 +14,9 @@ public class Color {
 	
 	public boolean esIgualA(Color otroColor) {
 		
-		return (this.rojo==otroColor.rojo&&
-				this.azul==otroColor.azul&&
-				this.amarillo==otroColor.amarillo);
+		return (this.rojo==otroColor.getRojo()&&
+				this.azul==otroColor.getAzul()&&
+				this.amarillo==otroColor.getAmarillo());
 	}
 	
 	//Getters & Setters
