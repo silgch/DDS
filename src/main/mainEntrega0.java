@@ -8,7 +8,7 @@ import Entrega0.Prenda;
 import Entrega0.PrendaDeVestir;
 import Entrega0.TipoDePrenda;
 
-public class main {
+public class mainEntrega0 {
 
 	public static void main(String[] args) {
 
