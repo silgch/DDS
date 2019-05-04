@@ -1,41 +1,64 @@
-package Entrega0;
+package prendas;
 
 
-public class TipoDePrenda {
+public enum TipoDePrenda {
 
-	//Son tipos de prenda: remera, blusa, pantalon, bermuda, enterito, zapato, gorro, anteojo, camisa_manga_larga, camisa_manga_corta, vestido, pollera	 
-	// Los tipos de prenda deben de ser instancias de clases y conocer su categoria
-    
-	Categoria categoria;
-	PrendaDeVestir prendaDeVestir;
+    ZAPATOS(Categoria.CALZADO){
+        public boolean puedeSerDeMaterial(Material material){
+            return material == Material.CUERO || material == Material.CUERINA;
+        }
+    },
 
+    ZAPATILLAS(Categoria.CALZADO){
+        public boolean puedeSerDeMaterial(Material material){
+            return material == Material.CUERO || material == Material.CUERINA|| material == Material.LONA;
+        }
+    },
+    BOTAS(Categoria.CALZADO){
+        public boolean puedeSerDeMaterial(Material material){
+            return material == Material.CUERO || material == Material.CUERINA;
+        }
+    },
+
+    CAMISA(Categoria.PARTE_SUPERIOR){
+        public boolean puedeSerDeMaterial(Material material){
+            return material == Material.SEDA || material == Material.ALGODON;
+        }
+    },
+
+    REMERA(Categoria.PARTE_SUPERIOR){
+        public boolean puedeSerDeMaterial(Material material){
+            return material == Material.SEDA || material == Material.ALGODON;
+        }
+    },
+
+    PANTALON(Categoria.PARTE_INFERIOR){
+        public boolean puedeSerDeMaterial(Material material){
+            return material == Material.CORDEROY || material == Material.CUERO || material == Material.CUERINA|| material == Material.JEAN|| material == Material.LINO;
+        }
+    },
+     LENTES(Categoria.ACCESORIOS){
+        public boolean puedeSerDeMaterial(Material material){
+            return material == Material.PLASTICO;
+    }
+     },
+    RELOJ(Categoria.ACCESORIOS){
+        public boolean puedeSerDeMaterial(Material material){
+            return material == Material.ORO || material == Material.PLATA
+            || material == Material.PLASTICO;
+        }
+    };
+
+    private Categoria categoria;
 	//Constructor: 
-	public TipoDePrenda(Categoria unaCategoria,PrendaDeVestir unaPrendaDeVestir) {
-		this.categoria=unaCategoria;
-		this.prendaDeVestir=unaPrendaDeVestir;
-	}
-	
-	
-	//Getters & Setters
-	
-	//categorias(CALZADO, PARTE_SUPERIOR, PARTE_INFERIOR, ACCESORIOS)
-	
-	public Categoria getCategoria() {
-		return this.categoria;
-	}
-	
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
+    TipoDePrenda(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
-	public PrendaDeVestir getPrendaDeVestir() {
-		return prendaDeVestir;
-	}
+    public abstract boolean puedeSerDeMaterial(Material material);
 
-	public void setPrendaDeVestir(PrendaDeVestir prendaDeVestir) {
-		this.prendaDeVestir = prendaDeVestir;
-	}
-	
-	
-	
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
 }

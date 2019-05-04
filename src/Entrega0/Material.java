@@ -1,5 +1,6 @@
-package Entrega0;
+package prendas;
 
 public enum Material {
-	Algodon, Jean, Lino, Gabardina
+	ALGODON, JEAN, LINO, GABARDINA, SEDA, CUERO, PLASTICO, 
+	ORO, CUERINA, PLATA, LONA, LANA, POLIESTER, ACRILICO, CORDEROY, BENGALINA
 }

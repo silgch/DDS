@@ -1,78 +1,53 @@
-package Entrega0;
 
-import java.util.Objects;
+package prendas;
 
 public class Prenda {
-	TipoDePrenda tipoDePrenda;
-	Material material; 
-	Color colorPrimario;
-	Color colorSecundario;
-	
-	//Constructor
-	public Prenda(TipoDePrenda tipoDePrenda, Material material, Color colorUno, Color colorDos) {
-		
-		if(colorDos!=null) {
-			try {
-				if(colorUno.esIgualA(colorDos)) {
-					throw new IllegalArgumentException("Los colores deben ser distintos");
-				}
-				else {
-					this.tipoDePrenda = Objects.requireNonNull(tipoDePrenda,"falta tipoDePrenda");
-				    this.material = Objects.requireNonNull(material,"falta material");
-				    this.colorPrimario =  Objects.requireNonNull(colorUno,"falta color primario");
-				    this.colorSecundario = colorDos;
-				}
-			}
-			catch(IllegalArgumentException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		else {
-			this.tipoDePrenda = Objects.requireNonNull(tipoDePrenda,"falta tipoDePrenda");
-		    this.material = Objects.requireNonNull(material,"falta material");
-		    this.colorPrimario =  Objects.requireNonNull(colorUno,"falta color primario");
-		    this.colorSecundario = colorDos;
-		}
-		
-	}
-	
-	//Metodos
-	public Categoria categoria(){
-		return tipoDePrenda.getCategoria();
-		
-	}
-	public boolean esDeInvierno() {
-		return true;
-	}
-	
-	public boolean esDeVerano() {
-		return true;
-	}
-	
-	//Getters & Setters
-	public TipoDePrenda getTipoDePrenda() {
-		return tipoDePrenda;
-	}
-	public void setTipoDePrenda(TipoDePrenda tipoDePrenda) {
-		this.tipoDePrenda = tipoDePrenda;
-	}
-	public Material getMaterial() {
-		return material;
-	}
-	public void setMaterial(Material material) {
-		this.material = material;
-	}
-	public Color getColorPrimario() {
-		return colorPrimario;
-	}
-	public void setColorPrimario(Color colorPrimario) {
-		this.colorPrimario = colorPrimario;
-	}
-	public Color getColorSecundario() {
-		return colorSecundario;
-	}
-	public void setColorSecundario(Color colorSecundario) {
-		this.colorSecundario = colorSecundario;
-	}
+
+    private Color colorPrincipal;
+    private Color colorSecundario;
+    private Material material;
+    private TipoDePrenda tipo;
+    private Trama trama;
+
+   //Constructor: Se puede construir una prenda con o sin color secundario.
+    public Prenda(TipoDePrenda tipo, Material material, Color colorPrincipal, Trama trama) {
+        this.colorPrincipal = colorPrincipal;
+        this.material = material;
+        this.tipo = tipo;
+        this.trama = trama;
+    }
+
+    public Prenda(TipoDePrenda tipo,  Material material, Color colorPrincipal, Color colorSecundario, Trama trama) {
+        this.colorPrincipal = colorPrincipal;
+        this.material = material;
+        this.tipo = tipo;
+        this.colorSecundario = colorSecundario;
+        this.trama = trama;
+    }
+
+//Getter
+    public Color getColor() {
+        return colorPrincipal;
+    }
+
+    public Color getColorSecundario() {
+        return colorSecundario;
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public TipoDePrenda getTipo() {
+        return tipo;
+    }
+
+    public Trama getTrama() {
+        return trama;
+    }
+
+    public Categoria getCategoria() {
+        return tipo.getCategoria();
+    }
 
 }
