@@ -1,4 +1,4 @@
-package prendas;
+package Entrega0;
 
 
 public enum TipoDePrenda {

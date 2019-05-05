@@ -1,9 +1,10 @@
-package prendas; //Ver si se cambia
+package Entrega0; //Ver si se cambia
 
 import static java.util.Objects.requireNonNull;
 import java.util.Objects;
-import prendas.Trama;
-import prendas.TipoDePrenda;
+import Entrega0.Trama;
+import Entrega0.TipoDePrenda;
+import Entrega0.Prenda;
 
 
 public class BorradorDePrenda {
@@ -22,9 +23,26 @@ public class BorradorDePrenda {
 	public Prenda generarPrenda(){
 		//Chequear que la prenda esta completa, generar prenda ya sea que exista o no el color secundario.
 		//Falta completar el chequeo y el if. 
-		return new Prenda (tipo,  material, colorPrincipal, colorSecundario, trama);
+		try {
+            chequearPrendaValida(); //Este metodo hace todas las validaciones
+
+            if(colorSecundario == null){
+                return new Prenda(tipo, material, colorPrincipal, trama); //Creo una prenda que NO tenga color Secundario
+            }
+            	else{
+            		return new Prenda(tipo, material, colorPrincipal, colorSecundario,trama);//Creo una prenda que TENGA color Secundario
+            	}
+        }
+        catch (RuntimeException e){
+            throw new RuntimeException("No se pudo construir la prenda");
+        }
 	}
 		
+	private boolean  chequearPrendaValida() { //Chequea las validaciones necesarias para que sea valido construir la prenda
+		if(tipo == null) {throw new RuntimeException("Debe ingresar un tipo de Prenda."); }
+        if(colorPrincipal == null){throw new RuntimeException("Debe ingresar un Color Principal");}
+        if(material == null){throw new RuntimeException("Debe ingresar un material.");}
+	}
 	
 	//Setter  Parciales(Trama, Material, Colores).	
     public void setTrama(Trama trama){ //Permite elegir  la Trama

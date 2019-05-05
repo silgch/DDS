@@ -1,5 +1,5 @@
 
-package prendas;
+package Entrega0;
 
 public class Prenda {
 

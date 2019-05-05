@@ -1,4 +1,4 @@
-package usuarios;
+package usuario;
 
 import static java.util.Objects.requireNonNull;
 
