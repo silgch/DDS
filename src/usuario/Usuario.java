@@ -8,6 +8,8 @@ import java.util.List;
 import guardarropas.Guardarropa;
 
 public class Usuario {
+	
+	
 	private final List<Guardarropa> guardarropas = new ArrayList<>();
 	
 	public List<Guardarropa> getGuardarropas() {

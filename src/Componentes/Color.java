@@ -1,4 +1,4 @@
-package Entrega0;
+package Componentes;
 
 public class Color {
 	// EL usuario aportara una una terna RGB
@@ -14,10 +14,21 @@ public class Color {
 	
 	public boolean esIgualA(Color otroColor) {
 		
-		return (this.rojo==otroColor.getRojo()&&
-				this.azul==otroColor.getAzul()&&
-				this.amarillo==otroColor.getAmarillo());
+   		boolean check=false;
+		try {
+        check= (this.rojo==otroColor.getRojo()&&
+			this.azul==otroColor.getAzul()&&
+			this.amarillo==otroColor.getAmarillo());;
+        if(check) {
+        	throw new IllegalArgumentException("Los colores deben ser distintos");
+        }
+		}
+		catch(IllegalArgumentException e) {
+			System.out.println(e);
+		}
+		return check;
 	}
+
 	
 	//Getters & Setters
 	public int getRojo() {

@@ -8,7 +8,7 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-public class mainEntrega1 {
+public class mainImplementacionGuava {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -27,7 +27,10 @@ public class mainEntrega1 {
 	     
 	     Set<List<String>> cartesianSet = Sets.cartesianProduct(sets);
 	     // para que aparezca la opcion de importar guava
-	     // tienen que hacer mvn eclipse:eclispe
+	     // tienen que hacer:
+	     //					mvn eclipse:clean
+	     //					mvn eclipse:eclispe
+	     //SI EL ERROR SIGUE: vuelvan a copiar la linea debajo
 	     for(List<String> element : cartesianSet ){
 	    	 
 	    	 System.out.println(element);

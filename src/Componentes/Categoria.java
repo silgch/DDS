@@ -1,4 +1,4 @@
-package Entrega0;
+package Componentes;
 
 public enum Categoria {
 	CALZADO, 

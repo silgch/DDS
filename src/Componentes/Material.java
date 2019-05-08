@@ -1,4 +1,4 @@
-package Entrega0;
+package Componentes;
 
 public enum Material {
 	ALGODON, JEAN, LINO, GABARDINA, SEDA, CUERO, PLASTICO, 

@@ -1,5 +1,7 @@
 
-package Entrega0;
+package Componentes;
+
+import java.util.Objects;
 
 public class Prenda {
 
@@ -11,19 +13,39 @@ public class Prenda {
 
    //Constructor: Se puede construir una prenda con o sin color secundario.
     public Prenda(TipoDePrenda tipo, Material material, Color colorPrincipal, Trama trama) {
-        this.colorPrincipal = colorPrincipal;
-        this.material = material;
-        this.tipo = tipo;
-        this.trama = trama;
+    	
+
+    		if(Validaciones.realizarValidacionesCuatroParametros(tipo, material, colorPrincipal, trama)) {
+		    	this.tipo = tipo;
+		        this.material = material;
+		        this.colorPrincipal = colorPrincipal;
+		        this.trama = trama;
+    		}
+
     }
 
     public Prenda(TipoDePrenda tipo,  Material material, Color colorPrincipal, Color colorSecundario, Trama trama) {
-        this.colorPrincipal = colorPrincipal;
-        this.material = material;
-        this.tipo = tipo;
-        this.colorSecundario = colorSecundario;
-        this.trama = trama;
+        
+	    	if(Validaciones.realizarValidacionesCincoParametros(tipo, material, colorPrincipal, colorSecundario, trama)) {
+	    		this.tipo = tipo;
+	    		this.material = material;
+		    	this.colorPrincipal = colorPrincipal;
+		        this.colorSecundario = colorSecundario;
+		        this.trama = trama;
+	    	}
     }
+    
+//Metodos
+    
+    public boolean esDeInvierno() {
+    	return true;
+    }
+    
+    public boolean esDeVerano() {
+    	return true;
+    }
+    
+
 
 //Getter
     public Color getColor() {
