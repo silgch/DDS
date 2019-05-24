@@ -2,7 +2,7 @@ package Componentes;
 
 public class PrendaBuildDirector {
 	
-	public Prenda construirPantalonDosColoresAlgodonConCuadros(){
+	public static Prenda construirPantalonDosColoresAlgodonConCuadros(){
 		PrendaBuilder builder = new PrendaBuilder();
 		builder.setTipoPrenda(TipoDePrenda.PANTALON);
 		builder.setMaterial(Material.ALGODON);
