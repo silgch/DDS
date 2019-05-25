@@ -1,9 +1,11 @@
 package guardarropas;
 
 import static java.util.Objects.requireNonNull;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.stream.Collectors;
+
+import com.google.common.collect.Sets;
+
 import java.util.*;
 import Componentes.Prenda;
 import Componentes.Categoria;
@@ -66,11 +68,48 @@ public class Guardarropa {
         }
         
         public void sugerir(){
-        	//2)Generar sugerencias de atuendos válidas, implementando un algoritmo que genere
+        	//2)Generar sugerencias de atuendos vï¿½lidas, implementando un algoritmo que genere
         	//todas las combinaciones posibles de ropa. 
         	
-        	//LEAN Y ANGEL VEAN "mainImplementacionGuava" (dentro del package main)
-        }
+        	List<Set<String>> sets = new ArrayList<Set<String>>();
+    		
+	   		sets.add(new HashSet(prendasSuperiores));
+	   	    sets.add(new HashSet(prendasInferiores));
+	   	    sets.add(new HashSet(calzados));
+	   	 	sets.add(new HashSet(accesorios));
+	   	 	
+	   	 	Set<List<String>> cartesianSet = Sets.cartesianProduct(sets);
+	   	 	
+	   	 	List<String> listaAux= new ArrayList<String>();
+	   	 	
+			for(List<String> element : cartesianSet ){
+				    	 
+				listaAux.add(element.toString());
+			}
+			
+			System.out.println(this.getRandomList(listaAux));
+    	 
+	     
+   	    
+	    }
+        
+//        public List<Prenda> sugerirAtuendo(){
+//        	//2)Generar sugerencias de atuendos vï¿½lidas, implementando un algoritmo que genere
+//        	//todas las combinaciones posibles de ropa. 
+//        	
+//        	//LEAN Y ANGEL VEAN "mainImplementacionGuava" (dentro del package main)
+//        	Random aleatorio= new Random();
+//        	List <List<Prenda>> atuendosValidos = this.atuendosValidos();
+//        	return this.atuendosValidos().get(aleatorio);
+//        }
+//
+//        
+//        private List <List<Prenda>> atuendosValidos(){
+//        	
+//        	return Lists.cartesianProduct(this.prendasSuperiores, this.prendasInferiores, 
+//        									this.calzados, this.accesorios);
+//     	
+//        }  
 
 		public List<Prenda> getPrendasSuperiores() {
 			return prendasSuperiores;
@@ -86,6 +125,13 @@ public class Guardarropa {
 
 		public List<Prenda> getAccesorios() {
 			return accesorios;
+		}
+		
+		public String getRandomList(List<String> list) {
+		    Random random = new Random();
+		    int index = random.nextInt(list.size());
+		    System.out.println("\nIndex :" + index );
+		    return list.get(index);
 		}
 
 

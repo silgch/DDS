@@ -10,7 +10,7 @@ import guardarropas.Guardarropa;
 public class Usuario {
 	
 	
-	private final List<Guardarropa> guardarropas = new ArrayList<>();
+	private List<Guardarropa> guardarropas = new ArrayList<>();
 	
 	public List<Guardarropa> getGuardarropas() {
 		return guardarropas;
