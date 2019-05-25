@@ -71,7 +71,7 @@ public class Guardarropa {
         	//2)Generar sugerencias de atuendos v�lidas, implementando un algoritmo que genere
         	//todas las combinaciones posibles de ropa. 
         	
-        	List<Set<String>> sets = new ArrayList<Set<String>>();
+        	List<Set<Prenda>> sets = new ArrayList<Set<String>>();
     		
 	   		sets.add(new HashSet(prendasSuperiores));
 	   	    sets.add(new HashSet(prendasInferiores));
@@ -82,7 +82,7 @@ public class Guardarropa {
 	   	 	
 	   	 	List<String> listaAux= new ArrayList<String>();
 	   	 	
-			for(List<String> element : cartesianSet ){
+			for(List<Prenda> element : cartesianSet ){
 				    	 
 				listaAux.add(element.toString());
 			}
