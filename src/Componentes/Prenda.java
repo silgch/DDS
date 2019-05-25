@@ -10,6 +10,8 @@ public class Prenda {
     private Material material;
     private TipoDePrenda tipo;
     private Trama trama;
+    
+    public Prenda() {}
 
    //Constructor: Se puede construir una prenda con o sin color secundario.
     public Prenda(TipoDePrenda tipo, Material material, Color colorPrincipal, Trama trama) {
@@ -71,5 +73,25 @@ public class Prenda {
     public Categoria getCategoria() {
         return tipo.getCategoria();
     }
+
+	public void setColorPrincipal(Color colorPrincipal) {
+		this.colorPrincipal = colorPrincipal;
+	}
+
+	public void setColorSecundario(Color colorSecundario) {
+		this.colorSecundario = colorSecundario;
+	}
+
+	public void setMaterial(Material material) {
+		this.material = material;
+	}
+
+	public void setTipo(TipoDePrenda tipo) {
+		this.tipo = tipo;
+	}
+
+	public void setTrama(Trama trama) {
+		this.trama = trama;
+	}
 
 }
