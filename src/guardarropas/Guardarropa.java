@@ -1,14 +1,14 @@
 package guardarropas;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-import java.util.*;
 import Componentes.Prenda;
-import Componentes.Categoria;
 
 
 
@@ -67,25 +67,55 @@ public class Guardarropa {
             this.accesorios.add(prenda);          
         }
         
-        public void sugerir(){
-        	//2)Generar sugerencias de atuendos v�lidas, implementando un algoritmo que genere
-        	//todas las combinaciones posibles de ropa. 
+        public void sugerenciaConTodosLosGuardarropas(List<Guardarropa> guardarropas) throws Exception{
+        	
+        	Guardarropa aux = new Guardarropa();
+        	for(Guardarropa element : guardarropas) {
+        		this.fusionarGuardarropa(aux,element);
+        	}
         	
         	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
     		
-	   		sets.add(new HashSet(prendasSuperiores));
-	   	    sets.add(new HashSet(prendasInferiores));
-	   	    sets.add(new HashSet(calzados));
-	   	 	sets.add(new HashSet(accesorios));
+	   		sets.add(new HashSet(aux.getPrendasSuperiores()));
+	   	    sets.add(new HashSet(aux.getPrendasInferiores()));
+	   	    sets.add(new HashSet(aux.getCalzados()));
+	   	 	sets.add(new HashSet(aux.getAccesorios()));
 	   	 	
 	   	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
 	   	 	
 	   	 	List<String> listaAux= new ArrayList<String>();
 	   	 	
 			for(List<Prenda> element : cartesianSet ){
+
+				String nombreAux ="";
+				List<Prenda> listaPrendaAux = element;
+				for(Prenda prenda :listaPrendaAux ){
+			    	 
+					nombreAux=nombreAux+"-"+prenda.getNombre();
+					
+				}
 				
-//				listaAux.add(element.toString());
-//				System.out.println(element);
+				listaAux.add(nombreAux);
+			}
+			
+			System.out.println(this.getRandomList(listaAux));
+    	        	
+        }
+        
+        public void sugerir(){
+        	
+        	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
+    		
+	   		sets.add(new HashSet(this.prendasSuperiores));
+	   	    sets.add(new HashSet(this.prendasInferiores));
+	   	    sets.add(new HashSet(this.calzados));
+	   	 	sets.add(new HashSet(this.accesorios));
+	   	 	
+	   	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
+	   	 	
+	   	 	List<String> listaAux= new ArrayList<String>();
+	   	 	
+			for(List<Prenda> element : cartesianSet ){
 				
 				String nombreAux ="";
 				List<Prenda> listaPrendaAux = element;
@@ -99,28 +129,7 @@ public class Guardarropa {
 			}
 			
 			System.out.println(this.getRandomList(listaAux));
-    	 
-	     
-   	    
-	    }
-        
-//        public List<Prenda> sugerirAtuendo(){
-//        	//2)Generar sugerencias de atuendos v�lidas, implementando un algoritmo que genere
-//        	//todas las combinaciones posibles de ropa. 
-//        	
-//        	//LEAN Y ANGEL VEAN "mainImplementacionGuava" (dentro del package main)
-//        	Random aleatorio= new Random();
-//        	List <List<Prenda>> atuendosValidos = this.atuendosValidos();
-//        	return this.atuendosValidos().get(aleatorio);
-//        }
-//
-//        
-//        private List <List<Prenda>> atuendosValidos(){
-//        	
-//        	return Lists.cartesianProduct(this.prendasSuperiores, this.prendasInferiores, 
-//        									this.calzados, this.accesorios);
-//     	
-//        }  
+	    } 
 
 		public List<Prenda> getPrendasSuperiores() {
 			return prendasSuperiores;
@@ -144,6 +153,29 @@ public class Guardarropa {
 		    System.out.println("\nIndex :" + index );
 		    return list.get(index);
 		}
-
+		
+		public void fusionarGuardarropa(Guardarropa a,Guardarropa b) throws Exception {
+			
+			for(Prenda p : b.getPrendasSuperiores()) {
+				
+				a.agregarPrendaSuperior(p);
+			}
+			
+			for(Prenda p : b.getPrendasInferiores()) {
+				
+				a.agregarPrendaInferior(p);;
+			}
+			
+			for(Prenda p : b.getCalzados()) {
+				
+				a.agregarCalzado(p);
+			}
+			
+			for(Prenda p : b.getAccesorios()) {
+				
+				a.agregarAccesorio(p);
+			}
+			
+		}
 
 }
