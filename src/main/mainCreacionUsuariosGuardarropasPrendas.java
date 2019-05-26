@@ -9,50 +9,50 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 
 	public static void main(String[] args) throws Exception {
 
-		//3. Creaci�n de m�ltiples usuarios, cada uno con distintas prendas y guardarropas
-
-		
-
 			Usuario ines = new Usuario();
-			
-//			Prenda prendaRemeraRoja= new Prenda(TipoDePrenda.REMERA, Material.ALGODON, new Color(200,0,0), new Color(110,10,0),Trama.ESTAMPADA);
-//			Prenda prendaRemeraAzul= new Prenda(TipoDePrenda.REMERA, Material.ALGODON, new Color(0,0,100),Trama.CUADROS);
-//		    Prenda prendaPantalonCorderoy= new Prenda(TipoDePrenda.PANTALON, Material.CORDEROY, new Color(0,70,100),Trama.LISA);
-//		    Prenda prendaPantalonJean = new Prenda(TipoDePrenda.PANTALON, Material.JEAN, new Color(0,0,200),Trama.LISA);
-//		    Prenda prendaZapatillaLona= new Prenda(TipoDePrenda.ZAPATILLAS, Material.LONA, new Color(0,200,200),Trama.LISA);
-//		    Prenda prendaZapatillaCuero= new Prenda(TipoDePrenda.ZAPATILLAS, Material.CUERO, new Color(0,0,0),Trama.LISA);
-//		    Prenda prendaBotaCuero = new Prenda(TipoDePrenda.BOTAS, Material.CUERO, new Color(0,200,200),Trama.LISA);
-//		    Prenda prendaBotaCuerina = new Prenda(TipoDePrenda.BOTAS, Material.CUERINA, new Color(0,200,200),Trama.LISA);
-//		    Prenda relojOro = new Prenda(TipoDePrenda.RELOJ,  Material.ORO, new Color(234, 190, 63),Trama.LISA);
-//		    
-		    Prenda prendaRemeraRoja= PrendaBuildDirector.construirRemeraRoja();
-			Prenda prendaRemeraAzul= PrendaBuildDirector.construirRemeraAzul();
-		    Prenda prendaPantalonCorderoy= PrendaBuildDirector.construirPantalonCorderoy();
-		    Prenda prendaPantalonJean = PrendaBuildDirector.construirPantalonJean();
-		    Prenda prendaZapatillaLona= PrendaBuildDirector.construirZapatillaLona();
-		    Prenda prendaZapatillaCuero= PrendaBuildDirector.construirZapatillaCuero();
-		    Prenda prendaBotaCuero = PrendaBuildDirector.construirBotaCuero();
-		    Prenda prendaBotaCuerina = PrendaBuildDirector.construirBotaCuerina();
+		   
+		    Prenda remeraRoja= PrendaBuildDirector.construirRemeraRoja();
+			Prenda remeraAzul= PrendaBuildDirector.construirRemeraAzul();
+			Prenda remeraVerde = PrendaBuildDirector.construirRemeraVerde();
+		    Prenda pantalonCorderoy= PrendaBuildDirector.construirPantalonCorderoy();
+		    Prenda pantalonJean = PrendaBuildDirector.construirPantalonJean();
+		    Prenda pantalonRockero = PrendaBuildDirector.construirPantalonRockero();
+		    Prenda zapatillaLona= PrendaBuildDirector.construirZapatillaLona();
+		    Prenda zapatillaCuero= PrendaBuildDirector.construirZapatillaCuero();
+		    Prenda botaCuero = PrendaBuildDirector.construirBotaCuero();
+		    Prenda botaCuerina = PrendaBuildDirector.construirBotaCuerina();
 		    Prenda relojOro = PrendaBuildDirector.construirRelojOro();
+		    Prenda relojPlastico = PrendaBuildDirector.construirRelojPlastico();		    
+		    
+		    Guardarropa guardarropaInesUno = new Guardarropa();
+		    
+		    Guardarropa guardarropaInesDos = new Guardarropa();
+	
+		    guardarropaInesUno.agregarAGuardarropas(remeraRoja);
+		    guardarropaInesUno.agregarAGuardarropas(remeraAzul);
+		    guardarropaInesUno.agregarAGuardarropas(pantalonCorderoy);
+		    guardarropaInesUno.agregarAGuardarropas(zapatillaLona);
+		    guardarropaInesUno.agregarAGuardarropas(relojOro);
+		    guardarropaInesUno.agregarAGuardarropas(botaCuerina);
+		    guardarropaInesUno.agregarAGuardarropas(botaCuero);
+			
+		    guardarropaInesDos.agregarAGuardarropas(remeraVerde);
+		    guardarropaInesDos.agregarAGuardarropas(pantalonRockero);
+		    guardarropaInesDos.agregarAGuardarropas(pantalonJean);
+		    guardarropaInesDos.agregarAGuardarropas(zapatillaLona);
+		    guardarropaInesDos.agregarAGuardarropas(zapatillaCuero);
+		    guardarropaInesDos.agregarAGuardarropas(relojPlastico);
 		    
 		    
+		    ines.agregarGuardarropa(guardarropaInesUno);
+		    ines.agregarGuardarropa(guardarropaInesDos);
 		    
-		    Guardarropa guardarropaInes = new Guardarropa();
 		    
-		    guardarropaInes.agregarAGuardarropas(prendaRemeraRoja);
-		    guardarropaInes.agregarAGuardarropas(prendaRemeraAzul);
-		    guardarropaInes.agregarAGuardarropas(prendaPantalonCorderoy);
-		    guardarropaInes.agregarAGuardarropas(prendaZapatillaLona);
-		    guardarropaInes.agregarAGuardarropas(relojOro);
-		    guardarropaInes.agregarAGuardarropas(prendaBotaCuerina);
+		    guardarropaInesUno.sugerir();
 		    
-		    guardarropaInes.sugerir();
+		    guardarropaInesDos.sugerir();
+		    
+		    guardarropaInesUno.sugerenciaConTodosLosGuardarropas(ines.getGuardarropas());
 		    
 		}
-		
-	    Guardarropa guardarropaPablo = new Guardarropa();
-	    Guardarropa guardarropaJuan = new Guardarropa();
-
-	    
-
 }

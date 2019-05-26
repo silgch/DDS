@@ -37,6 +37,17 @@ public class PrendaBuildDirector {
 		//Prenda prendaRemeraAzul= new Prenda(TipoDePrenda.REMERA, Material.ALGODON, new Color(0,0,100),Trama.CUADROS);
 	}
 	
+	public static Prenda construirRemeraVerde(){
+		PrendaBuilder builder = new PrendaBuilder();
+		builder.setNombre("remeraVerde");
+		builder.setTipoPrenda(TipoDePrenda.REMERA);
+		builder.setMaterial(Material.ALGODON);
+		builder.setColorPrincipal(new Color(0,150,100));
+		builder.setTrama(Trama.LISA);
+		return builder.getResult();
+		//Prenda prendaRemeraAzul= new Prenda(TipoDePrenda.REMERA, Material.ALGODON, new Color(0,0,100),Trama.CUADROS);
+	}
+	
 	public static Prenda construirPantalonCorderoy(){
 		PrendaBuilder builder = new PrendaBuilder();
 		builder.setNombre("pantalonCorderoy");
@@ -55,6 +66,18 @@ public class PrendaBuildDirector {
 		builder.setTipoPrenda(TipoDePrenda.PANTALON);
 		builder.setMaterial(Material.JEAN);
 		builder.setColorPrincipal(new Color(0,0,200));
+		builder.setTrama(Trama.LISA);
+		return builder.getResult();
+		//Prenda prendaPantalonJean = new Prenda(TipoDePrenda.PANTALON, Material.JEAN, new Color(0,0,200),Trama.LISA);
+
+	}
+	
+	public static Prenda construirPantalonRockero(){
+		PrendaBuilder builder = new PrendaBuilder();
+		builder.setNombre("pantalonRockero");
+		builder.setTipoPrenda(TipoDePrenda.PANTALON);
+		builder.setMaterial(Material.CUERO);
+		builder.setColorPrincipal(new Color(200,200,200));
 		builder.setTrama(Trama.LISA);
 		return builder.getResult();
 		//Prenda prendaPantalonJean = new Prenda(TipoDePrenda.PANTALON, Material.JEAN, new Color(0,0,200),Trama.LISA);
@@ -115,6 +138,17 @@ public class PrendaBuildDirector {
 		builder.setMaterial(Material.ORO);
 		builder.setColorPrincipal(new Color(234,190,63));
 		builder.setTrama(Trama.LISA);
+		return builder.getResult();
+		//Prenda relojOro = new Prenda(TipoDePrenda.RELOJ,  Material.ORO, new Color(234, 190, 63),Trama.LISA);
+	}
+	
+	public static Prenda construirRelojPlastico(){
+		PrendaBuilder builder = new PrendaBuilder();
+		builder.setNombre("relojPlastico");
+		builder.setTipoPrenda(TipoDePrenda.RELOJ);
+		builder.setMaterial(Material.PLASTICO);
+		builder.setColorPrincipal(new Color(345,390,67));
+		builder.setTrama(Trama.LUNARES);
 		return builder.getResult();
 		//Prenda relojOro = new Prenda(TipoDePrenda.RELOJ,  Material.ORO, new Color(234, 190, 63),Trama.LISA);
 	}
