@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class Prenda {
 
+	private String nombre;
     private Color colorPrincipal;
     private Color colorSecundario;
     private Material material;
@@ -92,6 +93,18 @@ public class Prenda {
 
 	public void setTrama(Trama trama) {
 		this.trama = trama;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Color getColorPrincipal() {
+		return colorPrincipal;
 	}
 
 }

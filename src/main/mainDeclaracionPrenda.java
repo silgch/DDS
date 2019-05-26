@@ -19,6 +19,8 @@ public class mainDeclaracionPrenda {
 		Prenda pantalon = new Prenda(TipoDePrenda.PANTALON, Material.ALGODON, new Color(0,0,200), new Color(110,10,0),Trama.CUADROS);
 		
 		Prenda pantalon2 = PrendaBuildDirector.construirPantalonDosColoresAlgodonConCuadros();
+		
+		
 	}
 
 }

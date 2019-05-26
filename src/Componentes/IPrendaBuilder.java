@@ -1,7 +1,9 @@
 package Componentes;
 
 public interface IPrendaBuilder {
-
+	
+	
+	public void setNombre(String nombre);
 	public void setColorPrincipal(Color colorPrincipal);
 	public void setColorSecundario(Color colorSecundario);
 	public void setTipoPrenda(TipoDePrenda tipoDePrenda);

@@ -7,6 +7,10 @@ public class PrendaBuilder implements IPrendaBuilder {
 		this.unaPrenda = new Prenda();
 	}
 	
+	public void setNombre(String nombre) {
+		this.unaPrenda.setNombre(nombre);
+	}
+	
 	public void setColorPrincipal(Color colorPrincipal) {
 		this.unaPrenda.setColorPrincipal(colorPrincipal);
 	};

@@ -83,8 +83,19 @@ public class Guardarropa {
 	   	 	List<String> listaAux= new ArrayList<String>();
 	   	 	
 			for(List<Prenda> element : cartesianSet ){
-				    	 
-				listaAux.add(element.toString());
+				
+//				listaAux.add(element.toString());
+//				System.out.println(element);
+				
+				String nombreAux ="";
+				List<Prenda> listaPrendaAux = element;
+				for(Prenda prenda :listaPrendaAux ){
+			    	 
+					nombreAux=nombreAux+"-"+prenda.getNombre();
+					
+				}
+				
+				listaAux.add(nombreAux);
 			}
 			
 			System.out.println(this.getRandomList(listaAux));
