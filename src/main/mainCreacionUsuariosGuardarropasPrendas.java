@@ -1,6 +1,7 @@
 package main;
 
 import Componentes.*;
+import QueMePongo.QueMePongo;
 import guardarropas.*;
 import usuario.*;
 
@@ -8,7 +9,7 @@ import usuario.*;
 public class mainCreacionUsuariosGuardarropasPrendas {
 
 	public static void main(String[] args) throws Exception {
-
+		
 			Usuario ines = new Usuario();
 			Usuario joeyRamone = new Usuario();
 		   
@@ -65,9 +66,14 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		    
 		    guardarropaInesDos.sugerir();
 		    
-		    guardarropaJoeyRamone.sugerir();
+		    //guardarropaJoeyRamone.sugerir();
 		    
-		    guardarropaInesUno.sugerenciaConTodosLosGuardarropas(ines.getGuardarropas());
+		    QueMePongo.getInstance().agregarUsuario(joeyRamone);
+		    QueMePongo.getInstance().sugerir(joeyRamone.getGuardarropas().get(0));
 		    
-		}
+		    QueMePongo.getInstance().sugerenciaConTodosLosGuardarropas(ines.getGuardarropas());
+		    
+		    //guardarropaInesUno.sugerenciaConTodosLosGuardarropas(ines.getGuardarropas());
+	
+	}
 }
