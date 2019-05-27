@@ -10,6 +10,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	public static void main(String[] args) throws Exception {
 
 			Usuario ines = new Usuario();
+			Usuario joeyRamone = new Usuario();
 		   
 		    Prenda remeraRoja= PrendaBuildDirector.construirRemeraRoja();
 			Prenda remeraAzul= PrendaBuildDirector.construirRemeraAzul();
@@ -23,10 +24,17 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		    Prenda botaCuerina = PrendaBuildDirector.construirBotaCuerina();
 		    Prenda relojOro = PrendaBuildDirector.construirRelojOro();
 		    Prenda relojPlastico = PrendaBuildDirector.construirRelojPlastico();		    
+		    Prenda remeraNegra = PrendaBuildDirector.construirRemeraNegra();
+		    Prenda pantalonNegro = PrendaBuildDirector.construirPantalonNegro();
+		    Prenda lentesNegros = PrendaBuildDirector.construirLentesNegros();
+		    Prenda zapatillasNegras = PrendaBuildDirector.construirZapatillasNegros();
 		    
+		    		    
 		    Guardarropa guardarropaInesUno = new Guardarropa();
 		    
 		    Guardarropa guardarropaInesDos = new Guardarropa();
+		    
+		    Guardarropa guardarropaJoeyRamone = new Guardarropa();
 	
 		    guardarropaInesUno.agregarAGuardarropas(remeraRoja);
 		    guardarropaInesUno.agregarAGuardarropas(remeraAzul);
@@ -43,14 +51,21 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		    guardarropaInesDos.agregarAGuardarropas(zapatillaCuero);
 		    guardarropaInesDos.agregarAGuardarropas(relojPlastico);
 		    
+		    guardarropaJoeyRamone.agregarAGuardarropas(remeraNegra);
+		    guardarropaJoeyRamone.agregarAGuardarropas(pantalonNegro);
+		    guardarropaJoeyRamone.agregarAGuardarropas(lentesNegros);
+		    guardarropaJoeyRamone.agregarAGuardarropas(zapatillasNegras);
+		    
 		    
 		    ines.agregarGuardarropa(guardarropaInesUno);
 		    ines.agregarGuardarropa(guardarropaInesDos);
-		    
+		    joeyRamone.agregarGuardarropa(guardarropaJoeyRamone);
 		    
 		    guardarropaInesUno.sugerir();
 		    
 		    guardarropaInesDos.sugerir();
+		    
+		    guardarropaJoeyRamone.sugerir();
 		    
 		    guardarropaInesUno.sugerenciaConTodosLosGuardarropas(ines.getGuardarropas());
 		    

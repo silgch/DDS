@@ -153,4 +153,44 @@ public class PrendaBuildDirector {
 		//Prenda relojOro = new Prenda(TipoDePrenda.RELOJ,  Material.ORO, new Color(234, 190, 63),Trama.LISA);
 	}
 	
+	public static Prenda construirRemeraNegra(){
+		PrendaBuilder builder = new PrendaBuilder();
+		builder.setNombre("remeraNegra");
+		builder.setTipoPrenda(TipoDePrenda.REMERA);
+		builder.setMaterial(Material.ALGODON);
+		builder.setColorPrincipal(new Color(0,0,0));
+		builder.setTrama(Trama.LISA);
+		return builder.getResult();
+	}
+	
+	public static Prenda construirPantalonNegro(){
+		PrendaBuilder builder = new PrendaBuilder();
+		builder.setNombre("pantalonNegro");
+		builder.setTipoPrenda(TipoDePrenda.PANTALON);
+		builder.setMaterial(Material.JEAN);
+		builder.setColorPrincipal(new Color(0,0,0));
+		builder.setTrama(Trama.LISA);
+		return builder.getResult();
+	}
+	
+	public static Prenda construirZapatillasNegros(){
+		PrendaBuilder builder = new PrendaBuilder();
+		builder.setNombre("zapatillasNegras");
+		builder.setTipoPrenda(TipoDePrenda.ZAPATILLAS);
+		builder.setMaterial(Material.CUERO);
+		builder.setColorPrincipal(new Color(0,0,0));
+		builder.setTrama(Trama.LISA);
+		return builder.getResult();
+	}
+	
+	public static Prenda construirLentesNegros(){
+		PrendaBuilder builder = new PrendaBuilder();
+		builder.setNombre("lentesNegros");
+		builder.setTipoPrenda(TipoDePrenda.LENTES);
+		builder.setMaterial(Material.PLASTICO);
+		builder.setColorPrincipal(new Color(0,0,0));
+		builder.setTrama(Trama.LISA);
+		return builder.getResult();
+	}
+	
 }
