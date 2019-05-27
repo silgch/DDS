@@ -68,7 +68,7 @@ public class Guardarropa {
         }
         
         public void sugerenciaConTodosLosGuardarropas(List<Guardarropa> guardarropas) throws Exception{
-        	
+        	//DEPRECADO: usar el metodo del mismo nombre en clase QueMePongo//
         	Guardarropa aux = new Guardarropa();
         	for(Guardarropa element : guardarropas) {
         		this.fusionarGuardarropa(aux,element);
@@ -102,7 +102,7 @@ public class Guardarropa {
     	        	
         }
         
-        public void sugerir(){
+        public void sugerir(){//DEPRECADO: usar el metodo del mismo nombre en clase QueMePongo//
         	
         	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
     		
