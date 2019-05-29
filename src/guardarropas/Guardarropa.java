@@ -19,6 +19,7 @@ public class Guardarropa {
     private List<Prenda> prendasInferiores;
     private List<Prenda> calzados;
     private List<Prenda> accesorios;
+    private List<Prenda> todoJunto;
     
     //Constructores:
     
@@ -27,10 +28,12 @@ public class Guardarropa {
         this.prendasInferiores = new ArrayList<Prenda>();
         this.calzados = new ArrayList<Prenda>();
         this.accesorios = new ArrayList<Prenda>();
+        this.todoJunto = new ArrayList<Prenda>();
 
     }
 
     public void agregarAGuardarropas(Prenda prenda) throws Exception {
+    	this.todoJunto.add(prenda);
         switch (prenda.getCategoria()) {
             case PARTE_SUPERIOR:
                 this.agregarPrendaSuperior(prenda);
@@ -177,5 +180,10 @@ public class Guardarropa {
 			}
 			
 		}
+
+		public List<Prenda> getTodoJunto() {
+			return todoJunto;
+		}
+		
 
 }

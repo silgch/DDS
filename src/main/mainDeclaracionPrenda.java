@@ -1,6 +1,9 @@
 package main;
 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import Componentes.Categoria;
 import Componentes.Color;
 import Componentes.Material;
@@ -16,11 +19,33 @@ public class mainDeclaracionPrenda {
 		//Prenda camisaARayas = new Prenda(new TipoDePrenda(Categoria.PARTE_SUPERIOR,PrendaDeVestir.CAMISA),Material.Jean,new Color(0,0,0),null);
 		//Como podemos restringir valores de enum?(en este caso para Material)
 		
-		Prenda pantalon = new Prenda(TipoDePrenda.PANTALON, Material.ALGODON, new Color(0,0,200), new Color(110,10,0),Trama.CUADROS);
+		//Prenda pantalon = new Prenda(TipoDePrenda.PANTALON, Material.ALGODON, new Color(0,0,200), new Color(110,10,0),Trama.CUADROS);
 		
-		Prenda pantalon2 = PrendaBuildDirector.construirPantalonDosColoresAlgodonConCuadros();
+		//Prenda pantalon2 = PrendaBuildDirector.construirPantalonDosColoresAlgodonConCuadros();
+		String mydata = "-hola-chau-quizas-";
+		boolean flag = true;
 		
+		while(mydata.length()>0 && flag) {
+			
+			Pattern pattern = Pattern.compile("-(.*?)-");
+			Matcher matcher = pattern.matcher(mydata);
+			
+			if (matcher.find())
+			{
+				
+			    System.out.println(matcher.group(1));
+			    int size = matcher.group(1).length();
+			    System.out.println(size);
+			    mydata =mydata.substring(size+1);
+//			    System.out.println(mydata);
+//			    System.out.println(mydata.length());
+			    
+			}
+			else {
+				flag = false;
+			}
 		
+		}
 	}
 
 }

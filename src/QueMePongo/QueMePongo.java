@@ -5,9 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.common.collect.Sets;
 
+import Componentes.Atuendo;
 import Componentes.Prenda;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
@@ -94,10 +97,13 @@ public class QueMePongo {
 		}
 		
 		System.out.println(this.getRandomList(listaAux));
+		
+		this.creacionAtuendo(listaAux.toString(), unGuardarropa.getTodoJunto());
     
     	} 
     	catch(Exception e) {
-    		System.out.println("El usuario no posee tantos guardarropas");
+    		System.out.println(e);
+    		//System.out.println("El usuario no posee tantos guardarropas");
     	}
 }
 	public String getRandomList(List<String> list) {
@@ -130,17 +136,48 @@ public class QueMePongo {
 		}
 		
 	}
+	
+	public Atuendo creacionAtuendo(String unaSugerencia, List<Prenda> prendas) {
+		Atuendo retorno = new Atuendo();
+		
+		boolean flag = true;
+		
+		while(unaSugerencia.length()>0 && flag) {
+			
+			Pattern pattern = Pattern.compile("-(.*?)-");
+			Matcher matcher = pattern.matcher(unaSugerencia);
+			
+			if (matcher.find())
+			{
+				
+			    String nombrePrenda =matcher.group(1);
+			    int size = matcher.group(1).length();
+			    
+			    unaSugerencia =unaSugerencia.substring(size+1);
+			    
+			    Prenda auxiliar = this.crearPrendaPorNombre(nombrePrenda, prendas);
+			    retorno.asignarSegunCategoriaPrenda(auxiliar);
+			    
+			}
+			else {
+				flag = false;
+			}
+		
+		}
+		System.out.println(retorno.atuendoContenido());
+		return retorno;
+	}
 
+	public Prenda crearPrendaPorNombre(String nombre,List<Prenda> prendas ) {
+		
+		for(Prenda e : prendas) {
+			if(e.getNombre()==nombre) {
+				return e;
+			}
+		}
+		return null;
+		//tecnicamente nunca devolveria null ya que usamos listas que utilizamos 
+		//previamente para hacer el producto cartesiano(la prenda ya sabemos que esta ahi)
+	}
 
 }
-//public class Singleton {
-//private static Singleton instance = null;
-//private Singleton() {
-//}
-//public static Singleton getInstance() {
-//if(instance == null) {
-//instance = new Singleton();
-//}
-//return instance;
-//}
-//}
