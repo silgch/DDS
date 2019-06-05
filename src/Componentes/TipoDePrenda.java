@@ -1,8 +1,55 @@
 package Componentes;
+import java.util.Set;
 
+public class TipoDePrenda {
+	
+	private String nombre;
+	private Categoria categoria;
+	private Set<Material> tiposDeMaterialesPermitidos;
+		
+	
+	public TipoDePrenda(String nombre, Categoria categoria, Set<Material> tiposDeMaterialesPermitidos) {
+		this.nombre = nombre;
+		this.categoria = categoria;
+		this.setTiposDeMaterialesPermitidos(tiposDeMaterialesPermitidos);
+	}
+	
+	public Categoria getCategoria() {
+		return this.categoria;
+	}
+	
+	
+	public Set<Material> getTiposDeMaterialesPermitidos() {
+		return tiposDeMaterialesPermitidos;
+	}
 
-public enum TipoDePrenda {
+	public void setTiposDeMaterialesPermitidos(Set<Material> tiposDeMaterialesPermitidos) {
+		this.tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos;
+	}
+	
+	public void agregarMaterialPermitido(Material unMaterial) {
+		/* Agrega un material a los ya existentes*/
+		tiposDeMaterialesPermitidos.add(unMaterial);
+	}
+	
+	public boolean puedeSerDeMaterial(Material unMaterial) {
+		return tiposDeMaterialesPermitidos.contains(unMaterial);
+	}
 
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+}
+
+	
+
+	/*
     ZAPATOS(Categoria.CALZADO){
     	@Override
         public void puedeSerDeMaterial(Material material){
@@ -143,4 +190,4 @@ public enum TipoDePrenda {
         return categoria;
     }
 
-}
+}*/
