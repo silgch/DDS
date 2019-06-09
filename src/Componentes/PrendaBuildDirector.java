@@ -1,7 +1,7 @@
 package Componentes;
 
 public class PrendaBuildDirector {
-	
+	/*
 	public static Prenda construirPantalonDosColoresAlgodonConCuadros(){
 		PrendaBuilder builder = new PrendaBuilder();
 		builder.setNombre("pantalonDosColoresAlgodonConCuadros");
@@ -192,5 +192,5 @@ public class PrendaBuildDirector {
 		builder.setTrama(Trama.LISA);
 		return builder.getResult();
 	}
-	
+*/	
 }

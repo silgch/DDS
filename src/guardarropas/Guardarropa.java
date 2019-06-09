@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import QueMePongo.QueMePongo;
 
 import com.google.common.collect.Sets;
 
@@ -19,7 +20,6 @@ public class Guardarropa {
     private List<Prenda> prendasInferiores;
     private List<Prenda> calzados;
     private List<Prenda> accesorios;
-    private List<Prenda> todoJunto;
     
     //Constructores:
     
@@ -28,12 +28,11 @@ public class Guardarropa {
         this.prendasInferiores = new ArrayList<Prenda>();
         this.calzados = new ArrayList<Prenda>();
         this.accesorios = new ArrayList<Prenda>();
-        this.todoJunto = new ArrayList<Prenda>();
 
     }
 
     public void agregarAGuardarropas(Prenda prenda) throws Exception {
-    	this.todoJunto.add(prenda);
+    	
         switch (prenda.getCategoria()) {
             case PARTE_SUPERIOR:
                 this.agregarPrendaSuperior(prenda);
@@ -54,100 +53,45 @@ public class Guardarropa {
 
         //Estos Metodos se utilizan para agregar a la lista de la categoria correspondiente en el guardarropas
        
-    	public void agregarPrendaInferior(Prenda _prenda) {
+    	private void agregarPrendaInferior(Prenda _prenda) {
             this.prendasInferiores.add(_prenda);         
         }
 
-        public void agregarCalzado(Prenda _prenda) {
+        private void agregarCalzado(Prenda _prenda) {
             this.calzados.add(_prenda);          
         }
         
-        public void agregarPrendaSuperior(Prenda prenda) {
+        private void agregarPrendaSuperior(Prenda prenda) {
             this.prendasSuperiores.add(prenda);          
         }
         
-        public void agregarAccesorio(Prenda prenda) {
+        private void agregarAccesorio(Prenda prenda) {
             this.accesorios.add(prenda);          
         }
         
-        public void sugerenciaConTodosLosGuardarropas(List<Guardarropa> guardarropas) throws Exception{
-        	//DEPRECADO: usar el metodo del mismo nombre en clase QueMePongo//
-        	Guardarropa aux = new Guardarropa();
-        	for(Guardarropa element : guardarropas) {
-        		this.fusionarGuardarropa(aux,element);
-        	}
-        	
-        	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
-    		
-	   		sets.add(new HashSet(aux.getPrendasSuperiores()));
-	   	    sets.add(new HashSet(aux.getPrendasInferiores()));
-	   	    sets.add(new HashSet(aux.getCalzados()));
-	   	 	sets.add(new HashSet(aux.getAccesorios()));
-	   	 	
-	   	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
-	   	 	
-	   	 	List<String> listaAux= new ArrayList<String>();
-	   	 	
-			for(List<Prenda> element : cartesianSet ){
 
-				String nombreAux ="";
-				List<Prenda> listaPrendaAux = element;
-				for(Prenda prenda :listaPrendaAux ){
-			    	 
-					nombreAux=nombreAux+"-"+prenda.getNombre();
-					
-				}
-				
-				listaAux.add(nombreAux);
-			}
-			
-			System.out.println(this.getRandomList(listaAux));
-    	        	
-        }
-        
-        public void sugerir(){//DEPRECADO: usar el metodo del mismo nombre en clase QueMePongo//
+        public Set<List<Prenda>> sugerir(){
         	
-        	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
-    		
-	   		sets.add(new HashSet(this.prendasSuperiores));
-	   	    sets.add(new HashSet(this.prendasInferiores));
-	   	    sets.add(new HashSet(this.calzados));
-	   	 	sets.add(new HashSet(this.accesorios));
-	   	 	
-	   	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
-	   	 	
-	   	 	List<String> listaAux= new ArrayList<String>();
-	   	 	
-			for(List<Prenda> element : cartesianSet ){
-				
-				String nombreAux ="";
-				List<Prenda> listaPrendaAux = element;
-				for(Prenda prenda :listaPrendaAux ){
-			    	 
-					nombreAux=nombreAux+"-"+prenda.getNombre();
-					
-				}
-				
-				listaAux.add(nombreAux);
-			}
+        	 return QueMePongo.obtenerSugerencias(this);
+        }
 			
-			System.out.println(this.getRandomList(listaAux));
-	    } 
+			
+	    
 
 		public List<Prenda> getPrendasSuperiores() {
-			return prendasSuperiores;
+			return this.prendasSuperiores;
 		}
 
 		public List<Prenda> getPrendasInferiores() {
-			return prendasInferiores;
+			return this.prendasInferiores;
 		}
 
 		public List<Prenda> getCalzados() {
-			return calzados;
+			return this.calzados;
 		}
 
 		public List<Prenda> getAccesorios() {
-			return accesorios;
+			return this.accesorios;
 		}
 		
 		public String getRandomList(List<String> list) {
@@ -156,34 +100,6 @@ public class Guardarropa {
 		    System.out.println("\nIndex :" + index );
 		    return list.get(index);
 		}
-		
-		public void fusionarGuardarropa(Guardarropa a,Guardarropa b) throws Exception {
-			
-			for(Prenda p : b.getPrendasSuperiores()) {
-				
-				a.agregarPrendaSuperior(p);
-			}
-			
-			for(Prenda p : b.getPrendasInferiores()) {
-				
-				a.agregarPrendaInferior(p);;
-			}
-			
-			for(Prenda p : b.getCalzados()) {
-				
-				a.agregarCalzado(p);
-			}
-			
-			for(Prenda p : b.getAccesorios()) {
-				
-				a.agregarAccesorio(p);
-			}
-			
-		}
 
-		public List<Prenda> getTodoJunto() {
-			return todoJunto;
-		}
 		
-
 }

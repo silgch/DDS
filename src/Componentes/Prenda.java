@@ -15,11 +15,12 @@ public class Prenda {
     public Prenda() {}
 
    //Constructor: Se puede construir una prenda con o sin color secundario.
-    public Prenda(TipoDePrenda tipo, Material material, Color colorPrincipal, Trama trama) {
+    public Prenda(String nombre, TipoDePrenda tipo, Material material, Color colorPrincipal, Trama trama) {
     	
 
     		if(Validaciones.realizarValidacionesCuatroParametros(tipo, material, colorPrincipal, trama)) {
-		    	this.tipo = tipo;
+		    	this.nombre=nombre;
+    			this.tipo = tipo;
 		        this.material = material;
 		        this.colorPrincipal = colorPrincipal;
 		        this.trama = trama;
@@ -27,9 +28,10 @@ public class Prenda {
 
     }
 
-    public Prenda(TipoDePrenda tipo,  Material material, Color colorPrincipal, Color colorSecundario, Trama trama) {
+    public Prenda(String nombre,TipoDePrenda tipo,  Material material, Color colorPrincipal, Color colorSecundario, Trama trama) {
         
 	    	if(Validaciones.realizarValidacionesCincoParametros(tipo, material, colorPrincipal, colorSecundario, trama)) {
+	    		this.nombre=nombre;
 	    		this.tipo = tipo;
 	    		this.material = material;
 		    	this.colorPrincipal = colorPrincipal;
@@ -106,5 +108,7 @@ public class Prenda {
 	public Color getColorPrincipal() {
 		return colorPrincipal;
 	}
-
+	public String toString() {
+		return this.getNombre();
+		}
 }

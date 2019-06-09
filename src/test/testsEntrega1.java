@@ -26,8 +26,7 @@ import Componentes.Trama;
 	por ejemplo, no tiene sentido tener una campera de seda o una remera de
 	cuero.
 	d. debe ser de un color primario asociado, y opcionalmente uno secundario y
-	diferente del anterior
-*/
+
 
 class testsEntrega1 {
 	private Prenda prendaZapatillaCuero;
@@ -76,5 +75,6 @@ class testsEntrega1 {
 		// Entre todos los guardarropas de Ines debería tener 144 posibles combinaciones
 		assertEquals();
 	}
-	 */
+
 }
+ */
