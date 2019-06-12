@@ -1,4 +1,4 @@
-package QueMePongo;
+package queMePongo;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 
 import com.google.common.collect.Sets;
 
-import Componentes.Atuendo;
-import Componentes.Prenda;
+import componentes.Atuendo;
+import componentes.Prenda;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
 

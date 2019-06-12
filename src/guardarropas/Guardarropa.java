@@ -5,29 +5,29 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import QueMePongo.QueMePongo;
+
+import componentes.Prenda;
+import queMePongo.QueMePongo;
 
 import com.google.common.collect.Sets;
-
-import Componentes.Prenda;
 
 
 
 //Cada Usuario tiene uno o mas guardarropas.
 //Cuando un usuario crea una prenda, se la incluye en su guardarropas, mediante el metodo agregarAGuardarropas.
 public class Guardarropa {
-    private List<Prenda> prendasSuperiores;
-    private List<Prenda> prendasInferiores;
-    private List<Prenda> calzados;
-    private List<Prenda> accesorios;
+    private HashSet<Prenda> prendasSuperiores;
+    private HashSet<Prenda> prendasInferiores;
+    private HashSet<Prenda> calzados;
+    private HashSet<Prenda> accesorios;
     
     //Constructores:
     
     public Guardarropa() {
-        this.prendasSuperiores = new ArrayList<Prenda>();
-        this.prendasInferiores = new ArrayList<Prenda>();
-        this.calzados = new ArrayList<Prenda>();
-        this.accesorios = new ArrayList<Prenda>();
+        prendasSuperiores = new HashSet<Prenda>();
+        prendasInferiores = new HashSet<Prenda>();
+        calzados = new HashSet<Prenda>();
+        accesorios = new HashSet<Prenda>();
 
     }
 
@@ -51,8 +51,25 @@ public class Guardarropa {
         }
     }
 
+    	public int cantidadDePrendas() {
+    		int cantidad=0;
+    		//Esto lo hacemos para evitar un nullPointer si no hay prendas de alguna categoria.
+    		if (prendasSuperiores.isEmpty()) {cantidad=0;} else {cantidad = prendasSuperiores.size();}
+    		if (prendasInferiores.isEmpty()) {cantidad+=0;} else {cantidad += prendasInferiores.size();}
+    		if (calzados.isEmpty()) {cantidad+=0;} else {cantidad += calzados.size();}
+    		if (accesorios.isEmpty()) {cantidad+=0;} else {cantidad += accesorios.size();}
+    		
+    		return cantidad;
+    	}
+
+        public Set<List<Prenda>> sugerir(){
+        	
+        	 return QueMePongo.obtenerSugerencias(this);
+        }
+
+			
         //Estos Metodos se utilizan para agregar a la lista de la categoria correspondiente en el guardarropas
-       
+        
     	private void agregarPrendaInferior(Prenda _prenda) {
             this.prendasInferiores.add(_prenda);         
         }
@@ -68,38 +85,24 @@ public class Guardarropa {
         private void agregarAccesorio(Prenda prenda) {
             this.accesorios.add(prenda);          
         }
-        
-
-        public Set<List<Prenda>> sugerir(){
-        	
-        	 return QueMePongo.obtenerSugerencias(this);
-        }
-			
-			
-	    
-
-		public List<Prenda> getPrendasSuperiores() {
+        	    
+//Getter
+		public HashSet<Prenda> getPrendasSuperiores() {
 			return this.prendasSuperiores;
 		}
 
-		public List<Prenda> getPrendasInferiores() {
+		public HashSet<Prenda>  getPrendasInferiores() {
 			return this.prendasInferiores;
 		}
 
-		public List<Prenda> getCalzados() {
+		public HashSet<Prenda>  getCalzados() {
 			return this.calzados;
 		}
 
-		public List<Prenda> getAccesorios() {
+		public HashSet<Prenda>  getAccesorios() {
 			return this.accesorios;
 		}
 		
-		public String getRandomList(List<String> list) {
-		    Random random = new Random();
-		    int index = random.nextInt(list.size());
-		    System.out.println("\nIndex :" + index );
-		    return list.get(index);
-		}
 
 		
 }

@@ -6,12 +6,12 @@ import java.util.Set;
 
 import org.junit.Before;
 
-import Componentes.Categoria;
-import Componentes.Color;
-import Componentes.Material;
-import Componentes.Prenda;
-import Componentes.TipoDePrenda;
-import Componentes.Trama;
+import componentes.Categoria;
+import componentes.Color;
+import componentes.Material;
+import componentes.Prenda;
+import componentes.TipoDePrenda;
+import componentes.Trama;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
 
@@ -42,7 +42,7 @@ public class mainDeclaracionPrenda {
 		Prenda unZapatoNegro;
 		Prenda unaZapatillaLonaBlanca;
 		Prenda unLenteNegro;
-		//Guardarropa guardarropaInesUno;
+		Guardarropa guardarropaInesUno;
 
 		
 			tiposDeMaterialRemera = new HashSet<Material>();
@@ -85,10 +85,13 @@ public class mainDeclaracionPrenda {
 			unLenteNegro = new Prenda("Lentes de sol  negros", lentes, Material.PLASTICO, colorNegro, Trama.LISA);
 			
 			
-		    Guardarropa guardarropaInesUno = new Guardarropa();
-			
+		    guardarropaInesUno = new Guardarropa();
+		    
+		    System.out.println(guardarropaInesUno.cantidadDePrendas());
 		    guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);
+		    System.out.println(guardarropaInesUno.cantidadDePrendas());
 		    guardarropaInesUno.agregarAGuardarropas(unaRemeraRoja);
+		    System.out.println(guardarropaInesUno.cantidadDePrendas());
 		    guardarropaInesUno.agregarAGuardarropas(unPantalonNegro);
 		    guardarropaInesUno.agregarAGuardarropas(unZapatoNegro);
 		    guardarropaInesUno.agregarAGuardarropas(unaZapatillaLonaBlanca);

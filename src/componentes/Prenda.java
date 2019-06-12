@@ -1,5 +1,5 @@
 
-package Componentes;
+package componentes;
 
 public class Prenda {
 

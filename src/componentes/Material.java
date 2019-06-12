@@ -1,4 +1,4 @@
-package Componentes;
+package componentes;
 
 public enum Material {
 	ALGODON, JEAN, LINO, GABARDINA, SEDA, CUERO, PLASTICO, 

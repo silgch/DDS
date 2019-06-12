@@ -1,4 +1,4 @@
-package Componentes;
+package componentes;
 import java.util.Set;
 
 public class TipoDePrenda {

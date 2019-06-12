@@ -1,4 +1,4 @@
-package Componentes;
+package componentes;
 
 public class Color {
 	// EL usuario aportara una una terna RGB

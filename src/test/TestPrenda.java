@@ -8,20 +8,21 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import componentes.Categoria;
+import componentes.Color;
+import componentes.Material;
+import componentes.Prenda;
+import componentes.TipoDePrenda;
+import componentes.Trama;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import Componentes.Categoria;
-import Componentes.Color;
-import Componentes.Material;
-import Componentes.Prenda;
-import Componentes.TipoDePrenda;
-import Componentes.Trama;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
 
 
-public class testPrenda {
+public class TestPrenda {
 
 	private Set<Material> tiposDeMaterialRemera;
 	private Set <Material> tiposDeMaterialZapato;
@@ -43,11 +44,13 @@ public class testPrenda {
 	Color colorAzulTrafico;
 	Prenda unaRemeraBlancaLisa;
 	Prenda unaRemeraRoja;
+	Prenda unaRemeraNegra;
 	Prenda unPantalonNegro;
 	Prenda unZapatoNegro;
 	Prenda unaZapatillaLonaBlanca;
 	Prenda unLenteNegro;
 	Guardarropa guardarropaInesUno;
+	Guardarropa guardarropaInesDos;
 	
 	@Before
 	public void init() throws Exception {
@@ -85,13 +88,15 @@ public class testPrenda {
 		
 		unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, Material.ALGODON, colorBlanco, Trama.LISA );
 		unaRemeraRoja= new Prenda("Remera Roja a lunares", remera, Material.SEDA, colorRojo, Trama.LUNARES);
+		unaRemeraNegra= new Prenda("Remera Negra Basica", remera, Material.ALGODON, colorNegro, Trama.LISA);
 		unPantalonNegro = new Prenda("Pantalon Negro", pantalon, Material.CORDEROY, colorNegro, Trama.LISA);
 		unZapatoNegro= new Prenda("Zapatos Negros", zapato, Material.CUERO, colorNegro, Trama.LISA);
 		unaZapatillaLonaBlanca= new Prenda("Zapatillas de lona blancas", zapatilla, Material.LONA, colorBlanco, Trama.LISA);
 		unLenteNegro = new Prenda("Lentes de sol  negros", lentes, Material.PLASTICO, colorNegro, Trama.LISA);
 		
 		
-	    Guardarropa guardarropaInesUno = new Guardarropa();
+	     guardarropaInesUno = new Guardarropa();
+	     guardarropaInesDos = new Guardarropa();
 		
 	    guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);
 	    guardarropaInesUno.agregarAGuardarropas(unaRemeraRoja);
@@ -99,6 +104,9 @@ public class testPrenda {
 	    guardarropaInesUno.agregarAGuardarropas(unZapatoNegro);
 	    guardarropaInesUno.agregarAGuardarropas(unaZapatillaLonaBlanca);
 	    guardarropaInesUno.agregarAGuardarropas(unLenteNegro); 	
+	    
+	    guardarropaInesDos.agregarAGuardarropas(unaRemeraNegra);
+	    
 	}
 	
 	@Test
@@ -143,22 +151,30 @@ public class testPrenda {
 		assertEquals(4, sugerencias.size());
 	}
 	
-	
 	@Test 
 	public void listaDePrendasPorCategoriaCorrectas() {
 		
-
 		assertEquals(2,guardarropaInesUno.getPrendasSuperiores().size());
 		assertEquals(1,guardarropaInesUno.getPrendasInferiores().size());
 		assertEquals(2,guardarropaInesUno.getCalzados().size());
 		assertEquals(1,guardarropaInesUno.getAccesorios().size());
-		
-		
-		
-		
+	
 	}
 	
-	
+	@Test 
+	public void agregoUnaPrendaYlaCantidadDePrendasEsCorrecta() throws Exception {
+		// Agrego una prenda que ya se encuentra y da la misma cantidad de prendas
+		assertEquals(6, guardarropaInesUno.cantidadDePrendas());
+		guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);		
+		assertEquals(6, guardarropaInesUno.cantidadDePrendas());	
+		guardarropaInesUno.agregarAGuardarropas(unaRemeraNegra);		
+		assertEquals(7, guardarropaInesUno.cantidadDePrendas());	
+		
+		assertEquals(1, guardarropaInesDos.cantidadDePrendas());
+		guardarropaInesDos.agregarAGuardarropas(unaRemeraBlancaLisa);
+		assertEquals(2, guardarropaInesDos.cantidadDePrendas());
+
+	}
 	
 	
 }
