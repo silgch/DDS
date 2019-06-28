@@ -1,5 +1,6 @@
 package test;
 
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,24 +15,20 @@ import componentes.Material;
 import componentes.Prenda;
 import componentes.TipoDePrenda;
 import componentes.Trama;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import guardarropas.Guardarropa;
 import usuario.Usuario;
+import usuario.UsuarioGratuito;
 
 
 public class TestPrenda {
 
-	private Set<Material> tiposDeMaterialRemera;
+	private Set <Material> tiposDeMaterialRemera;
 	private Set <Material> tiposDeMaterialZapato;
 	private Set <Material> tiposDeMaterialZapatilla;
 	private Set <Material> tiposDeMaterialPantalon;
 	private Set <Material> tiposDeMaterialLentes;
 	
-
-	Usuario ines = new Usuario();
+	Usuario ines = new UsuarioGratuito();
 	TipoDePrenda zapato;
 	TipoDePrenda remera;
 	TipoDePrenda pantalon;
@@ -42,6 +39,7 @@ public class TestPrenda {
 	Color colorVerde;
 	Color colorNegro;
 	Color colorAzulTrafico;
+	Color colorFucsia;
 	Prenda unaRemeraBlancaLisa;
 	Prenda unaRemeraRoja;
 	Prenda unaRemeraNegra;
@@ -95,8 +93,11 @@ public class TestPrenda {
 		unLenteNegro = new Prenda("Lentes de sol  negros", lentes, Material.PLASTICO, colorNegro, Trama.LISA);
 		
 		
-	     guardarropaInesUno = new Guardarropa();
-	     guardarropaInesDos = new Guardarropa();
+	    guardarropaInesUno = new Guardarropa();
+	    guardarropaInesDos = new Guardarropa();
+	    
+	    guardarropaInesUno.duenio(ines);
+	    guardarropaInesDos.duenio(ines);
 		
 	    guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);
 	    guardarropaInesUno.agregarAGuardarropas(unaRemeraRoja);
@@ -174,6 +175,33 @@ public class TestPrenda {
 		guardarropaInesDos.agregarAGuardarropas(unaRemeraBlancaLisa);
 		assertEquals(2, guardarropaInesDos.cantidadDePrendas());
 
+	}
+	
+	@Test(expected = Exception.class)
+	public void AgregarMasPrendasDeLoPermitidoAUsuarioGratis() throws Exception {
+		// GuardarropaInesUno tiene 6 prendas, 
+		// al agregar 5 mas me deberia tirar una excepcion
+		
+		Prenda unaRemeraFucsia1;
+		Prenda unaRemeraFucsia2;
+		Prenda unaRemeraFucsia3;
+		Prenda unaRemeraFucsia4;
+		Prenda unaRemeraFucsia5;
+		Prenda unaRemeraFucsia6;
+		
+		unaRemeraFucsia1 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		unaRemeraFucsia2 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		unaRemeraFucsia3 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		unaRemeraFucsia4 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		unaRemeraFucsia5 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		unaRemeraFucsia6 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		
+	    guardarropaInesUno.agregarAGuardarropas(unaRemeraFucsia1);
+	    guardarropaInesUno.agregarAGuardarropas(unaRemeraFucsia2);
+	    guardarropaInesUno.agregarAGuardarropas(unaRemeraFucsia3);
+	    guardarropaInesUno.agregarAGuardarropas(unaRemeraFucsia4);
+	    guardarropaInesUno.agregarAGuardarropas(unaRemeraFucsia5);
+	    guardarropaInesUno.agregarAGuardarropas(unaRemeraFucsia6); 
 	}
 	
 	

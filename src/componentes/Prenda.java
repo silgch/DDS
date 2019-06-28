@@ -38,6 +38,7 @@ public class Prenda {
 	    	}
     }
     
+/*    
 //Metodos
     
     public boolean esDeInvierno() {
@@ -47,7 +48,7 @@ public class Prenda {
     public boolean esDeVerano() {
     	return true;
     }
-    
+*/    
 
 
 //Lo unico que podriamos cambiar de una prenda es el nombre .

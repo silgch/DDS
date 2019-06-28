@@ -7,7 +7,7 @@ import java.util.List;
 
 import guardarropas.Guardarropa;
 
-public class Usuario {
+public abstract class Usuario {
 	
 	
 	private List<Guardarropa> guardarropas = new ArrayList<>();
@@ -18,5 +18,10 @@ public class Usuario {
 	
 	public void agregarGuardarropa(Guardarropa guardarropa) {
 		guardarropas.add(requireNonNull(guardarropa));
+		guardarropa.duenio(this);
+	}
+	
+	public boolean tineGuardarropaLleno(Guardarropa guardarropa) {
+		return true;
 	}
 }

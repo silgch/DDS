@@ -8,6 +8,7 @@ import java.util.Set;
 
 import componentes.Prenda;
 import queMePongo.QueMePongo;
+import usuario.Usuario;
 
 import com.google.common.collect.Sets;
 
@@ -21,6 +22,8 @@ public class Guardarropa {
     private HashSet<Prenda> calzados;
     private HashSet<Prenda> accesorios;
     
+    private Usuario miDuenio=null;
+    
     //Constructores:
     
     public Guardarropa() {
@@ -31,8 +34,17 @@ public class Guardarropa {
 
     }
 
+    public void duenio(Usuario usuario){
+    	if (miDuenio == null){miDuenio = usuario;}
+    }
+    
     public void agregarAGuardarropas(Prenda prenda) throws Exception {
-    	
+    	if (miDuenio == null) {
+    		throw new Exception("Primero debe asignar un usuario a este guardarropa.");
+    	}
+    	if (miDuenio.tineGuardarropaLleno(this)){
+    		throw new Exception("El usuario no puede agregar mas ropa debido a su plan.");
+    	}
         switch (prenda.getCategoria()) {
             case PARTE_SUPERIOR:
                 this.agregarPrendaSuperior(prenda);

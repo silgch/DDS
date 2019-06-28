@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
-
 import componentes.Categoria;
 import componentes.Color;
 import componentes.Material;
@@ -14,6 +12,7 @@ import componentes.TipoDePrenda;
 import componentes.Trama;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
+import usuario.UsuarioGratuito;
 
 public class mainDeclaracionPrenda {
 
@@ -25,7 +24,7 @@ public class mainDeclaracionPrenda {
 		 Set <Material> tiposDeMaterialLentes;
 		
 
-		Usuario ines = new Usuario();
+		Usuario ines = new UsuarioGratuito();
 		TipoDePrenda zapato;
 		TipoDePrenda remera;
 		TipoDePrenda pantalon;
@@ -104,7 +103,7 @@ public class mainDeclaracionPrenda {
 		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getAccesorios().size() + " accesorio");
 			Set<List<Prenda>> sugerencias = guardarropaInesUno.sugerir();
 			sugerencias.forEach(sugerencia -> System.out.println(sugerencia));
+			
 	}
 	
-
 }
