@@ -2,6 +2,7 @@ package usuario;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,4 +25,12 @@ public abstract class Usuario {
 	public boolean tineGuardarropaLleno(Guardarropa guardarropa) {
 		return true;
 	}
+	public void cargarEvento(LocalDate fecha, String descripcion, int ubicacion) throws Exception{
+		
+		Evento evento = new Evento(fecha, descripcion, this, ubicacion);
+		
+	
+	}
+	
+	
 }

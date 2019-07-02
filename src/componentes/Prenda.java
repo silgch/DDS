@@ -9,6 +9,7 @@ public class Prenda {
     private Material material;
     private TipoDePrenda tipo;
     private Trama trama;
+	private String urlImagen;
     
     public Prenda() {}
 
@@ -89,6 +90,10 @@ public class Prenda {
     public Categoria getCategoria() {
         return tipo.getCategoria();
     }
+    
+	public String getUrlImagen() {
+		return urlImagen;
+	}
 
     
     
@@ -111,6 +116,9 @@ public class Prenda {
 
 	public void setTrama(Trama trama) {
 		this.trama = trama;
+	}
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
 	}
 
 }
