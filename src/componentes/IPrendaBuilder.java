@@ -1,5 +1,7 @@
 package componentes;
 
+import componentes.PrendaNivel;
+
 public interface IPrendaBuilder {
 	
 	
@@ -9,6 +11,7 @@ public interface IPrendaBuilder {
 	public void setTipoPrenda(TipoDePrenda tipoDePrenda);
 	public void setMaterial(Material material);
 	public void setTrama(Trama trama);
+	public void setNivel(PrendaNivel nivel);
 	public Prenda getResult();
 	
 	

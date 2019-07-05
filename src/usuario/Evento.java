@@ -20,6 +20,22 @@ public class Evento {
 		this.ubicacion = ubicacion;
 		
 	}
+	//Setter
+	public void setFechaEvento(LocalDate fechaEvento) {
+		this.fechaEvento = fechaEvento;
+	}
+	public void setUbicacion(int ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+	
+	public void setGuardaropa(Guardarropa unGuardaropa) {
+		this.unGuardarropa = unGuardarropa;
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 	//Getter
 	public LocalDate getFechaEvento() {
 		return fechaEvento;
@@ -37,27 +53,11 @@ public class Evento {
 		return ubicacion;
 	}
 	
-	
-	
 	public Guardarropa getGuardaropa() {
 		return unGuardarropa;
 	}
 	
-	//Setter
-	public void setFechaEvento(LocalDate fechaEvento) {
-		this.fechaEvento = fechaEvento;
-	}
-	public void setUbicacion(int ubicacion) {
-		this.ubicacion = ubicacion;
-	}
-	
-	public void setGuardaropa(Guardarropa unGuardaropa) {
-		this.unGuardarropa = unGuardarropa;
-	}
-	
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+
 	
 	
 }

@@ -8,10 +8,12 @@ import java.util.List;
 
 import guardarropas.Guardarropa;
 
-public abstract class Usuario {
+public class Usuario {
 	
 	
 	private List<Guardarropa> guardarropas = new ArrayList<>();
+	
+	private Cuenta tipoDeCuenta = new CuentaGratuita();
 	
 	public List<Guardarropa> getGuardarropas() {
 		return guardarropas;
@@ -22,15 +24,19 @@ public abstract class Usuario {
 		guardarropa.duenio(this);
 	}
 	
-	public boolean tineGuardarropaLleno(Guardarropa guardarropa) {
-		return true;
+	public boolean tieneGuardarropaLleno(Guardarropa guardarropa) {
+		return tipoDeCuenta.tieneGuardarropaLleno(guardarropa);
 	}
+
+	public Cuenta getTipoDeCuenta() {
+		return tipoDeCuenta;
+	}
+
+	public void setTipoDeCuenta(Cuenta tipoDeCuenta) {
+		this.tipoDeCuenta = tipoDeCuenta;
+	}
+	
 	public void cargarEvento(LocalDate fecha, String descripcion, int ubicacion) throws Exception{
-		
 		Evento evento = new Evento(fecha, descripcion, this, ubicacion);
-		
-	
 	}
-	
-	
 }

@@ -1,4 +1,3 @@
-
 package componentes;
 
 public class Prenda {
@@ -15,33 +14,27 @@ public class Prenda {
 
    //Constructor: Se puede construir una prenda con o sin color secundario.
     public Prenda(String nombre, TipoDePrenda tipo, Material material, Color colorPrincipal, Trama trama) {
+    	Validaciones.validarCreacionPrenda(nombre, tipo, material, colorPrincipal, trama);
+    	asignarValoresAPrenda(nombre, tipo, material, colorPrincipal, trama);
     	
+	}
 
-    		if(Validaciones.validarCreacionPrenda(nombre, tipo, material, colorPrincipal, trama)) {
-		    	this.nombre=nombre;
-    			this.tipo = tipo;
-		        this.material = material;
-		        this.colorPrincipal = colorPrincipal;
-		        this.trama = trama;
-    		}
-
+    public Prenda(String nombre,TipoDePrenda tipo,  Material material, Color colorPrincipal, Color colorSecundario, Trama trama){
+    	Validaciones.validarCreacionPrenda(nombre, tipo, material, colorPrincipal, colorSecundario, trama);
+		asignarValoresAPrenda(nombre, tipo, material, colorPrincipal,trama);
+        this.colorSecundario = colorSecundario;
+	    
     }
-
-    public Prenda(String nombre,TipoDePrenda tipo,  Material material, Color colorPrincipal, Color colorSecundario, Trama trama) {
-        
-	    	if(Validaciones.validarCreacionPrenda(nombre, tipo, material, colorPrincipal, colorSecundario, trama)) {
-	    		this.nombre=nombre;
-	    		this.tipo = tipo;
-	    		this.material = material;
-		    	this.colorPrincipal = colorPrincipal;
-		        this.colorSecundario = colorSecundario;
-		        this.trama = trama;
-	    	}
-    }
+    
+    private void asignarValoresAPrenda(String nombre, TipoDePrenda tipo, Material material, Color colorPrincipal, Trama trama) {
+       	this.nombre=nombre;
+		this.tipo = tipo;
+        this.material = material;
+        this.colorPrincipal = colorPrincipal;
+        this.trama = trama;
+	}
     
 /*    
-//Metodos
-    
     public boolean esDeInvierno() {
     	return true;
     }
@@ -57,65 +50,59 @@ public class Prenda {
 		this.nombre = nombre;
 	}
 
-//ESTE METODO LO USAMOS PARA QUE NO DEVUELVA LA POSICION EN MEMORIA CUANDO QUEREMOS IMPRIMIR POR CONSOLA LA LISTA DE PRENDAS
+//ESTE METODO LO USAMOS PARA QUE NOS DEVUELVA LA POSICION EN MEMORIA CUANDO QUEREMOS IMPRIMIR POR CONSOLA LA LISTA DE PRENDAS
 	public String toString() {
 		return this.getNombre();
-		}
+	}
 	
-	
-//Getter
+//Getters
 	public String getNombre() {
 		return nombre;
 	}
     public Color getColor() {
         return colorPrincipal;
     }
-
     public Color getColorSecundario() {
     	return colorSecundario;
     }
-
     public Material getMaterial() {
         return material;
     }
-
     public TipoDePrenda getTipo() {
         return tipo;
     }
-
     public Trama getTrama() {
         return trama;
     }
-
     public Categoria getCategoria() {
         return tipo.getCategoria();
     }
-    
+	public PrendaNivel getNivel() {
+		return tipo.getNivel();
+	}
 	public String getUrlImagen() {
 		return urlImagen;
 	}
 
     
-    
     // Ver si vamos a usar los setter. 
 	public void setColorPrincipal(Color colorPrincipal) {
 		this.colorPrincipal = colorPrincipal;
 	}
-
 	public void setColorSecundario(Color colorSecundario) {
 		this.colorSecundario = colorSecundario;
 	}
-
 	public void setMaterial(Material material) {
 		this.material = material;
 	}
-
 	public void setTipo(TipoDePrenda tipo) {
 		this.tipo = tipo;
 	}
-
 	public void setTrama(Trama trama) {
 		this.trama = trama;
+	}
+	public void setNivel(PrendaNivel nivel) {
+		this.tipo.setNivel(nivel);
 	}
 	public void setUrlImagen(String urlImagen) {
 		this.urlImagen = urlImagen;

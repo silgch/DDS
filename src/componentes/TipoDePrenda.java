@@ -1,28 +1,57 @@
 package componentes;
 import java.util.Set;
 
+/* 
+ El programa vendrá con algunos Tipos ya hechos (Zapatos,Zapatillas,Botas,Camisa
+ Campera,Pantalon, Lentes, Reloj)
+ en todos se especificara Categoria y nivel y verifica si está bien el tipo 
+ de material elegido por el usuario.
+ Sin embarlo le dejaremos al usuario la posibilidad de 
+ hacer su propio tipo de material, eligiendo él el nivel y material. 
+ Entonces el usuario podría crear un TipoDePrenda calzoncillos nivel 2 de latex y usuarlo
+ arriba de la ropa 🤦‍♂️ ...somos concientes de eso. 
+*/
+
+
 public class TipoDePrenda {
 	
 	private String nombre;
 	private Categoria categoria;
 	private Set<Material> tiposDeMaterialesPermitidos;
+	private PrendaNivel nivel; 
 		
 	
-	public TipoDePrenda(String nombre, Categoria categoria, Set<Material> tiposDeMaterialesPermitidos) {
+	public TipoDePrenda(String nombre, Categoria categoria, Set<Material> tiposDeMaterialesPermitidos, PrendaNivel nivel) {
 		this.nombre = nombre;
 		this.categoria = categoria;
 		this.setTiposDeMaterialesPermitidos(tiposDeMaterialesPermitidos);
+		this.nivel = nivel;
+	}
+	
+	public String getNombre() {
+		return nombre;
 	}
 	
 	public Categoria getCategoria() {
-		return this.categoria;
+		return categoria;
 	}
 	
+	public PrendaNivel getNivel() {
+		return nivel;
+	}
 	
 	public Set<Material> getTiposDeMaterialesPermitidos() {
 		return tiposDeMaterialesPermitidos;
 	}
-
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	public void setNivel(PrendaNivel nivel) {
+		this.nivel = nivel;
+	}
+	
 	public void setTiposDeMaterialesPermitidos(Set<Material> tiposDeMaterialesPermitidos) {
 		this.tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos;
 	}
@@ -32,21 +61,14 @@ public class TipoDePrenda {
 		tiposDeMaterialesPermitidos.add(unMaterial);
 	}
 	
-	public boolean puedeSerDeMaterial(Material unMaterial) {
-		return tiposDeMaterialesPermitidos.contains(unMaterial);
-	}
-
-	
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void puedeSerDeMaterial(Material unMaterial) {
+		//Si el material no se encuentra tiposDeMaterialesPermitidos tira excepción
+		if (!tiposDeMaterialesPermitidos.contains(unMaterial)) {
+			throw new IllegalArgumentException("Material No Permitido");
+		}
 	}
 	
 }
-
 	
 
 	/*

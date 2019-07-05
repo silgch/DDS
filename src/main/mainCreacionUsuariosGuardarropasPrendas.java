@@ -1,20 +1,21 @@
 package main;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import componentes.Categoria;
 import componentes.Color;
 import componentes.Material;
 import componentes.Prenda;
+import componentes.PrendaNivel;
 import componentes.TipoDePrenda;
 import componentes.Trama;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
 import usuario.UsuarioGratuito;
 
-public class mainDeclaracionPrenda {
+
+public class mainCreacionUsuariosGuardarropasPrendas {
 
 	public static void main(String[] args) throws Exception {
 		 Set<Material> tiposDeMaterialRemera;
@@ -70,11 +71,11 @@ public class mainDeclaracionPrenda {
 			colorAzulTrafico=new Color(006,057,113);
 			
 			
-			remera = new  TipoDePrenda("Remera",Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera);
-			zapato= new TipoDePrenda("Zapato", Categoria.CALZADO, tiposDeMaterialZapato);
-			zapatilla = new TipoDePrenda("Zapatilla", Categoria.CALZADO, tiposDeMaterialZapatilla);
-			pantalon = new TipoDePrenda("Pantalon",Categoria.PARTE_INFERIOR, tiposDeMaterialPantalon);
-			lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIOS, tiposDeMaterialLentes);
+			remera = new  TipoDePrenda("Remera",Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera,PrendaNivel.Nivel1);
+			zapato= new TipoDePrenda("Zapato", Categoria.CALZADO, tiposDeMaterialZapato,PrendaNivel.Nivel2);
+			zapatilla = new TipoDePrenda("Zapatilla", Categoria.CALZADO, tiposDeMaterialZapatilla,PrendaNivel.Nivel2);
+			pantalon = new TipoDePrenda("Pantalon",Categoria.PARTE_INFERIOR, tiposDeMaterialPantalon,PrendaNivel.Nivel3);
+			lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIOS, tiposDeMaterialLentes,PrendaNivel.Nivel1);
 			
 			unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, Material.ALGODON, colorBlanco, Trama.LISA );
 			unaRemeraRoja= new Prenda("Remera Roja a lunares", remera, Material.SEDA, colorRojo, Trama.LUNARES);
@@ -83,26 +84,22 @@ public class mainDeclaracionPrenda {
 			unaZapatillaLonaBlanca= new Prenda("Zapatillas de lona blancas", zapatilla, Material.LONA, colorBlanco, Trama.LISA);
 			unLenteNegro = new Prenda("Lentes de sol  negros", lentes, Material.PLASTICO, colorNegro, Trama.LISA);
 			
-			
-		    guardarropaInesUno = new Guardarropa();
+			guardarropaInesUno = new Guardarropa();
+		    guardarropaInesUno.duenio(ines);
 		    
-		    System.out.println(guardarropaInesUno.cantidadDePrendas());
 		    guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);
-		    System.out.println(guardarropaInesUno.cantidadDePrendas());
 		    guardarropaInesUno.agregarAGuardarropas(unaRemeraRoja);
-		    System.out.println(guardarropaInesUno.cantidadDePrendas());
 		    guardarropaInesUno.agregarAGuardarropas(unPantalonNegro);
 		    guardarropaInesUno.agregarAGuardarropas(unZapatoNegro);
 		    guardarropaInesUno.agregarAGuardarropas(unaZapatillaLonaBlanca);
 		    guardarropaInesUno.agregarAGuardarropas(unLenteNegro); 	
-	  
 		    
-		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getPrendasSuperiores().size() + " prendas superiores");
-		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getPrendasInferiores().size() + " prendas inferiores");
-		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getCalzados().size() + " calzados");
+		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getPrendasSuperioresNivel1().size() + " prendas superiores");
+		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getPrendasInferioresNivel2().size() + " prendas inferiores");
+		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getCalzadosNivel2().size() + " calzados");
 		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getAccesorios().size() + " accesorio");
-			Set<List<Prenda>> sugerencias = guardarropaInesUno.sugerir();
-			sugerencias.forEach(sugerencia -> System.out.println(sugerencia));
+			//guardarropaInesUno.sugerir();
+			//QueMePongo.sugerirTodasLasCombinaciones(guardarropaInesUno);
 			
 	}
 	

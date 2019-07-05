@@ -1,37 +1,46 @@
 package guardarropas;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 import componentes.Prenda;
 import queMePongo.QueMePongo;
 import usuario.Usuario;
 
-import com.google.common.collect.Sets;
+/*	
+ 	Cada Usuario tiene uno o mas guardarropas.Cuando
+	un usuario crea una prenda, se la incluye en su guardarropas, 
+  	mediante el metodo agregarAGuardarropas.
+*/
 
-
-
-//Cada Usuario tiene uno o mas guardarropas.
-//Cuando un usuario crea una prenda, se la incluye en su guardarropas, mediante el metodo agregarAGuardarropas.
 public class Guardarropa {
-    private HashSet<Prenda> prendasSuperiores;
-    private HashSet<Prenda> prendasInferiores;
-    private HashSet<Prenda> calzados;
-    private HashSet<Prenda> accesorios;
+	List<Prenda> prendasSuperioresNivel1;
+    List<Prenda> prendasSuperioresNivel2;
+    List<Prenda> prendasSuperioresNivel3;
+    List<Prenda> prendasSuperioresNivel4;
+    List<Prenda> prendasInferioresNivel1;
+    List<Prenda> prendasInferioresNivel2;
+    List<Prenda> prendasInferioresNivel3;
+    List<Prenda> calzadosNivel1;
+    List<Prenda> calzadosNivel2;
+    List<Prenda> accesorios;
     
-    private Usuario miDuenio=null;
+    private Usuario miDuenio= null;
+    private OrganizadorDeGuardarropa miOrganizador = new OrganizadorDeGuardarropa(this);
     
     //Constructores:
-    
     public Guardarropa() {
-        prendasSuperiores = new HashSet<Prenda>();
-        prendasInferiores = new HashSet<Prenda>();
-        calzados = new HashSet<Prenda>();
-        accesorios = new HashSet<Prenda>();
-
+      //this.todoJunto = new ArrayList<Prenda>();    	
+        this.prendasSuperioresNivel1 = new ArrayList<Prenda>();
+        this.prendasSuperioresNivel2 = new ArrayList<Prenda>();
+        this.prendasSuperioresNivel3 = new ArrayList<Prenda>();
+        this.prendasSuperioresNivel4 = new ArrayList<Prenda>();
+        this.prendasInferioresNivel1 = new ArrayList<Prenda>();
+        this.prendasInferioresNivel2 = new ArrayList<Prenda>();
+        this.prendasInferioresNivel3 = new ArrayList<Prenda>();
+        this.calzadosNivel1 = new ArrayList<Prenda>();
+        this.calzadosNivel2 = new ArrayList<Prenda>();
+        this.accesorios = new ArrayList<Prenda>();
     }
 
     public void duenio(Usuario usuario){
@@ -42,79 +51,168 @@ public class Guardarropa {
     	if (miDuenio == null) {
     		throw new Exception("Primero debe asignar un usuario a este guardarropa.");
     	}
-    	if (miDuenio.tineGuardarropaLleno(this)){
+    	if (miDuenio.tieneGuardarropaLleno(this)){
     		throw new Exception("El usuario no puede agregar mas ropa debido a su plan.");
     	}
-        switch (prenda.getCategoria()) {
-            case PARTE_SUPERIOR:
-                this.agregarPrendaSuperior(prenda);
-                break;
-            case PARTE_INFERIOR:
-                this.agregarPrendaInferior(prenda);
-                break;
-            case CALZADO:
-                this.agregarCalzado(prenda);
-                break;
-            case ACCESORIOS:
-            	this.agregarAccesorio(prenda);
-            	break;
-            default:
-                throw new Exception("Ha ingresado una categoria Invalida.");
-        }
-    }
+    	miOrganizador.organizameEsta(prenda);
+     }
 
-    	public int cantidadDePrendas() {
-    		int cantidad=0;
-    		//Esto lo hacemos para evitar un nullPointer si no hay prendas de alguna categoria.
-    		if (prendasSuperiores.isEmpty()) {cantidad=0;} else {cantidad = prendasSuperiores.size();}
-    		if (prendasInferiores.isEmpty()) {cantidad+=0;} else {cantidad += prendasInferiores.size();}
-    		if (calzados.isEmpty()) {cantidad+=0;} else {cantidad += calzados.size();}
-    		if (accesorios.isEmpty()) {cantidad+=0;} else {cantidad += accesorios.size();}
-    		
-    		return cantidad;
-    	}
-
-        public Set<List<Prenda>> sugerir(){
-        	
-        	 return QueMePongo.obtenerSugerencias(this);
-        }
-
-			
-        //Estos Metodos se utilizan para agregar a la lista de la categoria correspondiente en el guardarropas
-        
-    	private void agregarPrendaInferior(Prenda _prenda) {
-            this.prendasInferiores.add(_prenda);         
-        }
-
-        private void agregarCalzado(Prenda _prenda) {
-            this.calzados.add(_prenda);          
-        }
-        
-        private void agregarPrendaSuperior(Prenda prenda) {
-            this.prendasSuperiores.add(prenda);          
-        }
-        
-        private void agregarAccesorio(Prenda prenda) {
-            this.accesorios.add(prenda);          
-        }
-        	    
-//Getter
-		public HashSet<Prenda> getPrendasSuperiores() {
-			return this.prendasSuperiores;
-		}
-
-		public HashSet<Prenda>  getPrendasInferiores() {
-			return this.prendasInferiores;
-		}
-
-		public HashSet<Prenda>  getCalzados() {
-			return this.calzados;
-		}
-
-		public HashSet<Prenda>  getAccesorios() {
-			return this.accesorios;
-		}
+	public int cantidadDePrendas() {
+		int cantidad=0;
+		//Esto lo hacemos para evitar un nullPointer si no hay prendas de alguna categoria.
+		if (prendasSuperioresNivel1.isEmpty()) {cantidad+=0;} else {cantidad += prendasSuperioresNivel1.size();}
+		if (prendasSuperioresNivel2.isEmpty()) {cantidad+=0;} else {cantidad += prendasSuperioresNivel1.size();}
+		if (prendasSuperioresNivel3.isEmpty()) {cantidad+=0;} else {cantidad += prendasSuperioresNivel1.size();}
+		if (prendasSuperioresNivel4.isEmpty()) {cantidad+=0;} else {cantidad += prendasSuperioresNivel1.size();}
+		if (prendasInferioresNivel1.isEmpty()) {cantidad+=0;} else {cantidad += prendasInferioresNivel1.size();}
+		if (prendasInferioresNivel2.isEmpty()) {cantidad+=0;} else {cantidad += prendasInferioresNivel2.size();}
+		if (prendasInferioresNivel3.isEmpty()) {cantidad+=0;} else {cantidad += prendasInferioresNivel3.size();}
+		if (calzadosNivel1.isEmpty()) {cantidad+=0;} else {cantidad += calzadosNivel1.size();}
+		if (calzadosNivel2.isEmpty()) {cantidad+=0;} else {cantidad += calzadosNivel2.size();}
+		if (accesorios.isEmpty()) {cantidad+=0;} else {cantidad += accesorios.size();}
 		
-
+		return cantidad;
+	}
+	
+	public void sugerir(){
 		
+		//return QueMePongo.obtenerSugerencia(this);
+		//QueMePongo.obtenerSugerencia(this);
+		QueMePongo.getInstance().sugerir(this);
+	}
+	
+	public void sugerirTodasLasCombinaciones() {
+		QueMePongo.getInstance().sugerirTodasLasCombinaciones(this);
+	}
+	
+	public void sugerirUnaCantidadDeCombinaciones(int unaCantidad) {
+		QueMePongo.getInstance().sugerirUnaCantidadDeVeces(this, unaCantidad);
+	}
+
+	public List<Prenda> getPrendasSuperioresNivel1() {
+		return prendasSuperioresNivel1;
+	}
+
+	public List<Prenda> getPrendasSuperioresNivel2() {
+		return prendasSuperioresNivel2;
+	}
+
+	public List<Prenda> getPrendasSuperioresNivel3() {
+		return prendasSuperioresNivel3;
+	}
+
+	public List<Prenda> getPrendasSuperioresNivel4() {
+		return prendasSuperioresNivel4;
+	}
+
+	public List<Prenda> getPrendasInferioresNivel1() {
+		return prendasInferioresNivel1;
+	}
+
+	public List<Prenda> getPrendasInferioresNivel2() {
+		return prendasInferioresNivel2;
+	}
+
+	public List<Prenda> getPrendasInferioresNivel3() {
+		return prendasInferioresNivel3;
+	}
+
+	public List<Prenda> getCalzadosNivel1() {
+		return calzadosNivel1;
+	}
+
+	public List<Prenda> getCalzadosNivel2() {
+		return calzadosNivel2;
+	}
+
+	public List<Prenda> getAccesorios() {
+		return accesorios;
+	}
 }
+
+//DEPRECADO	
+/* 
+	//    public void sugerir(){//DEPRECADO: usar el metodo del mismo nombre en clase QueMePongo//
+//    	
+//    	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
+//		
+//   		sets.add(new HashSet(this.prendasSuperiores));
+//   	    sets.add(new HashSet(this.prendasInferiores));
+//   	    sets.add(new HashSet(this.calzados));
+//   	 	sets.add(new HashSet(this.accesorios));
+//   	 	
+//   	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
+//   	 	
+//   	 	List<String> listaAux= new ArrayList<String>();
+//   	 	
+//		for(List<Prenda> element : cartesianSet ){
+//			
+//			String nombreAux ="";
+//			List<Prenda> listaPrendaAux = element;
+//			for(Prenda prenda :listaPrendaAux ){
+//		    	 
+//				nombreAux=nombreAux+"-"+prenda.getNombre();
+//				
+//			}
+//			
+//			listaAux.add(nombreAux);
+//		}
+//		
+//		System.out.println(this.getRandomList(listaAux));
+//    } 
+//    
+//	public String getRandomList(List<String> list) {
+//	    Random random = new Random();
+//	    int index = random.nextInt(list.size());
+//	    System.out.println("\nIndex :" + index );
+//	    return list.get(index);
+//	}
+
+ 	public void sugerenciaConTodosLosGuardarropas(List<Guardarropa> guardarropas) throws Exception{
+//    	//DEPRECADO: usar el metodo del mismo nombre en clase QueMePongo//
+//    	Guardarropa aux = new Guardarropa();
+//    	for(Guardarropa element : guardarropas) {
+//    		this.fusionarGuardarropa(aux,element);
+//    	}
+//    	
+//    	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
+//		
+//   		sets.add(new HashSet(aux.getPrendasSuperiores()));
+//   	    sets.add(new HashSet(aux.getPrendasInferiores()));
+//   	    sets.add(new HashSet(aux.getCalzados()));
+//   	 	sets.add(new HashSet(aux.getAccesorios()));
+//   	 	
+//   	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
+//   	 	
+//   	 	List<String> listaAux= new ArrayList<String>();
+//   	 	
+//		for(List<Prenda> element : cartesianSet ){
+//
+//			String nombreAux ="";
+//			List<Prenda> listaPrendaAux = element;
+//			for(Prenda prenda :listaPrendaAux ){
+//				nombreAux=nombreAux+"-"+prenda.getNombre();
+//			}
+//			listaAux.add(nombreAux);
+//		}
+//		System.out.println(this.getRandomList(listaAux));
+//	        	
+//    }
+ 
+ 	public void fusionarGuardarropa(Guardarropa a,Guardarropa b) throws Exception {
+//		
+//		for(Prenda p : b.getPrendasSuperiores()) {
+//			a.agregarPrendaSuperior(p);
+//		}
+//		for(Prenda p : b.getPrendasInferiores()) {
+//			a.agregarPrendaInferior(p);;
+//		}
+//		for(Prenda p : b.getCalzados()) {
+//			a.agregarCalzado(p);
+//		}
+//		for(Prenda p : b.getAccesorios()) {
+//			a.agregarAccesorio(p);
+//		}
+//		
+//	}
+*/

@@ -3,21 +3,14 @@ package test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import componentes.Categoria;
-import componentes.Color;
-import componentes.Material;
-import componentes.Prenda;
-import componentes.TipoDePrenda;
-import componentes.Trama;
-import guardarropas.Guardarropa;
-import usuario.Usuario;
-import usuario.UsuarioGratuito;
+import componentes.*;
+import guardarropas.*;
+import usuario.*;
 
 
 public class TestPrenda {
@@ -28,7 +21,8 @@ public class TestPrenda {
 	private Set <Material> tiposDeMaterialPantalon;
 	private Set <Material> tiposDeMaterialLentes;
 	
-	Usuario ines = new UsuarioGratuito();
+	Usuario ines = new Usuario();
+
 	TipoDePrenda zapato;
 	TipoDePrenda remera;
 	TipoDePrenda pantalon;
@@ -78,11 +72,11 @@ public class TestPrenda {
 		colorAzulTrafico=new Color(006,057,113);
 		
 		
-		remera = new  TipoDePrenda("Remera",Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera);
-		zapato= new TipoDePrenda("Zapato", Categoria.CALZADO, tiposDeMaterialZapato);
-		zapatilla = new TipoDePrenda("Zapatilla", Categoria.CALZADO, tiposDeMaterialZapatilla);
-		pantalon = new TipoDePrenda("Pantalon",Categoria.PARTE_INFERIOR, tiposDeMaterialPantalon);
-		lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIOS, tiposDeMaterialLentes);
+		remera = new  TipoDePrenda("Remera",Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera,PrendaNivel.Nivel1);
+		zapato= new TipoDePrenda("Zapato", Categoria.CALZADO, tiposDeMaterialZapato,PrendaNivel.Nivel2);
+		zapatilla = new TipoDePrenda("Zapatilla", Categoria.CALZADO, tiposDeMaterialZapatilla,PrendaNivel.Nivel2);
+		pantalon = new TipoDePrenda("Pantalon",Categoria.PARTE_INFERIOR, tiposDeMaterialPantalon,PrendaNivel.Nivel2);
+		lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIOS, tiposDeMaterialLentes,PrendaNivel.Nivel1);
 		
 		unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, Material.ALGODON, colorBlanco, Trama.LISA );
 		unaRemeraRoja= new Prenda("Remera Roja a lunares", remera, Material.SEDA, colorRojo, Trama.LUNARES);
@@ -92,6 +86,7 @@ public class TestPrenda {
 		unaZapatillaLonaBlanca= new Prenda("Zapatillas de lona blancas", zapatilla, Material.LONA, colorBlanco, Trama.LISA);
 		unLenteNegro = new Prenda("Lentes de sol  negros", lentes, Material.PLASTICO, colorNegro, Trama.LISA);
 		
+		ines.setTipoDeCuenta(new CuentaGratuita());
 		
 	    guardarropaInesUno = new Guardarropa();
 	    guardarropaInesDos = new Guardarropa();
@@ -118,19 +113,23 @@ public class TestPrenda {
 		assertEquals( unZapatoNegro.getCategoria(),Categoria.CALZADO);
 		assertEquals( unaZapatillaLonaBlanca.getCategoria(),Categoria.CALZADO);
 		assertEquals( unLenteNegro.getCategoria(),Categoria.ACCESORIOS);
-		
 	}
 	
 	@Test
-	public void testMaterial() {
-		
+	public void testMaterialOkey() {
 		assertEquals( unaRemeraBlancaLisa.getMaterial(),Material.ALGODON);
 		assertEquals( unaRemeraRoja.getMaterial(),Material.SEDA);
 		assertEquals( unPantalonNegro.getMaterial(),Material.CORDEROY);
 		assertEquals( unZapatoNegro.getMaterial(),Material.CUERO);
 		assertEquals( unaZapatillaLonaBlanca.getMaterial(),Material.LONA);
 		assertEquals( unLenteNegro.getMaterial(),Material.PLASTICO);	
-		
+	}
+	
+	@Test(expected = Exception.class) 
+	public void testMaterialFalla() throws Exception {
+		@SuppressWarnings("unused")
+		Prenda zapatoDeCristal;
+		zapatoDeCristal= new Prenda("Zapatos Cenicienta", zapato, Material.CRISTAL, colorBlanco, Trama.LISA);
 	}
 	
 	@Test
@@ -142,22 +141,23 @@ public class TestPrenda {
 		assertEquals( unZapatoNegro.getColor(), colorNegro);
 		assertEquals( unaZapatillaLonaBlanca.getColor(), colorBlanco);
 		assertEquals( unLenteNegro.getColor(), colorNegro);
-	}	
+	}
 	
+	
+	/* Este test ya no se puede llevar a cabo xq "sugerir()" ahora no devuelve nada
 	@Test 
 	public void obtenerSugerenciasInesTest() {
-	
 		Set<List<Prenda>> sugerencias = guardarropaInesUno.sugerir();
 		sugerencias.forEach(sugerencia -> System.out.println(sugerencia));
 		assertEquals(4, sugerencias.size());
-	}
+	}*/
 	
 	@Test 
 	public void listaDePrendasPorCategoriaCorrectas() {
 		
-		assertEquals(2,guardarropaInesUno.getPrendasSuperiores().size());
-		assertEquals(1,guardarropaInesUno.getPrendasInferiores().size());
-		assertEquals(2,guardarropaInesUno.getCalzados().size());
+		assertEquals(2,guardarropaInesUno.getPrendasSuperioresNivel1().size());
+		assertEquals(1,guardarropaInesUno.getPrendasInferioresNivel2().size());
+		assertEquals(2,guardarropaInesUno.getCalzadosNivel2().size());
 		assertEquals(1,guardarropaInesUno.getAccesorios().size());
 	
 	}
@@ -182,19 +182,12 @@ public class TestPrenda {
 		// GuardarropaInesUno tiene 6 prendas, 
 		// al agregar 5 mas me deberia tirar una excepcion
 		
-		Prenda unaRemeraFucsia1;
-		Prenda unaRemeraFucsia2;
-		Prenda unaRemeraFucsia3;
-		Prenda unaRemeraFucsia4;
-		Prenda unaRemeraFucsia5;
-		Prenda unaRemeraFucsia6;
-		
-		unaRemeraFucsia1 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
-		unaRemeraFucsia2 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
-		unaRemeraFucsia3 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
-		unaRemeraFucsia4 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
-		unaRemeraFucsia5 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
-		unaRemeraFucsia6 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		Prenda unaRemeraFucsia1 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		Prenda unaRemeraFucsia2 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		Prenda unaRemeraFucsia3 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		Prenda unaRemeraFucsia4 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		Prenda unaRemeraFucsia5 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
+		Prenda unaRemeraFucsia6 = new Prenda("Remera Fucsia", remera, Material.ALGODON, colorFucsia, Trama.LISA );
 		
 	    guardarropaInesUno.agregarAGuardarropas(unaRemeraFucsia1);
 	    guardarropaInesUno.agregarAGuardarropas(unaRemeraFucsia2);
