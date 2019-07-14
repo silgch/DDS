@@ -1,7 +1,9 @@
 package API;
 
+import Excepciones.NoConexionApiException;
+
 public interface ClimaAdapter {
-	public void codigoCiudad(String codigoCiudad);
-	public double temperaturaActual();
+	double pasajeDeKelvin =273.15;
+	public double obtenerClima(String unCodigoCiudad) throws NoConexionApiException; 
 }
 

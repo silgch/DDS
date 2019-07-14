@@ -5,27 +5,25 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
+import Excepciones.NoConexionApiException;
 import ow.entidades.ClimaCiudad;
 import ow.entidades.OWError;
 import ow.entidades.RetornoOW;
 
-public class Get_OpenWeather {
+public class OpenWeather implements ClimaAdapter{
 	
-	public String codigoCiudad = "3433955"; // por defecto es CABA
+	//public String codigoCiudad = "3433955"; // por defecto es CABA
 	
-	public void codigoCiudad(String _codigoCiudad) {
-		this.codigoCiudad = _codigoCiudad;
-	}
-	
-	public RetornoOW obtenerClima(){
-		String codigoUsuario = "1cb3cd02ce6977d6c8491966de7ecc9a";
+	public RetornoOW temperaturaActual(String codigoCiudad){
+		String codigoUsuario = "";
 		
 		String url = "http://api.openweathermap.org/data/2.5/forecast?id="+codigoCiudad+"&APPID="+codigoUsuario;
 
-        System.out.println("Inicio: Inicia GetDomicilio");
+        System.out.println("Inicio: Inicia GetClima");
         System.out.println("url: " + url);
         
         RetornoOW retorno = new RetornoOW();
@@ -125,13 +123,52 @@ public class Get_OpenWeather {
 	        catch(Exception e){
 	        	OWError err = new OWError();
 	        	e.printStackTrace();
-		        err.setMessage("Fallo la conexion con APIPersonas");
+		        err.setMessage("Fallo la conexion con API");
 	    		retorno.getErrores().add(err);
 				return retorno;
         }
       
         return retorno;
        
+	}
+	
+	@Override
+	public double obtenerClima(String unCodigoCiudad) throws NoConexionApiException {
+		/* como me devuelve una cantidad n de medidas, algunas estan rotas, la idea fue
+		 *  refinar la busqueda devolviendo solo un promedio de valores que esten entre
+		 *  un intervalo +- 0.25 del valor promedio*/
+		
+		RetornoOW aux = this.temperaturaActual(unCodigoCiudad);
+		double promedio=0;
+		double sumaTotal=0;
+		double auxiliarParaRefinar =0;
+		double retorno = 0;
+		ArrayList<Double> listaAuxiliar = new ArrayList<Double>();
+		if(aux.getErrores().size()>0) {
+			throw new NoConexionApiException(aux.getErrores().get(0).getMessage());
+		}
+		else {
+			int cantidadMedidas = aux.getClimaCiudad().get(0).getList().size();
+			
+			for(int i=0;i<cantidadMedidas;i++) { 
+				sumaTotal=sumaTotal+(aux.getClimaCiudad().get(0).getList().get(i).getMain().getTemp() - pasajeDeKelvin);
+			}
+			promedio = sumaTotal/cantidadMedidas;
+			
+			for(int i=0;i<cantidadMedidas;i++) {
+				auxiliarParaRefinar =aux.getClimaCiudad().get(0).getList().get(i).getMain().getTemp() - pasajeDeKelvin;
+				if(auxiliarParaRefinar>(promedio+(promedio*0.25))
+						|| auxiliarParaRefinar<(promedio-(promedio*0.25))) {
+				}
+				else {
+					listaAuxiliar.add(auxiliarParaRefinar);
+				}
+			}
+			for( Double elemento : listaAuxiliar) {
+				retorno = retorno + elemento;
+			}
+			return retorno/cantidadMedidas;
+		}	
 	}
 
 }

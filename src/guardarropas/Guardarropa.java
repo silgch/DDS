@@ -3,6 +3,7 @@ package guardarropas;
 import java.util.ArrayList;
 import java.util.List;
 
+import Excepciones.NoConexionApiException;
 import componentes.Prenda;
 import queMePongo.QueMePongo;
 import usuario.Usuario;
@@ -74,18 +75,18 @@ public class Guardarropa {
 		return cantidad;
 	}
 	
-	public void sugerir(){
+	public void sugerir() throws NoConexionApiException{
 		
 		//return QueMePongo.obtenerSugerencia(this);
 		//QueMePongo.obtenerSugerencia(this);
 		QueMePongo.getInstance().sugerir(this);
 	}
 	
-	public void sugerirTodasLasCombinaciones() {
+	public void sugerirTodasLasCombinaciones() throws NoConexionApiException{
 		QueMePongo.getInstance().sugerirTodasLasCombinaciones(this);
 	}
 	
-	public void sugerirUnaCantidadDeCombinaciones(int unaCantidad) {
+	public void sugerirUnaCantidadDeCombinaciones(int unaCantidad) throws NoConexionApiException{
 		QueMePongo.getInstance().sugerirUnaCantidadDeVeces(this, unaCantidad);
 	}
 

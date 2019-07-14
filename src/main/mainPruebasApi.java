@@ -1,17 +1,16 @@
 package main;
 
-import API.ClimaAdapterImp;
+import API.OpenWeather;
+import Excepciones.NoConexionApiException;
 
 public class mainPruebasApi {
 
-	public static void main(String[] args) {
-//		Get_OpenWeather prueba = new Get_OpenWeather();
-//		prueba.obtenerClima();
+	public static void main(String[] args) throws NoConexionApiException {
 
-		ClimaAdapterImp sarasa = new ClimaAdapterImp();
+
+		OpenWeather sarasa = new OpenWeather();
 		
-		sarasa.codigoCiudad("2643743");//Londres
-		System.out.println(sarasa.temperaturaActual());
+		System.out.println(sarasa.obtenerClima("3433955"));
 	}
 
 }

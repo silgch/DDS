@@ -11,15 +11,16 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-import API.ClimaAdapterImp;
+import API.OpenWeather;
+import Excepciones.NoConexionApiException;
 import componentes.Prenda;
 import guardarropas.Guardarropa;
 
 
 public class QueMePongo {
 	
-	private ClimaAdapterImp adapterClima = new ClimaAdapterImp();
 	private static QueMePongo instance = null;
+	private OpenWeather api1 = new OpenWeather();
 	private QueMePongo() {}
 
 	public static QueMePongo getInstance() {
@@ -33,8 +34,10 @@ public class QueMePongo {
   Si hace mas de 25º sugerir dará alguna prenda superior nivel1, si existiera.
   Si hace mas de 20º segerir dará una prendaSuperior nivel1 y una de nivel2 y así...
  */
-    public void sugerir(Guardarropa unGuardarropa){
-    	Double temp = adapterClima.temperaturaActual();
+    public void sugerir(Guardarropa unGuardarropa) throws NoConexionApiException{
+    	
+    	String codigoCiudad = "3433955";
+    	Double temp = api1.obtenerClima(codigoCiudad);
     	try {
 	    	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
 	    	
@@ -94,8 +97,9 @@ public class QueMePongo {
     	}
 }
     
-  public void sugerirTodasLasCombinaciones(Guardarropa unGuardarropa){
-  		Double temp = adapterClima.temperaturaActual();
+  public void sugerirTodasLasCombinaciones(Guardarropa unGuardarropa) throws NoConexionApiException{
+	  	String codigoCiudad = "3433955";
+  		Double temp = api1.obtenerClima(codigoCiudad);
     	try {
     	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
 		if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && temp<25) {
@@ -147,8 +151,9 @@ public class QueMePongo {
     	}
 }
   
-public void sugerirUnaCantidadDeVeces(Guardarropa unGuardarropa,int unaCantidad){
-  	Double temp = adapterClima.temperaturaActual();
+public void sugerirUnaCantidadDeVeces(Guardarropa unGuardarropa,int unaCantidad) throws NoConexionApiException{
+	String codigoCiudad = "3433955";
+	Double temp = api1.obtenerClima(codigoCiudad);
   	try {
   		List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
 		if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && temp<25) {
