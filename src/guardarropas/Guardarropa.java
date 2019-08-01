@@ -85,6 +85,11 @@ public class Guardarropa {
 	public void sugerirTodasLasCombinaciones() throws NoConexionApiException{
 		QueMePongo.getInstance().sugerirTodasLasCombinaciones(this);
 	}
+// Reacomodar el codigo interno 
+	public void sugerirTodasLasCombinaciones(Double temperatura) throws NoConexionApiException{
+		QueMePongo.getInstance().sugerirTodasLasCombinaciones(this);
+	}
+	
 	
 	public void sugerirUnaCantidadDeCombinaciones(int unaCantidad) throws NoConexionApiException{
 		QueMePongo.getInstance().sugerirUnaCantidadDeVeces(this, unaCantidad);

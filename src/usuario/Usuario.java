@@ -2,16 +2,20 @@ package usuario;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import eventos.CommandObtenerSugerenciaParaEvento;
+import eventos.Evento;
 import guardarropas.Guardarropa;
 
 public class Usuario {
 	
 	
 	private List<Guardarropa> guardarropas = new ArrayList<>();
+	private List<Evento> eventos = new ArrayList<Evento>();
 	
 	private Cuenta tipoDeCuenta = new CuentaGratuita();
 	
@@ -38,5 +42,14 @@ public class Usuario {
 	
 	public void cargarEvento(LocalDate fecha, String descripcion, int ubicacion) throws Exception{
 		Evento evento = new Evento(fecha, descripcion, this, ubicacion);
+		this.eventos.add(evento);
+		evento.ProcesarEvento();
+	}
+	
+	public void ProcesarEvento(Evento evento) throws IOException {
+		
+		CommandObtenerSugerenciaParaEvento sugerenciaParaEvento = new CommandObtenerSugerenciaParaEvento();
+		sugerenciaParaEvento.Execute(evento);
+
 	}
 }
