@@ -33,12 +33,13 @@ public class QueMePongo {
   de prendas (ej:remera=prendaSuperior nivel1, camperaPolar=prendaSuperior nivel4).
   Si hace mas de 25º sugerir dará alguna prenda superior nivel1, si existiera.
   Si hace mas de 20º segerir dará una prendaSuperior nivel1 y una de nivel2 y así...
+  Suponer que prendas inferioresNivel2 son calzas
  */
-    public void sugerir(Guardarropa unGuardarropa) throws NoConexionApiException{
+    public List<String> sugerir(Guardarropa unGuardarropa) throws NoConexionApiException{
     	
     	String codigoCiudad = "3433955";
     	Double temp = api1.obtenerClima(codigoCiudad);
-    	try {
+    	
 	    	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
 	    	
 			if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && temp<25) {
@@ -56,7 +57,7 @@ public class QueMePongo {
 			if(!unGuardarropa.getPrendasInferioresNivel1().isEmpty()) {
 				sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel1()));
 			}
-			if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty()) {
+			if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty() && temp<=10) {
 				sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel2()));
 			}
 			if(!unGuardarropa.getPrendasInferioresNivel3().isEmpty()) {
@@ -89,18 +90,15 @@ public class QueMePongo {
 			System.out.println(this.getRandomList(listaAux));
 			
 			//this.creacionAtuendo(listaAux.toString(), unGuardarropa.getTodoJunto());
+			
+			return listaAux;
     
-    	} 
-    	catch(Exception e) {
-    		System.out.println(e);
-    		//System.out.println("El usuario no posee tantos guardarropas");
-    	}
 }
     
-  public void sugerirTodasLasCombinaciones(Guardarropa unGuardarropa) throws NoConexionApiException{
+  public List<String> sugerirTodasLasCombinaciones(Guardarropa unGuardarropa) throws NoConexionApiException{
 	  	String codigoCiudad = "3433955";
   		Double temp = api1.obtenerClima(codigoCiudad);
-    	try {
+
     	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
 		if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && temp<25) {
 			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel1()));
@@ -117,7 +115,7 @@ public class QueMePongo {
 		if(!unGuardarropa.getPrendasInferioresNivel1().isEmpty()) {
 			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel1()));
 		}
-		if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty()) {
+		if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty() && temp<=10) {
 			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel2()));
 		}
 		if(!unGuardarropa.getPrendasInferioresNivel3().isEmpty()) {
@@ -141,20 +139,17 @@ public class QueMePongo {
 			System.out.println(element);
 		}
 		
+		return listaAux;
+		
 		
 		//this.creacionAtuendo(listaAux.toString(), unGuardarropa.getTodoJunto());
     
-    	} 
-    	catch(Exception e) {
-    		System.out.println(e);
-    		//System.out.println("El usuario no posee tantos guardarropas");
-    	}
 }
   
-public void sugerirUnaCantidadDeVeces(Guardarropa unGuardarropa,int unaCantidad) throws NoConexionApiException{
+public List<String> sugerirUnaCantidadDeVeces(Guardarropa unGuardarropa,int unaCantidad) throws NoConexionApiException{
 	String codigoCiudad = "3433955";
 	Double temp = api1.obtenerClima(codigoCiudad);
-  	try {
+
   		List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
 		if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && temp<25) {
 			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel1()));
@@ -171,7 +166,7 @@ public void sugerirUnaCantidadDeVeces(Guardarropa unGuardarropa,int unaCantidad)
 		if(!unGuardarropa.getPrendasInferioresNivel1().isEmpty()) {
 			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel1()));
 		}
-		if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty()) {
+		if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty() && temp<=10) {
 			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel2()));
 		}
 		if(!unGuardarropa.getPrendasInferioresNivel3().isEmpty()) {
@@ -204,11 +199,57 @@ public void sugerirUnaCantidadDeVeces(Guardarropa unGuardarropa,int unaCantidad)
 		}
 		//this.creacionAtuendo(listaAux.toString(), unGuardarropa.getTodoJunto());
   
-  	} 
-  	catch(Exception e) {
-  		System.out.println(e);
-  		//System.out.println("El usuario no posee tantos guardarropas");
-  	}
+		return listaAux;
+}
+
+public List<String> sugerirSegunTemperatura(Guardarropa unGuardarropa,Double unaTemperatura) throws NoConexionApiException{
+
+  		List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
+		if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && unaTemperatura<25) {
+			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel1()));
+		}
+		if(!unGuardarropa.getPrendasSuperioresNivel2().isEmpty() && unaTemperatura<=20) {
+			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel2()));
+		}
+		if(!unGuardarropa.getPrendasSuperioresNivel3().isEmpty() && unaTemperatura<=15) {
+			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel3()));
+		}
+		if(!unGuardarropa.getPrendasSuperioresNivel4().isEmpty() && unaTemperatura<=10) {
+			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel4()));
+		}
+		if(!unGuardarropa.getPrendasInferioresNivel1().isEmpty()) {
+			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel1()));
+		}
+		if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty() && unaTemperatura<=10) {
+			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel2()));
+		}
+		if(!unGuardarropa.getPrendasInferioresNivel3().isEmpty()) {
+			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel3()));
+		}
+		if(!unGuardarropa.getCalzadosNivel1().isEmpty()) {
+			sets.add(new HashSet(unGuardarropa.getCalzadosNivel1()));
+		}
+		if(!unGuardarropa.getCalzadosNivel2().isEmpty()) {
+			sets.add(new HashSet(unGuardarropa.getCalzadosNivel2()));
+		}
+		if(!unGuardarropa.getAccesorios().isEmpty()) {
+			sets.add(new HashSet(unGuardarropa.getAccesorios()));
+		}
+ 	 	
+ 	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
+ 	 	
+ 	 	List<String> listaAux= new ArrayList<String>();
+ 	 	
+		for(List<Prenda> element : cartesianSet ){
+			String nombreAux ="";
+			List<Prenda> listaPrendaAux = element;
+			for(Prenda prenda :listaPrendaAux ){
+				nombreAux=nombreAux+"-"+prenda.getNombre();
+			}
+			listaAux.add(nombreAux);
+		}
+
+		return listaAux;
 }
 	public String getRandomList(List<String> list) {
 	    Random random = new Random();

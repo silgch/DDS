@@ -43,13 +43,13 @@ public class Usuario {
 	public void cargarEvento(LocalDate fecha, String descripcion, int ubicacion) throws Exception{
 		Evento evento = new Evento(fecha, descripcion, this, ubicacion);
 		this.eventos.add(evento);
-		evento.ProcesarEvento();
+		evento.procesarEvento();
 	}
 	
 	public void ProcesarEvento(Evento evento) throws IOException {
 		
 		CommandObtenerSugerenciaParaEvento sugerenciaParaEvento = new CommandObtenerSugerenciaParaEvento();
-		sugerenciaParaEvento.Execute(evento);
+		sugerenciaParaEvento.execute(evento);
 
 	}
 }

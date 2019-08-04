@@ -11,23 +11,34 @@ public class Sugerencia {
 // Ver deshacer ultima operacion	
 
 		
-		private List<Prenda> sugerencia = new ArrayList<Prenda>();
-
+	//POR EL MOMENTO CAMBIO 'TIPO' DE SUGERENCIA
+		//private List<Prenda> sugerencia = new ArrayList<Prenda>();
+	
+		private String descripcion;
+		
 	    private EnumEstadoSugerencia estado; //ACEPTADA O RECHAZADA
 	    
 
 
-		public List<Prenda> getSugerencia() {
-			return sugerencia;
-		}
+//		public List<Prenda> getSugerencia() {
+//			return sugerencia;
+//		}
+	    
+	    public String getDescripcion() {
+	    	return descripcion;
+	    }
 
 		public EnumEstadoSugerencia getEstado() {
 		
 			return estado;
 		}
 
-		public void setSugerencia(List<Prenda> sugerencia) {
-			this.sugerencia = sugerencia;
+//		public void setSugerencia(List<Prenda> sugerencia) {
+//			this.sugerencia = sugerencia;
+//		}
+		
+		public void setDescripcion(String sugerencia) {
+			this.descripcion = sugerencia;
 		}
 
 		public void setEstado(EnumEstadoSugerencia estado) {

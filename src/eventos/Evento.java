@@ -34,7 +34,7 @@ public class Evento {
 	}
 	
 	//Agrego el evento a la cola
-	public void ProcesarEvento() throws IOException {
+	public void procesarEvento() throws IOException {
 		
 		 this.servidorDeEventos.EncolarEvento(this);
 		
@@ -59,8 +59,16 @@ public class Evento {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public List<Sugerencia> getSugerencias() {
-		return sugerencias;
+
+	public void setSugerencias(List<String> unaLista) {
+		for(String elemento : unaLista) {
+			Sugerencia auxiliar = new Sugerencia();
+			
+			auxiliar.setDescripcion(elemento);
+			auxiliar.setEstado(EnumEstadoSugerencia.SUGERIDA);
+			
+			sugerencias.add(auxiliar);
+		}
 	}
 	
 	
@@ -89,6 +97,9 @@ public class Evento {
 		return unGuardarropa;
 	}
 	
+	public List<Sugerencia> getSugerencias() {
+		return sugerencias;
+	}
 
 	
 	

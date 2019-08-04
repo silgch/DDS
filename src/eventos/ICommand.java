@@ -4,6 +4,6 @@ package eventos;
 
 	public interface ICommand {
 
-	public void Execute(Evento evento) throws IOException ;
+	public void execute(Evento evento) throws IOException ;
 	}
 

@@ -75,24 +75,63 @@ public class Guardarropa {
 		return cantidad;
 	}
 	
-	public void sugerir() throws NoConexionApiException{
+	public List<String> sugerir(){
+		try {
+			return QueMePongo.getInstance().sugerir(this);
+		}
+		catch(NoConexionApiException ae) {
+			System.out.println("Hubo un problema con la conexion a la api:"+ae);
+			return null;
+		}
+		catch(Exception e) {
+			System.out.println("Hubo un problema en: "+e);
+			return null;
+		}
 		
-		//return QueMePongo.obtenerSugerencia(this);
-		//QueMePongo.obtenerSugerencia(this);
-		QueMePongo.getInstance().sugerir(this);
 	}
 	
-	public void sugerirTodasLasCombinaciones() throws NoConexionApiException{
-		QueMePongo.getInstance().sugerirTodasLasCombinaciones(this);
+	public List<String> sugerirTodasLasCombinaciones(){
+		try {
+			return QueMePongo.getInstance().sugerirTodasLasCombinaciones(this);
+		}
+		catch(NoConexionApiException ae) {
+			System.out.println("Hubo un problema con la conexion a la api:"+ae);
+			return null;
+		}
+		catch(Exception e) {
+			System.out.println("Hubo un problema en: "+e);
+			return null;
+		}
+		
 	}
-// Reacomodar el codigo interno 
-	public void sugerirTodasLasCombinaciones(Double temperatura) throws NoConexionApiException{
-		QueMePongo.getInstance().sugerirTodasLasCombinaciones(this);
+
+	public List<String> sugerirTodasLasCombinacionesSegunTemperatura(Double temperatura){
+		try {
+			return QueMePongo.getInstance().sugerirSegunTemperatura(this, temperatura);
+		}
+		catch(NoConexionApiException ae) {
+			System.out.println("Hubo un problema con la conexion a la api:"+ae);
+			return null;
+		}
+		catch(Exception e) {
+			System.out.println("Hubo un problema en: "+e);
+			return null;
+		}
 	}
 	
 	
-	public void sugerirUnaCantidadDeCombinaciones(int unaCantidad) throws NoConexionApiException{
-		QueMePongo.getInstance().sugerirUnaCantidadDeVeces(this, unaCantidad);
+	public List<String> sugerirUnaCantidadDeCombinaciones(int unaCantidad){
+		try {
+			return QueMePongo.getInstance().sugerirUnaCantidadDeVeces(this, unaCantidad);
+		}
+		catch(NoConexionApiException ae) {
+			System.out.println("Hubo un problema con la conexion a la api:"+ae);
+			return null;
+		}
+		catch(Exception e) {
+			System.out.println("Hubo un problema en: "+e);
+			return null;
+		}
 	}
 
 	public List<Prenda> getPrendasSuperioresNivel1() {

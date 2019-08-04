@@ -4,27 +4,39 @@ import java.io.IOException;
 import java.util.List;
 
 import API.OpenWeather;
+import Excepciones.NoConexionApiException;
 import guardarropas.Guardarropa;
 
 public class CommandObtenerSugerenciaParaEvento implements ICommand {
+	
+	private OpenWeather api1 = new OpenWeather();
 
 	@Override
-	public void Execute(Evento evento) throws IOException {
+	public void execute(Evento evento) throws IOException {
 		
+		try {
+			String codigoCiudad = "3433955";
+			
+			// Consulto a la API cual es el clima para el evento que le estoy pasando, es decir: 
+			// cual es la temperatura promedio para ese dia,y se la asigno al evento. 
 		
-		// Consulto a la API cual es el clima para el evento que le estoy pasando, es decir: 
-		// cual es la temperatura promedio para ese dia,y se la asigno al evento. 
-	
-		evento.setTemperatura(OpenWeather.obtenerClima(evento.getUbicacion())); // Ver con Nico. porque pide un String? como le digo a la API la fecha para la cual quiero saberla temperatura?
+			evento.setTemperatura(api1.obtenerClima(codigoCiudad)); 
+			
+			List<Guardarropa> guardarropas = evento.getUsuario().getGuardarropas(); 
+			
+			for(Guardarropa guardarropa: guardarropas){
+				
+				evento.setSugerencias(guardarropa.sugerirTodasLasCombinacionesSegunTemperatura(evento.getTemperatura()));
 
-			
-		
-		List<Guardarropa> guardarropas = evento.getUsuario().getGuardarropas(); 
-		
-		for(Guardarropa guardarropa: guardarropas){
-			
-			evento.setSugerencias(guardarropa.sugerirTodasLasCombinaciones(evento.getTemperatura()));
-			//Cambiar sugerirTodas Las Combinaciones para que le podamos pasar por parametro la temperatura
+			}
+		}
+		catch(NoConexionApiException ae) {
+			System.out.println("Hubo un problema con la conexion a la api:"+ae);
+
+		}
+		catch(Exception e) {
+			System.out.println("Hubo un problema en: "+e);
+
 		}
 		
 	}
