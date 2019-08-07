@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 import guardarropas.Guardarropa;
 import usuario.Usuario;
-
+//Agregar anularSugerenciaElegida, que vuelva para atras la sugerencia aceptada.
 public class Evento {
 
 	private LocalDate fechaEvento;
@@ -17,7 +18,7 @@ public class Evento {
 	private Guardarropa unGuardarropa;
 	private Double temperatura;
 	private List<Sugerencia> sugerencias = new ArrayList<Sugerencia>();
-	private ColaDeEventos servidorDeEventos;
+	private ColaDeEventos servidorDeEventos = new ColaDeEventos();
 	
 	public ColaDeEventos getColaDeEventos() {
 		return servidorDeEventos;
@@ -36,8 +37,8 @@ public class Evento {
 	//Agrego el evento a la cola
 	public void procesarEvento() throws IOException {
 		
-		 this.servidorDeEventos.EncolarEvento(this);
-		
+		 this.servidorDeEventos.encolarEvento(this);
+	
 	}
 	
 	

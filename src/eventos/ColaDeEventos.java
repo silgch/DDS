@@ -19,8 +19,10 @@ public class ColaDeEventos {
 	}
 	
 	
-	public void EncolarEvento(Evento evento) {
+	public void encolarEvento(Evento evento) {
 		colaEventosActivos.add(evento);
+	
+		System.out.println("El usuario " + evento.getUsuario().getNombre() + " agregó el evento  "+evento.getDescripcion()+" a realizarse el " + evento.getFechaEvento());
 	}
 	
 	

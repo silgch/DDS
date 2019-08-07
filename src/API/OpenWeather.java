@@ -19,7 +19,7 @@ public class OpenWeather implements ClimaAdapter{
 	//public String codigoCiudad = "3433955"; // por defecto es CABA
 	
 	public RetornoOW temperaturaActual(String codigoCiudad){
-		String codigoUsuario = "";
+		String codigoUsuario = Key.getKey(); //Agregar clase con codigo personal y poner la clase key  archivo el 
 		
 		String url = "http://api.openweathermap.org/data/2.5/forecast?id="+codigoCiudad+"&APPID="+codigoUsuario;
 

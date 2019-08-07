@@ -248,7 +248,7 @@ public List<String> sugerirSegunTemperatura(Guardarropa unGuardarropa,Double una
 			}
 			listaAux.add(nombreAux);
 		}
-
+		System.out.println("Se genero la sugerencia para la temperatura" +unaTemperatura );
 		return listaAux;
 }
 	public String getRandomList(List<String> list) {

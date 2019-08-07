@@ -107,6 +107,7 @@ public class Guardarropa {
 
 	public List<String> sugerirTodasLasCombinacionesSegunTemperatura(Double temperatura){
 		try {
+		
 			return QueMePongo.getInstance().sugerirSegunTemperatura(this, temperatura);
 		}
 		catch(NoConexionApiException ae) {

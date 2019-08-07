@@ -1,7 +1,5 @@
 package main;
 
-import java.time.LocalDate;
-import java.time.format.*;  // Este paquete contiene DateTimeFormatter
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,16 +10,14 @@ import componentes.Prenda;
 import componentes.PrendaNivel;
 import componentes.TipoDePrenda;
 import componentes.Trama;
-import eventos.Evento;
 import guardarropas.Guardarropa;
 import usuario.CuentaGratuita;
 import usuario.Usuario;
 
-public class mainEventos {
-
-	public static void main(String[] args) throws Exception {
-		
-		//Cargamos usuarios, prendas, colores, etc
+public class EjemplosIniciales {
+	
+	
+	public static void cargarEjemplos() throws Exception {
 		Set <Material> tiposDeMaterialRemera;
 		Set <Material> tiposDeMaterialZapato;
 		Set <Material> tiposDeMaterialZapatilla;
@@ -92,7 +88,7 @@ public class mainEventos {
 		unLenteNegro = new Prenda("Lentes de sol  negros", lentes, Material.PLASTICO, colorNegro, Trama.LISA);
 		
 		ines.setTipoDeCuenta(new CuentaGratuita());
-		ines.setNombre("Ines Gonzalez");
+		
 	    guardarropaInesUno = new Guardarropa();
 	    guardarropaInesDos = new Guardarropa();
 	    
@@ -107,20 +103,6 @@ public class mainEventos {
 	    guardarropaInesUno.agregarAGuardarropas(unLenteNegro); 	
 	    
 	    guardarropaInesDos.agregarAGuardarropas(unaRemeraNegra);
-	    
-	    
-	    //Cargamos algunos eventos
-	    ines.cargarEvento( LocalDate.now(), "Ir al cine", 3433955);
-	    Evento unEvento= new Evento ( LocalDate.now(), "Ir al cine", ines, 3433955);
-	    ines.procesarEvento(unEvento);
-	    System.out.println("La sugerencia para el evento es "+unEvento.getSugerencias());
-	 
 	
-	   // ines.cargarEvento( LocalDate.of(2019, 8, 10), "Ir al teatro", 3433955);
-	   // ines.cargarEvento( LocalDate.of(2019, 8, 14), "Cumpleaños de Pepita", 3433955);
-	    
-	    
-	    
 	}
-
 }

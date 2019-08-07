@@ -13,11 +13,12 @@ import guardarropas.Guardarropa;
 
 public class Usuario {
 	
-	
+	private String nombreDeUsuario;
 	private List<Guardarropa> guardarropas = new ArrayList<>();
 	private List<Evento> eventos = new ArrayList<Evento>();
 	
 	private Cuenta tipoDeCuenta = new CuentaGratuita();
+	
 	
 	public List<Guardarropa> getGuardarropas() {
 		return guardarropas;
@@ -35,7 +36,10 @@ public class Usuario {
 	public Cuenta getTipoDeCuenta() {
 		return tipoDeCuenta;
 	}
-
+	public void setNombre(String nombre) {
+		this.nombreDeUsuario =nombre;
+	}
+	
 	public void setTipoDeCuenta(Cuenta tipoDeCuenta) {
 		this.tipoDeCuenta = tipoDeCuenta;
 	}
@@ -46,10 +50,14 @@ public class Usuario {
 		evento.procesarEvento();
 	}
 	
-	public void ProcesarEvento(Evento evento) throws IOException {
+	public void procesarEvento(Evento evento) throws IOException {
 		
 		CommandObtenerSugerenciaParaEvento sugerenciaParaEvento = new CommandObtenerSugerenciaParaEvento();
 		sugerenciaParaEvento.execute(evento);
 
+	}
+	
+	public String getNombre() {
+		return nombreDeUsuario;
 	}
 }

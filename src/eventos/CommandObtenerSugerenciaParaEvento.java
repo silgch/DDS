@@ -19,8 +19,9 @@ public class CommandObtenerSugerenciaParaEvento implements ICommand {
 			
 			// Consulto a la API cual es el clima para el evento que le estoy pasando, es decir: 
 			// cual es la temperatura promedio para ese dia,y se la asigno al evento. 
-		
+
 			evento.setTemperatura(api1.obtenerClima(codigoCiudad)); 
+			System.out.println("La temperatura para el evento es "+evento.getTemperatura());
 			
 			List<Guardarropa> guardarropas = evento.getUsuario().getGuardarropas(); 
 			
