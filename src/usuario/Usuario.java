@@ -76,6 +76,19 @@ public class Usuario {
 		}
 	}
 	
+	public void aceptarSugerencia(Sugerencia unaSugerencia) {
+		unaSugerencia.setEstado(EnumEstadoSugerencia.ACEPTADA);
 	
+	}
+	
+	public void rechazarSugerencia(Sugerencia unaSugerencia) {
+		unaSugerencia.setEstado(EnumEstadoSugerencia.RECHAZADA);
+	
+	}
+	
+	public void calificarPrenda(Prenda unaPrenda, int calificacion) {
+		unaPrenda.setCalificacion(calificacion);
+		
+	}
 	
 }

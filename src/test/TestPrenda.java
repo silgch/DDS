@@ -1,13 +1,13 @@
 package test;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
-import org.junit.Test;
-
 import componentes.*;
 import guardarropas.*;
 import usuario.*;
@@ -44,7 +44,7 @@ public class TestPrenda {
 	Guardarropa guardarropaInesUno;
 	Guardarropa guardarropaInesDos;
 	
-	@Before
+	@BeforeEach
 	public void init() throws Exception {
 		tiposDeMaterialRemera = new HashSet<Material>();
 		tiposDeMaterialPantalon = new HashSet<Material>();

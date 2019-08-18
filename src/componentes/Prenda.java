@@ -9,6 +9,7 @@ public class Prenda {
     private TipoDePrenda tipo;
     private Trama trama;
 	private String urlImagen;
+	private int calificacion=0;
     
     public Prenda() {}
 
@@ -83,6 +84,9 @@ public class Prenda {
 	public String getUrlImagen() {
 		return urlImagen;
 	}
+	public int getCalificacion() {
+		return calificacion;
+	}
 
     
     // Ver si vamos a usar los setter. 
@@ -106,6 +110,9 @@ public class Prenda {
 	}
 	public void setUrlImagen(String urlImagen) {
 		this.urlImagen = urlImagen;
+	}
+	public void setCalificacion(int unaCalificacion) {
+		this.calificacion=unaCalificacion;
 	}
 
 }
