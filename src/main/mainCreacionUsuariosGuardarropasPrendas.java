@@ -10,6 +10,7 @@ import componentes.Prenda;
 import componentes.PrendaNivel;
 import componentes.TipoDePrenda;
 import componentes.Trama;
+import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
 import usuario.UsuarioGratuito;
@@ -95,11 +96,27 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		    guardarropaInesUno.agregarAGuardarropas(unLenteNegro); 	
 		    
 		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getPrendasSuperioresNivel1().size() + " prendas superiores");
-		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getPrendasInferioresNivel2().size() + " prendas inferiores");
+		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getPrendasInferioresNivel3().size() + " prendas inferiores");
 		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getCalzadosNivel2().size() + " calzados");
 		    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getAccesorios().size() + " accesorio");
 			//guardarropaInesUno.sugerir();
 			//QueMePongo.sugerirTodasLasCombinaciones(guardarropaInesUno);
+		    
+		    
+		  //PROBANDO CALIFICAR SUGERENCIAS
+		    
+		    Sugerencia sugerencia1 = new Sugerencia();
+		    sugerencia1.setDescripcion("Sugerencia que me gusta mucho");
+		    sugerencia1.aceptarSugerencia();
+		    System.out.println("Acepto la Sugerencia y El estado de la sugerencia es:" + sugerencia1.getEstado());
+		    System.out.println("La calificacion de la sugerencia es:" + sugerencia1.getCalificacion());
+		    sugerencia1.setCalificacion(10);
+		    System.out.println("Califico con 10 y La calificacion de la sugerencia es:" + sugerencia1.getCalificacion());
+		    sugerencia1.RechazarSugerencia();
+		    System.out.println("Rechazo sugerencia y El estado de la sugerencia es:" + sugerencia1.getEstado());
+		    
+		    System.out.println("Ines No deberia de poder calificar una sugerencia Rechazada");
+		    ines.calificarSugerencia(sugerencia1, 1);
 			
 	}
 	

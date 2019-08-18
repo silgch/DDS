@@ -7,8 +7,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import componentes.Prenda;
 import eventos.CommandObtenerSugerenciaParaEvento;
+import eventos.EnumEstadoSugerencia;
 import eventos.Evento;
+import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 
 public class Usuario {
@@ -60,4 +63,19 @@ public class Usuario {
 	public String getNombre() {
 		return nombreDeUsuario;
 	}
+	
+	public void calificarSugerencia(Sugerencia unaSugerencia, int unaCalificacion) throws Exception {
+		// los usuarios tendrán la posibilidad de, una vez aceptada una sugerencia, calificarla. 
+		
+		if( unaSugerencia.getEstado()== EnumEstadoSugerencia.ACEPTADA) {
+		
+			unaSugerencia.setCalificacion(unaCalificacion);
+		}
+		else {
+			throw new Exception("Ingrese una sugerencia ACEPTADA");
+		}
+	}
+	
+	
+	
 }
