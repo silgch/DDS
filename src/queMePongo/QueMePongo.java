@@ -34,6 +34,10 @@ public class QueMePongo {
   Si hace mas de 25º sugerir dará alguna prenda superior nivel1, si existiera.
   Si hace mas de 20º segerir dará una prendaSuperior nivel1 y una de nivel2 y así...
   Suponer que prendas inferioresNivel2 son calzas
+  
+  update: a este valor se le suma (o resta) la percepcion de la persona 
+  osea que si hace 20º y el usuario es muy friolento en el pecho (usuario.percepcionPecho = 10)
+  entonces el programa tomara como "si hace" 10º
  */
     public List<String> sugerir(Guardarropa unGuardarropa) throws NoConexionApiException{
     	
