@@ -20,6 +20,8 @@ import aw.entidades.RetornoAW;
 public class AccuWeather implements ClimaAdapter {
 	
 	//obtener Location Key = https://www.youtube.com/watch?v=DR3jZczgZCs
+	//pruebas directas =  https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/daily/5day/%7BlocationKey%7D
+	//a considerar: la temperatura viene en F, despues hay que restarle 32 a la hora de implementar obtenerClima()
 	
 	public RetornoAW temperaturaProximosCincoDias(String unCodigoCiudad){
 		String codigoUsuario = Key.getKeyAccuWeather(); //Agregar clase con codigo personal y poner la clase key  archivo el 
