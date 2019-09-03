@@ -1,10 +1,5 @@
 package eventos;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import componentes.Prenda;
-
 public class Sugerencia {
 // Una sugerencia es un atuendo (lista de prendas) válido que puede tener distintos estados.
 // Se puede aceptar, rechazar,sugerir(lo hace con el command qmp) etc
@@ -20,8 +15,6 @@ public class Sugerencia {
 	
     private EnumEstadoSugerencia estado; //SUGERIDA, ACEPTADA O RECHAZADA
     
-
-
 //		public List<Prenda> getSugerencia() {
 //			return sugerencia;
 //		}

@@ -1,9 +1,9 @@
 package usuario;
 
 public class PercepcionDeTemperatura {
-	int percepcionCabeza = 0;
-	int percepcionTorso = 0;
-	int percepcionPiernas = 0;
+	public int percepcionCabeza = 0;
+	public int percepcionTorso = 0;
+	public int percepcionPiernas = 0;
 	
 	public void modificarPercepcionCabeza(int modificacion) {
 		percepcionCabeza += modificacion;

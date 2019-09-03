@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import componentes.Prenda;
 import eventos.CommandObtenerSugerenciaParaEvento;
 import eventos.EnumEstadoSugerencia;
 import eventos.Evento;
@@ -34,6 +33,10 @@ public class Usuario {
 	}
 	public String getNombre() {
 		return nombreDeUsuario;
+	}
+	
+	public PercepcionDeTemperatura getPercepcion() {
+		return percepcion;
 	}
 	
 	// Setters

@@ -77,7 +77,7 @@ public class Guardarropa {
 	
 	public List<String> sugerir(){
 		try {
-			return QueMePongo.getInstance().sugerir(this);
+			return QueMePongo.getInstance().sugerir(this,miDuenio);
 		}
 		catch(NoConexionApiException ae) {
 			System.out.println("Hubo un problema con la conexion a la api:"+ae);

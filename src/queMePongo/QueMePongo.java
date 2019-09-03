@@ -15,6 +15,7 @@ import API.OpenWeather;
 import Excepciones.NoConexionApiException;
 import componentes.Prenda;
 import guardarropas.Guardarropa;
+import usuario.Usuario;
 
 
 public class QueMePongo {
@@ -39,29 +40,32 @@ public class QueMePongo {
   osea que si hace 20º y el usuario es muy friolento en el pecho (usuario.percepcionPecho = 10)
   entonces el programa tomara como "si hace" 10º
  */
-    public List<String> sugerir(Guardarropa unGuardarropa) throws NoConexionApiException{
+    public List<String> sugerir(Guardarropa unGuardarropa,Usuario unUsuario) throws NoConexionApiException{
     	
     	String codigoCiudad = "3433955";
-    	Double temp = api1.obtenerClima(codigoCiudad);
+    	Double tempReal = api1.obtenerClima(codigoCiudad);
+    	Double tempCabeza = tempReal + unUsuario.getPercepcion().percepcionCabeza;
+    	Double tempTorso = tempReal + unUsuario.getPercepcion().percepcionTorso;
+    	Double tempPiernas = tempReal + unUsuario.getPercepcion().percepcionPiernas;
     	
 	    	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
 	    	
-			if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && temp<25) {
+			if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && tempTorso<25) {
 				sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel1()));
 			}
-			if(!unGuardarropa.getPrendasSuperioresNivel2().isEmpty() && temp<=20) {
+			if(!unGuardarropa.getPrendasSuperioresNivel2().isEmpty() && tempTorso<=20) {
 				sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel2()));
 			}
-			if(!unGuardarropa.getPrendasSuperioresNivel3().isEmpty() && temp<=15) {
+			if(!unGuardarropa.getPrendasSuperioresNivel3().isEmpty() && tempTorso<=15) {
 				sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel3()));
 			}
-			if(!unGuardarropa.getPrendasSuperioresNivel4().isEmpty() && temp<=10) {
+			if(!unGuardarropa.getPrendasSuperioresNivel4().isEmpty() && tempTorso<=10) {
 				sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel4()));
 			}
 			if(!unGuardarropa.getPrendasInferioresNivel1().isEmpty()) {
 				sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel1()));
 			}
-			if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty() && temp<=10) {
+			if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty() && tempPiernas<=10) {
 				sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel2()));
 			}
 			if(!unGuardarropa.getPrendasInferioresNivel3().isEmpty()) {
