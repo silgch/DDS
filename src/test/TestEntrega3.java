@@ -10,11 +10,10 @@ import org.junit.jupiter.api.Test;
 import eventos.EnumEstadoSugerencia;
 import eventos.Sugerencia;
 import usuario.Usuario;
-import usuario.UsuarioGratuito;
 
 class TestEntrega3 {
 	Sugerencia sugerencia1;
-	Usuario ines = new UsuarioGratuito();
+	Usuario ines = new Usuario();
 	
 	@BeforeEach
 	public void init() {

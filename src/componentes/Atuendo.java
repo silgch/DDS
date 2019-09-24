@@ -30,7 +30,7 @@ public class Atuendo {
 			case PARTE_INFERIOR:
 				this.setParteInferior(prenda);
 				break;
-			case ACCESORIOS:
+			case ACCESORIO_CABEZA:
 				this.setAccesorio(prenda);
 				break;
 		}

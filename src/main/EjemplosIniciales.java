@@ -33,10 +33,7 @@ public class EjemplosIniciales {
 		TipoDePrenda lentes;
 		Color colorBlanco;
 		Color colorRojo;
-		Color colorVerde;
 		Color colorNegro;
-		Color colorAzulTrafico;
-		Color colorFucsia;
 		Prenda unaRemeraBlancaLisa;
 		Prenda unaRemeraRoja;
 		Prenda unaRemeraNegra;
@@ -67,17 +64,15 @@ public class EjemplosIniciales {
 		
 		
 		colorBlanco=new Color(255,255,0);
-		colorVerde=new Color(0,255,0);
 		colorNegro=new Color(10,10,10);
 		colorRojo=new Color (255,0,0);
-		colorAzulTrafico=new Color(006,057,113);
 		
 		
 		remera = new  TipoDePrenda("Remera",Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera,PrendaNivel.Nivel1);
 		zapato= new TipoDePrenda("Zapato", Categoria.CALZADO, tiposDeMaterialZapato,PrendaNivel.Nivel2);
 		zapatilla = new TipoDePrenda("Zapatilla", Categoria.CALZADO, tiposDeMaterialZapatilla,PrendaNivel.Nivel2);
 		pantalon = new TipoDePrenda("Pantalon",Categoria.PARTE_INFERIOR, tiposDeMaterialPantalon,PrendaNivel.Nivel2);
-		lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIOS, tiposDeMaterialLentes,PrendaNivel.Nivel1);
+		lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIO_CABEZA, tiposDeMaterialLentes,PrendaNivel.Nivel1);
 		
 		unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, Material.ALGODON, colorBlanco, Trama.LISA );
 		unaRemeraRoja= new Prenda("Remera Roja a lunares", remera, Material.SEDA, colorRojo, Trama.LUNARES);

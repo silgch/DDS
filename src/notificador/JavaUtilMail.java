@@ -12,8 +12,14 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import usuario.Usuario;
+
 public class JavaUtilMail implements INotificador{
-	public void enviarMail(String receptor) throws AddressException, MessagingException {
+	
+	Usuario notificado= null;
+	String mail = notificado.getMail();
+	
+	public void enviarMail() throws AddressException, MessagingException {
 		
 		System.out.println("Preparando todo para envio de email");
 		
@@ -34,7 +40,7 @@ public class JavaUtilMail implements INotificador{
 			}
 		});
 		
-		Message mensaje = prepareMessage(sesion,account,receptor);
+		Message mensaje = prepareMessage(sesion,account,mail);
 		
 		Transport.send(mensaje);
 		System.out.println("Mail enviado satisfactoriamente");
@@ -57,4 +63,6 @@ public class JavaUtilMail implements INotificador{
 		
 		return null;
 	}
+
+
 }

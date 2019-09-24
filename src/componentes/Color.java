@@ -2,7 +2,7 @@ package componentes;
 
 public class Color {
 	// EL usuario aportara una una terna RGB
-	private int rojo, amarillo, azul;
+	public int rojo, amarillo, azul;
 	
 	//Constructor.
 	public Color (int ro, int am, int az) {
@@ -16,9 +16,9 @@ public class Color {
 		
    		boolean check=false;
 		try {
-        check= (this.rojo==otroColor.getRojo()&&
-			this.azul==otroColor.getAzul()&&
-			this.amarillo==otroColor.getAmarillo());;
+        check= (rojo==otroColor.getRojo()&&
+        		azul==otroColor.getAzul()&&
+        		amarillo==otroColor.getAmarillo());;
         if(check) {
         	throw new IllegalArgumentException("Los colores deben ser distintos");
         }
@@ -30,28 +30,24 @@ public class Color {
 	}
 
 	
-	//Getters & Setters
+	//Getters
 	public int getRojo() {
 		return rojo;
 	}
-
-	public void setRojo(int rojo) {
-		this.rojo = rojo;
-	}
-
 	public int getAmarillo() {
 		return amarillo;
 	}
-
-	public void setAmarillo(int amarillo) {
-		this.amarillo = amarillo;
-	}
-
 	public int getAzul() {
 		return azul;
 	}
-
+	/* Setters
+	public void setRojo(int rojo) {
+		this.rojo = rojo;
+	}
+	public void setAmarillo(int amarillo) {
+		this.amarillo = amarillo;
+	}
 	public void setAzul(int azul) {
 		this.azul = azul;
-	}
+	}*/
 }

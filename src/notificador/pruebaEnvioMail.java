@@ -8,7 +8,7 @@ public class pruebaEnvioMail {
 	public static void main(String[] args) throws AddressException, MessagingException {
 		// TODO Auto-generated method stub
 
-		JavaUtilMail.enviarMail("acaponerelmailreceptoraenviarelmensaje@sarasamail.com");
+		//JavaUtilMail.enviarMailA("acaponerelmailreceptoraenviarelmensaje@sarasamail.com");
 		
 	}
 

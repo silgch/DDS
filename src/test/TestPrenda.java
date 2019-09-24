@@ -76,7 +76,7 @@ public class TestPrenda {
 		zapato= new TipoDePrenda("Zapato", Categoria.CALZADO, tiposDeMaterialZapato,PrendaNivel.Nivel2);
 		zapatilla = new TipoDePrenda("Zapatilla", Categoria.CALZADO, tiposDeMaterialZapatilla,PrendaNivel.Nivel2);
 		pantalon = new TipoDePrenda("Pantalon",Categoria.PARTE_INFERIOR, tiposDeMaterialPantalon,PrendaNivel.Nivel2);
-		lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIOS, tiposDeMaterialLentes,PrendaNivel.Nivel1);
+		lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIO_CABEZA, tiposDeMaterialLentes,PrendaNivel.Nivel1);
 		
 		unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, Material.ALGODON, colorBlanco, Trama.LISA );
 		unaRemeraRoja= new Prenda("Remera Roja a lunares", remera, Material.SEDA, colorRojo, Trama.LUNARES);
@@ -112,7 +112,7 @@ public class TestPrenda {
 		assertEquals( unPantalonNegro.getCategoria(),Categoria.PARTE_INFERIOR);
 		assertEquals( unZapatoNegro.getCategoria(),Categoria.CALZADO);
 		assertEquals( unaZapatillaLonaBlanca.getCategoria(),Categoria.CALZADO);
-		assertEquals( unLenteNegro.getCategoria(),Categoria.ACCESORIOS);
+		assertEquals( unLenteNegro.getCategoria(),Categoria.ACCESORIO_CABEZA);
 	}
 	
 	@Test
