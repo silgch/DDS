@@ -1,4 +1,4 @@
-package API;
+package climaAPI;
 
 public class Key {
 	

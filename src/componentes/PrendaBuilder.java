@@ -1,6 +1,6 @@
 package componentes;
 
-public class PrendaBuilder implements IPrendaBuilder {
+public class PrendaBuilder {
 	
 	private Prenda unaPrenda;
 	

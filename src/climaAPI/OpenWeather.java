@@ -1,4 +1,4 @@
-package API;
+package climaAPI;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

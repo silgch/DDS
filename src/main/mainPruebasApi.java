@@ -1,6 +1,6 @@
 package main;
 
-import API.OpenWeather;
+import climaAPI.OpenWeather;
 import Excepciones.NoConexionApiException;
 
 public class mainPruebasApi {

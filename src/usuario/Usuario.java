@@ -16,6 +16,7 @@ import guardarropas.Guardarropa;
 public class Usuario {
 	
 	private String nombreDeUsuario;
+	private String mail;
 	private List<Guardarropa> guardarropas = new ArrayList<>();
 	private List<Evento> eventos = new ArrayList<Evento>();
 	
@@ -39,6 +40,8 @@ public class Usuario {
 		return percepcion;
 	}
 	
+	public String getMail() {return mail;}
+	
 	// Setters
 	public void setNombre(String nombre) {
 		this.nombreDeUsuario =nombre;
@@ -47,6 +50,7 @@ public class Usuario {
 	public void setTipoDeCuenta(Cuenta tipoDeCuenta) {
 		this.tipoDeCuenta = tipoDeCuenta;
 	}
+	public void setMail(String m) {this.mail = m;}
 	
 	
 	// Métodos con guardarropas

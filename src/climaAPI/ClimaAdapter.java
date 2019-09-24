@@ -1,4 +1,4 @@
-package API;
+package climaAPI;
 
 import Excepciones.NoConexionApiException;
 

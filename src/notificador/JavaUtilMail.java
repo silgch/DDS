@@ -1,4 +1,4 @@
-package Email;
+package notificador;
 
 import java.util.Properties;
 
@@ -12,8 +12,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class JavaUtilMail {
-	public static void enviarMail(String receptor) throws AddressException, MessagingException {
+public class JavaUtilMail implements INotificador{
+	public void enviarMail(String receptor) throws AddressException, MessagingException {
 		
 		System.out.println("Preparando todo para envio de email");
 		
@@ -40,7 +40,7 @@ public class JavaUtilMail {
 		System.out.println("Mail enviado satisfactoriamente");
 	}
 	
-	private static Message prepareMessage(Session sesion, String account, String receptor) throws AddressException, MessagingException {
+	public Message prepareMessage(Session sesion, String account, String receptor) throws AddressException, MessagingException {
 		try {
 			Message mensaje = new MimeMessage(sesion);
 			mensaje.setFrom(new InternetAddress(account));

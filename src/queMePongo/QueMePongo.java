@@ -11,7 +11,8 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-import API.OpenWeather;
+import climaAPI.AccuWeather;
+import climaAPI.ClimaAdapter;
 import Excepciones.NoConexionApiException;
 import componentes.Prenda;
 import guardarropas.Guardarropa;
@@ -20,8 +21,10 @@ import usuario.Usuario;
 
 public class QueMePongo {
 	
+	private ClimaAdapter api1 = new AccuWeather();
+	
 	private static QueMePongo instance = null;
-	private OpenWeather api1 = new OpenWeather();
+	//private ClimaAdapter api1 = new ClimaAdapter();
 	private QueMePongo() {}
 
 	public static QueMePongo getInstance() {

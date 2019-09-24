@@ -3,7 +3,7 @@ package eventos;
 import java.io.IOException;
 import java.util.List;
 
-import API.OpenWeather;
+import climaAPI.OpenWeather;
 import Excepciones.NoConexionApiException;
 import guardarropas.Guardarropa;
 

@@ -1,4 +1,4 @@
-package Email;
+package notificador;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
