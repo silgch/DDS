@@ -1,17 +1,20 @@
+/* ATUENDO PRÓXIMO A ELIMINARSE
 package componentes;
+
 
 public class Atuendo {
 	
+	private Prenda accesorioCabeza=null;	
 	private Prenda parteSuperior=null;
 	private Prenda parteInferior=null;
 	private Prenda calzado=null;
-	private Prenda accesorio=null;
+	
 	
 	public Atuendo(Prenda parteSuperior,Prenda parteInferior,Prenda calzado,Prenda accesorio) {
 		this.parteSuperior = parteSuperior;
 		this.parteInferior = parteInferior;
 		this.calzado=calzado;
-		this.accesorio=accesorio;
+		this.accesorioCabeza=accesorio;
 	}
 	
 	public Atuendo() {}
@@ -68,11 +71,11 @@ public class Atuendo {
 	}
 
 	public Prenda getAccesorio() {
-		return accesorio;
+		return accesorioCabeza;
 	}
 
-	public void setAccesorio(Prenda accesorio) {
-		this.accesorio = accesorio;
+	public void setAccesorio(Prenda accesorioCabeza) {
+		this.accesorioCabeza = accesorioCabeza;
 	}
 
-}
+} */

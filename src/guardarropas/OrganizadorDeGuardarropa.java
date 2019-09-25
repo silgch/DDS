@@ -20,7 +20,7 @@ public class OrganizadorDeGuardarropa {
 	        case CALZADO:
 	        	this.agregarCalzado(prenda);
 	            break;
-	        case ACCESORIO_CABEZA:
+	        case ACCESORIO:
 	        	this.agregarAccesorio(prenda);
 	        	break;
 	        default:

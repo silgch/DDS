@@ -105,14 +105,15 @@ public class Prenda {
 	public void setTrama(Trama trama) {
 		this.trama = trama;
 	}
-	public void setNivel(PrendaNivel nivel) {
-		this.tipo.setNivel(nivel);
-	}
 	public void setUrlImagen(String urlImagen) {
 		this.urlImagen = urlImagen;
 	}
 	public void setCalificacion(int unaCalificacion) {
 		this.calificacion=unaCalificacion;
 	}
+	/*
+	public void setNivel(PrendaNivel nivel) {
+		this.tipo.setNivel(nivel);
+	}*/
 
 }

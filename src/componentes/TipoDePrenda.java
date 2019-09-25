@@ -2,14 +2,14 @@ package componentes;
 import java.util.Set;
 
 /* 
- El programa vendrá con algunos Tipos ya hechos (Zapatos,Zapatillas,Botas,Camisa
- Campera,Pantalon, Lentes, Reloj)
- en todos se especificara Categoria y nivel y verifica si está bien el tipo 
- de material elegido por el usuario.
- Sin embarlo le dejaremos al usuario la posibilidad de 
- hacer su propio tipo de material, eligiendo él el nivel y material. 
- Entonces el usuario podría crear un TipoDePrenda calzoncillos nivel 2 de latex y usuarlo
- arriba de la ropa 🤦‍♂️ ...somos concientes de eso. 
+	 El programa vendrá con algunos TiposDePrenda ya hechos (Zapatos,Zapatillas,Botas,Camisa
+	 Campera,Pantalon, Lentes, Reloj)
+	 en todos se especificara Categoria y nivel y verifica si está bien el tipo 
+	 de material elegido por el usuario.
+	 Sin embarlo le dejaremos al usuario la posibilidad de 
+	 hacer su propio tipo de material, eligiendo él el nivel y material. 
+	 Entonces el usuario podría crear un TipoDePrenda calzoncillos nivel 2 de latex y usuarlo
+	 arriba de la ropa 🤦‍♂️ ...somos concientes de eso. 
 */
 
 
@@ -24,7 +24,7 @@ public class TipoDePrenda {
 	public TipoDePrenda(String nombre, Categoria categoria, Set<Material> tiposDeMaterialesPermitidos, PrendaNivel nivel) {
 		this.nombre = nombre;
 		this.categoria = categoria;
-		this.setTiposDeMaterialesPermitidos(tiposDeMaterialesPermitidos);
+		this.tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos;
 		this.nivel = nivel;
 	}
 	
@@ -44,18 +44,6 @@ public class TipoDePrenda {
 		return tiposDeMaterialesPermitidos;
 	}
 	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	public void setNivel(PrendaNivel nivel) {
-		this.nivel = nivel;
-	}
-	
-	public void setTiposDeMaterialesPermitidos(Set<Material> tiposDeMaterialesPermitidos) {
-		this.tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos;
-	}
-	
 	public void agregarMaterialPermitido(Material unMaterial) {
 		/* Agrega un material a los ya existentes*/
 		tiposDeMaterialesPermitidos.add(unMaterial);
@@ -68,9 +56,23 @@ public class TipoDePrenda {
 		}
 	}
 	
+	
+	
+	/*
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	public void setNivel(PrendaNivel nivel) {
+		this.nivel = nivel;
+	}
+	
+	public void setTiposDeMaterialesPermitidos(Set<Material> tiposDeMaterialesPermitidos) {
+		this.tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos;
+	}*/
+	
 }
 	
-
 	/*
     ZAPATOS(Categoria.CALZADO){
     	@Override

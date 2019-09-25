@@ -1,7 +1,7 @@
 package main;
 
 import java.time.LocalDate;
-import java.time.format.*;  // Este paquete contiene DateTimeFormatter
+//import java.time.format.*;  // Este paquete contiene DateTimeFormatter
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,7 +75,7 @@ public class mainEventos {
 		zapato= new TipoDePrenda("Zapato", Categoria.CALZADO, tiposDeMaterialZapato,PrendaNivel.Nivel2);
 		zapatilla = new TipoDePrenda("Zapatilla", Categoria.CALZADO, tiposDeMaterialZapatilla,PrendaNivel.Nivel2);
 		pantalon = new TipoDePrenda("Pantalon",Categoria.PARTE_INFERIOR, tiposDeMaterialPantalon,PrendaNivel.Nivel2);
-		lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIO_CABEZA, tiposDeMaterialLentes,PrendaNivel.Nivel1);
+		lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIO, tiposDeMaterialLentes,PrendaNivel.Nivel1);
 		
 		unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, Material.ALGODON, colorBlanco, Trama.LISA );
 		unaRemeraRoja= new Prenda("Remera Roja a lunares", remera, Material.SEDA, colorRojo, Trama.LUNARES);

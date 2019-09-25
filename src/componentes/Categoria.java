@@ -2,8 +2,7 @@ package componentes;
 
 public enum Categoria {
 	
-	ACCESORIO_CABEZA,
-	ACCESORIO_LLUVIA,
+	ACCESORIO,
 	PARTE_SUPERIOR,
 	PARTE_INFERIOR,
 	CALZADO;

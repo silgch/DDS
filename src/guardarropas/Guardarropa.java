@@ -3,7 +3,7 @@ package guardarropas;
 import java.util.ArrayList;
 import java.util.List;
 
-import Excepciones.NoConexionApiException;
+//import Excepciones.NoConexionApiException;
 import componentes.Prenda;
 import queMePongo.QueMePongo;
 import usuario.Usuario;
@@ -78,11 +78,11 @@ public class Guardarropa {
 	public List<String> sugerir(){
 		try {
 			return QueMePongo.getInstance().sugerir(this,miDuenio);
-		}
+		}/*
 		catch(NoConexionApiException ae) {
 			System.out.println("Hubo un problema con la conexion a la api:"+ae);
 			return null;
-		}
+		}*/
 		catch(Exception e) {
 			System.out.println("Hubo un problema en: "+e);
 			return null;
@@ -93,11 +93,11 @@ public class Guardarropa {
 	public List<String> sugerirTodasLasCombinaciones(){
 		try {
 			return QueMePongo.getInstance().sugerirTodasLasCombinaciones(this);
-		}
+		}/*
 		catch(NoConexionApiException ae) {
 			System.out.println("Hubo un problema con la conexion a la api:"+ae);
 			return null;
-		}
+		}*/
 		catch(Exception e) {
 			System.out.println("Hubo un problema en: "+e);
 			return null;
@@ -109,11 +109,11 @@ public class Guardarropa {
 		try {
 		
 			return QueMePongo.getInstance().sugerirSegunTemperatura(this, temperatura);
-		}
+		}/*
 		catch(NoConexionApiException ae) {
 			System.out.println("Hubo un problema con la conexion a la api:"+ae);
 			return null;
-		}
+		}*/
 		catch(Exception e) {
 			System.out.println("Hubo un problema en: "+e);
 			return null;
@@ -124,11 +124,11 @@ public class Guardarropa {
 	public List<String> sugerirUnaCantidadDeCombinaciones(int unaCantidad){
 		try {
 			return QueMePongo.getInstance().sugerirUnaCantidadDeVeces(this, unaCantidad);
-		}
+		}/*
 		catch(NoConexionApiException ae) {
 			System.out.println("Hubo un problema con la conexion a la api:"+ae);
 			return null;
-		}
+		}*/
 		catch(Exception e) {
 			System.out.println("Hubo un problema en: "+e);
 			return null;
