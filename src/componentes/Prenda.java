@@ -1,7 +1,7 @@
 package componentes;
 
 public class Prenda {
-
+	
 	private String nombre;
     private Color colorPrincipal;
     private Color colorSecundario;
@@ -28,7 +28,7 @@ public class Prenda {
     }
     
     private void asignarValoresAPrenda(String nombre, TipoDePrenda tipo, Material material, Color colorPrincipal, Trama trama) {
-       	this.nombre=nombre;
+       	this.nombre = nombre;
 		this.tipo = tipo;
         this.material = material;
         this.colorPrincipal = colorPrincipal;

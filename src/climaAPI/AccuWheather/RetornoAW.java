@@ -1,4 +1,4 @@
-package aw.entidades;
+package climaAPI.AccuWheather;
 
 import java.util.ArrayList;
 

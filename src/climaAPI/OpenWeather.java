@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
-import Excepciones.NoConexionApiException;
+import excepciones.NoConexionApiException;
 import ow.entidades.ClimaCiudad;
 import ow.entidades.OWError;
 import ow.entidades.RetornoOW;
@@ -22,9 +22,10 @@ public class OpenWeather implements ClimaAdapter{
 		String codigoUsuario = Key.getKey(); //Agregar clase con codigo personal y poner la clase key  archivo el 
 		
 		String url = "http://api.openweathermap.org/data/2.5/forecast?id="+codigoCiudad+"&APPID="+codigoUsuario;
-
+		
+		
         System.out.println("Inicio: Inicia GetClima");
-        System.out.println("url: " + url);
+        System.out.println("Conectado a: " + url);
         
         RetornoOW retorno = new RetornoOW();
         ClimaCiudad cc = new ClimaCiudad();
@@ -54,9 +55,9 @@ public class OpenWeather implements ClimaAdapter{
         	int responseCode = con.getResponseCode();
             codigoError = "" + con.getResponseCode();
             mensajeError = con.getResponseMessage();
-            System.out.println("responseCode: " + responseCode);
-            System.out.println("codigoError: " + codigoError);
-            System.out.println("mensajeError: " + mensajeError);
+            //System.out.println("responseCode: " + responseCode);
+            //System.out.println("codigoError: " + codigoError);
+            //System.out.println("mensajeError: " + mensajeError);
         	
             switch(responseCode) {
             
@@ -83,9 +84,9 @@ public class OpenWeather implements ClimaAdapter{
 			cc = gson.fromJson(sb.toString(), ClimaCiudad.class);
 			
 			retorno.getClimaCiudad().add(cc);
-			
+						
 			reader.close();
-	
+			System.out.println("\nLa temperatura en "+ cc.getCity().getName()+" es =" );
 			break;
             
 	
@@ -182,7 +183,6 @@ public class OpenWeather implements ClimaAdapter{
 
 //pegarlo en 
 //https://jsonformatter.curiousconcept.com/
-
 
 // caso fallo
 //http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=6180a6bce25438c5c7c4d4cda2f16c87

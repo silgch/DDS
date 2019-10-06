@@ -7,6 +7,7 @@ public class RetornoOW {
 	ArrayList<ClimaCiudad> climaCiudad = new ArrayList<ClimaCiudad>();
 	ArrayList<OWError> errores = new ArrayList<OWError>();
 	
+	
 	public ArrayList<ClimaCiudad> getClimaCiudad() {
 		return climaCiudad;
 	}
@@ -19,6 +20,5 @@ public class RetornoOW {
 	public void setErrores(ArrayList<OWError> errores) {
 		this.errores = errores;
 	}
-	
 
 }

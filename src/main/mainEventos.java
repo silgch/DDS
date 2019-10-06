@@ -1,3 +1,11 @@
+/*
+	Se crean 7 prendas (con sus tipos, colores, materiales, etc)
+	Se crea un usuario gratuito con 2 guardarropas
+	Se le agregan distintas prendas a los guardarropas
+	Se crea un evento ahora mismo y el programa muestra una sugerencia
+	Actualmente la sugerencia no devuelve ninguna combinacion de prendas
+*/
+
 package main;
 
 import java.time.LocalDate;
@@ -47,7 +55,7 @@ public class mainEventos {
 		Prenda unLenteNegro;
 		Guardarropa guardarropaInesUno;
 		Guardarropa guardarropaInesDos;
-		
+		//
 		tiposDeMaterialRemera = new HashSet<Material>();
 		tiposDeMaterialPantalon = new HashSet<Material>();
 		tiposDeMaterialZapato= new HashSet<Material>();

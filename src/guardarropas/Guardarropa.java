@@ -3,7 +3,6 @@ package guardarropas;
 import java.util.ArrayList;
 import java.util.List;
 
-//import Excepciones.NoConexionApiException;
 import componentes.Prenda;
 import queMePongo.QueMePongo;
 import usuario.Usuario;

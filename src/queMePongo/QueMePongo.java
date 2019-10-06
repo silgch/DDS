@@ -13,8 +13,8 @@ import com.google.common.collect.Sets;
 
 import climaAPI.AccuWeather;
 import climaAPI.ClimaAdapter;
-import Excepciones.NoConexionApiException;
 import componentes.Prenda;
+import excepciones.NoConexionApiException;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
 

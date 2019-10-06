@@ -1,6 +1,6 @@
 package climaAPI;
 
-import Excepciones.NoConexionApiException;
+import excepciones.NoConexionApiException;
 
 public interface ClimaAdapter {
 	double pasajeDeKelvin =273.15;

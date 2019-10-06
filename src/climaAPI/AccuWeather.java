@@ -7,10 +7,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import com.google.gson.Gson;
 
-import Excepciones.NoConexionApiException;
-import aw.entidades.AWError;
-import aw.entidades.ClimaCiudad;
-import aw.entidades.RetornoAW;
+import climaAPI.AccuWheather.AWError;
+import climaAPI.AccuWheather.ClimaCiudad;
+import climaAPI.AccuWheather.RetornoAW;
+import excepciones.NoConexionApiException;
 
 
 

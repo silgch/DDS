@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import eventos.EnumEstadoSugerencia;
 import eventos.Sugerencia;
@@ -15,7 +15,7 @@ class TestEntrega3 {
 	Sugerencia sugerencia1;
 	Usuario ines = new Usuario();
 	
-	@BeforeEach
+	@Before
 	public void init() {
 		
 		sugerencia1 = new Sugerencia();

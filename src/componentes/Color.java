@@ -12,24 +12,6 @@ public class Color {
 	}
 	//Metodos
 	
-	public boolean esIgualA(Color otroColor) {
-		
-   		boolean check=false;
-		try {
-        check= (rojo==otroColor.getRojo()&&
-        		azul==otroColor.getAzul()&&
-        		amarillo==otroColor.getAmarillo());;
-        if(check) {
-        	throw new IllegalArgumentException("Los colores deben ser distintos");
-        }
-		}
-		catch(IllegalArgumentException e) {
-			System.out.println(e);
-		}
-		return check;
-	}
-
-	
 	//Getters
 	public int getRojo() {
 		return rojo;

@@ -1,3 +1,7 @@
+/*
+ 	Este main sirve para analizar como funciona Guava
+*/
+
 package main;
 
 import java.util.ArrayList;
@@ -7,8 +11,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
-
-//Este main sirve para analizar como funciona Guava
 
 public class mainImplementacionGuava {
 	public static void main(String[] args) {

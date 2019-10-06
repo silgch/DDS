@@ -1,4 +1,4 @@
-package aw.entidades;
+package climaAPI.AccuWheather;
 
 public class PuntoTemperatura {
 	private int Value;

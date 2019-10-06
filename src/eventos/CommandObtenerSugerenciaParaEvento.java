@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import climaAPI.OpenWeather;
-import Excepciones.NoConexionApiException;
+import excepciones.NoConexionApiException;
 import guardarropas.Guardarropa;
 
 public class CommandObtenerSugerenciaParaEvento implements ICommand {
