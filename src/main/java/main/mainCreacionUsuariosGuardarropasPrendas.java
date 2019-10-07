@@ -46,7 +46,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		Set <Material> tiposDeMaterialPantalon;
 		Set <Material> tiposDeMaterialLentes;
 		 
-		Usuario ines = new Usuario();
+		Usuario ines = new Usuario("Ines");
 		TipoDePrenda zapato;
 		TipoDePrenda remera;
 		TipoDePrenda pantalon;
@@ -106,6 +106,9 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		repositorio.prenda().persistir(unaZapatillaLonaBlanca);
 		repositorio.prenda().persistir(unLenteNegro);
 		
+		repositorio.cerrar();
+		emFactory.close();
+		
 		guardarropaInesUno = new Guardarropa();
 	    guardarropaInesUno.duenio(ines);
 	    
@@ -126,6 +129,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    
 	    //PROBANDO CALIFICAR SUGERENCIAS
 	    
+	      
 	    Sugerencia sugerencia1 = new Sugerencia();
 	    sugerencia1.setDescripcion("Sugerencia que me gusta mucho");
 	    sugerencia1.aceptarSugerencia();
@@ -139,9 +143,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    System.out.println("Ines No deberia de poder calificar una sugerencia Rechazada");
 	    ines.calificarSugerencia(sugerencia1, 1);
 	    
-	    repositorio.cerrar();
-		emFactory.close();
-			
+	 			
 	}
 	
 }

@@ -4,6 +4,9 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /* 
@@ -18,16 +21,20 @@ import javax.persistence.Entity;
 */
 
 @Entity
-public class TipoDePrenda extends Entidad{
+@Table(name = "TIPO_DE_PRENDA")
+public class TipoDePrenda{
 	
-	private static final long serialVersionUID = 1L;
-	
-	@Column(name = "color")
+		
+	@Id
 	private String nombre;
+	@Transient
 	private Categoria categoria;
-	@ElementCollection()
+	//@ElementCollection()
+	@Transient
     private Set<Material> tiposDeMaterialesPermitidos;
-	private PrendaNivel nivel; 
+	@Transient
+	private PrendaNivel nivel;
+	private String jpa_tiposDeMaterialesPermitidos; 
 	
 	public TipoDePrenda() {}
 	
@@ -36,6 +43,7 @@ public class TipoDePrenda extends Entidad{
 		this.categoria = categoria;
 		this.tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos;
 		this.nivel = nivel;
+		this.jpa_tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos.toString();
 	}
 	
 	public String getNombre() {
@@ -57,6 +65,7 @@ public class TipoDePrenda extends Entidad{
 	public void agregarMaterialPermitido(Material unMaterial) {
 		/* Agrega un material a los ya existentes*/
 		tiposDeMaterialesPermitidos.add(unMaterial);
+		
 	}
 	
 	public void puedeSerDeMaterial(Material unMaterial) {
@@ -66,6 +75,7 @@ public class TipoDePrenda extends Entidad{
 		}
 	}
 	
+
 	
 	
 	/*

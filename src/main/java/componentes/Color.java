@@ -2,10 +2,8 @@ package componentes;
 
 import java.util.Arrays;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
 
-@Entity 
+
 public class Color extends Entidad{
 	private static final long serialVersionUID = 1L;
 	// EL usuario aportara una una terna RGB
@@ -33,7 +31,6 @@ public class Color extends Entidad{
 		return azul;
 	}
 	
-	@Column(name = "ternaColores")
 	public String getternaColores() {
 		int[] colores = {rojo,amarillo,azul};
 		return  Arrays.toString(colores);

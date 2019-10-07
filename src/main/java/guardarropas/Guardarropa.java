@@ -51,7 +51,7 @@ public class Guardarropa {
     	if (miDuenio == null) {
     		throw new Exception("Primero debe asignar un usuario a este guardarropa.");
     	}
-    	if (miDuenio.tieneGuardarropaLleno(this)){
+    	if (miDuenio.tieneGuardarropaLleno(this.cantidadDePrendas())){
     		throw new Exception("El usuario no puede agregar mas ropa debido a su plan.");
     	}
     	miOrganizador.organizameEsta(prenda);

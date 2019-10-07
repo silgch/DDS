@@ -2,7 +2,10 @@ package componentes;
 
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "PRENDA")
@@ -19,7 +22,9 @@ public class Prenda extends Entidad {
     private Color colorSecundario;
 	@Transient
     private Material material;
-	@Transient
+	//@Transient
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "jpa_tipo", referencedColumnName = "nombre")
     private TipoDePrenda tipo;
 	@Transient
     private Trama trama;
@@ -27,8 +32,8 @@ public class Prenda extends Entidad {
 	private String urlImagen;
 	private int calificacion=0;
 	
-	private String jpa_colorPpal;
-	private String jpa_colorSec;	
+	private String jpa_color_ppal;
+	private String jpa_color_sec;	
 	private String jpa_material;
 	private String jpa_trama;
 	private String jpa_categoria;
@@ -39,28 +44,28 @@ public class Prenda extends Entidad {
     //Constructor: Se puede construir una prenda con o sin color secundario.
     public Prenda(String nombre, TipoDePrenda tipo, Material material, Color colorPrincipal, Trama trama) {
     	Validaciones.validarCreacionPrenda(nombre, tipo, material, colorPrincipal, trama);
-    	asignarValoresAPrenda(nombre, tipo, material, colorPrincipal, null, trama);    	
+    	asignarValoresAPrenda(nombre, tipo, material, colorPrincipal, trama);    	
 	}
 
     public Prenda(String nombre,TipoDePrenda tipo,  Material material, Color colorPrincipal, Color colorSecundario, Trama trama){
     	Validaciones.validarCreacionPrenda(nombre, tipo, material, colorPrincipal, colorSecundario, trama);
-		asignarValoresAPrenda(nombre, tipo, material, colorPrincipal,colorSecundario,trama);
+		asignarValoresAPrenda(nombre, tipo, material, colorPrincipal,trama);
+		this.colorSecundario = colorSecundario;
+		this.jpa_color_sec = colorSecundario.getternaColores();
         
     }
     
-    private void asignarValoresAPrenda(String nombre, TipoDePrenda tipo, Material material, Color cPpal, Color cSec, Trama trama) {
+    private void asignarValoresAPrenda(String nombre, TipoDePrenda tipo, Material material, Color cPpal, Trama trama) {
        	this.nombre = nombre;
 		this.tipo = tipo;
         this.material = material;
         this.colorPrincipal = cPpal;
         this.trama = trama;
-        this.colorSecundario = cSec;
         ///
         this.jpa_material = material.name();
-    	this.jpa_colorPpal = cPpal.getternaColores();
+    	this.jpa_color_ppal = cPpal.getternaColores();
     	this.jpa_categoria = tipo.getCategoria().name();
   		this.jpa_nivel = tipo.getNivel().name();
-    	this.jpa_colorSec = cSec.getternaColores();
     	this.jpa_trama = trama.name();
 	}
     
