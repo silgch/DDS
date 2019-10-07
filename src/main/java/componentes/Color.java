@@ -2,11 +2,7 @@ package componentes;
 
 import java.util.Arrays;
 
-
-
-public class Color extends Entidad{
-	private static final long serialVersionUID = 1L;
-	// EL usuario aportara una una terna RGB
+public class Color{
 	private int rojo, amarillo, azul;
 	
 	
@@ -16,7 +12,6 @@ public class Color extends Entidad{
 		this.amarillo=am;
 		this.azul=az;
 	}
-	public Color() {}
 	
 	//Metodos
 	

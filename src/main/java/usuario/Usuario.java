@@ -108,8 +108,8 @@ public class Usuario {
 	
 
 	public void calificarSugerencia(Sugerencia unaSugerencia, int unaCalificacion) throws Exception {
-		System.out.println("El usuario" + this.getNombre() + " ha calificado con " +
-				unaCalificacion+" la sugerencia "+unaSugerencia.getDescripcion());
+		System.out.println("El usuario " + this.getNombre() + " ha calificado con \"" +
+				unaCalificacion+"\" la sugerencia ("+unaSugerencia.getEstado()+"): "+unaSugerencia.getDescripcion());
 		if( unaSugerencia.getEstado() == EnumEstadoSugerencia.ACEPTADA) {
 			unaSugerencia.setCalificacion(unaCalificacion);
 		}else {

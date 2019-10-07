@@ -47,6 +47,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		Set <Material> tiposDeMaterialLentes;
 		 
 		Usuario ines = new Usuario("Ines");
+		
 		TipoDePrenda zapato;
 		TipoDePrenda remera;
 		TipoDePrenda pantalon;
@@ -131,19 +132,23 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    
 	      
 	    Sugerencia sugerencia1 = new Sugerencia();
-	    sugerencia1.setDescripcion("Sugerencia que me gusta mucho");
-	    sugerencia1.aceptarSugerencia();
-	    System.out.println("Acepto la Sugerencia y El estado de la sugerencia es:" + sugerencia1.getEstado());
-	    System.out.println("La calificacion de la sugerencia es:" + sugerencia1.getCalificacion());
-	    sugerencia1.setCalificacion(10);
-	    System.out.println("Califico con 10 y La calificacion de la sugerencia es:" + sugerencia1.getCalificacion());
-	    sugerencia1.RechazarSugerencia();
-	    System.out.println("Rechazo sugerencia y El estado de la sugerencia es:" + sugerencia1.getEstado());
+	    Sugerencia sugerencia2 = new Sugerencia();
+	    Sugerencia sugerencia3 = new Sugerencia();
 	    
-	    System.out.println("Ines No deberia de poder calificar una sugerencia Rechazada");
-	    ines.calificarSugerencia(sugerencia1, 1);
+	    sugerencia1.setDescripcion("sugerencia buena");
+	    sugerencia2.setDescripcion("sugerencia meh");
+	    sugerencia3.setDescripcion("sugerencia pedorra");
 	    
-	 			
+	    ines.aceptarSugerencia(sugerencia1);
+	    ines.aceptarSugerencia(sugerencia2);
+	    ines.rechazarSugerencia(sugerencia3);
+	    
+	    
+	    ines.calificarSugerencia(sugerencia1,3);
+	    ines.calificarSugerencia(sugerencia2,2);
+	    
+	    System.out.println("Ahora Ines intenta calificar una sugerencia rechazada =>");
+	    ines.calificarSugerencia(sugerencia3,1); 
 	}
 	
 }

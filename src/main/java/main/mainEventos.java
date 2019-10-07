@@ -36,7 +36,7 @@ public class mainEventos {
 		Set <Material> tiposDeMaterialPantalon;
 		Set <Material> tiposDeMaterialLentes;
 	
-		Usuario ines = new Usuario();
+		Usuario ines = new Usuario("ines");
 	
 		TipoDePrenda zapato;
 		TipoDePrenda remera;

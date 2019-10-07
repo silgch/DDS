@@ -19,47 +19,37 @@ public class Sugerencia {
 //			return sugerencia;
 //		}
     
-    public void sugerencia() {
-    	
-    }
+    public void sugerencia() {}
     
-    public String getDescripcion() {
-    	return descripcion;
-    }
 
-	public EnumEstadoSugerencia getEstado() {
-		return estado;
-	}
 
 //		public void setSugerencia(List<Prenda> sugerencia) {
 //			this.sugerencia = sugerencia;
 //		}
 	
+    //setters
 	public void setDescripcion(String sugerencia) {
 		this.descripcion = sugerencia;
 	}
-
 	public void setEstado(EnumEstadoSugerencia estado) {
 		this.estado = estado;
-	}
-	
-	public void aceptarSugerencia() {
-		this.setEstado(EnumEstadoSugerencia.ACEPTADA);
-	
-	}
-	
-	public void RechazarSugerencia() {
-		this.setEstado(EnumEstadoSugerencia.RECHAZADA);
-	
-	}
-	
-	public int getCalificacion() {
-		return calificacion;
-	}
-	
+	}	
 	public void setCalificacion(int unaCalificacion) {
 		this.calificacion= unaCalificacion;
 	}
+	
+	//getters
+	public int getCalificacion() {
+		return calificacion;
+	}
+	public String getDescripcion() {
+    	return descripcion;
+    }
+	public EnumEstadoSugerencia getEstado() {
+		return estado;
+	}
+	
+
 }
 
 
