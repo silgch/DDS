@@ -15,16 +15,16 @@ import com.google.common.collect.Sets;
 public class mainImplementacionGuava {
 	public static void main(String[] args) {
 		
-		List<String> s1 = Arrays.asList("abc", "def","ghi");
-		List<String> s2 = Arrays.asList("001", "002","003");
-		List<String> s3 = Arrays.asList("991","992","993");
+		List<String> s1 = Arrays.asList("a", "b","c");
+		List<String> s2 = Arrays.asList("1", "2","3");
+		List<String> s3 = Arrays.asList("manzana","pera","banana");
 		
 		
 		List<Set<String>> sets = new ArrayList<Set<String>>();
 		
-		sets.add(new HashSet(s1));
-	    sets.add(new HashSet(s2));
-	    sets.add(new HashSet(s3));
+		sets.add(new HashSet<String>(s1));
+	    sets.add(new HashSet<String>(s2));
+	    sets.add(new HashSet<String>(s3));
 	     
 	    Set<List<String>> cartesianSet = Sets.cartesianProduct(sets);
 	     // para que aparezca la opcion de importar guava

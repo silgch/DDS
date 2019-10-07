@@ -104,11 +104,13 @@ public class Usuario {
 	//Métodos con Sugerencias
 	
 	/*
+	 	 
 	 La idea es que el usuario una vez aceptada una sugerencia, la evalue en su conjunto con valores 
-	 del 1 al 3, en caso de que el usuario elija 1, no se volverá a sugerir dicha sugerencia, luego este 
-	 deberá calificar parte por parte para saber que tan friolento o caluroso es en esa parte del cuerpo
-	 este valor es del -2 al 2, siendo (-2) algo asi como que el usuario se está cagando de frio con eso y 
-	 (+2) que se está cagando de calor 
+	 del 1 al 3, en caso de que el usuario elija 1, no se volverá a sugerir dicha sugerencia, 
+	 3, la sugerencia se guardara como favoritas, y 2 la sugerencia no se guardará
+	 luego el usuario deberá calificar parte por parte para saber que tan friolento o caluroso es en esa 
+	 parte del cuerpo este valor es del -2 al 2, siendo (-2) algo asi como que el usuario se está 
+	 cagando de frio con eso y (+2) que se está cagando de calor 
 	 
 	 */
 	
