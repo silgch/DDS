@@ -111,7 +111,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		emFactory.close();
 		
 		guardarropaInesUno = new Guardarropa();
-	    guardarropaInesUno.duenio(ines);
+	    ines.agregarGuardarropa(guardarropaInesUno);
 	    
 	    guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);
 	    guardarropaInesUno.agregarAGuardarropas(unaRemeraRoja);
@@ -142,7 +142,6 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    ines.aceptarSugerencia(sugerencia1);
 	    ines.aceptarSugerencia(sugerencia2);
 	    ines.rechazarSugerencia(sugerencia3);
-	    
 	    
 	    ines.calificarSugerencia(sugerencia1,3);
 	    ines.calificarSugerencia(sugerencia2,2);

@@ -63,14 +63,32 @@ public class Usuario {
 	
 	
 	// Métodos con guardarropas
+	
+	/*
+	 * La idea es que cada usuario tenga guardarropas propio, con limite dado por su tipo
+	 * de cuenta, sin embargoun usario puede compartir su guardarropa con otra persona 
+	 * (algo así como el drive de google). Y lo que hace 
+	 * compartirGuardarropasCon(guardarropa,otroUsuario) es agregar un guardarropa propio 
+	 * a la lista de guardarropas de otrousario 
+	 */
+	
 	public void agregarGuardarropa(Guardarropa guardarropa) {
 		guardarropas.add(requireNonNull(guardarropa));
 		guardarropa.duenio(this);
 	}
 	
+	public void compartirGuardarropasCon(Guardarropa guardarropa, Usuario otroUsuario) {
+		otroUsuario.agregarGuardarropaCompartido(guardarropa);
+	}
+	
+	public void agregarGuardarropaCompartido(Guardarropa guardarropa) {
+		guardarropas.add(requireNonNull(guardarropa));
+	}
+	
 	public boolean tieneGuardarropaLleno(int cantidadDePrendas) {
 		return tipoDeCuenta.tieneGuardarropaLleno(cantidadDePrendas);
 	}
+	
 
 	
 	//Métodos con Eventos
