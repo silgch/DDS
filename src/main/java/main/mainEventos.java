@@ -114,7 +114,7 @@ public class mainEventos {
 	    //Cargamos algunos eventos
 	    ines.cargarEvento( LocalDate.now(), "Ir al cine", 3433955);
 	    Evento unEvento= new Evento ( LocalDate.now(), "Ir al cine", ines, 3433955);
-	    ines.procesarEvento(unEvento);
+	    //ines.procesarEvento(unEvento);
 	    System.out.println("La sugerencia para el evento es "+unEvento.getSugerencias());
 	 
 	

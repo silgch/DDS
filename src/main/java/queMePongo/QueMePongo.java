@@ -49,68 +49,82 @@ public class QueMePongo {
 	
     public List<String> sugerir(Guardarropa unGuardarropa,Usuario unUsuario) throws NoConexionApiException{
     	
-    	String codigoCiudad = "3433955";
-    	Double tempReal = api1.obtenerClima(codigoCiudad);
-    	Double tempCabeza = tempReal + unUsuario.getPercepcion().percepcionCabeza;
-    	Double tempTorso = tempReal + unUsuario.getPercepcion().percepcionTorso;
-    	Double tempPiernas = tempReal + unUsuario.getPercepcion().percepcionPiernas;
+		String codigoCiudad = "3433955";
+		Double tempReal = api1.obtenerClima(codigoCiudad);
+		Double tempCabeza = tempReal + unUsuario.getPercepcion().percepcionCabeza;
+		Double tempTorso = tempReal + unUsuario.getPercepcion().percepcionTorso;
+		Double tempPiernas = tempReal + unUsuario.getPercepcion().percepcionPiernas;
     	
-	    	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
-	    	
-			if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && tempTorso<25) {
-				sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel1()));
-			}
-			if(!unGuardarropa.getPrendasSuperioresNivel2().isEmpty() && tempTorso<=20) {
-				sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel2()));
-			}
-			if(!unGuardarropa.getPrendasSuperioresNivel3().isEmpty() && tempTorso<=15) {
-				sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel3()));
-			}
-			if(!unGuardarropa.getPrendasSuperioresNivel4().isEmpty() && tempTorso<=10) {
-				sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel4()));
-			}
-			if(!unGuardarropa.getPrendasInferioresNivel1().isEmpty()) {
-				sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel1()));
-			}
-			if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty() && tempPiernas<=10) {
-				sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel2()));
-			}
-			if(!unGuardarropa.getPrendasInferioresNivel3().isEmpty()) {
-				sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel3()));
-			}
-			if(!unGuardarropa.getCalzadosNivel1().isEmpty()) {
-				sets.add(new HashSet(unGuardarropa.getCalzadosNivel1()));
-			}
-			if(!unGuardarropa.getCalzadosNivel2().isEmpty()) {
-				sets.add(new HashSet(unGuardarropa.getCalzadosNivel2()));
-			}
-			if(!unGuardarropa.getAccesorios().isEmpty()) {
-				sets.add(new HashSet(unGuardarropa.getAccesorios()));
-			}
-	   	 	
-	   	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
-	   	 	
-	   	 	List<String> listaAux= new ArrayList<String>();
-	   	 	
-			for(List<Prenda> element : cartesianSet ){
-				
-				String nombreAux ="";
-				List<Prenda> listaPrendaAux = element;
-				for(Prenda prenda :listaPrendaAux ){
-			    	nombreAux=nombreAux+"-"+prenda.getNombre();
-				}
-				listaAux.add(nombreAux);
-			}
+    	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
+    	
+		if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && tempTorso<25) {
+			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel1()));
+		}
+		if(!unGuardarropa.getPrendasSuperioresNivel2().isEmpty() && tempTorso<=20) {
+			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel2()));
+		}
+		if(!unGuardarropa.getPrendasSuperioresNivel3().isEmpty() && tempTorso<=15) {
+			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel3()));
+		}
+		if(!unGuardarropa.getPrendasSuperioresNivel4().isEmpty() && tempTorso<=10) {
+			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel4()));
+		}
+		if(!unGuardarropa.getPrendasInferioresNivel1().isEmpty()) {
+			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel1()));
+		}
+		if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty() && tempPiernas<=10) {
+			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel2()));
+		}
+		if(!unGuardarropa.getPrendasInferioresNivel3().isEmpty()) {
+			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel3()));
+		}
+		if(!unGuardarropa.getCalzadosNivel1().isEmpty()) {
+			sets.add(new HashSet(unGuardarropa.getCalzadosNivel1()));
+		}
+		if(!unGuardarropa.getCalzadosNivel2().isEmpty()) {
+			sets.add(new HashSet(unGuardarropa.getCalzadosNivel2()));
+		}
+		if(!unGuardarropa.getAccesorios().isEmpty()) {
+			sets.add(new HashSet(unGuardarropa.getAccesorios()));
+		}
+   	 	
+   	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
+   	 	
+   	 	List<String> listaAux= new ArrayList<String>();
+   	 	
+		for(List<Prenda> element : cartesianSet ){
 			
-			System.out.println(this.getRandomList(listaAux));
-			
-			//this.creacionAtuendo(listaAux.toString(), unGuardarropa.getTodoJunto());
-			
-			return listaAux;
+			String nombreAux ="";
+			List<Prenda> listaPrendaAux = element;
+			for(Prenda prenda :listaPrendaAux ){
+		    	nombreAux=nombreAux+"-"+prenda.getNombre();
+			}
+			listaAux.add(nombreAux);
+		}
+		
+		System.out.println("Se genero la sugerencia para la temperatura" +tempReal );
+		System.out.println(this.getRandomList(listaAux));
+		
+		//this.creacionAtuendo(listaAux.toString(), unGuardarropa.getTodoJunto());
+		
+		return listaAux;    
+    }
     
+    public String getRandomList(List<String> list) {
+	    Random random = new Random();
+	    int index = random.nextInt(list.size());
+	    System.out.println("\nIndex :" + index );
+	    return list.get(index);
+	}
 }
+
+
+
+
+
+
     
-    public List<String> sugerirTodasLasCombinaciones(Guardarropa unGuardarropa) throws NoConexionApiException{
+   /* public List<String> sugerirTodasLasCombinaciones(Guardarropa unGuardarropa) throws NoConexionApiException{
 	  	String codigoCiudad = "3433955";
   		Double temp = api1.obtenerClima(codigoCiudad);
 
@@ -267,12 +281,7 @@ public class QueMePongo {
 		return listaAux;
 }
     
-	public String getRandomList(List<String> list) {
-	    Random random = new Random();
-	    int index = random.nextInt(list.size());
-	    System.out.println("\nIndex :" + index );
-	    return list.get(index);
-	}
+	
 	
 	
 	
@@ -300,4 +309,4 @@ public class QueMePongo {
 	      
 	}
 */
-}	
+	

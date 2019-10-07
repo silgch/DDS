@@ -8,13 +8,12 @@ import climaAPI.GestorDeClimaAPIs;
 import excepciones.NoConexionApiException;
 import guardarropas.Guardarropa;
 
-public class CommandObtenerSugerenciaParaEvento implements ICommand {
+public class CommandParaEventos /*implements ICommand*/ {
 	
 	private GestorDeClimaAPIs gestorDeAPIs;
 	private ClimaAdapter api1 = gestorDeAPIs.entregarAPI();
 
-	@Override
-	public void execute(Evento evento) throws IOException {
+	/*public void execute(Evento evento) throws IOException {
 		
 		try {
 			String codigoCiudad = "3433955";
@@ -28,9 +27,7 @@ public class CommandObtenerSugerenciaParaEvento implements ICommand {
 			List<Guardarropa> guardarropas = evento.getUsuario().getGuardarropas(); 
 			
 			for(Guardarropa guardarropa: guardarropas){
-				
 				evento.setSugerencias(guardarropa.sugerirTodasLasCombinacionesSegunTemperatura(evento.getTemperatura()));
-
 			}
 		}
 		catch(NoConexionApiException ae) {
@@ -42,6 +39,6 @@ public class CommandObtenerSugerenciaParaEvento implements ICommand {
 
 		}
 		
-	}
+	}*/
 
 }

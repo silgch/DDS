@@ -2,12 +2,11 @@ package usuario;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import eventos.CommandObtenerSugerenciaParaEvento;
+import eventos.CommandParaEventos;
 import eventos.EnumEstadoSugerencia;
 import eventos.Evento;
 import eventos.Sugerencia;
@@ -39,11 +38,9 @@ public class Usuario {
 	public String getNombre() {
 		return nombreDeUsuario;
 	}
-	
 	public PercepcionDeTemperatura getPercepcion() {
 		return percepcion;
 	}
-	
 	public String getMail() {return mail;}
 	
 	// Setters
@@ -60,7 +57,6 @@ public class Usuario {
 	public void upgradearTipoDeCuenta(){
 		gestorCuenta.upgradear(tipoDeCuenta);
 	}
-	
 	
 	// Métodos con guardarropas
 	
@@ -97,12 +93,12 @@ public class Usuario {
 		this.eventos.add(evento);
 		evento.procesarEvento();
 	}
-	
+	/*
 	public void procesarEvento(Evento evento) throws IOException {
-		CommandObtenerSugerenciaParaEvento sugerenciaParaEvento = new CommandObtenerSugerenciaParaEvento();
+		CommandParaEventos sugerenciaParaEvento = new CommandParaEventos();
 		sugerenciaParaEvento.execute(evento);
 
-	}
+	}/
 	
 	
 	//Métodos con Sugerencias

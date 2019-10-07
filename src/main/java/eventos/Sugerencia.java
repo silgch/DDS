@@ -21,12 +21,6 @@ public class Sugerencia {
     
     public void sugerencia() {}
     
-
-
-//		public void setSugerencia(List<Prenda> sugerencia) {
-//			this.sugerencia = sugerencia;
-//		}
-	
     //setters
 	public void setDescripcion(String sugerencia) {
 		this.descripcion = sugerencia;

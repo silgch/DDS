@@ -16,35 +16,39 @@ import usuario.Usuario;
 
 public class JavaUtilMail implements INotificador{
 	
-	Usuario notificado= null;
-	String mail = notificado.getMail();
+	private Usuario notificado;
+	private String mailDestino;
+	
+	public JavaUtilMail(Usuario usuario){ 
+		this.notificado = usuario;
+		this.mailDestino = usuario.getMail();}
 	
 	public void enviarMail() throws AddressException, MessagingException {
-		
-		System.out.println("Preparando todo para envio de email");
-		
-		Properties propiedades = new Properties();
-		
-		propiedades.put("mail.smtp.auth", "true");
-		propiedades.put("mail.smtp.starttls.enable", "true");
-		propiedades.put("mail.smtp.host", "smtp.gmail.com");
-		propiedades.put("mail.smtp.port", "587");
-		
-		String account ="pruebaparaenviodemaildds@gmail.com";
-		String password="apalapepa99";
-		
-		Session sesion = Session.getInstance(propiedades, new Authenticator() {
-			@Override
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(account,password);
-			}
-		});
-		
-		Message mensaje = prepareMessage(sesion,account,mail);
-		
-		Transport.send(mensaje);
-		System.out.println("Mail enviado satisfactoriamente");
-	}
+	
+	System.out.println("Preparando todo para envio de email ...");
+	
+	Properties propiedades = new Properties();
+	
+	propiedades.put("mail.smtp.auth", "true");
+	propiedades.put("mail.smtp.starttls.enable", "true");
+	propiedades.put("mail.smtp.host", "smtp.gmail.com");
+	propiedades.put("mail.smtp.port", "587");
+	
+	String mailOrigen ="pruebaparaenviodemaildds@gmail.com";
+	String password="apalapepa99";
+	
+	Session sesion = Session.getInstance(propiedades, new Authenticator() {
+		@Override
+		protected PasswordAuthentication getPasswordAuthentication() {
+			return new PasswordAuthentication(mailOrigen,password);
+		}
+	});
+	
+	Message mensaje = prepareMessage(sesion,mailOrigen,mailDestino);
+	
+	Transport.send(mensaje);
+	System.out.println("Mail enviado satisfactoriamente");
+}
 	
 	public Message prepareMessage(Session sesion, String account, String receptor) throws AddressException, MessagingException {
 		try {
@@ -53,7 +57,7 @@ public class JavaUtilMail implements INotificador{
 			mensaje.setRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
 			mensaje.setSubject("Esto es un titulo sarasa para el email");
 			//mensaje.setText("ola k tul");
-			String htmlCode="<h1> holaaaa </h1><br> <h2><b>que tullll</b></h2>";
+			String htmlCode="<h1> Acordate que tenes un evento!! </h1><br> <h2><b>(subtitulo vacio)</b></h2>";
 			mensaje.setContent(htmlCode,"text/html");
 			return mensaje;
 		}

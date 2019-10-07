@@ -89,22 +89,22 @@ public class Guardarropa {
 		
 	}
 	
-	public List<String> sugerirTodasLasCombinaciones(){
+	/*public List<String> sugerirTodasLasCombinaciones(){
 		try {
 			return QueMePongo.getInstance().sugerirTodasLasCombinaciones(this);
 		}/*
 		catch(NoConexionApiException ae) {
 			System.out.println("Hubo un problema con la conexion a la api:"+ae);
 			return null;
-		}*/
+		}
 		catch(Exception e) {
 			System.out.println("Hubo un problema en: "+e);
 			return null;
 		}
 		
-	}
+	}*/
 
-	public List<String> sugerirTodasLasCombinacionesSegunTemperatura(Double temperatura){
+	/*public List<String> sugerirTodasLasCombinacionesSegunTemperatura(Double temperatura){
 		try {
 		
 			return QueMePongo.getInstance().sugerirSegunTemperatura(this, temperatura);
@@ -112,27 +112,27 @@ public class Guardarropa {
 		catch(NoConexionApiException ae) {
 			System.out.println("Hubo un problema con la conexion a la api:"+ae);
 			return null;
-		}*/
+		}
 		catch(Exception e) {
 			System.out.println("Hubo un problema en: "+e);
 			return null;
 		}
-	}
+	}*/
 	
 	
-	public List<String> sugerirUnaCantidadDeCombinaciones(int unaCantidad){
+	/*public List<String> sugerirUnaCantidadDeCombinaciones(int unaCantidad){
 		try {
 			return QueMePongo.getInstance().sugerirUnaCantidadDeVeces(this, unaCantidad);
 		}/*
 		catch(NoConexionApiException ae) {
 			System.out.println("Hubo un problema con la conexion a la api:"+ae);
 			return null;
-		}*/
+		}
 		catch(Exception e) {
 			System.out.println("Hubo un problema en: "+e);
 			return null;
 		}
-	}
+	}*/
 
 	public List<Prenda> getPrendasSuperioresNivel1() {
 		return prendasSuperioresNivel1;

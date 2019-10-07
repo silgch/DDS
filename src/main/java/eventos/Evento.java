@@ -1,3 +1,8 @@
+/*
+ * La idea es que cuando un usuario tenga un evento primero cargue todos los datos
+ * del mismo; descripcion, lugar, fecha, etc. y luego lo encole
+ */
+
 package eventos;
 
 import java.io.IOException;
@@ -32,39 +37,32 @@ public class Evento {
 		this.descripcion = descripcion;
 		this.usuario = usuario;
 		this.ubicacion = ubicacion;
-		this.repeticion = "UNICO";  //Averiguar como implementar calendario de google.
-	
-		
+		this.repeticion = "UNICO";  //Averiguar como implementar calendario de google.		
 	}
-	public Evento CrearSiguienteEvento() throws Exception
-    {
-   
+	
+	public Evento CrearSiguienteEvento() throws Exception {
         return new Evento(this.calcularSiguienteFecha(), this.descripcion, this.usuario, this.ubicacion);
     }
     
     private LocalDate calcularSiguienteFecha() throws Exception {
     	//Calcula el proximo evento segun su repeticion. 
     	Period periodo;
-        switch (this.repeticion)
-        {
+        switch (this.repeticion){
         	case "UNICO": periodo = Period.ofDays(0);
-        	return fechaEvento.plus(periodo);
+        		return fechaEvento.plus(periodo);
         	
             case "DIARIA": periodo = Period.ofDays(1);
-        	return fechaEvento.plus(periodo);
+        		return fechaEvento.plus(periodo);
           
             case "SEMANAL":periodo = Period.ofDays(7);
             	return fechaEvento.plus(periodo);
         
-            
             case "MENSUAL":periodo = Period.ofMonths(1);
             	return fechaEvento.plus(periodo);
            
-            case "ANUAL":periodo = Period.ofYears(1);
-            	
-            	 return fechaEvento.plus(periodo);
-         
-            	
+            case "ANUAL":periodo = Period.ofYears(1);            	
+            	 return fechaEvento.plus(periodo);    
+            
             default:
                 throw new Exception("Imposible calcular fecha del proximo evento");
         }
@@ -76,7 +74,7 @@ public class Evento {
 		this.servidorDeEventos.encolarEvento(this);
 	}
 		
-	private Boolean esUnaRepeticionValida( String repeticion) {
+	private Boolean esUnaRepeticionValida(String repeticion) {
         switch (repeticion)
         {
             case "UNICO":
@@ -89,7 +87,7 @@ public class Evento {
                 return false;
         }
     }
-	//Setter
+	//Setters
 	public void setFechaEvento(LocalDate fechaEvento) {
 		this.fechaEvento = fechaEvento;
 	}
@@ -105,28 +103,23 @@ public class Evento {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
 	public void setSugerencias(List<String> unaLista) {
 		for(String elemento : unaLista) {
 			Sugerencia auxiliar = new Sugerencia();
-			
 			auxiliar.setDescripcion(elemento);
 			auxiliar.setEstado(EnumEstadoSugerencia.SUGERIDA);
-			
 			sugerencias.add(auxiliar);
 		}
 	}
 	public void setRepeticion(String repeticion) throws Exception {
-		
 		if(esUnaRepeticionValida(repeticion)){
 			this.repeticion = repeticion;
 			Evento nuevoEvento = this.CrearSiguienteEvento();
 			eventosConRepeticion.add(nuevoEvento);
-			
 		}
 	}
 	
-	//Getter
+	//Getters
 	public LocalDate getFechaEvento() {
 		return fechaEvento;
 	}
@@ -147,8 +140,5 @@ public class Evento {
 	}
 	public List<Sugerencia> getSugerencias() {
 		return sugerencias;
-	}
-
-	
-	
+	}	
 }
