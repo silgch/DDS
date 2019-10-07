@@ -11,7 +11,7 @@ import eventos.EnumEstadoSugerencia;
 import eventos.Sugerencia;
 import usuario.Usuario;
 
-class TestEntrega3 {
+public class TestEntrega3 {
 	Sugerencia sugerencia1;
 	Usuario ines = new Usuario();
 	
@@ -49,7 +49,7 @@ class TestEntrega3 {
 
 	
     @Test
-    void testNoSePuedeCalificarUnaSugerenciaNoAceptada() {
+    public void testNoSePuedeCalificarUnaSugerenciaNoAceptada() {
     	ines.rechazarSugerencia(sugerencia1);
         Exception excepcion =
             assertThrows(Exception.class,
