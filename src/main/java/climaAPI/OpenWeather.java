@@ -16,6 +16,8 @@ import climaAPI.openWeather.RetornoOW;
 
 public class OpenWeather implements ClimaAdapter{
 	
+	public String nombreDeAPI(){return "OpenWeather";}
+	
 	//public String codigoCiudad = "3433955"; // por defecto es CABA
 	
 	public RetornoOW temperaturaActual(String codigoCiudad){

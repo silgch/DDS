@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -12,26 +12,35 @@ import eventos.Sugerencia;
 import usuario.Usuario;
 
 public class TestEntrega3 {
+	Usuario ines = new Usuario("Ines");
 	Sugerencia sugerencia1;
-	Usuario ines = new Usuario();
+	Sugerencia sugerencia2;
+	Sugerencia sugerencia3;
+	    
 	
 	@Before
 	public void init() {
-		
-		sugerencia1 = new Sugerencia();
-	    sugerencia1.setDescripcion("Sugerencia que me gusta mucho");
+	    Sugerencia sugerencia1 = new Sugerencia();
+	    Sugerencia sugerencia2 = new Sugerencia();
+	    Sugerencia sugerencia3 = new Sugerencia();
+	    
+	    sugerencia1.setDescripcion("sugerencia buena");
+	    sugerencia2.setDescripcion("sugerencia meh");
+	    sugerencia3.setDescripcion("sugerencia pedorra");
+	    
 	    sugerencia1.setEstado(EnumEstadoSugerencia.SUGERIDA);
-		
+	    sugerencia2.setEstado(EnumEstadoSugerencia.SUGERIDA);
+	    sugerencia3.setEstado(EnumEstadoSugerencia.SUGERIDA);
 	}
 	
 	
 	@Test
 	public void testEstadoDeSugerenciaCorrecto() {
 		assertEquals( EnumEstadoSugerencia.SUGERIDA, sugerencia1.getEstado() );
-		sugerencia1.aceptarSugerencia();
-		assertEquals( EnumEstadoSugerencia.ACEPTADA, sugerencia1.getEstado() );
-		sugerencia1.RechazarSugerencia();
-		assertEquals( EnumEstadoSugerencia.RECHAZADA, sugerencia1.getEstado() );
+	    ines.aceptarSugerencia(sugerencia1);
+	    ines.rechazarSugerencia(sugerencia3);
+	    assertEquals( EnumEstadoSugerencia.ACEPTADA, sugerencia1.getEstado() );		
+		assertEquals( EnumEstadoSugerencia.RECHAZADA, sugerencia3.getEstado() );
 		
 		
 	}

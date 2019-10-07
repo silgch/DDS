@@ -3,13 +3,15 @@ package eventos;
 import java.io.IOException;
 import java.util.List;
 
-import climaAPI.OpenWeather;
+import climaAPI.ClimaAdapter;
+import climaAPI.GestorDeClimaAPIs;
 import excepciones.NoConexionApiException;
 import guardarropas.Guardarropa;
 
 public class CommandObtenerSugerenciaParaEvento implements ICommand {
 	
-	private OpenWeather api1 = new OpenWeather();
+	private GestorDeClimaAPIs gestorDeAPIs;
+	private ClimaAdapter api1 = gestorDeAPIs.entregarAPI();
 
 	@Override
 	public void execute(Evento evento) throws IOException {

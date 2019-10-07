@@ -11,8 +11,8 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-import climaAPI.AccuWeather;
 import climaAPI.ClimaAdapter;
+import climaAPI.GestorDeClimaAPIs;
 import componentes.Prenda;
 import excepciones.NoConexionApiException;
 import guardarropas.Guardarropa;
@@ -21,10 +21,12 @@ import usuario.Usuario;
 
 public class QueMePongo {
 	
-	private ClimaAdapter api1 = new AccuWeather();
+	private GestorDeClimaAPIs gestorDeAPIs;
+	
+	private ClimaAdapter api1 = gestorDeAPIs.entregarAPI();
 	
 	private static QueMePongo instance = null;
-	//private ClimaAdapter api1 = new ClimaAdapter();
+	
 	private QueMePongo() {}
 
 	public static QueMePongo getInstance() {
@@ -32,17 +34,19 @@ public class QueMePongo {
 			{instance = new QueMePongo();}
 		return instance;
 	}
-/*
-  A sugerir se le da un guardarropa, el mismo tendrá varios niveles
-  de prendas (ej:remera=prendaSuperior nivel1, camperaPolar=prendaSuperior nivel4).
-  Si hace mas de 25º sugerir dará alguna prenda superior nivel1, si existiera.
-  Si hace mas de 20º segerir dará una prendaSuperior nivel1 y una de nivel2 y así...
-  Suponer que prendas inferioresNivel2 son calzas
+	
+	/*
+  	A sugerir se le da un guardarropa, el mismo tendrá varios niveles
+  	de prendas (ej:remera=prendaSuperior nivel1, camperaPolar=prendaSuperior nivel4).
+  	Si hace mas de 25º sugerir dará alguna prenda superior nivel1, si existiera.
+  	Si hace mas de 20º segerir dará una prendaSuperior nivel1 y una de nivel2 y así...
+  	Suponer que prendas inferioresNivel2 son calzas
   
-  update: a este valor se le suma (o resta) la percepcion de la persona 
-  osea que si hace 20º y el usuario es muy friolento en el pecho (usuario.percepcionPecho = 10)
-  entonces el programa tomara como "si hace" 10º
- */
+  	update: a este valor se le suma (o resta) la percepcion de la persona 
+  	osea que si hace 20º y el usuario es muy friolento en el pecho (usuario.percepcionPecho = 10)
+  	entonces el programa tomara como "si hace" 10º
+	 */
+	
     public List<String> sugerir(Guardarropa unGuardarropa,Usuario unUsuario) throws NoConexionApiException{
     	
     	String codigoCiudad = "3433955";
@@ -106,7 +110,7 @@ public class QueMePongo {
     
 }
     
-  public List<String> sugerirTodasLasCombinaciones(Guardarropa unGuardarropa) throws NoConexionApiException{
+    public List<String> sugerirTodasLasCombinaciones(Guardarropa unGuardarropa) throws NoConexionApiException{
 	  	String codigoCiudad = "3433955";
   		Double temp = api1.obtenerClima(codigoCiudad);
 
@@ -157,7 +161,7 @@ public class QueMePongo {
     
 }
   
-public List<String> sugerirUnaCantidadDeVeces(Guardarropa unGuardarropa,int unaCantidad) throws NoConexionApiException{
+    public List<String> sugerirUnaCantidadDeVeces(Guardarropa unGuardarropa,int unaCantidad) throws NoConexionApiException{
 	String codigoCiudad = "3433955";
 	Double temp = api1.obtenerClima(codigoCiudad);
 
@@ -213,7 +217,7 @@ public List<String> sugerirUnaCantidadDeVeces(Guardarropa unGuardarropa,int unaC
 		return listaAux;
 }
 
-public List<String> sugerirSegunTemperatura(Guardarropa unGuardarropa,Double unaTemperatura) throws NoConexionApiException{
+    public List<String> sugerirSegunTemperatura(Guardarropa unGuardarropa,Double unaTemperatura) throws NoConexionApiException{
 
   		List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
 		if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && unaTemperatura<25) {
@@ -262,6 +266,7 @@ public List<String> sugerirSegunTemperatura(Guardarropa unGuardarropa,Double una
 		System.out.println("Se genero la sugerencia para la temperatura" +unaTemperatura );
 		return listaAux;
 }
+    
 	public String getRandomList(List<String> list) {
 	    Random random = new Random();
 	    int index = random.nextInt(list.size());
@@ -271,7 +276,7 @@ public List<String> sugerirSegunTemperatura(Guardarropa unGuardarropa,Double una
 	
 	
 	
-	/*
+/*
 	  						 Implentación Vieja
 	 
 	
@@ -294,5 +299,5 @@ public List<String> sugerirSegunTemperatura(Guardarropa unGuardarropa,Double una
 			{return true;}		
 	      
 	}
-	 */
+*/
 }	

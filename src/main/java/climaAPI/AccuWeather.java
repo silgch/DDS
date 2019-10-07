@@ -17,6 +17,8 @@ import excepciones.NoConexionApiException;
 
 public class AccuWeather implements ClimaAdapter {
 	
+	public String nombreDeAPI(){return "AccuWeather";}
+	
 	//obtener Location Key = https://www.youtube.com/watch?v=DR3jZczgZCs
 	//pruebas directas =  https://developer.accuweather.com/accuweather-forecast-api/apis/get/forecasts/v1/daily/5day/%7BlocationKey%7D
 	//a considerar: la temperatura viene en F, despues hay que restarle 32 a la hora de implementar obtenerClima()
@@ -180,6 +182,7 @@ public class AccuWeather implements ClimaAdapter {
 //				retorno = retorno + elemento;
 //			}
 			return 1;
-		}	
+		}
+
 }
 
