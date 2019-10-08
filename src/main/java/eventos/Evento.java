@@ -5,10 +5,12 @@
 
 package eventos;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import componentes.Prenda;
+
 import java.time.Period;
 
 import guardarropas.Guardarropa;
@@ -19,31 +21,32 @@ public class Evento {
 	private LocalDate fechaEvento;
 	private String descripcion;
 	private Usuario usuario;
-	private int ubicacion;
+	//private int ubicacion;
 	private Guardarropa guardarropa;
-	private Double temperatura;
-	private List<Sugerencia> sugerencias = new ArrayList<Sugerencia>();
-	private ColaDeEventos servidorDeEventos = new ColaDeEventos();
+	//private Double temperatura;
+	//private List<Sugerencia> sugerencias = new ArrayList<Sugerencia>();
+	private Sugerencia sugerencia;
+	/*private ColaDeEventos servidorDeEventos = new ColaDeEventos();*/
 	private String repeticion;
 	private List<Evento> eventosConRepeticion;
 	
-	public String ubicacionParaAPI;
+	private String ubicacionParaAPI;
 	
-	public ColaDeEventos getColaDeEventos() {
+	/*public ColaDeEventos getColaDeEventos() {
 		return servidorDeEventos;
-	}
+	}*/
 
 	
-	public Evento(LocalDate fechaEvento, String descripcion, Usuario usuario, int ubicacion) {
+	public Evento(LocalDate fechaEvento, String descripcion, Usuario usuario, String ubicacion) {
 		this.fechaEvento = fechaEvento;
 		this.descripcion = descripcion;
 		this.usuario = usuario;
-		this.ubicacion = ubicacion;
+		this.ubicacionParaAPI = ubicacion;
 		this.repeticion = "UNICO";  //Averiguar como implementar calendario de google.		
 	}
 	
 	public Evento CrearSiguienteEvento() throws Exception {
-        return new Evento(this.calcularSiguienteFecha(), this.descripcion, this.usuario, this.ubicacion);
+        return new Evento(this.calcularSiguienteFecha(), this.descripcion, this.usuario, this.ubicacionParaAPI);
     }
     
     private LocalDate calcularSiguienteFecha() throws Exception {
@@ -70,11 +73,11 @@ public class Evento {
         }
         
         
-	}
+	}/*
 	//Agrego el evento a la cola
 	public void procesarEvento() throws IOException {
 		this.servidorDeEventos.encolarEvento(this);
-	}
+	}*/
 		
 	private Boolean esUnaRepeticionValida(String repeticion) {
         switch (repeticion)
@@ -89,29 +92,55 @@ public class Evento {
                 return false;
         }
     }
+	
+		/*switch(estado) {
+		case ACEPTADA : this.reservameTodasLasPrendas();
+		case RECHAZADA : this.liberameTodasLasPrendas();
+	default:
+		break;
+	}
+	}*/	
+	
+	public void reservameTodasLasPrendas() {
+		for(Prenda prenda : sugerencia.getSugerencia() ){
+    		prenda.estaReservada(fechaEvento);
+		}
+	}
+	
+	public void liberameTodasLasPrendas() {
+		for(Prenda prenda : sugerencia.getSugerencia() ){
+    		prenda.liberarPrenda(fechaEvento);
+		}	
+	}
+
+	
+		
 	//Setters
 	public void setFechaEvento(LocalDate fechaEvento) {
 		this.fechaEvento = fechaEvento;
 	}
-	public void setUbicacion(int ubicacion) {
-		this.ubicacion = ubicacion;
-	}
+	public void setUbicacion(String ubicacion) {
+		this.ubicacionParaAPI = ubicacion;
+	}/*
 	public void setTemperatura (Double temperatura) { // Guarda la temperatura promedio para el evento.
 		this.temperatura = temperatura;
-	}
+	}*/
 	public void setGuardaropa(Guardarropa unGuardarropa) {
 		this.guardarropa = unGuardarropa;
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public void setSugerencias(List<String> unaLista) {
+	/*public void setSugerencias(List<String> unaLista) {
 		for(String elemento : unaLista) {
 			Sugerencia auxiliar = new Sugerencia(null);
 			auxiliar.setDescripcion(elemento);
 			auxiliar.setEstado(EnumEstadoSugerencia.SUGERIDA);
 			sugerencias.add(auxiliar);
 		}
+	}*/
+	public void setSugerencia(Sugerencia unaSugerencia) {
+		
 	}
 	public void setRepeticion(String repeticion) throws Exception {
 		if(esUnaRepeticionValida(repeticion)){
@@ -131,16 +160,13 @@ public class Evento {
 	public Usuario getUsuario() {
 		return usuario;
 	}
-	public int getUbicacion() {
-		return ubicacion;
-	}
-	public Double getTemperatura(){
-		return temperatura;
+	public String getUbicacion() {
+		return ubicacionParaAPI;
 	}
 	public Guardarropa getGuardaropa() {
 		return guardarropa;
 	}
-	public List<Sugerencia> getSugerencias() {
-		return sugerencias;
-	}	
+	public String getubicacionParaAPI() {
+		return ubicacionParaAPI;
+	}
 }

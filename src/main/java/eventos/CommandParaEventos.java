@@ -1,11 +1,11 @@
 package eventos;
 
-import java.io.IOException;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import climaAPI.ClimaAdapter;
-import climaAPI.GestorDeClimaAPIs;
-import excepciones.NoConexionApiException;
+import componentes.Prenda;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
 
@@ -13,36 +13,81 @@ import usuario.Usuario;
 //Asistente de eventos
 public class CommandParaEventos /*implements ICommand*/ {
 	
-	private GestorDeClimaAPIs gestorDeAPIs;
-	private ClimaAdapter api1 = gestorDeAPIs.entregarAPI();
+	//private GestorDeClimaAPIs gestorDeAPIs;
+	//private ClimaAdapter api1 = gestorDeAPIs.entregarAPI();
 	private Usuario usuario;
-	
-	
-	
-	public void GenerarSugerenciaPara(Evento evento) throws IOException {
-		
-		try {
-			//String codigoCiudad = "3433955";
-			String codigoCiudad = evento.ubicacionParaAPI;
-			
-			// Consulto a la API cual es el clima para el evento que le estoy pasando, es decir: 
-			// cual es la temperatura promedio para ese dia,y se la asigno al evento. 
+	private Set<Evento> colaEventosActivos = new HashSet<Evento>();
+	private List<Prenda> listaDePrendasTemporal; 
 
-			evento.setTemperatura(api1.obtenerClima(codigoCiudad)); 
-			//System.out.println("La temperatura para el evento es "+evento.getTemperatura());
-			
-			//List<Guardarropa> guardarropas = evento.getUsuario().getGuardarropas(); 
-			
-		}
-		catch(NoConexionApiException ae) {
-			System.out.println("Hubo un problema con la conexion a la api:"+ae);
+	private Guardarropa guardarropaTemporal;
+	private Evento eventoTemporal;
+	private GeneradorDeSugerencias sugiridor = new GeneradorDeSugerencias();
 
-		}
-		catch(Exception e) {
-			System.out.println("Hubo un problema en: "+e);
-
-		}
-		
+	
+	public CommandParaEventos(Usuario miUsuario) {
+		usuario = miUsuario;
 	}
+	
+	public void crearEvento(LocalDate fecha, String descripcion, String ubicacion) throws Exception{
+		Evento evento = new Evento(fecha, descripcion, usuario, ubicacion);
+		this.getColaEventosActivos().add(evento);
+		System.out.println("El usuario " + usuario.getNombre() +
+				" agregó el evento " + evento.getDescripcion()+
+				" a realizarse el " + evento.getFechaEvento());
+		eventoTemporal = evento;
+	}
+	public void generarSugerenciaPara(Guardarropa unGuardarropa,Evento evento) throws Exception {
+		//String codigoCiudad = "3433955" es para CABA;
+		String codigoCiudad = evento.getUbicacion();
+		LocalDate fecha = evento.getFechaEvento();
+		listaDePrendasTemporal = sugiridor.sugerirEnBaseAPersepcion(unGuardarropa, usuario, codigoCiudad);	
+		guardarropaTemporal = unGuardarropa;
+		eventoTemporal = evento;
+	}
+	public void generarSugerenciaParaUltimoEventoCreado(Guardarropa unGuardarropa) throws Exception {
+		this.generarSugerenciaPara(unGuardarropa, eventoTemporal);
+	}
+	
+	public void aceptarSugerencia(Sugerencia sugerencia) {
+		sugerencia.setEstado(EnumEstadoSugerencia.ACEPTADA);
+		eventoTemporal.setSugerencia(sugerencia);
+		eventoTemporal.setGuardaropa(guardarropaTemporal);
+		System.out.println("La sugerencia: "+
+		sugerencia.devolverSugerenciaEnFormaDeString()+
+		" ha sido aceptada");
+	}
+	
+	public void rechazarSugerencia(Sugerencia sugerencia) {
+		sugerencia.setEstado(EnumEstadoSugerencia.RECHAZADA);
+		System.out.println("La sugerencia: "+
+				sugerencia.devolverSugerenciaEnFormaDeString()+
+				" ha sido rechazada");
+	}
+	
+	public void eliminarEvento(Evento evento) {
+		evento.liberameTodasLasPrendas();
+		colaEventosActivos.remove(evento);
+		this.liberarRecursos();
+	}
+	
+	public void liberarRecursos() {
+		listaDePrendasTemporal = null;
+		guardarropaTemporal = null;
+		eventoTemporal = null;		
+	}
+	
+
+	public Set<Evento> getColaEventosActivos() {
+		return colaEventosActivos;
+	}
+	
+	public List<Prenda> getListaDePrendasTemporal() {
+		return listaDePrendasTemporal;
+	}
+	
+	
+	
+	
+	
 
 }

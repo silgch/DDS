@@ -8,6 +8,7 @@
 
 package main;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import componentes.Prenda;
 import componentes.PrendaNivel;
 import componentes.TipoDePrenda;
 import componentes.Trama;
+import eventos.Evento;
 import eventos.GeneradorDeSugerencias;
 import eventos.Sugerencia;
 import guardarropas.Guardarropa;
@@ -48,8 +50,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		Set <Material> tiposDeMaterialLentes;
 		 
 		Usuario ines = new Usuario("Ines");
-		GeneradorDeSugerencias generadorDeSugDeInes = new GeneradorDeSugerencias();
-		
+				
 		TipoDePrenda zapato;
 		TipoDePrenda remera;
 		TipoDePrenda pantalon;
@@ -102,18 +103,12 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		unLenteNegro = new Prenda("Lentes de sol  negros", lentes, Material.PLASTICO, colorNegro, Trama.LISA);
 		
 		/*Persistiendo*/
-		repositorio.prenda().persistir(unaRemeraBlancaLisa);
-		repositorio.prenda().persistir(unaRemeraRoja);
-		repositorio.prenda().persistir(unPantalonNegro);
-		repositorio.prenda().persistir(unZapatoNegro);
-		repositorio.prenda().persistir(unaZapatillaLonaBlanca);
-		repositorio.prenda().persistir(unLenteNegro);
-		
-		repositorio.cerrar();
-		emFactory.close();
+
 		
 		guardarropaInesUno = new Guardarropa();
 	    ines.agregarGuardarropa(guardarropaInesUno);
+	    
+	    
 	    
 	    guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);
 	    guardarropaInesUno.agregarAGuardarropas(unaRemeraRoja);
@@ -122,29 +117,37 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    guardarropaInesUno.agregarAGuardarropas(unaZapatillaLonaBlanca);
 	    guardarropaInesUno.agregarAGuardarropas(unLenteNegro); 	
 	    
+		repositorio.prenda().persistir(unaRemeraBlancaLisa);
+		repositorio.prenda().persistir(unaRemeraRoja);
+		repositorio.prenda().persistir(unPantalonNegro);
+		repositorio.prenda().persistir(unZapatoNegro);
+		repositorio.prenda().persistir(unaZapatillaLonaBlanca);
+		repositorio.prenda().persistir(unLenteNegro);
+	    
+	    //repositorio.guardarropa().persistir(guardarropaInesUno);
+	    
 		//guardarropaInesUno.sugerir();
 		//QueMePongo.sugerirTodasLasCombinaciones(guardarropaInesUno);
 	    
 	    
 	    //PROBANDO CALIFICAR SUGERENCIAS
     
-	    Sugerencia sugerencia1 = new Sugerencia(generadorDeSugDeInes.sugerirEnBaseAPersepcion(guardarropaInesUno, ines, "3433955"));
-	    Sugerencia sugerencia2 = new Sugerencia(generadorDeSugDeInes.sugerirEnBaseAPersepcion(guardarropaInesUno, ines, "3433955"));
-	    Sugerencia sugerencia3 = new Sugerencia(generadorDeSugDeInes.sugerirEnBaseAPersepcion(guardarropaInesUno, ines, "3433955"));
-	    
-	    sugerencia1.setDescripcion("sugerencia buena");
-	    sugerencia2.setDescripcion("sugerencia meh");
-	    sugerencia3.setDescripcion("sugerencia pedorra");
-	    
+	    ines.crearEvento(LocalDate.now(), "Miamiii", "4174383");
+	    ines.pedirSugerencia(guardarropaInesUno);
+	    Sugerencia sugerencia1 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
 	    ines.aceptarSugerencia(sugerencia1);
-	    ines.aceptarSugerencia(sugerencia2);
-	    ines.rechazarSugerencia(sugerencia3);
-	    
 	    ines.calificarSugerencia(sugerencia1,3);
+	    
+	    ines.crearEvento(LocalDate.now(), "Las Toninas", "3431608");
+	    ines.pedirSugerencia(guardarropaInesUno);	    
+	    Sugerencia sugerencia2 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
+	    ines.rechazarSugerencia(sugerencia2);    
 	    ines.calificarSugerencia(sugerencia2,2);
 	    
-	    System.out.println("Ahora Ines intenta calificar una sugerencia rechazada =>");
-	    ines.calificarSugerencia(sugerencia3,1); 
+	    repositorio.cerrar();
+		emFactory.close();
+	    
+ 
 	}
 	
 }

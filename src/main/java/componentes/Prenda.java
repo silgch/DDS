@@ -2,6 +2,17 @@ package componentes;
 
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import guardarropas.Guardarropa;
+
+/*import eventos.Evento;
+import eventos.Sugerencia;
+import guardarropas.Guardarropa;
+import usuario.Usuario;*/
+
+import java.time.LocalDate;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -29,9 +40,19 @@ public class Prenda extends Entidad {
 	@Transient
     private Trama trama;
 	@Transient
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "guardarropa", referencedColumnName = "miDuenio")
+	private Guardarropa guardarropa;
+	@Transient
 	private String urlImagen;
 	private int calificacion=0;
+	//Para semaforos de prendas
+	//private LocalDate fecha;
+	@Transient
+	private List<LocalDate> listaDeFechasReservadas;
 	
+	
+	//Para persistir
 	private String jpa_color_ppal;
 	private String jpa_color_sec;	
 	private String jpa_material;
@@ -69,18 +90,7 @@ public class Prenda extends Entidad {
     	this.jpa_trama = trama.name();
 	}
     
-    /*    
-    public boolean esDeInvierno() {
-    	return true;
-    }
-    
-    public boolean esDeVerano() {
-    	return true;
-    }
- 	*/    
-
-
-    //Lo unico que podriamos cambiar de una prenda es el nombre .
+     //Lo unico que podriamos cambiar de una prenda es el nombre .
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -88,6 +98,10 @@ public class Prenda extends Entidad {
 	//ESTE METODO LO USAMOS PARA QUE NOS DEVUELVA LA POSICION EN MEMORIA CUANDO QUEREMOS IMPRIMIR POR CONSOLA LA LISTA DE PRENDAS
 	public String toString() {
 		return this.getNombre();
+	}
+	
+	public void setGuardarropa(Guardarropa guardarropa) {
+		this.guardarropa = guardarropa;
 	}
 	
 	//Getters
@@ -121,9 +135,28 @@ public class Prenda extends Entidad {
 	public int getCalificacion() {
 		return calificacion;
 	}
+	
+	public Guardarropa getGuardarropa() {
+		return guardarropa;
+	}
+	
+	
+	//Semáforos:
+
+	public void reservarPrenda(LocalDate fecha){
+		listaDeFechasReservadas.add(fecha);
+	}
+	public void liberarPrenda(LocalDate fecha){
+		listaDeFechasReservadas.remove(fecha);
+	}
+	public boolean estaReservada(LocalDate fecha) {
+		return listaDeFechasReservadas.contains(fecha);
+	}
+	
 
     
     // Ver si vamos a usar los setter. 
+	/*
 	public void setColorPrincipal(Color colorPrincipal) {
 		this.colorPrincipal = colorPrincipal;
 	}
@@ -145,7 +178,7 @@ public class Prenda extends Entidad {
 	public void setCalificacion(int unaCalificacion) {
 		this.calificacion=unaCalificacion;
 	}
-	/*
+	
 	public void setNivel(PrendaNivel nivel) {
 		this.tipo.setNivel(nivel);
 	}*/

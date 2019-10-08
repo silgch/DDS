@@ -1,5 +1,8 @@
 package notificador;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -12,6 +15,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import eventos.CommandParaEventos;
+import eventos.Evento;
 import usuario.Usuario;
 
 public class JavaUtilMail implements INotificador{
@@ -62,9 +67,22 @@ public class JavaUtilMail implements INotificador{
 		catch(Exception e) {
 			System.out.println("Hubo un inconveniente a la hora de enviar mail: "+e);
 		}
-		
 		return null;
-	}
+	}	
+		
+	@Override	
+	public void notificaSiHayEventoHoy(Usuario usuario,CommandParaEventos managerDeEventos) throws AddressException, MessagingException{
+		for (Evento evento : managerDeEventos.getColaEventosActivos()) {
+			if(evento.getFechaEvento().compareTo(LocalDate.now()) == 0)
+				this.enviarMail();
+			}
+		}
+		
+		
+		
+
+	
+	
 
 
 }

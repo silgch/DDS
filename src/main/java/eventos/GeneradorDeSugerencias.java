@@ -12,13 +12,13 @@ import java.util.Random;
 
 import climaAPI.ClimaAdapter;
 import climaAPI.GestorDeClimaAPIs;
-import climaAPI.OpenWeather;
+//import climaAPI.OpenWeather;
 import componentes.Categoria;
 import componentes.Prenda;
 import componentes.PrendaNivel;
-import excepciones.NoConexionApiException;
+//import excepciones.NoConexionApiException;
 import guardarropas.Guardarropa;
-import usuario.GestorDeCuentas;
+//import usuario.GestorDeCuentas;
 import usuario.Usuario;
 
 //Ex-QueMePongo
@@ -42,7 +42,7 @@ public class GeneradorDeSugerencias{
 		return instance;
 	}*/
 	
-	List<Prenda> listaAux = new ArrayList<Prenda>();
+	List<Prenda> sugerencia = new ArrayList<Prenda>();
 	
 	/*
   	A sugerir se le da un guardarropa, el mismo tendrá varios niveles
@@ -56,15 +56,17 @@ public class GeneradorDeSugerencias{
   	entonces el programa tomara como "si hace" 10º
 	 */
 	
-    public List<String> sugerirEnBaseAPersepcion(Guardarropa unGuardarropa,Usuario unUsuario,String codigoCiudad) throws Exception{
+    public List<Prenda> sugerirEnBaseAPersepcion(Guardarropa unGuardarropa,Usuario unUsuario,String codigoCiudad) throws Exception{
     	
     	// ejemplo String codigoCiudad = "3433955";
     	tempReal = api1.obtenerClima(codigoCiudad);
     	
+    	sugerencia.clear();
+    	
     	//será la lista con la que trabajaremos
     	
     	//será la lista que terminaremos mostrando
-    	List<String> sugerencia = new ArrayList<String>();
+    	List<String> sugerenciaPMostrar = new ArrayList<String>();
     	
 		Double tempCabeza = tempReal + unUsuario.getPercepcion().percepcionCabeza;
 		Double tempCuello = tempReal + unUsuario.getPercepcion().percepcionCuello;
@@ -90,12 +92,16 @@ public class GeneradorDeSugerencias{
     			
 		System.out.printf("Se genero la sugerencia para la temperatura: %1.2f \n", tempReal);
 	
-		for(Prenda prenda : listaAux ){
+		for(Prenda prenda : sugerencia ){
     		String nombre = prenda.getNombre();
-    		sugerencia.add(nombre);
+    		sugerenciaPMostrar.add(nombre);
 		}
 		
-		listaAux.clear();
+		System.out.println("La sugerencia es: "+ sugerenciaPMostrar +". Desea Aceptarla?" );
+		
+		/*List<Prenda> listaAux;
+		listaAux = sugerencia;
+		;*/
 		
 		return sugerencia;    
     }
@@ -106,15 +112,15 @@ public class GeneradorDeSugerencias{
     
 	private void quizaAgregamosUnAccesorio(Guardarropa unGuardarropa) {
 		boolean trueOfalse = (Math.random() < 0.5);
-		for (Prenda prenda : unGuardarropa.prendas) {
+		for (Prenda prenda : unGuardarropa.getPrendas()) {
 			if((prenda.getCategoria() == Categoria.ACCESORIO)) {
-				if(trueOfalse) listaAux.add(prenda);
+				if(trueOfalse) sugerencia.add(prenda);
 			} 
 		}
 	}
 
 	boolean hayAlgunaPrendaQueCumpla(Guardarropa guardarropa,Categoria cat,PrendaNivel nivel) {
-		for (Prenda prenda : guardarropa.prendas) {
+		for (Prenda prenda : guardarropa.getPrendas()) {
     		if((prenda.getCategoria() == cat) & (prenda.getNivel() == nivel))
     			return true;
 		}return false;
@@ -125,14 +131,14 @@ public class GeneradorDeSugerencias{
 			Prenda prendaRandom;
 			List<Prenda> listaTemporal = new ArrayList<Prenda>();
 			
-			for (Prenda prenda : guardarropa.prendas) {
+			for (Prenda prenda : guardarropa.getPrendas()) {
 				if((prenda.getCategoria() == cat) & (prenda.getNivel() == nivel))
 					listaTemporal.add(prenda);
 			}
 			
 			Random rand = new Random(); 
 			prendaRandom = listaTemporal.get(rand.nextInt(listaTemporal.size()));
-			listaAux.add(prendaRandom);			
+			sugerencia.add(prendaRandom);			
 		}    
 	}
     
@@ -247,16 +253,16 @@ public class GeneradorDeSugerencias{
    	 	
    	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
    	 	
-   	 	List<String> listaAux= new ArrayList<String>();
+   	 	List<String> sugerencia= new ArrayList<String>();
    	 	
 		for(List<Prenda> element : cartesianSet ){
 			System.out.println(element);
 		}
 		
-		return listaAux;
+		return sugerencia;
 		
 		
-		//this.creacionAtuendo(listaAux.toString(), unGuardarropa.getTodoJunto());
+		//this.creacionAtuendo(sugerencia.toString(), unGuardarropa.getTodoJunto());
     
 }
   
@@ -298,7 +304,7 @@ public class GeneradorDeSugerencias{
  	 	
  	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
  	 	
- 	 	List<String> listaAux= new ArrayList<String>();
+ 	 	List<String> sugerencia= new ArrayList<String>();
  	 	
 		for(List<Prenda> element : cartesianSet ){
 			String nombreAux ="";
@@ -306,14 +312,14 @@ public class GeneradorDeSugerencias{
 			for(Prenda prenda :listaPrendaAux ){
 				nombreAux=nombreAux+"-"+prenda.getNombre();
 			}
-			listaAux.add(nombreAux);
+			sugerencia.add(nombreAux);
 		}
 		for(int i =0;i<unaCantidad;i++) {
-			System.out.println(this.getRandomList(listaAux));
+			System.out.println(this.getRandomList(sugerencia));
 		}
-		//this.creacionAtuendo(listaAux.toString(), unGuardarropa.getTodoJunto());
+		//this.creacionAtuendo(sugerencia.toString(), unGuardarropa.getTodoJunto());
   
-		return listaAux;
+		return sugerencia;
 }
 
     public List<String> sugerirSegunTemperatura(Guardarropa unGuardarropa,Double unaTemperatura) throws NoConexionApiException{
@@ -352,7 +358,7 @@ public class GeneradorDeSugerencias{
  	 	
  	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
  	 	
- 	 	List<String> listaAux= new ArrayList<String>();
+ 	 	List<String> sugerencia= new ArrayList<String>();
  	 	
 		for(List<Prenda> element : cartesianSet ){
 			String nombreAux ="";
@@ -360,10 +366,10 @@ public class GeneradorDeSugerencias{
 			for(Prenda prenda :listaPrendaAux ){
 				nombreAux=nombreAux+"-"+prenda.getNombre();
 			}
-			listaAux.add(nombreAux);
+			sugerencia.add(nombreAux);
 		}
 		System.out.println("Se genero la sugerencia para la temperatura" +unaTemperatura );
-		return listaAux;
+		return sugerencia;
 }
     
 	

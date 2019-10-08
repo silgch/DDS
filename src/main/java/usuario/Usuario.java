@@ -6,27 +6,55 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import componentes.Entidad;
+//import eventos.ColaDeEventos;
 import eventos.CommandParaEventos;
 import eventos.EnumEstadoSugerencia;
-import eventos.Evento;
+//import eventos.Evento;
 import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 
-public class Usuario {
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
+@Table(name = "USUARIO")
+public class Usuario extends Entidad{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String nombreDeUsuario;
 	private String mail;
+	@Transient
 	private List<Guardarropa> guardarropas = new ArrayList<>();
-	private List<Evento> eventos = new ArrayList<Evento>();
+	//private List<Evento> eventos = new ArrayList<Evento>();
+	@Transient
 	private GestorDeCuentas gestorCuenta;
+	@Transient
 	private Cuenta tipoDeCuenta;
-	private PercepcionDeTemperatura percepcion = new PercepcionDeTemperatura(); 
+	@Transient
+	private PercepcionDeTemperatura percepcion = new PercepcionDeTemperatura();
+	@Transient
+	private CommandParaEventos managerDeEventos = new CommandParaEventos(this);
+	private String jpa_tipoDeCuenta;
 	
-	public Usuario(String nombre){
-		this.nombreDeUsuario = nombre;
+	public Usuario() {}
+	
+	public Usuario(String name){
+		this.nombreDeUsuario = name;
 		gestorCuenta = new GestorDeCuentas();
 		tipoDeCuenta = gestorCuenta.creameUnaCuenta();
+		jpa_tipoDeCuenta = tipoDeCuenta.nombre;
 	}
+	
 	
 	// Getters
 	public List<Guardarropa> getGuardarropas() {
@@ -44,6 +72,10 @@ public class Usuario {
 	public String getMail() {return mail;}
 	
 	
+	public CommandParaEventos getManagerDeEventos() {
+		return managerDeEventos;
+	}
+
 	// Setters
 	public void setNombre(String nombre) {
 		this.nombreDeUsuario =nombre;
@@ -88,11 +120,10 @@ public class Usuario {
 
 	
 	//Métodos con Eventos
-	public void cargarEvento(LocalDate fecha, String descripcion, int ubicacion) throws Exception{
-		Evento evento = new Evento(fecha, descripcion, this, ubicacion);
-		this.eventos.add(evento);
-		evento.procesarEvento();
+	public void crearEvento(LocalDate fecha, String descripcion, String ubicacion) throws Exception{
+		managerDeEventos.crearEvento( fecha, descripcion, ubicacion);
 	}
+	
 	/*
 	public void procesarEvento(Evento evento) throws IOException {
 		CommandParaEventos sugerenciaParaEvento = new CommandParaEventos();
@@ -113,23 +144,27 @@ public class Usuario {
 	 cagando de frio con eso y (+2) que se está cagando de calor 
 	 
 	 */
-	
-	public void aceptarSugerencia(Sugerencia unaSugerencia) {
-		unaSugerencia.setEstado(EnumEstadoSugerencia.ACEPTADA);
+	public void pedirSugerencia(Guardarropa unGuardarropa) throws Exception {
+		managerDeEventos.generarSugerenciaParaUltimoEventoCreado(unGuardarropa);
 	}
 	
-	public void rechazarSugerencia(Sugerencia unaSugerencia) {
-		unaSugerencia.setEstado(EnumEstadoSugerencia.RECHAZADA);
+	public void aceptarSugerencia(Sugerencia sugerencia) {
+		managerDeEventos.aceptarSugerencia(sugerencia);
+	}
+	
+	public void rechazarSugerencia(Sugerencia sugerencia) {
+		managerDeEventos.rechazarSugerencia(sugerencia);
 	}
 	
 
 	public void calificarSugerencia(Sugerencia unaSugerencia, int unaCalificacion) throws Exception {
 		System.out.println("El usuario " + this.getNombre() + " ha calificado con \"" +
-				unaCalificacion+"\" la sugerencia ("+unaSugerencia.getEstado()+"): "+unaSugerencia.getDescripcion());
+				unaCalificacion+"\" la sugerencia" +
+				unaSugerencia.devolverSugerenciaEnFormaDeString());
 		if( unaSugerencia.getEstado() == EnumEstadoSugerencia.ACEPTADA) {
 			unaSugerencia.setCalificacion(unaCalificacion);
 		}else {
-			throw new Exception("Solo se pueden calificar sugerencias ACEPTADAS");
+			System.out.println("Solo se pueden calificar sugerencias ACEPTADAS");
 		}
 	}
 	

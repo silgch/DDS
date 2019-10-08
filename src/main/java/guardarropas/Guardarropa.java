@@ -3,6 +3,11 @@ package guardarropas;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import componentes.Prenda;
 import usuario.Usuario;
 
@@ -12,17 +17,17 @@ import usuario.Usuario;
   	mediante el metodo agregarAGuardarropas.
 */
 
+@Entity
+@Table(name = "GUARDARROPA")
 public class Guardarropa {
-	public List<Prenda> prendas;
 	
+	@Transient
+	private List<Prenda> prendas = new ArrayList<Prenda>();
+	@Id
 	private Usuario miDuenio= null;
-    //private OrganizadorDeGuardarropa miOrganizador = new OrganizadorDeGuardarropa(this);
-    
+        
     //Constructores:
-    public Guardarropa() {
-      //this.todoJunto = new ArrayList<Prenda>();    	
-        this.prendas = new ArrayList<Prenda>();
-    }
+    public Guardarropa(){}
     
     public void duenio(Usuario usuario){
     	if (miDuenio == null){miDuenio = usuario;}
@@ -36,6 +41,7 @@ public class Guardarropa {
     		throw new Exception("El usuario no puede agregar mas ropa debido a su plan.");
     	}
     	prendas.add(prenda);
+    	prenda.setGuardarropa(this);
      }
     
     public int cantidadDePrendas() {
@@ -46,6 +52,11 @@ public class Guardarropa {
 
 		return cantidad;
 	}
+    
+	public List<Prenda> getPrendas() {
+		return prendas;
+	}
+    
 }
 
 	 

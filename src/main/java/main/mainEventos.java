@@ -110,13 +110,13 @@ public class mainEventos {
 	    
 	    guardarropaInesDos.agregarAGuardarropas(unaRemeraNegra);
 	    
-	    
+	    /*
 	    //Cargamos algunos eventos
 	    ines.cargarEvento( LocalDate.now(), "Ir al cine", 3433955);
 	    Evento unEvento= new Evento ( LocalDate.now(), "Ir al cine", ines, 3433955);
 	    //ines.procesarEvento(unEvento);
 	    System.out.println("La sugerencia para el evento es "+unEvento.getSugerencias());
-	 
+	 	*/
 	
 	   // ines.cargarEvento( LocalDate.of(2019, 8, 10), "Ir al teatro", 3433955);
 	   // ines.cargarEvento( LocalDate.of(2019, 8, 14), "Cumpleaños de Pepita", 3433955);

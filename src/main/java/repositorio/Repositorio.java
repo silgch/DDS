@@ -5,9 +5,9 @@ import javax.persistence.EntityManager;
 public class Repositorio {
 
 	private Prenda prenda;
-	//private Comunas comunas;
+	private Guardarropa guardarropa;
+	
 	protected EntityManager em;
-
 	public Repositorio(EntityManager em) {
 		this.em = em;
 	}
@@ -17,6 +17,13 @@ public class Repositorio {
 			prenda = new Prenda(em);
 		}
 		return prenda;
+	}
+	
+	public Guardarropa guardarropa() {
+		if (guardarropa == null) {
+			guardarropa = new Guardarropa(em);
+		}
+		return guardarropa;
 	}
 /*
 	public Comunas comunas() {

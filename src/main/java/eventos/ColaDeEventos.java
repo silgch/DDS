@@ -1,12 +1,15 @@
-package eventos;
+/*package eventos;
 
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 public class ColaDeEventos {
-
-	private Queue<Evento> colaEventosActivos;
 	
+	public Set<Evento> colaEventosActivos = new HashSet<Evento>();
+		
 	public ColaDeEventos() {
 		this.colaEventosActivos= new LinkedList<Evento>();
 	}
@@ -25,4 +28,4 @@ public class ColaDeEventos {
 	}
 	
 	
-}
+}*/
