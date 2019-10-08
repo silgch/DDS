@@ -19,13 +19,15 @@ public class Evento {
 	private LocalDate fechaEvento;
 	private String descripcion;
 	private Usuario usuario;
-	private int ubicacion; // Guardar el CP del lugar del evento
+	private int ubicacion;
 	private Guardarropa guardarropa;
 	private Double temperatura;
 	private List<Sugerencia> sugerencias = new ArrayList<Sugerencia>();
 	private ColaDeEventos servidorDeEventos = new ColaDeEventos();
 	private String repeticion;
 	private List<Evento> eventosConRepeticion;
+	
+	public String ubicacionParaAPI;
 	
 	public ColaDeEventos getColaDeEventos() {
 		return servidorDeEventos;
@@ -105,7 +107,7 @@ public class Evento {
 	}
 	public void setSugerencias(List<String> unaLista) {
 		for(String elemento : unaLista) {
-			Sugerencia auxiliar = new Sugerencia();
+			Sugerencia auxiliar = new Sugerencia(null);
 			auxiliar.setDescripcion(elemento);
 			auxiliar.setEstado(EnumEstadoSugerencia.SUGERIDA);
 			sugerencias.add(auxiliar);

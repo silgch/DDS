@@ -43,11 +43,11 @@ public class Usuario {
 	}
 	public String getMail() {return mail;}
 	
+	
 	// Setters
 	public void setNombre(String nombre) {
 		this.nombreDeUsuario =nombre;
 	}
-	
 	public void setTipoDeCuenta(Cuenta tipoDeCuenta) {
 		this.tipoDeCuenta = tipoDeCuenta;
 	}
@@ -131,12 +131,6 @@ public class Usuario {
 		}else {
 			throw new Exception("Solo se pueden calificar sugerencias ACEPTADAS");
 		}
-	}
-	
-	public void calificarMiPercepcion(int percepcionCabeza,	int percepcionTorso,int percepcionPiernas) {
-		percepcion.modificarPercepcionCabeza(percepcionCabeza); 
-		percepcion.modificarPercepcionTorso(percepcionTorso); 
-		percepcion.modificarPercepcionPiernas(percepcionPiernas); 
 	}
 	
 }

@@ -1,5 +1,5 @@
 package componentes;
-//cambiar nombre a prendaNivelAbrigo
+//cambiar nombre a prendaNivelAbrigo o prendaCapa
 public enum PrendaNivel {
 	Nivel1,
 	Nivel2,

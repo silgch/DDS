@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import componentes.Prenda;
-import queMePongo.QueMePongo;
 import usuario.Usuario;
 
 /*	
@@ -14,6 +13,43 @@ import usuario.Usuario;
 */
 
 public class Guardarropa {
+	public List<Prenda> prendas;
+	
+	private Usuario miDuenio= null;
+    //private OrganizadorDeGuardarropa miOrganizador = new OrganizadorDeGuardarropa(this);
+    
+    //Constructores:
+    public Guardarropa() {
+      //this.todoJunto = new ArrayList<Prenda>();    	
+        this.prendas = new ArrayList<Prenda>();
+    }
+    
+    public void duenio(Usuario usuario){
+    	if (miDuenio == null){miDuenio = usuario;}
+    }
+    
+    public void agregarAGuardarropas(Prenda prenda) throws Exception {
+    	if (miDuenio == null) {
+    		throw new Exception("Primero debe asignar un usuario a este guardarropa.");
+    	}
+    	if (miDuenio.tieneGuardarropaLleno(this.cantidadDePrendas())){
+    		throw new Exception("El usuario no puede agregar mas ropa debido a su plan.");
+    	}
+    	prendas.add(prenda);
+     }
+    
+    public int cantidadDePrendas() {
+		int cantidad=0;
+		//Esto lo hacemos para evitar un nullPointer si no hay prendas de alguna categoria.
+		if (prendas.isEmpty());
+			else {cantidad += prendas.size();}
+
+		return cantidad;
+	}
+}
+
+	 
+	/*
 	List<Prenda> prendasSuperioresNivel1;
     List<Prenda> prendasSuperioresNivel2;
     List<Prenda> prendasSuperioresNivel3;
@@ -74,20 +110,20 @@ public class Guardarropa {
 		return cantidad;
 	}
 	
-	public List<String> sugerir(){
+	/*public List<String> sugerir(){
 		try {
 			return QueMePongo.getInstance().sugerir(this,miDuenio);
 		}/*
 		catch(NoConexionApiException ae) {
 			System.out.println("Hubo un problema con la conexion a la api:"+ae);
 			return null;
-		}*/
+		}
 		catch(Exception e) {
 			System.out.println("Hubo un problema en: "+e);
 			return null;
 		}
 		
-	}
+	}*/
 	
 	/*public List<String> sugerirTodasLasCombinaciones(){
 		try {
@@ -133,7 +169,7 @@ public class Guardarropa {
 			return null;
 		}
 	}*/
-
+/*
 	public List<Prenda> getPrendasSuperioresNivel1() {
 		return prendasSuperioresNivel1;
 	}
@@ -174,6 +210,8 @@ public class Guardarropa {
 		return accesorios;
 	}
 }
+
+*/
 
 //DEPRECADO	
 /* 

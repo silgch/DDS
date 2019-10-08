@@ -18,6 +18,7 @@ import componentes.Prenda;
 import componentes.PrendaNivel;
 import componentes.TipoDePrenda;
 import componentes.Trama;
+import eventos.GeneradorDeSugerencias;
 import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 import repositorio.Repositorio;
@@ -47,6 +48,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		Set <Material> tiposDeMaterialLentes;
 		 
 		Usuario ines = new Usuario("Ines");
+		GeneradorDeSugerencias generadorDeSugDeInes = new GeneradorDeSugerencias();
 		
 		TipoDePrenda zapato;
 		TipoDePrenda remera;
@@ -120,20 +122,15 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    guardarropaInesUno.agregarAGuardarropas(unaZapatillaLonaBlanca);
 	    guardarropaInesUno.agregarAGuardarropas(unLenteNegro); 	
 	    
-	    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getPrendasSuperioresNivel1().size() + " prendas superiores");
-	    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getPrendasInferioresNivel3().size() + " prendas inferiores");
-	    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getCalzadosNivel2().size() + " calzados");
-	    System.out.println("el guardarropas tiene: " + guardarropaInesUno.getAccesorios().size() + " accesorio");
 		//guardarropaInesUno.sugerir();
 		//QueMePongo.sugerirTodasLasCombinaciones(guardarropaInesUno);
 	    
 	    
 	    //PROBANDO CALIFICAR SUGERENCIAS
-	    
-	      
-	    Sugerencia sugerencia1 = new Sugerencia();
-	    Sugerencia sugerencia2 = new Sugerencia();
-	    Sugerencia sugerencia3 = new Sugerencia();
+    
+	    Sugerencia sugerencia1 = new Sugerencia(generadorDeSugDeInes.sugerirEnBaseAPersepcion(guardarropaInesUno, ines, "3433955"));
+	    Sugerencia sugerencia2 = new Sugerencia(generadorDeSugDeInes.sugerirEnBaseAPersepcion(guardarropaInesUno, ines, "3433955"));
+	    Sugerencia sugerencia3 = new Sugerencia(generadorDeSugDeInes.sugerirEnBaseAPersepcion(guardarropaInesUno, ines, "3433955"));
 	    
 	    sugerencia1.setDescripcion("sugerencia buena");
 	    sugerencia2.setDescripcion("sugerencia meh");

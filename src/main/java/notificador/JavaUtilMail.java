@@ -16,11 +16,9 @@ import usuario.Usuario;
 
 public class JavaUtilMail implements INotificador{
 	
-	private Usuario notificado;
 	private String mailDestino;
 	
 	public JavaUtilMail(Usuario usuario){ 
-		this.notificado = usuario;
 		this.mailDestino = usuario.getMail();}
 	
 	public void enviarMail() throws AddressException, MessagingException {

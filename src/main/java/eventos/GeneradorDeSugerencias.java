@@ -1,39 +1,48 @@
-package queMePongo;
+package eventos;
+
+import static componentes.PrendaNivel.Nivel1;
+import static componentes.PrendaNivel.Nivel2;
+import static componentes.PrendaNivel.Nivel3;
+import static componentes.PrendaNivel.Nivel4;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
-//import java.util.Iterator;
-//import java.util.regex.Matcher;
-//import java.util.regex.Pattern;
 
-import com.google.common.collect.Sets;
 
 import climaAPI.ClimaAdapter;
 import climaAPI.GestorDeClimaAPIs;
+import climaAPI.OpenWeather;
+import componentes.Categoria;
 import componentes.Prenda;
+import componentes.PrendaNivel;
 import excepciones.NoConexionApiException;
 import guardarropas.Guardarropa;
+import usuario.GestorDeCuentas;
 import usuario.Usuario;
 
-
-public class QueMePongo {
+//Ex-QueMePongo
+public class GeneradorDeSugerencias{
 	
 	private GestorDeClimaAPIs gestorDeAPIs;
+	private ClimaAdapter api1;
 	
-	private ClimaAdapter api1 = gestorDeAPIs.entregarAPI();
+	Double tempReal;
 	
-	private static QueMePongo instance = null;
-	
-	private QueMePongo() {}
-
-	public static QueMePongo getInstance() {
-		if(instance == null) 
-			{instance = new QueMePongo();}
-		return instance;
+	public GeneradorDeSugerencias() {
+		gestorDeAPIs = new GestorDeClimaAPIs();
+		api1 = gestorDeAPIs.entregarAPI();
 	}
+	
+	/*
+	private static GeneradorDeSugerencias instance = null;
+	public static GeneradorDeSugerencias getInstance() {
+		if(instance == null) 
+			{instance = new GeneradorDeSugerencias();}
+		return instance;
+	}*/
+	
+	List<Prenda> listaAux = new ArrayList<Prenda>();
 	
 	/*
   	A sugerir se le da un guardarropa, el mismo tendrá varios niveles
@@ -47,68 +56,86 @@ public class QueMePongo {
   	entonces el programa tomara como "si hace" 10º
 	 */
 	
-    public List<String> sugerir(Guardarropa unGuardarropa,Usuario unUsuario) throws NoConexionApiException{
+    public List<String> sugerirEnBaseAPersepcion(Guardarropa unGuardarropa,Usuario unUsuario,String codigoCiudad) throws Exception{
     	
-		String codigoCiudad = "3433955";
-		Double tempReal = api1.obtenerClima(codigoCiudad);
+    	// ejemplo String codigoCiudad = "3433955";
+    	tempReal = api1.obtenerClima(codigoCiudad);
+    	
+    	//será la lista con la que trabajaremos
+    	
+    	//será la lista que terminaremos mostrando
+    	List<String> sugerencia = new ArrayList<String>();
+    	
 		Double tempCabeza = tempReal + unUsuario.getPercepcion().percepcionCabeza;
+		Double tempCuello = tempReal + unUsuario.getPercepcion().percepcionCuello;
 		Double tempTorso = tempReal + unUsuario.getPercepcion().percepcionTorso;
+		Double tempManos = tempReal + unUsuario.getPercepcion().percepcionManos;
 		Double tempPiernas = tempReal + unUsuario.getPercepcion().percepcionPiernas;
-    	
-    	List<Set<Prenda>> sets = new ArrayList<Set<Prenda>>();
-    	
-		if(!unGuardarropa.getPrendasSuperioresNivel1().isEmpty() && tempTorso<25) {
-			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel1()));
-		}
-		if(!unGuardarropa.getPrendasSuperioresNivel2().isEmpty() && tempTorso<=20) {
-			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel2()));
-		}
-		if(!unGuardarropa.getPrendasSuperioresNivel3().isEmpty() && tempTorso<=15) {
-			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel3()));
-		}
-		if(!unGuardarropa.getPrendasSuperioresNivel4().isEmpty() && tempTorso<=10) {
-			sets.add(new HashSet(unGuardarropa.getPrendasSuperioresNivel4()));
-		}
-		if(!unGuardarropa.getPrendasInferioresNivel1().isEmpty()) {
-			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel1()));
-		}
-		if(!unGuardarropa.getPrendasInferioresNivel2().isEmpty() && tempPiernas<=10) {
-			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel2()));
-		}
-		if(!unGuardarropa.getPrendasInferioresNivel3().isEmpty()) {
-			sets.add(new HashSet(unGuardarropa.getPrendasInferioresNivel3()));
-		}
-		if(!unGuardarropa.getCalzadosNivel1().isEmpty()) {
-			sets.add(new HashSet(unGuardarropa.getCalzadosNivel1()));
-		}
-		if(!unGuardarropa.getCalzadosNivel2().isEmpty()) {
-			sets.add(new HashSet(unGuardarropa.getCalzadosNivel2()));
-		}
-		if(!unGuardarropa.getAccesorios().isEmpty()) {
-			sets.add(new HashSet(unGuardarropa.getAccesorios()));
-		}
-   	 	
-   	 	Set<List<Prenda>> cartesianSet = Sets.cartesianProduct(sets);
-   	 	
-   	 	List<String> listaAux= new ArrayList<String>();
-   	 	
-		for(List<Prenda> element : cartesianSet ){
-			
-			String nombreAux ="";
-			List<Prenda> listaPrendaAux = element;
-			for(Prenda prenda :listaPrendaAux ){
-		    	nombreAux=nombreAux+"-"+prenda.getNombre();
-			}
-			listaAux.add(nombreAux);
+		Double tempCalzado = tempReal + unUsuario.getPercepcion().percepcionCalzado;
+		
+		PrendaNivel nivelCabeza = this.temperaturaANivelPrenda(tempCabeza);
+		PrendaNivel nivelCuello = this.temperaturaANivelPrenda(tempCuello);
+		PrendaNivel nivelTorso = this.temperaturaANivelPrenda(tempTorso);
+		PrendaNivel nivelManos = this.temperaturaANivelPrenda(tempManos);
+		PrendaNivel nivelPiernas = this.temperaturaANivelPrenda(tempPiernas);
+		PrendaNivel nivelCalzado = this.temperaturaANivelPrenda(tempCalzado);
+		
+		this.sugerirAlgunoDe(unGuardarropa,nivelCabeza,Categoria.CABEZA);
+		this.sugerirAlgunoDe(unGuardarropa,nivelCuello,Categoria.CUELLO);
+		this.sugerirAlgunoDe(unGuardarropa,nivelTorso,Categoria.PARTE_SUPERIOR);
+		this.sugerirAlgunoDe(unGuardarropa,nivelManos,Categoria.MANOS);
+		this.sugerirAlgunoDe(unGuardarropa,nivelPiernas,Categoria.PARTE_INFERIOR);
+		this.sugerirAlgunoDe(unGuardarropa,nivelCalzado,Categoria.CALZADO);
+		this.quizaAgregamosUnAccesorio(unGuardarropa);
+    			
+		System.out.printf("Se genero la sugerencia para la temperatura: %1.2f \n", tempReal);
+	
+		for(Prenda prenda : listaAux ){
+    		String nombre = prenda.getNombre();
+    		sugerencia.add(nombre);
 		}
 		
-		System.out.println("Se genero la sugerencia para la temperatura" +tempReal );
-		System.out.println(this.getRandomList(listaAux));
+		listaAux.clear();
 		
-		//this.creacionAtuendo(listaAux.toString(), unGuardarropa.getTodoJunto());
-		
-		return listaAux;    
+		return sugerencia;    
     }
+    
+    	
+     //		void quizaAgregamosUnAccesorio(g) busca todos los accesorios dentro del guardarropa,
+     //		el método tiene un 50% de chances de agregar todo accesorio que encuentre 
+    
+	private void quizaAgregamosUnAccesorio(Guardarropa unGuardarropa) {
+		boolean trueOfalse = (Math.random() < 0.5);
+		for (Prenda prenda : unGuardarropa.prendas) {
+			if((prenda.getCategoria() == Categoria.ACCESORIO)) {
+				if(trueOfalse) listaAux.add(prenda);
+			} 
+		}
+	}
+
+	boolean hayAlgunaPrendaQueCumpla(Guardarropa guardarropa,Categoria cat,PrendaNivel nivel) {
+		for (Prenda prenda : guardarropa.prendas) {
+    		if((prenda.getCategoria() == cat) & (prenda.getNivel() == nivel))
+    			return true;
+		}return false;
+	}
+	
+	public void siHayAlgunaAgregala(Guardarropa guardarropa,Categoria cat, PrendaNivel nivel){
+		if (hayAlgunaPrendaQueCumpla(guardarropa, cat, nivel)){
+			Prenda prendaRandom;
+			List<Prenda> listaTemporal = new ArrayList<Prenda>();
+			
+			for (Prenda prenda : guardarropa.prendas) {
+				if((prenda.getCategoria() == cat) & (prenda.getNivel() == nivel))
+					listaTemporal.add(prenda);
+			}
+			
+			Random rand = new Random(); 
+			prendaRandom = listaTemporal.get(rand.nextInt(listaTemporal.size()));
+			listaAux.add(prendaRandom);			
+		}    
+	}
+    
     
     public String getRandomList(List<String> list) {
 	    Random random = new Random();
@@ -116,7 +143,65 @@ public class QueMePongo {
 	    System.out.println("\nIndex :" + index );
 	    return list.get(index);
 	}
+    
+    public PrendaNivel temperaturaANivelPrenda(double temperatura) {
+    	int temp = (int) temperatura;
+    	if (between(temp,20,50)) return PrendaNivel.Nivel1;
+    	else if (between(temp,13,19)) return PrendaNivel.Nivel2;
+    	else if (between(temp,6,12)) return PrendaNivel.Nivel3;
+    	else return PrendaNivel.Nivel4;
+
+    }
+    
+	public static boolean between(int i, int minValueInclusive, int maxValueInclusive) {
+	    return (i >= minValueInclusive && i <= maxValueInclusive);
+	}
+	
+	/*
+	 * 	Ejemplo de sugerirAlgunoDe
+	 * 
+	public void sugerirAlgunoDe(Guardarropa guardarropa,PrendaNivel nivel,Categoria categoria){
+		switch(nivel) {
+		case Nivel1:
+			siHayAlgunaAgregala(unGuardarropa,Categoria.PARTE_SUPERIOR, Nivel1); break;
+		case Nivel2:
+			siHayAlgunaAgregala(unGuardarropa,Categoria.PARTE_SUPERIOR, Nivel1);
+			siHayAlgunaAgregala(unGuardarropa,Categoria.PARTE_SUPERIOR, Nivel2); break;
+		case Nivel3:
+			siHayAlgunaAgregala(unGuardarropa,Categoria.PARTE_SUPERIOR, Nivel1);
+			siHayAlgunaAgregala(unGuardarropa,Categoria.PARTE_SUPERIOR, Nivel2);
+			siHayAlgunaAgregala(unGuardarropa,Categoria.PARTE_SUPERIOR, Nivel3); break;
+		default:
+			siHayAlgunaAgregala(unGuardarropa,Categoria.PARTE_SUPERIOR, Nivel1);
+			siHayAlgunaAgregala(unGuardarropa,Categoria.PARTE_SUPERIOR, Nivel2);
+			siHayAlgunaAgregala(unGuardarropa,Categoria.PARTE_SUPERIOR, Nivel3);
+			siHayAlgunaAgregala(unGuardarropa,Categoria.PARTE_SUPERIOR, Nivel4); break;
+	}*/
+	
+	public void sugerirAlgunoDe(Guardarropa unGuardarropa,PrendaNivel nivel,Categoria categoria) {
+		switch(nivel) {
+			case Nivel1:
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1); break;
+			case Nivel2:
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel2); break;
+			case Nivel3:
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel2);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel3); break;
+			default:
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel2);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel3);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel4); break;
+		}		
+	}		
+    
+    
 }
+
+
+
 
 
 

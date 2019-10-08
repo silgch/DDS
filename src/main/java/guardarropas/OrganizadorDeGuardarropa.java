@@ -1,4 +1,4 @@
-package guardarropas;
+/*package guardarropas;
 
 import componentes.Prenda;
 
@@ -110,3 +110,4 @@ public class OrganizadorDeGuardarropa {
         miGuardarropa.calzadosNivel2.add(_prenda);          
     }
 }
+*/

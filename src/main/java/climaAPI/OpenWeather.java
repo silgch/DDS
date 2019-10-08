@@ -25,7 +25,7 @@ public class OpenWeather implements ClimaAdapter{
 		
 		String url = "http://api.openweathermap.org/data/2.5/forecast?id="+codigoCiudad+"&APPID="+codigoUsuario;
 		
-		
+		System.out.println("");
         System.out.println("Inicio: Inicia GetClima");
         System.out.println("Conectado a: " + url);
         
@@ -88,7 +88,6 @@ public class OpenWeather implements ClimaAdapter{
 			retorno.getClimaCiudad().add(cc);
 						
 			reader.close();
-			System.out.println("\nLa temperatura en "+ cc.getCity().getName()+" es =" );
 			break;
             
 	
@@ -171,7 +170,7 @@ public class OpenWeather implements ClimaAdapter{
 				retorno = retorno + elemento;
 			}
 			return retorno/cantidadMedidas;
-		}	
+			}	
 	}
 
 }
