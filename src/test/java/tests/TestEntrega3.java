@@ -17,7 +17,7 @@ public class TestEntrega3 {
 	Sugerencia sugerencia2;
 	Sugerencia sugerencia3;
 	    
-	
+	/*
 	@Before
 	public void init() {
 	    Sugerencia sugerencia1 = new Sugerencia();
@@ -76,7 +76,7 @@ public class TestEntrega3 {
             assertTrue(excepcion2.getMessage().contains("ACEPTADA"));
         
         
-    }
+    }*/
     
    
     

@@ -22,6 +22,7 @@ public class TestPrenda {
 	private Set <Material> tiposDeMaterialLentes;
 	
 	Usuario ines = new Usuario("Ines");
+	Usuario sandra = new Usuario("Sandra"); //la amiga con plata de ines
 
 	TipoDePrenda zapato;
 	TipoDePrenda remera;
@@ -86,7 +87,7 @@ public class TestPrenda {
 		unaZapatillaLonaBlanca= new Prenda("Zapatillas de lona blancas", zapatilla, Material.LONA, colorBlanco, Trama.LISA);
 		unLenteNegro = new Prenda("Lentes de sol  negros", lentes, Material.PLASTICO, colorNegro, Trama.LISA);
 		
-		ines.setTipoDeCuenta(new CuentaGratuita());
+		sandra.setTipoDeCuenta(new CuentaPremium());
 		
 	    guardarropaInesUno = new Guardarropa();
 	    guardarropaInesDos = new Guardarropa();
@@ -153,24 +154,18 @@ public class TestPrenda {
 	}*/
 	
 	@Test 
-	public void listaDePrendasPorCategoriaCorrectas() {
-		
-		assertEquals(2,guardarropaInesUno.getPrendasSuperioresNivel1().size());
-		assertEquals(1,guardarropaInesUno.getPrendasInferioresNivel2().size());
-		assertEquals(2,guardarropaInesUno.getCalzadosNivel2().size());
-		assertEquals(1,guardarropaInesUno.getAccesorios().size());
-	
+	public void listaDePrendasCorrectas() {
+		assertEquals(6,guardarropaInesUno.cantidadDePrendas());	
 	}
 	
 	@Test 
-	public void agregoUnaPrendaYlaCantidadDePrendasEsCorrecta() throws Exception {
+	public void agregoUnaPrendaIgualAOtraYlaCantidadNoVaria() throws Exception {
 		// Agrego una prenda que ya se encuentra y da la misma cantidad de prendas
 		assertEquals(6, guardarropaInesUno.cantidadDePrendas());
 		guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);		
 		assertEquals(6, guardarropaInesUno.cantidadDePrendas());	
 		guardarropaInesUno.agregarAGuardarropas(unaRemeraNegra);		
-		assertEquals(7, guardarropaInesUno.cantidadDePrendas());	
-		
+		assertEquals(7, guardarropaInesUno.cantidadDePrendas());		
 		assertEquals(1, guardarropaInesDos.cantidadDePrendas());
 		guardarropaInesDos.agregarAGuardarropas(unaRemeraBlancaLisa);
 		assertEquals(2, guardarropaInesDos.cantidadDePrendas());

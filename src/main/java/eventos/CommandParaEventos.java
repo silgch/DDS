@@ -39,7 +39,6 @@ public class CommandParaEventos /*implements ICommand*/ {
 	public void generarSugerenciaPara(Guardarropa unGuardarropa,Evento evento) throws Exception {
 		//String codigoCiudad = "3433955" es para CABA;
 		String codigoCiudad = evento.getUbicacion();
-		LocalDate fecha = evento.getFechaEvento();
 		listaDePrendasTemporal = sugiridor.sugerirEnBaseAPersepcion(unGuardarropa, usuario, codigoCiudad);	
 		guardarropaTemporal = unGuardarropa;
 		eventoTemporal = evento;

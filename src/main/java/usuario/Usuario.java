@@ -13,17 +13,10 @@ import javax.persistence.Transient;
 import componentes.Entidad;
 //import eventos.ColaDeEventos;
 import eventos.CommandParaEventos;
-import eventos.EnumEstadoSugerencia;
 //import eventos.Evento;
 import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "USUARIO")
@@ -84,11 +77,6 @@ public class Usuario extends Entidad{
 		this.tipoDeCuenta = tipoDeCuenta;
 	}
 	public void setMail(String m) {this.mail = m;}
-	
-	//Métodos con tipo de Cuenta
-	public void upgradearTipoDeCuenta(){
-		gestorCuenta.upgradear(tipoDeCuenta);
-	}
 	
 	// Métodos con guardarropas
 	
@@ -157,7 +145,7 @@ public class Usuario extends Entidad{
 	}
 	
 
-	public void calificarSugerencia(Sugerencia unaSugerencia, int unaCalificacion) throws Exception {
+	/*public void calificarSugerencia(Sugerencia unaSugerencia, int unaCalificacion) throws Exception {
 		System.out.println("El usuario " + this.getNombre() + " ha calificado con \"" +
 				unaCalificacion+"\" la sugerencia" +
 				unaSugerencia.devolverSugerenciaEnFormaDeString());
@@ -166,6 +154,6 @@ public class Usuario extends Entidad{
 		}else {
 			System.out.println("Solo se pueden calificar sugerencias ACEPTADAS");
 		}
-	}
+	}*/
 	
 }

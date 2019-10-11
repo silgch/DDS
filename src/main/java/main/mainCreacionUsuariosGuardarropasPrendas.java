@@ -19,8 +19,6 @@ import componentes.Prenda;
 import componentes.PrendaNivel;
 import componentes.TipoDePrenda;
 import componentes.Trama;
-import eventos.Evento;
-import eventos.GeneradorDeSugerencias;
 import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 import repositorio.Repositorio;
@@ -136,14 +134,13 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    ines.pedirSugerencia(guardarropaInesUno);
 	    Sugerencia sugerencia1 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
 	    ines.aceptarSugerencia(sugerencia1);
-	    ines.calificarSugerencia(sugerencia1,3);
+	    
 	    
 	    ines.crearEvento(LocalDate.now(), "Las Toninas", "3431608");
 	    ines.pedirSugerencia(guardarropaInesUno);	    
 	    Sugerencia sugerencia2 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
 	    ines.rechazarSugerencia(sugerencia2);    
-	    ines.calificarSugerencia(sugerencia2,2);
-	    
+	    	    
 	    repositorio.cerrar();
 		emFactory.close();
 	    
