@@ -63,9 +63,6 @@ public class GeneradorDeSugerencias{
     	
     	sugerencia.clear();
     	
-    	//será la lista con la que trabajaremos
-    	
-    	//será la lista que terminaremos mostrando
     	List<String> sugerenciaPMostrar = new ArrayList<String>();
     	
 		Double tempCabeza = tempReal + unUsuario.getPercepcion().percepcionCabeza;

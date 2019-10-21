@@ -6,7 +6,6 @@
 package eventos;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import componentes.Prenda;
@@ -15,23 +14,22 @@ import java.time.Period;
 
 import guardarropas.Guardarropa;
 import usuario.Usuario;
-//Agregar anularSugerenciaElegida, que vuelva para atras la sugerencia aceptada.
+
 public class Evento {
 
 	private LocalDate fechaEvento;
 	private String descripcion;
 	private Usuario usuario;
-	//private int ubicacion;
 	private Guardarropa guardarropa;
-	//private Double temperatura;
-	//private List<Sugerencia> sugerencias = new ArrayList<Sugerencia>();
 	private Sugerencia sugerencia;
-	/*private ColaDeEventos servidorDeEventos = new ColaDeEventos();*/
 	private String repeticion;
 	private List<Evento> eventosConRepeticion;
-	
 	private String ubicacionParaAPI;
 	
+	//private int ubicacion;
+	//private Double temperatura;
+	//private List<Sugerencia> sugerencias = new ArrayList<Sugerencia>();
+	/*private ColaDeEventos servidorDeEventos = new ColaDeEventos();*/
 	/*public ColaDeEventos getColaDeEventos() {
 		return servidorDeEventos;
 	}*/
@@ -140,8 +138,12 @@ public class Evento {
 		}
 	}*/
 	public void setSugerencia(Sugerencia unaSugerencia) {
-		
+		//Si ya habia una sugerencia aceptada antes => se liberan las prendas de esa sugerencia
+		if (this.sugerencia.getEstado() == EnumEstadoSugerencia.ACEPTADA)
+			this.liberameTodasLasPrendas();
+		this.sugerencia = unaSugerencia;
 	}
+	
 	public void setRepeticion(String repeticion) throws Exception {
 		if(esUnaRepeticionValida(repeticion)){
 			this.repeticion = repeticion;
@@ -165,8 +167,5 @@ public class Evento {
 	}
 	public Guardarropa getGuardaropa() {
 		return guardarropa;
-	}
-	public String getubicacionParaAPI() {
-		return ubicacionParaAPI;
 	}
 }

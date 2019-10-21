@@ -18,7 +18,6 @@ public class CommandParaEventos /*implements ICommand*/ {
 	private Usuario usuario;
 	private Set<Evento> colaEventosActivos = new HashSet<Evento>();
 	private List<Prenda> listaDePrendasTemporal; 
-
 	private Guardarropa guardarropaTemporal;
 	private Evento eventoTemporal;
 	private GeneradorDeSugerencias sugiridor = new GeneradorDeSugerencias();
