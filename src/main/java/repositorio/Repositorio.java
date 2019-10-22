@@ -6,6 +6,7 @@ public class Repositorio {
 
 	private Prenda prenda;
 	private Guardarropa guardarropa;
+	private Usuario usuario;
 	
 	protected EntityManager em;
 	public Repositorio(EntityManager em) {
@@ -24,6 +25,13 @@ public class Repositorio {
 			guardarropa = new Guardarropa(em);
 		}
 		return guardarropa;
+	}
+	
+	public Usuario usuario() {
+		if (usuario == null) {
+			usuario = new Usuario(em);
+		}
+		return usuario;
 	}
 /*
 	public Comunas comunas() {

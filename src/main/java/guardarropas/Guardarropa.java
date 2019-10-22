@@ -3,8 +3,15 @@ package guardarropas;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -21,14 +28,20 @@ import usuario.Usuario;
 @Table(name = "GUARDARROPA")
 public class Guardarropa {
 	
-	@Transient
-	private List<Prenda> prendas = new ArrayList<Prenda>();
 	@Id
-	private Usuario miDuenio= null;
-        
-    //Constructores:
-    public Guardarropa(){}
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Long id;
+	public Guardarropa(){}	
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "prendas", referencedColumnName = "id")
+	private List<Prenda> prendas = new ArrayList<Prenda>();	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "miDuenio", referencedColumnName = "id")
+	private Usuario miDuenio= null;        
     
+	
+    //Constructores:
     public void duenio(Usuario usuario){
     	if (miDuenio == null){miDuenio = usuario;}
     }
@@ -58,6 +71,9 @@ public class Guardarropa {
 	}
     
 }
+
+
+//CODIGO VIEJO:
 
 	 
 	/*

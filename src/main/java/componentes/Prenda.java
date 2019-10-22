@@ -15,14 +15,19 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "PRENDA")
-public class Prenda extends Entidad {
+public class Prenda{
 	
-	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Long id;
 	
 	private String nombre;
 //	@ManyToOne(cascade = CascadeType.ALL)
@@ -46,8 +51,6 @@ public class Prenda extends Entidad {
 	@Transient
 	private String urlImagen;
 	private int calificacion=0;
-	//Para semaforos de prendas
-	//private LocalDate fecha;
 	@Transient
 	private List<LocalDate> listaDeFechasReservadas;
 	
@@ -150,7 +153,9 @@ public class Prenda extends Entidad {
 		listaDeFechasReservadas.remove(fecha);
 	}
 	public boolean estaReservada(LocalDate fecha) {
-		return listaDeFechasReservadas.contains(fecha);
+		if(listaDeFechasReservadas==null) return false;
+			else return(listaDeFechasReservadas.contains(fecha));
+		
 	}
 	
 

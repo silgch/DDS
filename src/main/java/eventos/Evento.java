@@ -8,6 +8,15 @@ package eventos;
 import java.time.LocalDate;
 import java.util.List;
 
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import javax.persistence.Transient;
+
 import componentes.Prenda;
 
 import java.time.Period;
@@ -15,14 +24,25 @@ import java.time.Period;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
 
+@Entity
 public class Evento {
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Long id;
+	public Evento() {}
+	
+	@Transient
 	private LocalDate fechaEvento;
 	private String descripcion;
+	@OneToOne
 	private Usuario usuario;
+	@Transient
 	private Guardarropa guardarropa;
+	@Transient
 	private Sugerencia sugerencia;
 	private String repeticion;
+	@Transient
 	private List<Evento> eventosConRepeticion;
 	private String ubicacionParaAPI;
 	
@@ -139,7 +159,7 @@ public class Evento {
 	}*/
 	public void setSugerencia(Sugerencia unaSugerencia) {
 		//Si ya habia una sugerencia aceptada antes => se liberan las prendas de esa sugerencia
-		if (this.sugerencia.getEstado() == EnumEstadoSugerencia.ACEPTADA)
+		if (this.sugerencia != null)
 			this.liberameTodasLasPrendas();
 		this.sugerencia = unaSugerencia;
 	}

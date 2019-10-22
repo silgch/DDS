@@ -43,7 +43,7 @@ public class TipoDePrenda{
 		this.categoria = categoria;
 		this.tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos;
 		this.nivel = nivel;
-		this.jpa_tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos.toString();
+		//this.jpa_tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos.toString();
 	}
 	
 	public String getNombre() {
@@ -70,14 +70,14 @@ public class TipoDePrenda{
 	
 	public void puedeSerDeMaterial(Material unMaterial) {
 		//Si el material no se encuentra tiposDeMaterialesPermitidos tira excepción
-		if (!tiposDeMaterialesPermitidos.contains(unMaterial)) {
+		if(tiposDeMaterialesPermitidos==null); //No se seleccionaron los tiposDeMaterialesPermitidos
+		else if (!tiposDeMaterialesPermitidos.contains(unMaterial)) { //&& ) {
 			throw new IllegalArgumentException("Material No Permitido");
 		}
 	}
 	
+	
 
-	
-	
 	/*
 	public void setNombre(String nombre) {
 		this.nombre = nombre;

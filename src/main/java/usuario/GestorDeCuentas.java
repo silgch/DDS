@@ -1,6 +1,7 @@
 package usuario;
 
 public class GestorDeCuentas {
+	
 	public Cuenta creameUnaCuenta() {
 		return new CuentaGratuita();
 	}

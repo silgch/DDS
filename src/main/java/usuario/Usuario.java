@@ -1,16 +1,25 @@
 package usuario;
 
 import static java.util.Objects.requireNonNull;
+import static usuario.Cuenta.nombre;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import componentes.Entidad;
 //import eventos.ColaDeEventos;
 import eventos.CommandParaEventos;
 //import eventos.Evento;
@@ -20,34 +29,41 @@ import guardarropas.Guardarropa;
 
 @Entity
 @Table(name = "USUARIO")
-public class Usuario extends Entidad{
+public class Usuario{
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Long id;
 	
-	private static final long serialVersionUID = 1L;
-	
+	//@Column(name="userName",nullable = true, columnDefinition="STRING CAN BE NULL DEFAULT ")
 	private String nombreDeUsuario;
 	private String mail;
-	@Transient
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Guardarropa> guardarropas = new ArrayList<>();
-	//private List<Evento> eventos = new ArrayList<Evento>();
-	@Transient
+
+	/*El gestorDeCuentas es el asistente que entrega/upgredea la cuenta del usuario
+	 * no hace falta persistirlo*/
+	@Transient 
 	private GestorDeCuentas gestorCuenta;
 	@Transient
 	private Cuenta tipoDeCuenta;
-	@Transient
-	private PercepcionDeTemperatura percepcion = new PercepcionDeTemperatura();
-	@Transient
-	private CommandParaEventos managerDeEventos = new CommandParaEventos(this);
-	private String jpa_tipoDeCuenta;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "preferencias", referencedColumnName = "id")
+	private PercepcionDeTemperatura percepcion ;
+	@OneToOne(cascade = CascadeType.ALL)	
+	private CommandParaEventos managerDeEventos;
+	private String tipoDeUsuario;
 	
 	public Usuario() {}
 	
 	public Usuario(String name){
 		this.nombreDeUsuario = name;
 		gestorCuenta = new GestorDeCuentas();
+		percepcion = new PercepcionDeTemperatura();
+		managerDeEventos = new CommandParaEventos(this);
 		tipoDeCuenta = gestorCuenta.creameUnaCuenta();
-		jpa_tipoDeCuenta = tipoDeCuenta.nombre;
-	}
-	
+		tipoDeUsuario = this.tipoDeCuenta.nombre;
+		}
 	
 	// Getters
 	public List<Guardarropa> getGuardarropas() {

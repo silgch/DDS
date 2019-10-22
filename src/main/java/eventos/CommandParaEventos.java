@@ -5,21 +5,48 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
 import componentes.Prenda;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
 
 
 //Asistente de eventos
+@Entity
 public class CommandParaEventos /*implements ICommand*/ {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Long id;
+	
+	public CommandParaEventos() {}
 	
 	//private GestorDeClimaAPIs gestorDeAPIs;
 	//private ClimaAdapter api1 = gestorDeAPIs.entregarAPI();
+	
+	@OneToOne
+	@JoinColumn(name = "usuarioAsociado", referencedColumnName = "id")
 	private Usuario usuario;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "perteneceALaColaDeEventos", referencedColumnName = "id")
 	private Set<Evento> colaEventosActivos = new HashSet<Evento>();
-	private List<Prenda> listaDePrendasTemporal; 
+
+	
+	@Transient
+	private List<Prenda> listaDePrendasTemporal;
+	@Transient
 	private Guardarropa guardarropaTemporal;
+	@Transient
 	private Evento eventoTemporal;
+	@Transient
 	private GeneradorDeSugerencias sugiridor = new GeneradorDeSugerencias();
 
 	
@@ -37,8 +64,7 @@ public class CommandParaEventos /*implements ICommand*/ {
 	}
 	public void generarSugerenciaPara(Guardarropa unGuardarropa,Evento evento) throws Exception {
 		//String codigoCiudad = "3433955" es para CABA;
-		String codigoCiudad = evento.getUbicacion();
-		listaDePrendasTemporal = sugiridor.sugerirEnBaseAPersepcion(unGuardarropa, usuario, codigoCiudad);	
+		listaDePrendasTemporal = sugiridor.sugerirEnBaseAPersepcion(unGuardarropa, usuario, evento);	
 		guardarropaTemporal = unGuardarropa;
 		eventoTemporal = evento;
 	}

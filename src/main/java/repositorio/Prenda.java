@@ -18,9 +18,9 @@ public class Prenda extends Repositorio {
 		return prenda;
 	}
  	*/	
-	public void persistir(componentes.Prenda remera) {
+	public void persistir(componentes.Prenda prenda) {
 		em.getTransaction().begin();
-		em.merge(remera);
+		em.merge(prenda);
 		em.getTransaction().commit();
 	}
 }

@@ -5,6 +5,7 @@ import static componentes.PrendaNivel.Nivel2;
 import static componentes.PrendaNivel.Nivel3;
 import static componentes.PrendaNivel.Nivel4;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -56,7 +57,10 @@ public class GeneradorDeSugerencias{
   	entonces el programa tomara como "si hace" 10º
 	 */
 	
-    public List<Prenda> sugerirEnBaseAPersepcion(Guardarropa unGuardarropa,Usuario unUsuario,String codigoCiudad) throws Exception{
+    public List<Prenda> sugerirEnBaseAPersepcion(Guardarropa unGuardarropa,Usuario unUsuario,Evento evento) throws Exception{
+    	
+    	String codigoCiudad = evento.getUbicacion();
+		LocalDate fecha = evento.getFechaEvento();
     	
     	// ejemplo String codigoCiudad = "3433955";
     	tempReal = api1.obtenerClima(codigoCiudad);
@@ -65,12 +69,12 @@ public class GeneradorDeSugerencias{
     	
     	List<String> sugerenciaPMostrar = new ArrayList<String>();
     	
-		Double tempCabeza = tempReal + unUsuario.getPercepcion().percepcionCabeza;
-		Double tempCuello = tempReal + unUsuario.getPercepcion().percepcionCuello;
-		Double tempTorso = tempReal + unUsuario.getPercepcion().percepcionTorso;
-		Double tempManos = tempReal + unUsuario.getPercepcion().percepcionManos;
-		Double tempPiernas = tempReal + unUsuario.getPercepcion().percepcionPiernas;
-		Double tempCalzado = tempReal + unUsuario.getPercepcion().percepcionCalzado;
+		Double tempCabeza = tempReal + unUsuario.getPercepcion().getPercepcionCabeza();
+		Double tempCuello = tempReal + unUsuario.getPercepcion().getPercepcionCuello();
+		Double tempTorso = tempReal + unUsuario.getPercepcion().getPercepcionTorso();
+		Double tempManos = tempReal + unUsuario.getPercepcion().getPercepcionManos();
+		Double tempPiernas = tempReal + unUsuario.getPercepcion().getPercepcionPiernas();
+		Double tempCalzado = tempReal + unUsuario.getPercepcion().getPercepcionCalzado();
 		
 		PrendaNivel nivelCabeza = this.temperaturaANivelPrenda(tempCabeza);
 		PrendaNivel nivelCuello = this.temperaturaANivelPrenda(tempCuello);
@@ -79,12 +83,12 @@ public class GeneradorDeSugerencias{
 		PrendaNivel nivelPiernas = this.temperaturaANivelPrenda(tempPiernas);
 		PrendaNivel nivelCalzado = this.temperaturaANivelPrenda(tempCalzado);
 		
-		this.sugerirAlgunoDe(unGuardarropa,nivelCabeza,Categoria.CABEZA);
-		this.sugerirAlgunoDe(unGuardarropa,nivelCuello,Categoria.CUELLO);
-		this.sugerirAlgunoDe(unGuardarropa,nivelTorso,Categoria.PARTE_SUPERIOR);
-		this.sugerirAlgunoDe(unGuardarropa,nivelManos,Categoria.MANOS);
-		this.sugerirAlgunoDe(unGuardarropa,nivelPiernas,Categoria.PARTE_INFERIOR);
-		this.sugerirAlgunoDe(unGuardarropa,nivelCalzado,Categoria.CALZADO);
+		this.sugerirAlgunoDe(unGuardarropa,nivelCabeza,Categoria.CABEZA,fecha);
+		this.sugerirAlgunoDe(unGuardarropa,nivelCuello,Categoria.CUELLO,fecha);
+		this.sugerirAlgunoDe(unGuardarropa,nivelTorso,Categoria.PARTE_SUPERIOR,fecha);
+		this.sugerirAlgunoDe(unGuardarropa,nivelManos,Categoria.MANOS,fecha);
+		this.sugerirAlgunoDe(unGuardarropa,nivelPiernas,Categoria.PARTE_INFERIOR,fecha);
+		this.sugerirAlgunoDe(unGuardarropa,nivelCalzado,Categoria.CALZADO,fecha);
 		this.quizaAgregamosUnAccesorio(unGuardarropa);
     			
 		System.out.printf("Se genero la sugerencia para la temperatura: %1.2f \n", tempReal);
@@ -103,7 +107,25 @@ public class GeneradorDeSugerencias{
 		return sugerencia;    
     }
     
-    	
+	public void sugerirAlgunoDe(Guardarropa unGuardarropa,PrendaNivel nivel,Categoria categoria,LocalDate fecha) {
+		switch(nivel) {
+			case Nivel1:
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1, fecha); break;
+			case Nivel2:
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1, fecha);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel2, fecha); break;
+			case Nivel3:
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1, fecha);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel2, fecha);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel3, fecha); break;
+			default:
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1, fecha);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel2, fecha);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel3, fecha);
+				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel4, fecha); break;
+		}		
+	}
+	
      //		void quizaAgregamosUnAccesorio(g) busca todos los accesorios dentro del guardarropa,
      //		el método tiene un 50% de chances de agregar todo accesorio que encuentre 
     
@@ -116,20 +138,20 @@ public class GeneradorDeSugerencias{
 		}
 	}
 
-	boolean hayAlgunaPrendaQueCumpla(Guardarropa guardarropa,Categoria cat,PrendaNivel nivel) {
+	boolean hayAlgunaPrendaQueCumpla(Guardarropa guardarropa,Categoria cat,PrendaNivel nivel, LocalDate fecha) {
 		for (Prenda prenda : guardarropa.getPrendas()) {
-    		if((prenda.getCategoria() == cat) & (prenda.getNivel() == nivel))
+    		if((prenda.getCategoria() == cat) & (prenda.getNivel() == nivel) & !(prenda.estaReservada(fecha)))
     			return true;
 		}return false;
 	}
 	
-	public void siHayAlgunaAgregala(Guardarropa guardarropa,Categoria cat, PrendaNivel nivel){
-		if (hayAlgunaPrendaQueCumpla(guardarropa, cat, nivel)){
+	public void siHayAlgunaAgregala(Guardarropa guardarropa,Categoria cat, PrendaNivel nivel, LocalDate fecha){
+		if (hayAlgunaPrendaQueCumpla(guardarropa, cat, nivel, fecha)){
 			Prenda prendaRandom;
 			List<Prenda> listaTemporal = new ArrayList<Prenda>();
 			
 			for (Prenda prenda : guardarropa.getPrendas()) {
-				if((prenda.getCategoria() == cat) & (prenda.getNivel() == nivel))
+				if((prenda.getCategoria() == cat) & (prenda.getNivel() == nivel) & !(prenda.estaReservada(fecha)))
 					listaTemporal.add(prenda);
 			}
 			
@@ -181,24 +203,7 @@ public class GeneradorDeSugerencias{
 			siHayAlgunaAgregala(unGuardarropa,Categoria.PARTE_SUPERIOR, Nivel4); break;
 	}*/
 	
-	public void sugerirAlgunoDe(Guardarropa unGuardarropa,PrendaNivel nivel,Categoria categoria) {
-		switch(nivel) {
-			case Nivel1:
-				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1); break;
-			case Nivel2:
-				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1);
-				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel2); break;
-			case Nivel3:
-				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1);
-				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel2);
-				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel3); break;
-			default:
-				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel1);
-				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel2);
-				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel3);
-				siHayAlgunaAgregala(unGuardarropa,categoria, Nivel4); break;
-		}		
-	}		
+	
     
     
 }
