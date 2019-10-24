@@ -15,11 +15,15 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 @Table(name = "PRENDA")
@@ -30,38 +34,56 @@ public class Prenda{
 	Long id;
 	
 	private String nombre;
-//	@ManyToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "colorPrincipal", referencedColumnName = "id")
-	@Transient
+	
+	
+	
+	@ManyToOne( cascade=CascadeType.ALL)
+	@JoinColumn(name = "color_ppal_id", referencedColumnName="id")
     private Color colorPrincipal;
-	@Transient
+	
+	
+	
+	@ManyToOne( cascade=CascadeType.ALL)
+	@JoinColumn(name = "color_sec_id", referencedColumnName="id")
     private Color colorSecundario;
-	@Transient
+	
+	@ManyToOne( cascade=CascadeType.ALL)
+	@JoinColumn(name = "material_id", referencedColumnName="id")
     private Material material;
-	//@Transient
+	
+	
+	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "jpa_tipo", referencedColumnName = "nombre")
+	@JoinColumn(name = "tipoPrenda_id", referencedColumnName = "id")
     private TipoDePrenda tipo;
-	@Transient
-    private Trama trama;
-	@Transient
+	
+	
+	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "guardarropa", referencedColumnName = "miDuenio")
+	@JoinColumn(name = "trama_id", referencedColumnName = "id")
+    private Trama trama;
+	
+	
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "guardarropa_id", referencedColumnName = "id")
 	private Guardarropa guardarropa;
-	@Transient
+	
+	
+	
 	private String urlImagen;
+	
 	private int calificacion=0;
+	
 	@Transient
 	private List<LocalDate> listaDeFechasReservadas;
 	
 	
-	//Para persistir
-	private String jpa_color_ppal;
-	private String jpa_color_sec;	
-	private String jpa_material;
-	private String jpa_trama;
-	private String jpa_categoria;
-	private String jpa_nivel;
+	/*
+	 * //Para persistir private String jpa_color_ppal; private String jpa_color_sec;
+	 * private String jpa_material; private String jpa_trama; private String
+	 * jpa_categoria; private String jpa_nivel;
+	 */
 	
     public Prenda() {}
 
@@ -75,7 +97,7 @@ public class Prenda{
     	Validaciones.validarCreacionPrenda(nombre, tipo, material, colorPrincipal, colorSecundario, trama);
 		asignarValoresAPrenda(nombre, tipo, material, colorPrincipal,trama);
 		this.colorSecundario = colorSecundario;
-		this.jpa_color_sec = colorSecundario.getternaColores();
+		//this.jpa_color_sec = colorSecundario.getternaColores();
         
     }
     
@@ -86,11 +108,11 @@ public class Prenda{
         this.colorPrincipal = cPpal;
         this.trama = trama;
         ///
-        this.jpa_material = material.name();
-    	this.jpa_color_ppal = cPpal.getternaColores();
-    	this.jpa_categoria = tipo.getCategoria().name();
-  		this.jpa_nivel = tipo.getNivel().name();
-    	this.jpa_trama = trama.name();
+		/*
+		 * this.jpa_material = material.name(); this.jpa_color_ppal =
+		 * cPpal.getternaColores(); this.jpa_categoria = tipo.getCategoria().name();
+		 * this.jpa_nivel = tipo.getNivel().name(); this.jpa_trama = trama.name();
+		 */
 	}
     
      //Lo unico que podriamos cambiar de una prenda es el nombre .

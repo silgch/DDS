@@ -2,11 +2,31 @@ package componentes;
 
 import java.util.Arrays;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "COLOR")
 public class Color{
-	private int rojo, amarillo, azul;
 	
 	
-	//Constructor.
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Long id;
+	
+	
+	private int rojo;
+	private int amarillo;
+	private int azul;
+	
+	
+	public Color() {}
+	
 	public Color (int ro, int am, int az) {
 		this.rojo=ro;
 		this.amarillo=am;

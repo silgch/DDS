@@ -38,6 +38,33 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	public static void main(String[] args) throws Exception {
 		
 		/* Primero creamos los atributos basicos de las prendas */
+		
+		
+		
+		/*
+		 * ALGODON, JEAN, LINO, GABARDINA, SEDA, CUERO, PLASTICO, CRISTAL, ORO, CUERINA,
+		 * PLATA, LONA, LANA, POLIESTER, ACRILICO, CORDEROY, BENGALINA, CAUCHO
+		 */
+		
+		Material algodon=new Material("Aldodon");
+		Material jean=new Material("Jean");
+		Material lino=new Material("Lino");
+		Material gabardina=new Material("Gabardina");
+		Material seda=new Material("Seda");
+		Material cuero=new Material("Cuero");
+		Material plastico=new Material("Plastico");
+		Material cristal=new Material("Cristal");
+		Material oro=new Material("Oro");
+		Material cuerina=new Material("Cuerina");
+		Material plata=new Material("Plata");
+		Material lona=new Material("Lona");
+		Material lana=new Material("Lana");
+		Material poliester=new Material("Poliester");
+		Material acrilico=new Material("Acrilico");
+		Material corderoy=new Material("Corderoy");
+		Material bengalina=new Material("Bengalina");
+		Material caucho=new Material("Caucho");
+		
 		Set <Material> tiposDeMaterialRemera;
 		Set <Material> tiposDeMaterialZapato;
 		Set <Material> tiposDeMaterialZapatilla;
@@ -53,18 +80,26 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		tiposDeMaterialZapato= new HashSet<Material>();
 		tiposDeMaterialZapatilla= new HashSet<Material>();
 		tiposDeMaterialLentes = new HashSet<Material>();		
-		tiposDeMaterialRemera.add(Material.ALGODON);
-		tiposDeMaterialRemera.add(Material.SEDA);
-		tiposDeMaterialPantalon.add(Material.BENGALINA);
-		tiposDeMaterialPantalon.add(Material.CORDEROY);
-		tiposDeMaterialPantalon.add(Material.JEAN);
-		tiposDeMaterialZapato.add(Material.CUERINA);
-		tiposDeMaterialZapato.add(Material.CUERO);
-		tiposDeMaterialZapatilla.add(Material.CUERINA);
-		tiposDeMaterialZapatilla.add(Material.CUERO);
-		tiposDeMaterialZapatilla.add(Material.LONA);
-		tiposDeMaterialLentes.add(Material.PLASTICO);		
+		tiposDeMaterialRemera.add(algodon);
+		tiposDeMaterialRemera.add(seda);
+		tiposDeMaterialPantalon.add(bengalina);
+		tiposDeMaterialPantalon.add(corderoy);
+		tiposDeMaterialPantalon.add(jean);
+		tiposDeMaterialZapato.add(cuerina);
+		tiposDeMaterialZapato.add(cuero);
+		tiposDeMaterialZapatilla.add(cuerina);
+		tiposDeMaterialZapatilla.add(cuero);
+		tiposDeMaterialZapatilla.add(lona);
+		tiposDeMaterialLentes.add(plastico);		
 
+		//LISA, ESTAMPADA, RAYADA, LUNARES, CUADROS, 
+		
+		Trama lisa= new Trama("Lisa");
+		Trama estampada= new Trama("Estampada");		
+		Trama rayada= new Trama("Rayada");	
+		Trama cuadros= new Trama("Cuadros");	
+		Trama lunares= new Trama("Lunares");	
+		
 		/* Luego creamos tipos de prendas particulares */
 		TipoDePrenda remera = new  TipoDePrenda("Remera",Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera,PrendaNivel.Nivel1);
 		TipoDePrenda buzo = new TipoDePrenda("Buzo",Categoria.PARTE_SUPERIOR, null,PrendaNivel.Nivel2);
@@ -77,16 +112,16 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		TipoDePrenda lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIO, tiposDeMaterialLentes,PrendaNivel.Nivel1);
 		
 		/* Luego creamos las Prendas que estarán en los guardarropas*/
-		Prenda unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, Material.ALGODON, colorBlanco, Trama.LISA );
-		Prenda unaRemeraRoja = new Prenda("Remera Roja a lunares", remera, Material.SEDA, colorRojo, Trama.LUNARES);
-		Prenda unaRemeraNegra= new Prenda("Remera Negra Basica", remera, Material.ALGODON, colorNegro, Trama.LISA);
-		Prenda unBuzoNegro = new Prenda("Buzo Negro", buzo, Material.CUERO, colorNegro, Trama.LISA);
-		Prenda unaCamperaNegra = new Prenda("Campera Negra", campera, Material.CUERO, colorNegro, Trama.LISA);
-		Prenda unPantalonNegro = new Prenda("Pantalon Negro", pantalon, Material.CORDEROY, colorNegro, Trama.LISA);
-		Prenda unZapatoNegro = new Prenda("Zapatos Negros", zapato, Material.CUERO, colorNegro, Trama.LISA);
-		Prenda unaZapatillaLonaBlanca = new Prenda("Zapatillas de lona blancas", zapatilla, Material.LONA, colorBlanco, Trama.LISA);
-		Prenda unasHavaianas = new Prenda("Ojotas Havaianas",ojotas,Material.CAUCHO, colorNegro,Trama.LISA);
-		Prenda unLenteNegro = new Prenda("Lentes de sol  negros", lentes, Material.PLASTICO, colorNegro, Trama.LISA);
+		Prenda unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, algodon, colorBlanco, lisa );
+		Prenda unaRemeraRoja = new Prenda("Remera Roja a lunares", remera, seda, colorRojo, lunares);
+		Prenda unaRemeraNegra= new Prenda("Remera Negra Basica", remera, algodon, colorNegro, lisa);
+		Prenda unBuzoNegro = new Prenda("Buzo Negro", buzo, cuero, colorNegro, rayada);
+		Prenda unaCamperaNegra = new Prenda("Campera Negra", campera, cuero, colorNegro, estampada);
+		Prenda unPantalonNegro = new Prenda("Pantalon Negro", pantalon, corderoy, colorNegro, lisa);
+		Prenda unZapatoNegro = new Prenda("Zapatos Negros", zapato, cuero, colorNegro, lisa);
+		Prenda unaZapatillaLonaBlanca = new Prenda("Zapatillas de lona blancas", zapatilla, lona, colorBlanco,colorNegro, cuadros);
+		Prenda unasHavaianas = new Prenda("Ojotas Havaianas",ojotas,caucho, colorNegro,lisa);
+		Prenda unLenteNegro = new Prenda("Lentes de sol  negros", lentes, plastico, colorNegro, lisa);
 		
 				
 		/*Luego creamos los guardarropas y las personas */
@@ -113,14 +148,14 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    guardarropaInesUno.agregarAGuardarropas(unaZapatillaLonaBlanca);
 	    guardarropaInesUno.agregarAGuardarropas(unLenteNegro); 	
 	    
-	    repositorio.prenda().persistir(unaRemeraBlancaLisa);
-		repositorio.prenda().persistir(unaRemeraRoja);
-		repositorio.prenda().persistir(unPantalonNegro);
-		repositorio.prenda().persistir(unZapatoNegro);
-		repositorio.prenda().persistir(unaZapatillaLonaBlanca);
-		repositorio.prenda().persistir(unLenteNegro);
+	     repositorio.prenda().persistir(unaRemeraBlancaLisa);
+	    //repositorio.prenda().persistir(unaRemeraRoja);   SI NO LOS COMENTO ME DUPLICA LAS PRENDAS PORQUE?????
+		//repositorio.prenda().persistir(unPantalonNegro);
+		//repositorio.prenda().persistir(unZapatoNegro);
+		//repositorio.prenda().persistir(unaZapatillaLonaBlanca);
+		//repositorio.prenda().persistir(unLenteNegro);
 		
-		repositorio.guardarropa().persistir(guardarropaInesUno);
+		//repositorio.guardarropa().persistir(guardarropaInesUno);
 		
 		//PROBANDO CALIFICAR SUGERENCIAS
     
@@ -139,7 +174,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    ines.getPercepcion().modificarPercepcionCalzado(-1);
 	    ines.getPercepcion().modificarPercepcionTorso(-4);
 	    
-	    repositorio.usuario().persistir(ines);
+	   // repositorio.usuario().persistir(ines);
 	    	    
 	    repositorio.cerrar();
 		emFactory.close();

@@ -1,4 +1,4 @@
-package tests;
+/*package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -16,7 +16,7 @@ public class TestEntrega3 {
 	Sugerencia sugerencia1;
 	Sugerencia sugerencia2;
 	Sugerencia sugerencia3;
-	    
+	    */
 	/*
 	@Before
 	public void init() {
@@ -76,10 +76,10 @@ public class TestEntrega3 {
             assertTrue(excepcion2.getMessage().contains("ACEPTADA"));
         
         
-    }*/
+    }
     
    
     
     
 
-}
+}*/

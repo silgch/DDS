@@ -34,10 +34,12 @@ public class Guardarropa {
 	public Guardarropa(){}	
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "prendas", referencedColumnName = "id")
+	@JoinColumn(name = "prendas_id", referencedColumnName = "id")
 	private List<Prenda> prendas = new ArrayList<Prenda>();	
+	
+	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "miDuenio", referencedColumnName = "id")
+	@JoinColumn(name = "Duenio", referencedColumnName = "id")
 	private Usuario miDuenio= null;        
     
 	
