@@ -39,13 +39,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		
 		/* Primero creamos los atributos basicos de las prendas */
 		
-		
-		
-		/*
-		 * ALGODON, JEAN, LINO, GABARDINA, SEDA, CUERO, PLASTICO, CRISTAL, ORO, CUERINA,
-		 * PLATA, LONA, LANA, POLIESTER, ACRILICO, CORDEROY, BENGALINA, CAUCHO
-		 */
-		
+		//Materiales
 		Material algodon=new Material("Aldodon");
 		Material jean=new Material("Jean");
 		Material lino=new Material("Lino");
@@ -65,16 +59,12 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		Material bengalina=new Material("Bengalina");
 		Material caucho=new Material("Caucho");
 		
+		//Tipos de Materiales
 		Set <Material> tiposDeMaterialRemera;
 		Set <Material> tiposDeMaterialZapato;
 		Set <Material> tiposDeMaterialZapatilla;
 		Set <Material> tiposDeMaterialPantalon;
-		Set <Material> tiposDeMaterialLentes;				
-		Color colorBlanco=new Color(255,255,0);
-		Color colorRojo=new Color (255,0,0);
-		Color colorNegro=new Color(10,10,10);
-		Color colorVerde=new Color(0,255,0);
-		Color colorAzulTrafico=new Color(006,057,113);
+		Set <Material> tiposDeMaterialLentes;	
 		tiposDeMaterialRemera = new HashSet<Material>();
 		tiposDeMaterialPantalon = new HashSet<Material>();
 		tiposDeMaterialZapato= new HashSet<Material>();
@@ -90,10 +80,17 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		tiposDeMaterialZapatilla.add(cuerina);
 		tiposDeMaterialZapatilla.add(cuero);
 		tiposDeMaterialZapatilla.add(lona);
-		tiposDeMaterialLentes.add(plastico);		
-
-		//LISA, ESTAMPADA, RAYADA, LUNARES, CUADROS, 
+		tiposDeMaterialLentes.add(plastico);
 		
+		
+		//Colores
+		Color colorBlanco=new Color("Blanco", 255,255,0);
+		Color colorRojo=new Color ("Rojo", 255,0,0);
+		Color colorNegro=new Color("Negro", 10,10,10);
+		Color colorVerde=new Color("Verde", 0,255,0);
+		Color colorAzulTrafico=new Color("Azul Trafico", 006,47,113);
+				
+		//Tramas
 		Trama lisa= new Trama("Lisa");
 		Trama estampada= new Trama("Estampada");		
 		Trama rayada= new Trama("Rayada");	
@@ -127,6 +124,9 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		/*Luego creamos los guardarropas y las personas */
 		Usuario ines = new Usuario("Ines");	
 		Guardarropa guardarropaInesUno = new Guardarropa();
+		Guardarropa guardarropaInesDos = new Guardarropa();
+		guardarropaInesUno.setNombre("Guardarropas Uno");
+		guardarropaInesDos.setNombre("Guardarropas Dos");
 		
 		
 		System.out.println("Se creo el mundo inicial");
@@ -139,35 +139,97 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		
 		System.out.println("Arrancando");
 
-		ines.agregarGuardarropa(guardarropaInesUno);
-	    
-	    guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);
-	    guardarropaInesUno.agregarAGuardarropas(unaRemeraRoja);
-	    guardarropaInesUno.agregarAGuardarropas(unPantalonNegro);
-	    guardarropaInesUno.agregarAGuardarropas(unZapatoNegro);
-	    guardarropaInesUno.agregarAGuardarropas(unaZapatillaLonaBlanca);
-	    guardarropaInesUno.agregarAGuardarropas(unLenteNegro); 	
-	    
-	     repositorio.prenda().persistir(unaRemeraBlancaLisa);
-	    //repositorio.prenda().persistir(unaRemeraRoja);   SI NO LOS COMENTO ME DUPLICA LAS PRENDAS PORQUE?????
-		//repositorio.prenda().persistir(unPantalonNegro);
-		//repositorio.prenda().persistir(unZapatoNegro);
-		//repositorio.prenda().persistir(unaZapatillaLonaBlanca);
-		//repositorio.prenda().persistir(unLenteNegro);
+		ines.agregarGuardarropa(guardarropaInesUno); 
+		ines.agregarGuardarropa(guardarropaInesDos); 
 		
-		//repositorio.guardarropa().persistir(guardarropaInesUno);
+		
+		  guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);
+		  guardarropaInesUno.agregarAGuardarropas(unaRemeraRoja);
+		  guardarropaInesUno.agregarAGuardarropas(unPantalonNegro);
+		  guardarropaInesUno.agregarAGuardarropas(unZapatoNegro);
+		  guardarropaInesUno.agregarAGuardarropas(unaZapatillaLonaBlanca);
+		  guardarropaInesDos.agregarAGuardarropas(unLenteNegro);
+		 
+	
+	    
+	    //Persisto Colores
+	    repositorio.color().persistir(colorBlanco);
+	    repositorio.color().persistir(colorRojo);
+	    repositorio.color().persistir(colorNegro);
+	    repositorio.color().persistir(colorVerde);
+	    repositorio.color().persistir(colorAzulTrafico);
+
+		
+		//Persisto Tramas
+	    repositorio.trama().persistir(lunares);
+	    repositorio.trama().persistir(estampada);
+	    repositorio.trama().persistir(rayada);
+	    repositorio.trama().persistir(cuadros);
+	    repositorio.trama().persistir(lisa);
+	    
+	    //Persisto Materiales
+	    repositorio.material().persistir(algodon);
+	    repositorio.material().persistir(jean);
+	    repositorio.material().persistir(lino);
+	    repositorio.material().persistir(gabardina);
+	    repositorio.material().persistir(seda);
+	    repositorio.material().persistir(cuero);
+	    repositorio.material().persistir(plastico);
+	    repositorio.material().persistir(cristal);
+	    repositorio.material().persistir(oro);
+	    repositorio.material().persistir(cuerina);
+	    repositorio.material().persistir(plata);	    
+	    repositorio.material().persistir(lona);	
+	    repositorio.material().persistir(lana);		    
+	    repositorio.material().persistir(poliester);	
+	    repositorio.material().persistir(acrilico);	
+	    repositorio.material().persistir(corderoy);	
+	    repositorio.material().persistir(bengalina);	
+	    repositorio.material().persistir(cuero);	
+	    
+	    //Persisto tipos de prendas
+	    repositorio.tipo().persistir(remera);
+		repositorio.tipo().persistir(buzo);
+		repositorio.tipo().persistir(campera);
+		repositorio.tipo().persistir(zapato);
+		repositorio.tipo().persistir(zapatilla);
+		repositorio.tipo().persistir(ojotas);
+		repositorio.tipo().persistir(pantalonCorto);
+		repositorio.tipo().persistir(pantalon);
+		repositorio.tipo().persistir(lentes);
+		 
+	    
+	    //Persisto Usuarios
+	    repositorio.usuario().persistir(ines);
+	    
+
+	    
+	    //Persisto Prendas
+		
+		  repositorio.prenda().persistir(unaRemeraBlancaLisa);
+		  repositorio.prenda().persistir(unaRemeraRoja);
+		  repositorio.prenda().persistir(unPantalonNegro);
+		  repositorio.prenda().persistir(unZapatoNegro);
+		  repositorio.prenda().persistir(unaZapatillaLonaBlanca);
+		  repositorio.prenda().persistir(unLenteNegro);
+		 
+		
+		
+	    //Persisto Guardarropas
+		repositorio.guardarropa().persistir(guardarropaInesUno);
+		
 		
 		//PROBANDO CALIFICAR SUGERENCIAS
     
 	    ines.crearEvento(LocalDate.now(), "Miamiii", "4174383");
-	    ines.pedirSugerencia(guardarropaInesUno);
-	    Sugerencia sugerencia1 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
-	    ines.aceptarSugerencia(sugerencia1);
+	    //ines.pedirSugerencia(guardarropaInesUno);
+	    //Sugerencia sugerencia1 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
+	    //ines.aceptarSugerencia(sugerencia1);
 	    
 	    ines.crearEvento(LocalDate.now(), "Las Toninas", "3431608");
-	    ines.pedirSugerencia(guardarropaInesUno);	    
-	    Sugerencia sugerencia2 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
-	    ines.rechazarSugerencia(sugerencia2);  
+	    //ines.pedirSugerencia(guardarropaInesUno);	    
+	    //Sugerencia sugerencia2 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
+	    //ines.rechazarSugerencia(sugerencia2);  
 	    
 	    System.out.println("Ines es friolenta, así que modifica su percepcionDeTemperatura");
 	    ines.getPercepcion().modificarPercepcionCabeza(-2);

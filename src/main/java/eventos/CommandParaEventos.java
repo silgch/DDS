@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import componentes.Prenda;
@@ -22,6 +23,7 @@ import usuario.Usuario;
 
 //Asistente de eventos
 @Entity
+@Table(name = "GESTOR_DE_EVENTOS")
 public class CommandParaEventos /*implements ICommand*/ {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,10 +35,11 @@ public class CommandParaEventos /*implements ICommand*/ {
 	//private ClimaAdapter api1 = gestorDeAPIs.entregarAPI();
 	
 	@OneToOne
-	@JoinColumn(name = "usuarioAsociado", referencedColumnName = "id")
+	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
+	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "perteneceALaColaDeEventos", referencedColumnName = "id")
+	@JoinColumn(name = "eventos_activos", referencedColumnName = "id")
 	private Set<Evento> colaEventosActivos = new HashSet<Evento>();
 
 	

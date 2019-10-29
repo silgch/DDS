@@ -1,4 +1,5 @@
 package componentes;
+
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -41,13 +42,12 @@ public class TipoDePrenda{
 	private Categoria categoria;
 	
 	@Transient
-	// @Enumerated(EnumType.STRING) Ver de cambiar los materiales para que no sea un enum
     private Set<Material> tiposDeMaterialesPermitidos;
 	
 	
-	@Transient
+	@Enumerated(EnumType.STRING)
 	private PrendaNivel nivel;
-	private String jpa_tiposDeMaterialesPermitidos; 
+ 
 	
 	public TipoDePrenda() {}
 	
@@ -56,7 +56,7 @@ public class TipoDePrenda{
 		this.categoria = categoria;
 		this.tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos;
 		this.nivel = nivel;
-		//this.jpa_tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos.toString();
+		
 	}
 	
 	public String getNombre() {

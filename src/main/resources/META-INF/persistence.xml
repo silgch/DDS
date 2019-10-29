@@ -12,7 +12,7 @@
         <class>componentes.Prenda</class>
         <class>usuario.Usuario</class>
         <class>guardarropas.Guardarropa</class>
-        
+        <class>componentes.Color</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

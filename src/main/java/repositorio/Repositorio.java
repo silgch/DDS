@@ -2,13 +2,22 @@ package repositorio;
 
 import javax.persistence.EntityManager;
 
+
+
 public class Repositorio {
 
 	private Prenda prenda;
 	private Guardarropa guardarropa;
 	private Usuario usuario;
+	private Trama trama;
+	private Color color;
+	private Material material;
+	private TipoDePrenda tipo;
+	private Evento evento;
 	
 	protected EntityManager em;
+
+	
 	public Repositorio(EntityManager em) {
 		this.em = em;
 	}
@@ -33,6 +42,31 @@ public class Repositorio {
 		}
 		return usuario;
 	}
+	public Trama trama() {
+		if (trama == null) {
+			trama = new Trama(em);
+		}
+		return trama;
+	}
+	public Color color() {
+		if (color == null) {
+			color = new Color(em);
+		}
+		return color;
+	}
+	public Material material() {
+		if (material == null) {
+			material = new Material(em);
+		}
+		return material;
+	}
+	public TipoDePrenda tipo() {
+		if (tipo == null) {
+			tipo = new TipoDePrenda(em);
+		}
+		return tipo;
+	}
+
 /*
 	public Comunas comunas() {
 		if (comunas == null) {

@@ -26,7 +26,7 @@ public class Validaciones {
 		try {
 	        check= (unColor.getRojo()==otroColor.getRojo() &&
 	        		unColor.getAzul()==otroColor.getAzul() &&
-	        		unColor.getAmarillo()==otroColor.getAmarillo()
+	        		unColor.getVerde()==otroColor.getVerde()
 	        		);
 	        if(check) {
 	        	throw new IllegalArgumentException("Los colores deben ser distintos");

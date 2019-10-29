@@ -17,6 +17,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-@Entity
+@Entity(name = "prenda")
 @Table(name = "PRENDA")
 public class Prenda{
 	
@@ -36,23 +37,24 @@ public class Prenda{
 	private String nombre;
 	
 	
-	
-	@ManyToOne( cascade=CascadeType.ALL)
+
+	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name = "color_ppal_id", referencedColumnName="id")
     private Color colorPrincipal;
 	
 	
 	
-	@ManyToOne( cascade=CascadeType.ALL)
+	@ManyToOne ( cascade=CascadeType.ALL)
 	@JoinColumn(name = "color_sec_id", referencedColumnName="id")
     private Color colorSecundario;
+	
 	
 	@ManyToOne( cascade=CascadeType.ALL)
 	@JoinColumn(name = "material_id", referencedColumnName="id")
     private Material material;
 	
 	
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tipoPrenda_id", referencedColumnName = "id")
     private TipoDePrenda tipo;
@@ -64,12 +66,12 @@ public class Prenda{
     private Trama trama;
 	
 	
-
+	
+	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "guardarropa_id", referencedColumnName = "id")
+	@JoinColumn(name = "guardarropa_id", referencedColumnName = "id") 
 	private Guardarropa guardarropa;
-	
-	
+
 	
 	private String urlImagen;
 	
@@ -124,11 +126,11 @@ public class Prenda{
 	public String toString() {
 		return this.getNombre();
 	}
+
 	
 	public void setGuardarropa(Guardarropa guardarropa) {
-		this.guardarropa = guardarropa;
-	}
-	
+		this.guardarropa = guardarropa; }
+	 
 	//Getters
 	public String getNombre() {
 		return nombre;
@@ -161,9 +163,9 @@ public class Prenda{
 		return calificacion;
 	}
 	
-	public Guardarropa getGuardarropa() {
-		return guardarropa;
-	}
+	/*
+	 * public Guardarropa getGuardarropa() { return guardarropa; }
+	 */
 	
 	
 	//Semáforos:

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,16 +32,22 @@ public class Guardarropa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
+	
 	public Guardarropa(){}	
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "prendas_id", referencedColumnName = "id")
-	private List<Prenda> prendas = new ArrayList<Prenda>();	
+	@Transient
+	@OneToMany  
+	@JoinColumn(name = "prendas_id", referencedColumnName = "id") 	
+	private List<Prenda> prendas = new ArrayList<Prenda>();
+	
+	private String Nombre;
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Duenio", referencedColumnName = "id")
-	private Usuario miDuenio= null;        
+	
+	@ManyToOne(fetch=FetchType.LAZY) 
+	@JoinColumn(name="usuario_id")
+	private Usuario miDuenio= null;
+    
     
 	
     //Constructores:
@@ -70,6 +77,14 @@ public class Guardarropa {
     
 	public List<Prenda> getPrendas() {
 		return prendas;
+	}
+
+	public String getNombre() {
+		return Nombre;
+	}
+
+	public void setNombre(String nombre) {
+		Nombre = nombre;
 	}
     
 }

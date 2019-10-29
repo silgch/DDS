@@ -2,14 +2,14 @@ package repositorio;
 
 import javax.persistence.EntityManager;
 
-public class Usuario extends Repositorio{
-	Usuario(EntityManager em) {
+public class Trama extends Repositorio{
+	Trama(EntityManager em) {
 		super(em);
 	}
 
-	public void persistir(usuario.Usuario usuario) {
+	public void persistir(componentes.Trama trama) {
 		em.getTransaction().begin();
-		em.persist(usuario);
+		em.persist(trama);
 		em.getTransaction().commit();
 	}
 }

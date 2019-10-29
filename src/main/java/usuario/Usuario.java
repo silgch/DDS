@@ -38,21 +38,26 @@ public class Usuario{
 	//@Column(name="userName",nullable = true, columnDefinition="STRING CAN BE NULL DEFAULT ")
 	private String nombreDeUsuario;
 	private String mail;
-	@OneToMany(cascade = CascadeType.ALL)
+	
+
+	@OneToMany(mappedBy= "miDuenio")
 	private List<Guardarropa> guardarropas = new ArrayList<>();
 
 	/*El gestorDeCuentas es el asistente que entrega/upgredea la cuenta del usuario
 	 * no hace falta persistirlo*/
+	
 	@Transient 
 	private GestorDeCuentas gestorCuenta;
-	@Transient
+	@Transient // Ver si es necesario persistirlo.
 	private Cuenta tipoDeCuenta;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "preferencias", referencedColumnName = "id")
 	private PercepcionDeTemperatura percepcion ;
-	@OneToOne(cascade = CascadeType.ALL)	
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ManagerDeEventos", referencedColumnName = "id")
 	private CommandParaEventos managerDeEventos;
-	private String tipoDeUsuario;
+	//private String tipoDeUsuario;
 	
 	public Usuario() {}
 	
@@ -62,7 +67,7 @@ public class Usuario{
 		percepcion = new PercepcionDeTemperatura();
 		managerDeEventos = new CommandParaEventos(this);
 		tipoDeCuenta = gestorCuenta.creameUnaCuenta();
-		tipoDeUsuario = this.tipoDeCuenta.nombre;
+		//tipoDeUsuario = this.tipoDeCuenta.nombre;
 		}
 	
 	// Getters

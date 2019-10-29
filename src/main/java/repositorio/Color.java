@@ -2,8 +2,8 @@ package repositorio;
 
 import javax.persistence.EntityManager;
 
-public class Prenda extends Repositorio {
-	Prenda(EntityManager em) {
+public class Color extends Repositorio {
+	Color(EntityManager em) {
 		super(em);
 	}
 	/*
@@ -18,9 +18,9 @@ public class Prenda extends Repositorio {
 		return prenda;
 	}
  	*/	
-	public void persistir(componentes.Prenda prenda) {
+	public void persistir(componentes.Color color) {
 		em.getTransaction().begin();
-		em.persist(prenda);
+		em.persist(color);
 		em.getTransaction().commit();
 	}
 }

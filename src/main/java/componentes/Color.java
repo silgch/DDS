@@ -19,17 +19,24 @@ public class Color{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
 	
-	
+	private String nombre;
 	private int rojo;
-	private int amarillo;
+	private int verde;
 	private int azul;
 	
 	
 	public Color() {}
 	
-	public Color (int ro, int am, int az) {
+	public Color (int ro, int ve, int az) {
 		this.rojo=ro;
-		this.amarillo=am;
+		this.verde=ve;
+		this.azul=az;
+	}
+	
+	public Color (String nombre, int ro, int ve, int az) {
+		this.nombre=nombre;
+		this.rojo=ro;
+		this.verde=ve;
 		this.azul=az;
 	}
 	
@@ -39,15 +46,15 @@ public class Color{
 	public int getRojo() {
 		return rojo;
 	}
-	public int getAmarillo() {
-		return amarillo;
+	public int getVerde() {
+		return verde;
 	}
 	public int getAzul() {
 		return azul;
 	}
 	
 	public String getternaColores() {
-		int[] colores = {rojo,amarillo,azul};
+		int[] colores = {rojo,verde,azul};
 		return  Arrays.toString(colores);
 	}
 	

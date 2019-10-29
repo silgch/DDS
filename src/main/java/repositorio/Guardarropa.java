@@ -9,7 +9,7 @@ public class Guardarropa extends Repositorio{
 
 	public void persistir(guardarropas.Guardarropa guardarropa) {
 		em.getTransaction().begin();
-		em.merge(guardarropa);
+		em.persist(guardarropa);
 		em.getTransaction().commit();
 	}
 }
