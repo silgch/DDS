@@ -38,7 +38,7 @@ public class Usuario{
 	//@Column(name="userName",nullable = true, columnDefinition="STRING CAN BE NULL DEFAULT ")
 	private String nombreDeUsuario;
 	private String mail;
-	
+	private String password;
 
 	@OneToMany(mappedBy= "miDuenio")
 	private List<Guardarropa> guardarropas = new ArrayList<>();
@@ -91,13 +91,13 @@ public class Usuario{
 	}
 
 	// Setters
-	public void setNombre(String nombre) {
-		this.nombreDeUsuario =nombre;
-	}
 	public void setTipoDeCuenta(Cuenta tipoDeCuenta) {
 		this.tipoDeCuenta = tipoDeCuenta;
 	}
 	public void setMail(String m) {this.mail = m;}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	
 	// Métodos con guardarropas
 	
@@ -108,7 +108,8 @@ public class Usuario{
 	 * compartirGuardarropasCon(guardarropa,otroUsuario) es agregar un guardarropa propio 
 	 * a la lista de guardarropas de otrousario 
 	 */
-	
+
+
 	public void agregarGuardarropa(Guardarropa guardarropa) {
 		guardarropas.add(requireNonNull(guardarropa));
 		guardarropa.duenio(this);

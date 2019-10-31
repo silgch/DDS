@@ -122,7 +122,8 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		
 				
 		/*Luego creamos los guardarropas y las personas */
-		Usuario ines = new Usuario("Ines");	
+		Usuario ines = new Usuario("Ines");
+		ines.setPassword("ines123");
 		Guardarropa guardarropaInesUno = new Guardarropa();
 		Guardarropa guardarropaInesDos = new Guardarropa();
 		guardarropaInesUno.setNombre("Guardarropas Uno");
@@ -143,12 +144,12 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		ines.agregarGuardarropa(guardarropaInesDos); 
 		
 		
-		  guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);
-		  guardarropaInesUno.agregarAGuardarropas(unaRemeraRoja);
-		  guardarropaInesUno.agregarAGuardarropas(unPantalonNegro);
-		  guardarropaInesUno.agregarAGuardarropas(unZapatoNegro);
-		  guardarropaInesUno.agregarAGuardarropas(unaZapatillaLonaBlanca);
-		  guardarropaInesDos.agregarAGuardarropas(unLenteNegro);
+		guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);
+		guardarropaInesUno.agregarAGuardarropas(unaRemeraRoja);
+		guardarropaInesUno.agregarAGuardarropas(unPantalonNegro);
+		guardarropaInesUno.agregarAGuardarropas(unZapatoNegro);
+		guardarropaInesUno.agregarAGuardarropas(unaZapatillaLonaBlanca);
+		guardarropaInesDos.agregarAGuardarropas(unLenteNegro);
 		 
 	
 	    
