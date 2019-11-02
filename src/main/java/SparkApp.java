@@ -1,3 +1,4 @@
+import static app.Application.bookDao;
 import static app.util.RequestUtil.getQueryLoginRedirect;
 import static app.util.RequestUtil.getQueryPassword;
 import static app.util.RequestUtil.getQueryUsername;
@@ -22,10 +23,11 @@ import static spark.Spark.*;
 
 public class SparkApp {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     staticFileLocation("/public");
     staticFiles.expireTime(600L);
-
+    Fachada fachada = new Fachada();
+    
     
     get("/home", (req, res) -> {
         Map<String, Object> model = new HashMap<>();
@@ -34,10 +36,11 @@ public class SparkApp {
         );
     });
     
-    get("/images", (req, res) -> {
+    get("/guardarropas", (req, res) -> {
         Map<String, Object> model = new HashMap<>();
+        model.put("guardarropas", fachada.getAllFromDB());
         return new VelocityTemplateEngine().render(
-            new ModelAndView(model, "templates/images.vtl")
+            new ModelAndView(model, "templates/guardarropas.vtl")
         );
     });
     
@@ -54,8 +57,9 @@ public class SparkApp {
     
     get("/login",(request, response) -> {
         Map<String, Object> model = new HashMap<>();
-        model.put("user", request.session().attribute("user"));
-        return ViewUtil.render(request, model, "templates/login.vtl");
+        return new VelocityTemplateEngine().render(
+                new ModelAndView(model, "templates/login.vtl")
+        );
     });    
     
     post("/login",(request, response) -> {
@@ -65,6 +69,11 @@ public class SparkApp {
         String inputtedUsername = request.queryParams("user");
         request.session().attribute("user", inputtedUsername);
         model.put("user", inputtedUsername);  
+        String inputtedPassword = request.queryParams("pass");
+        request.session().attribute("pass", inputtedPassword);
+        model.put("pass", inputtedPassword); 
+        
+        System.out.println(inputtedUsername + inputtedPassword); 
         
         /* acá estarían las funciones para ver si existe el usuario y contraseña en la base de datos */
         
