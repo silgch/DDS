@@ -45,22 +45,16 @@ public class TestPersistencia {
 		manager.persist(unaRemeraBlancaLisa);
 		manager.persist(unaRemeraBlancaLisa2);		
 		manager.getTransaction().commit();
-		
-
-		
+	
 		imprimirTodo();
 	}
 	@SuppressWarnings("unchecked")
 	private static void imprimirTodo() {
 		
-		
-		
 		  List <Prenda> prendas = (List <Prenda>)
 		  manager.createQuery("FROM prenda").getResultList();
 		  System.out.println("En esta base de datos hay "+ prendas.size()+
 		  " prendas.");
-		 
-		
 		
 		
 	}
