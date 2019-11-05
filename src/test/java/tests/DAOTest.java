@@ -23,7 +23,10 @@ public class DAOTest {
 		
 	//Creo un usuario
 	Usuario javier = new Usuario("Javier");
+	Usuario pedro = new Usuario("Pedro");
 	javier.setMail("javier@gmail.com");
+	pedro.setMail("pedro@hotmail.com.ar");
+	pedro.setPassword("1133");
 	javier.setPassword("Javier123");
 	
 	
@@ -32,7 +35,11 @@ public class DAOTest {
 	
 	usuarioDAO usuario = new usuarioDAO(emf.createEntityManager());
 	usuario.crearUsuario(javier);
+	usuario.crearUsuario(pedro);
 	
+	//Cambio unos parametros y verifico
+	pedro.setMail("pedro1@hotmail.com.ar");
+	usuario.actualizarUsuario(pedro);
 	
 }	
 }

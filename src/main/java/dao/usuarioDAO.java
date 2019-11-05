@@ -43,4 +43,8 @@ public class usuarioDAO {
 	public void crearUsuario(usuario.Usuario u) {
 		repositorio.usuario().persistir(u);
 	}
+	
+	public void actualizarUsuario(usuario.Usuario u) {
+		repositorio.usuario().actualizar(u);
+	}
 }

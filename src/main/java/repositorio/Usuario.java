@@ -30,6 +30,13 @@ public class Usuario extends Repositorio{
 		
 		return usuario;
 	}
+	
+	public void actualizar(usuario.Usuario usuario) {
+		em.getTransaction().begin();
+		em.merge(usuario);
+		em.getTransaction().commit();
+	}	
+	
 	public void persistir(usuario.Usuario usuario) {
 		em.getTransaction().begin();
 		em.persist(usuario);
