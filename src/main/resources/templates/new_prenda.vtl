@@ -1,0 +1,45 @@
+<!-- 
+    Material algodon=new Material("Aldodon");
+    Set <Material> tiposDeMaterialRemera;
+    Color colorBlanco=new Color("Blanco", 255,255,0);
+    Trama lisa= new Trama("Lisa");
+    TipoDePrenda remera = new  TipoDePrenda("Remera",Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera,PrendaNivel.Nivel1);
+    Prenda unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, algodon, colorBlanco, lisa );
+-->
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div>
+    <div>
+        <form action="." method="post" name="input">
+            <p>Nombre de prenda:&nbsp;
+                <input maxlength="100" name="description" type="text" value="" />
+                <label for="when"></label>
+            </p>
+            <p>
+                <select name="parent_version">
+                    <option value="-1">-Seleccionar Tipo De Prenda-</option>
+                    #foreach( $tipoDePrenda in $tipoDePrendas )
+                    <option value="$tipoDePrenda">$tipoDePrenda</option>
+                    #end</select>
+            </p>
+            <select name="parent_version">
+                <option value="-1">-Seleccionar Material-</option>
+                #foreach( $material in $materialesDeTipoDePrenda )
+                <option value="$material">$material</option>
+                #end</select>
+            <p>Color:&nbsp; &nbsp;&nbsp;
+                <input maxlength="5" name="R" type="text" value="" />
+                <input maxlength="5" name="G" type="text" value="" />
+                <input maxlength="5" name="B" type="text" value="" />
+            </p>
+            <p>
+                <select name="parent_version">
+                    <option value="-1">-Seleccionar Trama-</option>
+                    #foreach( $trama in $tramas )
+                    <option value="$trama">$trama</option>
+                    #end</select>
+            </p>
+            <input type="submit" value="Crear Prenda" />
+        </form>
+    </div>
+</div>

@@ -1,4 +1,3 @@
-import static app.Application.bookDao;
 import static app.util.RequestUtil.getQueryLoginRedirect;
 import static app.util.RequestUtil.getQueryPassword;
 import static app.util.RequestUtil.getQueryUsername;
@@ -26,10 +25,10 @@ public class SparkApp {
   public static void main(String[] args) throws Exception {
     staticFileLocation("/public");
     staticFiles.expireTime(600L);
-    Fachada fachada = new Fachada();
+    //Fachada fachada = new Fachada(); 
     
     
-    get("/home", (req, res) -> {
+    get("/", (req, res) -> {
         Map<String, Object> model = new HashMap<>();
         return new VelocityTemplateEngine().render(
             new ModelAndView(model, "templates/home.vtl")
@@ -38,15 +37,12 @@ public class SparkApp {
     
     get("/guardarropas", (req, res) -> {
         Map<String, Object> model = new HashMap<>();
-        model.put("guardarropas", fachada.getAllFromDB());
+        /* getAllFromDB() threw NullPointerException*/
+        //model.put("guardarropas", fachada.getAllFromDB());
         return new VelocityTemplateEngine().render(
             new ModelAndView(model, "templates/guardarropas.vtl")
         );
     });
-    
-    /*get("/login", (request, response) -> {
-        return new ModelAndView(new HashMap(), "templates/login.vtl");
-      }, new VelocityTemplateEngine());*/
     
     get("/register", (req, res) -> {
         Map<String, Object> model = new HashMap<>();
@@ -54,6 +50,25 @@ public class SparkApp {
             new ModelAndView(model, "templates/register.vtl")
         );
     });
+    
+    post("/register",(request, response) -> {
+    	System.out.println("poo");  
+    	
+       Map<String, Object> model = new HashMap<>();
+        String inputtedUsername = request.queryParams("user");
+        request.session().attribute("user", inputtedUsername);
+        model.put("user", inputtedUsername);  
+        String inputtedPassword = request.queryParams("pass");
+        request.session().attribute("pass", inputtedPassword);
+        model.put("pass", inputtedPassword); 
+        
+        System.out.println(inputtedUsername + inputtedPassword); 
+        
+        /* acá estarían las funciones para agregar el usuario si no existe */
+        
+          return ViewUtil.render(request, model, "templates/register");
+    });
+    
     
     get("/login",(request, response) -> {
         Map<String, Object> model = new HashMap<>();
@@ -65,7 +80,7 @@ public class SparkApp {
     post("/login",(request, response) -> {
     	System.out.println("poo");  
     	
-        Map<String, Object> model = new HashMap<>();
+       Map<String, Object> model = new HashMap<>();
         String inputtedUsername = request.queryParams("user");
         request.session().attribute("user", inputtedUsername);
         model.put("user", inputtedUsername);  
@@ -79,6 +94,41 @@ public class SparkApp {
         
           return ViewUtil.render(request, model, "templates/login");
     });
+    
+    get("/calendar",(request, response) -> {
+        Map<String, Object> model = new HashMap<>();
+        return new VelocityTemplateEngine().render(
+                new ModelAndView(model, "templates/calendar.vtl")                     
+        );
+
+    });
+    
+    get("/new-prenda",(request, response) -> {
+        Map<String, Object> model = new HashMap<>();
+        String[] tipoDePrendas = {}; /*agregar tipoDePrendas, somehow */
+        String[] materialesDeTipoDePrenda = {}; /*agregar materialesDeTipoDePrenda, somehow */
+        String[] tramas = {}; /*agregar tramas, somehow */
+        model.put("tipoDePrendas", tipoDePrendas);
+        model.put("materialesDeTipoDePrenda", materialesDeTipoDePrenda);
+        model.put("tramas", tramas);        
+        
+        return new VelocityTemplateEngine().render(
+                new ModelAndView(model, "templates/new_prenda.vtl")                     
+        );
+    });
+    
+    get("/new-event",(request, response) -> {
+        Map<String, Object> model = new HashMap<>();
+        String[] usuarios = {}; /*agregar usuarios, somehow */
+        model.put("users", usuarios);
+        return new VelocityTemplateEngine().render(
+                new ModelAndView(model, "templates/new_event.vtl")                     
+        );
+    });
+    
+    
+    
+
     
     /*Fachada fachada = new Fachada();
     model.put("loggedOut", fachada.removeSessionAttrLoggedOut(request));
@@ -101,5 +151,5 @@ public class SparkApp {
    */ 
     
 
-  }
+  }  
 }
