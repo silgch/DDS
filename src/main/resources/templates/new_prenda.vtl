@@ -6,8 +6,9 @@
     TipoDePrenda remera = new  TipoDePrenda("Remera",Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera,PrendaNivel.Nivel1);
     Prenda unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, algodon, colorBlanco, lisa );
 -->
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
+<h1>Agregar Nueva Prenda</h1>
+
 <div>
     <div>
         <form action="." method="post" name="input">
@@ -38,6 +39,10 @@
                     #foreach( $trama in $tramas )
                     <option value="$trama">$trama</option>
                     #end</select>
+            </p>
+			Selecciona una imagen para su prenda:
+            <p>
+					 <input type="file" name="myImage" accept="image/x-png,image/jpeg" /><br><br>
             </p>
             <input type="submit" value="Crear Prenda" />
         </form>

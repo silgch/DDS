@@ -50,11 +50,8 @@ public class TestPersistencia {
 		
 		imprimirTodo();
 	}
-	@SuppressWarnings("unchecked")
-	private static void imprimirTodo() {
-		
-		
-		
+
+	private static void imprimirTodo() {		
 		  List <Prenda> prendas = (List <Prenda>)
 		  manager.createQuery("FROM prenda").getResultList();
 		  System.out.println("En esta base de datos hay "+ prendas.size()+

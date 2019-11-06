@@ -1,5 +1,3 @@
-
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,42 +14,31 @@ public class Fachada {
 	private static EntityManagerFactory emFactory;	
 	private static Repositorio repositorio;	
 	private static EntityManager entityManager;
+
+	  // Cause Fachada is a Singleton 
+    private static Fachada single_instance = null; 
+    private Fachada(){
+    	this.inicializar();
+    }   
+    public static Fachada getInstance(){ 
+        if (single_instance == null) 
+            single_instance = new Fachada();  
+        return single_instance; 
+    }	
 	
-	
-	public static void main(String[] args) throws Exception {
-		
+	private void inicializar(){
+        System.out.println("Inizializando la fachada...");
 		emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		entityManager = emFactory.createEntityManager();
 		repositorio = new Repositorio(entityManager);
-		
-		while(emFactory.isOpen()){};
-		
+        System.out.println("Ahora puede realizar consultas a la base de datos");
+	}    
+
+	public static void finalizar() {
 		repositorio.cerrar();
 		emFactory.close();
-	}
+	}	
 
-	/*
-	public boolean loginExitoso(String username, String pass) {
-		 Query query = (entityManager).createQuery("SELECT COUNT(*) FROM usuario" 
-				 								+"WHERE nombreDeUsuario = '" + username
-				 								+"' and password = '"+ pass + "'" );
-		 int result = (int) query.getSingleResult();
-	     return (result == 1);
-	}
-	}*/
-	
-	public boolean loginExitoso(String username, String pass) {
-		 Query query = (entityManager).createQuery("SELECT COUNT(*) FROM usuario" 
-				 								+"WHERE nombreDeUsuario = '" + username
-				 								+"' and password = '"+ pass + "'" );
-		 int result = (int) query.getSingleResult();
-	     return (result == 1);
-	}
-	
-    public List<String> getAllFromDB() {
-        return entityManager.createQuery("SELECT nombre AS 'Listado De Guardarropas' FROM guardarropa").getResultList();
-    }
-	
 	
     boolean removeSessionAttrLoggedOut(Request _request) {
         Object loggedOut = _request.session().attribute("loggedOut");
@@ -64,4 +51,38 @@ public class Fachada {
         _request.session().removeAttribute("loginRedirect");
         return loginRedirect;
     }
+	public String[] devolverTodasLasPrendas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String[] devolverTodosLosGuardarropas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String[] devolverTodosLosTipoDePrendas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String[] devolverTodosLosMateriales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String[] devolverTodosLasTramas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String[] devolverTodosLosUsuarios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void registrarUsuarioCon(String inputtedEmail, String inputtedUsername, String inputtedPassword) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void chequearSiExiste(String inputtedUsername, String inputtedPassword) {
+		//Nota: inputtedUsername es un campo donde el usuario puede elegir loguearse con mail o nombreDeUsuario 
+		// => Puede ser cualquiera de los dos
+		// TODO Auto-generated method stub
+	}
 }

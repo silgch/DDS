@@ -1,22 +1,7 @@
-import static app.util.RequestUtil.getQueryLoginRedirect;
-import static app.util.RequestUtil.getQueryPassword;
-import static app.util.RequestUtil.getQueryUsername;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import app.user.UserController;
-import app.util.ViewUtil;
 import spark.template.velocity.VelocityTemplateEngine;
 import spark.*;
-
-import java.nio.file.Path;
-import java.util.*;
-import app.book.*;
-import app.index.*;
-import app.login.*;
-import app.user.*;
-import app.util.*;
 import static spark.Spark.*;
 
 
@@ -24,9 +9,7 @@ public class SparkApp {
 
   public static void main(String[] args) throws Exception {
     staticFileLocation("/public");
-    staticFiles.expireTime(600L);
-    //Fachada fachada = new Fachada(); 
-    
+    Fachada fachada = Fachada.getInstance();    
     
     get("/", (req, res) -> {
         Map<String, Object> model = new HashMap<>();
@@ -35,14 +18,6 @@ public class SparkApp {
         );
     });
     
-    get("/guardarropas", (req, res) -> {
-        Map<String, Object> model = new HashMap<>();
-        /* getAllFromDB() threw NullPointerException*/
-        //model.put("guardarropas", fachada.getAllFromDB());
-        return new VelocityTemplateEngine().render(
-            new ModelAndView(model, "templates/guardarropas.vtl")
-        );
-    });
     
     get("/register", (req, res) -> {
         Map<String, Object> model = new HashMap<>();
@@ -51,23 +26,26 @@ public class SparkApp {
         );
     });
     
-    post("/register",(request, response) -> {
-    	System.out.println("poo");  
-    	
-       Map<String, Object> model = new HashMap<>();
-        String inputtedUsername = request.queryParams("user");
-        request.session().attribute("user", inputtedUsername);
-        model.put("user", inputtedUsername);  
-        String inputtedPassword = request.queryParams("pass");
-        request.session().attribute("pass", inputtedPassword);
-        model.put("pass", inputtedPassword); 
+    post("/register",(request, response) -> {   	
+    	Map<String, Object> model = new HashMap<>();
+    	String inputtedUsername = request.queryParams("user");
+    	request.session().attribute("user", inputtedUsername);
+    	model.put("user", inputtedUsername);
+    	String inputtedEmail = request.queryParams("email");
+    	request.session().attribute("email", inputtedEmail);
+    	model.put("email", inputtedEmail);  
+    	String inputtedPassword = request.queryParams("pass");
+    	request.session().attribute("pass", inputtedPassword);
+    	model.put("pass", inputtedPassword); 
+		
+		System.out.println(inputtedUsername + inputtedPassword); 
         
-        System.out.println(inputtedUsername + inputtedPassword); 
+        fachada.registrarUsuarioCon(inputtedEmail,inputtedUsername,inputtedPassword);
         
-        /* acá estarían las funciones para agregar el usuario si no existe */
-        
-          return ViewUtil.render(request, model, "templates/register");
-    });
+        return new VelocityTemplateEngine().render(
+                new ModelAndView(model, "templates/register.vtl")
+        );
+    });    
     
     
     get("/login",(request, response) -> {
@@ -77,10 +55,8 @@ public class SparkApp {
         );
     });    
     
-    post("/login",(request, response) -> {
-    	System.out.println("poo");  
-    	
-       Map<String, Object> model = new HashMap<>();
+    post("/login",(request, response) -> {  	
+    	Map<String, Object> model = new HashMap<>();
         String inputtedUsername = request.queryParams("user");
         request.session().attribute("user", inputtedUsername);
         model.put("user", inputtedUsername);  
@@ -91,25 +67,31 @@ public class SparkApp {
         System.out.println(inputtedUsername + inputtedPassword); 
         
         /* acá estarían las funciones para ver si existe el usuario y contraseña en la base de datos */
+        fachada.chequearSiExiste(inputtedUsername,inputtedPassword);
         
-          return ViewUtil.render(request, model, "templates/login");
-    });
-    
-    get("/calendar",(request, response) -> {
-        Map<String, Object> model = new HashMap<>();
         return new VelocityTemplateEngine().render(
-                new ModelAndView(model, "templates/calendar.vtl")                     
+                new ModelAndView(model, "templates/login.vtl")
         );
-
+    }); 
+    
+    
+    get("/guardarropas", (req, res) -> {
+        Map<String, Object> model = new HashMap<>();
+        String[] guardarropas = fachada.devolverTodosLosGuardarropas();
+        model.put("guardarropas", guardarropas);
+        return new VelocityTemplateEngine().render(
+            new ModelAndView(model, "templates/guardarropas.vtl")
+        );
     });
+
     
     get("/new-prenda",(request, response) -> {
         Map<String, Object> model = new HashMap<>();
-        String[] tipoDePrendas = {}; /*agregar tipoDePrendas, somehow */
-        String[] materialesDeTipoDePrenda = {}; /*agregar materialesDeTipoDePrenda, somehow */
-        String[] tramas = {}; /*agregar tramas, somehow */
+        String[] tipoDePrendas = fachada.devolverTodosLosTipoDePrendas();
+        String[] materiales = fachada.devolverTodosLosMateriales(); 
+        String[] tramas = fachada.devolverTodosLasTramas(); 
         model.put("tipoDePrendas", tipoDePrendas);
-        model.put("materialesDeTipoDePrenda", materialesDeTipoDePrenda);
+        model.put("materiales", materiales);
         model.put("tramas", tramas);        
         
         return new VelocityTemplateEngine().render(
@@ -117,9 +99,10 @@ public class SparkApp {
         );
     });
     
+    
     get("/new-event",(request, response) -> {
         Map<String, Object> model = new HashMap<>();
-        String[] usuarios = {}; /*agregar usuarios, somehow */
+        String[] usuarios = fachada.devolverTodosLosUsuarios();
         model.put("users", usuarios);
         return new VelocityTemplateEngine().render(
                 new ModelAndView(model, "templates/new_event.vtl")                     
@@ -127,6 +110,13 @@ public class SparkApp {
     });
     
     
+    get("/calendar",(request, response) -> {
+        Map<String, Object> model = new HashMap<>();
+        return new VelocityTemplateEngine().render(
+                new ModelAndView(model, "templates/calendar.vtl")                     
+        );
+
+    });    
     
 
     

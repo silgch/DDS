@@ -79,16 +79,10 @@
     </dependency>
     
     <dependency>
-		<groupId>org.5</groupId>
+		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-simple</artifactId>  
 		<version>1.7.21</version>
-	</dependency>
-	
-	<dependency>
-    <groupId>org.apache.velocity.tools</groupId>
-    <artifactId>velocity-tools-generic</artifactId>
-    <version>3.0</version>
-	</dependency>    
+	</dependency>  
   
   </dependencies>
   
