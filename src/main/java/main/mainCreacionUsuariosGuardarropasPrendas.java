@@ -10,6 +10,7 @@ package main;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import componentes.Categoria;
@@ -24,8 +25,10 @@ import guardarropas.Guardarropa;
 import repositorio.Repositorio;
 import usuario.Usuario;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 
 public class mainCreacionUsuariosGuardarropasPrendas {
@@ -238,7 +241,8 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    ines.getPercepcion().modificarPercepcionTorso(-4);
 	    
 	   // repositorio.usuario().persistir(ines);
-	    	    
+	    
+   	    
 	    repositorio.cerrar();
 		emFactory.close();
 	    

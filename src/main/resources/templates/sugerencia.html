@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #myDIV {
+            width: 100%;
+            padding: 50px 0;
+            text-align: center;
+            background-color: lightblue;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>El evento fue creado correctamente!</h1>
+    <h2>Que te parece la siguiente sugerencia?</h2>
+    <div class="Sugerencia">
+        <p>
+            #foreach($prenda in $sugerencia)
+            <ul>
+                <li>
+                    $prenda
+                </li>
+            </ul>
+            #end
+            <p/>
+    </div>
+
+    <button onclick="myFunction()" style="height: 50px; width: 50px ; color:blue;font-size:30px;"> &#128077; </button>
+
+    <button type="submit" style="height: 50px; width: 50px ; color:blue;font-size:30px;"> &#128078; </button>
+
+    <div id="myDIV" style="display: none">
+        Considere que -2 es que se esta cagado de frio, y 2 que se esta cagando de calor #foreach($prenda in $sugerencia)
+        <p>
+            $prenda
+            <input type="number" name="quantity" min="-2" max="2">
+        </p>
+        #end.
+
+        <input type="submit" value="Submit Preferencias de Temperatura">
+    </div>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myDIV");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

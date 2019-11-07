@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -5,6 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import componentes.Prenda;
 import repositorio.Repositorio;
 import spark.Request;
 
@@ -51,28 +53,27 @@ public class Fachada {
         _request.session().removeAttribute("loginRedirect");
         return loginRedirect;
     }
-	public String[] devolverTodasLasPrendas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	public String[] devolverTodosLosGuardarropas() {
+	public List<String> devolverTodosLosGuardarropas() {
+	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa");
+		List<String> list = query.getResultList();
+		return list;
+	}
+	
+	public List<String> devolverTodosLosTipoDePrendas() {
+	    Query query = entityManager.createQuery("SELECT DISTINCT nombre FROM TipoDePrenda");
+		List<String> list = query.getResultList();
+		return list;
+	}
+	public List<String> devolverTodosLosMateriales() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public String[] devolverTodosLosTipoDePrendas() {
+	public List<String> devolverTodosLasTramas() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public String[] devolverTodosLosMateriales() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String[] devolverTodosLasTramas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String[] devolverTodosLosUsuarios() {
+	public List<String> devolverTodosLosUsuarios() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -85,4 +86,35 @@ public class Fachada {
 		// => Puede ser cualquiera de los dos
 		// TODO Auto-generated method stub
 	}
+	public List<String> devolverTodosLosNombresDeGuardarropas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void persistimeEsta(String nombre, String tipoDePrenda, String material, String r, String g, String b,
+			String trama) {
+		
+		//Prenda unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, algodon, colorBlanco, lisa );
+		// TODO Auto-generated method stub
+		
+	}
+	public void persistimeEsteEvento(String usuario, String guardarropa, String place, String description,
+			String when) {
+		// TODO Auto-generated method stub
+		
+	}
+	public List<String> devolverUnaSugerenciaParaUltimoEvento() {
+		 List<String> lista = new ArrayList<>(); 
+		 lista.add("Remera Roja a lunares"); 
+		 lista.add("Pantalon Negro"); 
+		 lista.add("Zapatillas Converse"); 		
+	return lista;
+	}
+	
+	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
+	    Query query1 = entityManager.createQuery("SELECT id FROM Guardarropa WHERE Nombre = '"+inputtedguardarropas+"'");	    
+	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
+		List<String> list = query2.getResultList();
+		return list;
+	}	
+	
 }

@@ -3,3 +3,4 @@
 *.ucls
 *.project
 *.classpath
+/bin/
