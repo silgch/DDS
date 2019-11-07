@@ -42,7 +42,7 @@ public class Fachada {
 	}	
 
 	
-    boolean removeSessionAttrLoggedOut(Request _request) {
+    /*boolean removeSessionAttrLoggedOut(Request _request) {
         Object loggedOut = _request.session().attribute("loggedOut");
         _request.session().removeAttribute("loggedOut");
         return loggedOut != null;
@@ -52,11 +52,26 @@ public class Fachada {
         String loginRedirect = _request.session().attribute("loginRedirect");
         _request.session().removeAttribute("loginRedirect");
         return loginRedirect;
-    }
+    }*/
+	
+	//PARA LOGIN/REGISTER
+	
+	public void registrarUsuarioCon(String inputtedEmail, String inputtedUsername, String inputtedPassword) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void chequearSiExiste(String inputtedUsername, String inputtedPassword) {
+		//Nota: inputtedUsername es un campo donde el usuario puede elegir loguearse con mail o nombreDeUsuario 
+		// ( Puede ser cualquiera de los dos )
+		// TODO Auto-generated method stub
+	}
+	
+	
 
 	public List<String> devolverTodosLosGuardarropas() {
 	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa");
-		List<String> list = query.getResultList();
+	    List<String> list = query.getResultList();
 		return list;
 	}
 	
@@ -65,31 +80,23 @@ public class Fachada {
 		List<String> list = query.getResultList();
 		return list;
 	}
+	
 	public List<String> devolverTodosLosMateriales() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	public List<String> devolverTodosLasTramas() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	public List<String> devolverTodosLosUsuarios() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public void registrarUsuarioCon(String inputtedEmail, String inputtedUsername, String inputtedPassword) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void chequearSiExiste(String inputtedUsername, String inputtedPassword) {
-		//Nota: inputtedUsername es un campo donde el usuario puede elegir loguearse con mail o nombreDeUsuario 
-		// => Puede ser cualquiera de los dos
-		// TODO Auto-generated method stub
-	}
-	public List<String> devolverTodosLosNombresDeGuardarropas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
 	public void persistimeEsta(String nombre, String tipoDePrenda, String material, String r, String g, String b,
 			String trama) {
 		
@@ -104,6 +111,7 @@ public class Fachada {
 	}
 	public List<String> devolverUnaSugerenciaParaUltimoEvento() {
 		 List<String> lista = new ArrayList<>(); 
+		 // TODO Actualmente está super hardcodeado
 		 lista.add("Remera Roja a lunares"); 
 		 lista.add("Pantalon Negro"); 
 		 lista.add("Zapatillas Converse"); 		

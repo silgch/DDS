@@ -142,7 +142,7 @@ public class SparkApp {
     get("/new-event",(request, response) -> {
         Map<String, Object> model = new HashMap<>();
         List<String> usuarios = fachada.devolverTodosLosUsuarios();
-        List<String> guardarropas = fachada.devolverTodosLosNombresDeGuardarropas();
+        List<String> guardarropas = fachada.devolverTodosLosGuardarropas();
         model.put("users", usuarios);
         model.put("guardarropas", guardarropas);
         return new VelocityTemplateEngine().render(
