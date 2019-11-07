@@ -1,7 +1,8 @@
 /*
- 	Este main sirve para analizar como funciona Guava
+ 	Este main sirve para analizar como funciona Guava,  Esta próximo a ser borrado 	
 */
 
+/*
 package main;
 
 import java.util.ArrayList;
@@ -24,16 +25,18 @@ public class mainImplementacionGuava {
 		
 		sets.add(new HashSet<String>(s1));
 	    sets.add(new HashSet<String>(s2));
-	    sets.add(new HashSet<String>(s3));
+	    sets.add(new HashSet<String>(s3));    
 	     
 	    Set<List<String>> cartesianSet = Sets.cartesianProduct(sets);
-	     // para que aparezca la opcion de importar guava
-	     // tienen que hacer:
-	     //					mvn eclipse:clean
-	     //					mvn eclipse:eclispe
-	     //SI EL ERROR SIGUE: vuelvan a copiar la linea debajo
-	    for(List<String> element : cartesianSet ){
+	     for(List<String> element : cartesianSet ){
 	    	System.out.println(element);
 	    }
 	}
 }
+*/
+
+		 // para que aparezca la opcion de importar guava
+	     // tienen que hacer:
+	     //					mvn eclipse:clean
+	     //					mvn eclipse:eclispe
+	     //SI EL ERROR SIGUE: vuelvan a copiar la linea debajo

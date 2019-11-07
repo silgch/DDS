@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<div>
+
+    <h1>Crear un nuevo evento</h1>
+
+    <!-- <form action="." method="post" name="input"> -->
+    <select name="usuario">
+        <option value="-1">-Seleccionar Usuario-</option>
+        #foreach( $usuario in $usuarios )
+        <option value="$usuario">$usuario</option>
+        #end
+    </select>
+    <select name="guardarropa">
+        <option value="-1">-Seleccionar Guardarropa-</option>
+        #foreach( $guardarropa in $guardarropas )
+        <option value="guardarropa">$guardarropa</option>
+        #end
+    </select>
+    <p>Ubicacion:&nbsp; &nbsp;&nbsp;
+        <input maxlength="100" name="place" type="text" value="" />
+    </p>
+    <p>Descripcion:&nbsp;
+        <input maxlength="200" name="description" type="text" value="" />
+        <label for="when"></label>
+    </p>
+    <p>
+        <label for="when">Date:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
+        <input max="2020-11-06" min="2019-11-06" name="when" type="date" />
+    </p>
+    <input type="submit" value="Crear Evento" />
+    <!--</form>-->
+</div>
+
+</html>

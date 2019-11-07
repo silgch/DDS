@@ -32,7 +32,7 @@ body {
   position: relative;
 }
 
-.login-card input[type=text], input[type=password] {
+.login-card input[type=text],[type=email], input[type=password] {
   height: 44px;
   font-size: 16px;
   width: 100%;

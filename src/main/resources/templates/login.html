@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Log-in</title>
+    <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
+    <link rel="stylesheet" media="screen" type="text/css" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <div class="login-card">
+        <h1>Log-in</h1>
+        <br>
+        <form action="/login" id="loginForm" method="post">
+            <label for="name"></label>
+            <input type="text" name="user" placeholder="Username or Email" required >
+            <input type="password" name="pass" placeholder="Password" required>
+            <input type="submit" name="login" class="login login-submit" value="Login">
+        </form>
+        
+        <div class="login-help">
+            <a href="/register">Register</a>
+        </div>
+    </div>
+    <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>
+</body>
+
+</html>

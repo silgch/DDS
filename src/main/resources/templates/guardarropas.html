@@ -1,0 +1,13 @@
+<h1>Listado De Guardarropas</h1>
+
+<form action="/guardarropas" id="guardarropasForm" method="post">
+    <div class="row row-3">
+        #foreach($guardarropa in $guardarropas)
+        <p>
+            <input type="submit" value="$guardarropa" name="guardarropa">
+        </p>
+        #end
+    </div>
+</form>
+
+</form>
