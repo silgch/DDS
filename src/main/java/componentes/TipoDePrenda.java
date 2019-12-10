@@ -10,6 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -41,7 +44,10 @@ public class TipoDePrenda{
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
 	
-	@Transient
+	@ManyToMany
+	@JoinTable(name="rel_tipoPrenda_Material",
+			   joinColumns={@JoinColumn(name="TIPO_DE_PRENDA_ID")}, 
+			   inverseJoinColumns={@JoinColumn(name= "MATERIAL_ID")})
     private Set<Material> tiposDeMaterialesPermitidos;
 	
 	

@@ -1,10 +1,16 @@
 package componentes;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 @Entity
+@Table(name = "MATERIAL")
 public class Material {
 	/*
 	 * ALGODON, JEAN, LINO, GABARDINA, SEDA, CUERO, PLASTICO, CRISTAL, ORO, CUERINA,
@@ -18,7 +24,9 @@ public class Material {
 	
 	private String nombre;
 
-
+	@ManyToMany(mappedBy = "tiposDeMaterialesPermitidos")
+	 private Set<TipoDePrenda> tiposDePrenda=new HashSet();
+	
 	public Material(String nombre) {
 	
 		this.nombre = nombre;

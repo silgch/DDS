@@ -29,6 +29,13 @@ public class Repositorio {
 		return prenda;
 	}
 	
+	public Evento evento() {
+		if (evento == null) {
+			evento = new Evento(em);
+		}
+		return evento;
+	}
+	
 	public Guardarropa guardarropa() {
 		if (guardarropa == null) {
 			guardarropa = new Guardarropa(em);

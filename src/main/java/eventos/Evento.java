@@ -48,6 +48,7 @@ public class Evento {
 	@Transient
 	private Sugerencia sugerencia;
 	private String repeticion;
+	
 	@Transient
 	private List<Evento> eventosConRepeticion;
 	private String ubicacionParaAPI;

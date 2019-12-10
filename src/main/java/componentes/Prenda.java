@@ -68,7 +68,7 @@ public class Prenda{
 	
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(optional = true)
 	@JoinColumn(name = "guardarropa_id", referencedColumnName = "id") 
 	private Guardarropa guardarropa;
 
@@ -90,6 +90,8 @@ public class Prenda{
     public Prenda() {}
 
     //Constructor: Se puede construir una prenda con o sin color secundario.
+    
+    
     public Prenda(String nombre, TipoDePrenda tipo, Material material, Color colorPrincipal, Trama trama) {
     	Validaciones.validarCreacionPrenda(nombre, tipo, material, colorPrincipal, trama);
     	asignarValoresAPrenda(nombre, tipo, material, colorPrincipal, trama);    	

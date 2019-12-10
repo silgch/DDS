@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 
 //import eventos.ColaDeEventos;
 import eventos.CommandParaEventos;
+import eventos.Evento;
 //import eventos.Evento;
 import eventos.Sugerencia;
 import guardarropas.Guardarropa;
@@ -35,11 +36,17 @@ public class Usuario{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
 	
-	//@Column(name="userName",nullable = true, columnDefinition="STRING CAN BE NULL DEFAULT ")
-	private String nombreDeUsuario;
+
+	private String userName;
+	private String nombre;
+	private String apellido;
 	private String mail;
 	private String password;
 
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy= "usuario")
+	private List<Evento> eventos = new ArrayList<>();
+	
 	@OneToMany(mappedBy= "miDuenio")
 	private List<Guardarropa> guardarropas = new ArrayList<>();
 
@@ -50,19 +57,19 @@ public class Usuario{
 	private GestorDeCuentas gestorCuenta;
 	@Transient // Ver si es necesario persistirlo.
 	private Cuenta tipoDeCuenta;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "preferencias", referencedColumnName = "id")
 	private PercepcionDeTemperatura percepcion ;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ManagerDeEventos", referencedColumnName = "id")
+	@Transient
 	private CommandParaEventos managerDeEventos;
 	//private String tipoDeUsuario;
 	
 	public Usuario() {}
 	
 	public Usuario(String name){
-		this.nombreDeUsuario = name;
+		this.userName = name;
 		gestorCuenta = new GestorDeCuentas();
 		percepcion = new PercepcionDeTemperatura();
 		managerDeEventos = new CommandParaEventos(this);
@@ -77,8 +84,8 @@ public class Usuario{
 	public Cuenta getTipoDeCuenta() {
 		return tipoDeCuenta;
 	}
-	public String getNombre() {
-		return nombreDeUsuario;
+	public String getUserName() {
+		return userName;
 	}
 	public PercepcionDeTemperatura getPercepcion() {
 		return percepcion;
@@ -89,7 +96,14 @@ public class Usuario{
 	public CommandParaEventos getManagerDeEventos() {
 		return managerDeEventos;
 	}
+	public String getApellido() {
+		return apellido;
+	}
+	public String getNombre() {
+		return nombre;
+	}
 
+	
 	// Setters
 	public void setTipoDeCuenta(Cuenta tipoDeCuenta) {
 		this.tipoDeCuenta = tipoDeCuenta;
@@ -98,6 +112,15 @@ public class Usuario{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	
 	
 	// Métodos con guardarropas
 	

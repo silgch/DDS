@@ -22,34 +22,29 @@ import usuario.Usuario;
 
 
 //Asistente de eventos
-@Entity
-@Table(name = "GESTOR_DE_EVENTOS")
+
 public class CommandParaEventos /*implements ICommand*/ {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long id;
+
 	
 	public CommandParaEventos() {}
 	
 	//private GestorDeClimaAPIs gestorDeAPIs;
 	//private ClimaAdapter api1 = gestorDeAPIs.entregarAPI();
 	
-	@OneToOne
-	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
+
 	private Usuario usuario;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "eventos_activos", referencedColumnName = "id")
+
 	private Set<Evento> colaEventosActivos = new HashSet<Evento>();
 
 	
-	@Transient
+
 	private List<Prenda> listaDePrendasTemporal;
-	@Transient
+
 	private Guardarropa guardarropaTemporal;
-	@Transient
+	
 	private Evento eventoTemporal;
-	@Transient
+
 	private GeneradorDeSugerencias sugiridor = new GeneradorDeSugerencias();
 
 	
