@@ -24,11 +24,8 @@
 	    <version>2.0.13</version>
 	    <configuration>
 	        <jdkVersion>1.8</jdkVersion>
-	        <!-- Use your own application name -->
 	        <appName>spark-heroku-dds-grupo11</appName> 
 	        <processTypes>
-	            <!-- Tell Heroku how to launch your application -->
-	            <!-- You might have to remove the ./ in front   -->
                         <web>java -cp target/classes/:target/dependency/* SparkApp</web>
 	        </processTypes>
 	    </configuration>
