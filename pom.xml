@@ -29,7 +29,7 @@
 	        <processTypes>
 	            <!-- Tell Heroku how to launch your application -->
 	            <!-- You might have to remove the ./ in front   -->
-	            <web>java $JAVA_OPTS -cp target/classes:src/main/java/* SparkApp</web>
+	            <web> java -jar target/DDS-1.0.jar</web>
 	        </processTypes>
 	    </configuration>
 	</plugin>     
