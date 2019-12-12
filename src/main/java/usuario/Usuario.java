@@ -29,7 +29,7 @@ import guardarropas.Guardarropa;
 
 
 @Entity
-@Table(name = "USUARIO")
+@Table(name = "usuario")
 public class Usuario{
 
 	@Id

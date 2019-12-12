@@ -26,7 +26,7 @@
 	        <jdkVersion>1.8</jdkVersion>
 	        <appName>spark-heroku-dds-grupo11</appName> 
 	        <processTypes>
-                        <web>java -cp target/classes/:target/dependency/* SparkApp</web>
+                        <web>java -cp target/classes/:target/dependency/* SparkApp </web>
 	        </processTypes>
 	    </configuration>
 	</plugin>     
@@ -70,13 +70,6 @@
         <version>1.6.2</version>
     </dependency>
     
-    <dependency>
-    <groupId>com.h2database</groupId>
-    <artifactId>h2</artifactId>
-    <version>1.4.200</version>
-    <scope>test</scope>
-	</dependency>
-	
     <dependency>
         <groupId>com.sparkjava</groupId>
         <artifactId>spark-core</artifactId>

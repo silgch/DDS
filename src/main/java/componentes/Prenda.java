@@ -27,7 +27,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity(name = "prenda")
-@Table(name = "PRENDA")
+@Table(name = "prenda")
 public class Prenda{
 	
 	@Id

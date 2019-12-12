@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 @Entity
-@Table(name = "MATERIAL")
+@Table(name = "material")
 public class Material {
 	/*
 	 * ALGODON, JEAN, LINO, GABARDINA, SEDA, CUERO, PLASTICO, CRISTAL, ORO, CUERINA,

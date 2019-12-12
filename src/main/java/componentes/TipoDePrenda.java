@@ -29,7 +29,7 @@ import javax.persistence.Transient;
 */
 
 @Entity
-@Table(name = "TIPO_DE_PRENDA")
+@Table(name = "tipo_de_prenda")
 public class TipoDePrenda{
 	
 		
@@ -45,7 +45,7 @@ public class TipoDePrenda{
 	private Categoria categoria;
 	
 	@ManyToMany
-	@JoinTable(name="rel_tipoPrenda_Material",
+	@JoinTable(name="rel_tipoprenda_material",
 			   joinColumns={@JoinColumn(name="TIPO_DE_PRENDA_ID")}, 
 			   inverseJoinColumns={@JoinColumn(name= "MATERIAL_ID")})
     private Set<Material> tiposDeMaterialesPermitidos;

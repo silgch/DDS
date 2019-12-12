@@ -25,7 +25,7 @@ public class TestPersistencia {
 	
 	public static void main(String[] args) {
 		//Creamos el festor de persistencia (EM)
-		emf=Persistence.createEntityManagerFactory("DDS");
+		emf=Persistence.createEntityManagerFactory("ati1txh3yqvapdna");
 		manager= emf.createEntityManager();
 		
 		

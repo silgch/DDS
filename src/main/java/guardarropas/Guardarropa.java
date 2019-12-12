@@ -26,7 +26,7 @@ import usuario.Usuario;
 */
 
 @Entity
-@Table(name = "GUARDARROPA")
+@Table(name = "guardarropa")
 public class Guardarropa {
 	
 	@Id

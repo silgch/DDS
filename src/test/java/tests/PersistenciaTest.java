@@ -22,7 +22,7 @@ import usuario.Usuario;
 
 public class PersistenciaTest {
 	
-	private static final String PERSISTENCE_UNIT_NAME = "DDS";
+	private static final String PERSISTENCE_UNIT_NAME = "ati1txh3yqvapdna";
 	private static EntityManagerFactory emf;
 	private static Repositorio repositorio;
 	

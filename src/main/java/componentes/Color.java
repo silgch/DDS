@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "COLOR")
+@Table(name = "color")
 public class Color{
 	
 	
