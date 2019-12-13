@@ -63,7 +63,7 @@ public class Fachada {
 	
 	public boolean chequearSiExiste(String inputtedUsername, String inputtedPassword) {
 		return false;
-		//Nota: inputtedUsername es un campo donde el usuario puede elegir loguearse con mail o nombreDeUsuario 
+		//Nota: inputtedUsername es un campo donde el usuario puede elegir loguearse con mail o userName 
 		// ( Puede ser cualquiera de los dos )
 		// TODO Auto-generated method stub
 		// Si existe, usarnameLoggedIn = inputtedUsername

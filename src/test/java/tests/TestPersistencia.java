@@ -1,3 +1,7 @@
+/*
+ * Test para persistir 2 remeras blancas
+ */
+
 package tests;
 
 import java.util.HashSet;

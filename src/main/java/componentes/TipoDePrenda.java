@@ -28,16 +28,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tipo_de_prenda")
-public class TipoDePrenda{
-	
+public class TipoDePrenda{	
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long id;
+	Long id;	
 	
-	
-	private String nombre;
-	
+	private String nombre;	
 	
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
@@ -59,8 +56,7 @@ public class TipoDePrenda{
 		this.nombre = nombre;
 		this.categoria = categoria;
 		this.tiposDeMaterialesPermitidos = tiposDeMaterialesPermitidos;
-		this.nivel = nivel;
-		
+		this.nivel = nivel;		
 	}
 	
 	public String getNombre() {

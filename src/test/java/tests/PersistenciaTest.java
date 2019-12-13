@@ -1,3 +1,7 @@
+/*
+ * Test principal, con los valores de la última entrega * 
+ */
+
 package tests;
 
 import java.time.LocalDate;

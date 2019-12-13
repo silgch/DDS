@@ -1,4 +1,5 @@
 /*
+ 	"Test" Main de persistencia hecho por nosotros...
 	Se crean 7 prendas (con sus tipos, colores, materiales, etc)
 	Se crea un usuario gratuito con 2 guardarropas
 	Se le agregan distintas prendas a los guardarropas
@@ -19,6 +20,7 @@ import componentes.Prenda;
 import componentes.PrendaNivel;
 import componentes.TipoDePrenda;
 import componentes.Trama;
+import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 import repositorio.Repositorio;
 import usuario.Usuario;
@@ -54,7 +56,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		final Material acrilico = new Material("Acrilico");
 		final Material corderoy = new Material("Corderoy");
 		final Material bengalina = new Material("Bengalina");
-		final Material caucho = new Material("Caucho");
+		//final Material caucho = new Material("Caucho");
 
 		// Tipos de Materiales
 		Set<Material> tiposDeMaterialRemera;
@@ -113,14 +115,13 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		/* Luego creamos las Prendas que estarán en los guardarropas */
 		final Prenda unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, algodon, colorBlanco, lisa);
 		final Prenda unaRemeraRoja = new Prenda("Remera Roja a lunares", remera, seda, colorRojo, lunares);
-		final Prenda unaRemeraNegra = new Prenda("Remera Negra Basica", remera, algodon, colorNegro, lisa);
-		final Prenda unBuzoNegro = new Prenda("Buzo Negro", buzo, cuero, colorNegro, rayada);
-		final Prenda unaCamperaNegra = new Prenda("Campera Negra", campera, cuero, colorNegro, estampada);
+		// final Prenda unaRemeraNegra = new Prenda("Remera Negra Basica", remera, algodon, colorNegro, lisa);
+		// final Prenda unBuzoNegro = new Prenda("Buzo Negro", buzo, cuero, colorNegro, rayada);
+		// final Prenda unaCamperaNegra = new Prenda("Campera Negra", campera, cuero, colorNegro, estampada);
+		// final Prenda unasHavaianas = new Prenda("Ojotas Havaianas", ojotas, caucho, colorNegro, lisa);
 		final Prenda unPantalonNegro = new Prenda("Pantalon Negro", pantalon, corderoy, colorNegro, lisa);
 		final Prenda unZapatoNegro = new Prenda("Zapatos Negros", zapato, cuero, colorNegro, lisa);
-		final Prenda unaZapatillaLonaBlanca = new Prenda("Zapatillas de lona blancas", zapatilla, lona, colorBlanco,
-				colorNegro, cuadros);
-		final Prenda unasHavaianas = new Prenda("Ojotas Havaianas", ojotas, caucho, colorNegro, lisa);
+		final Prenda unaZapatillaLonaBlanca = new Prenda("Zapatillas de lona blancas", zapatilla, lona, colorBlanco, colorNegro, cuadros);
 		final Prenda unLenteNegro = new Prenda("Lentes de sol  negros", lentes, plastico, colorNegro, lisa);
 
 		/* Luego creamos los guardarropas y las personas */
@@ -213,21 +214,21 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		//PROBANDO CALIFICAR SUGERENCIAS
     
 	    ines.crearEvento(LocalDate.now(), "Miamiii", "4174383");
-	    //ines.pedirSugerencia(guardarropaInesUno);
-	    //Sugerencia sugerencia1 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
-	    //ines.aceptarSugerencia(sugerencia1);
+	    ines.pedirSugerencia(guardarropaInesUno);
+	    Sugerencia sugerencia1 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
+	    ines.aceptarSugerencia(sugerencia1);
 	    
 	    ines.crearEvento(LocalDate.now(), "Las Toninas", "3431608");
-	    //ines.pedirSugerencia(guardarropaInesUno);	    
-	    //Sugerencia sugerencia2 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
-	    //ines.rechazarSugerencia(sugerencia2);  
+	    ines.pedirSugerencia(guardarropaInesUno);	    
+	    Sugerencia sugerencia2 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
+	    ines.rechazarSugerencia(sugerencia2);  
 	    
 	    System.out.println("Ines es friolenta, así que modifica su percepcionDeTemperatura");
 	    ines.getPercepcion().modificarPercepcionCabeza(-2);
 	    ines.getPercepcion().modificarPercepcionCalzado(-1);
 	    ines.getPercepcion().modificarPercepcionTorso(-4);
 	    
-	   // repositorio.usuario().persistir(ines);	    
+	    repositorio.usuario().persistir(ines);	    
    	    
 	    repositorio.cerrar();
 		emFactory.close();   

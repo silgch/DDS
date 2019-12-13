@@ -34,18 +34,18 @@ public class Prenda{
 	
 	
 
-	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name = "color_ppal_id", referencedColumnName="id")
     private Color colorPrincipal;
 	
 	
 	
-	@ManyToOne ( cascade=CascadeType.ALL)
+	@ManyToOne (cascade=CascadeType.ALL)
 	@JoinColumn(name = "color_sec_id", referencedColumnName="id")
     private Color colorSecundario;
 	
 	
-	@ManyToOne( cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "material_id", referencedColumnName="id")
     private Material material;
 	
@@ -64,7 +64,7 @@ public class Prenda{
 	
 	
 	
-	@ManyToOne(optional = true)
+	@ManyToOne(cascade=CascadeType.ALL,optional = true)
 	@JoinColumn(name = "guardarropa_id", referencedColumnName = "id") 
 	private Guardarropa guardarropa;
 

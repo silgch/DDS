@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -48,7 +49,8 @@ public class Usuario{
 	
 	@Transient 
 	private GestorDeCuentas gestorCuenta;
-	@Transient // Ver si es necesario persistirlo.
+	
+	@Transient //TODO cambiar, se debe persistir
 	private Cuenta tipoDeCuenta;
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -85,6 +87,7 @@ public class Usuario{
 	}
 	public String getMail() {return mail;}
 	
+	public String getPass() {return password;}
 	
 	public CommandParaEventos getManagerDeEventos() {
 		return managerDeEventos;
@@ -108,7 +111,6 @@ public class Usuario{
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
