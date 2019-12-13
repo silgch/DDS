@@ -16,8 +16,6 @@ import componentes.PrendaNivel;
 import componentes.TipoDePrenda;
 import componentes.Trama;
 
-
-
 @SuppressWarnings("unchecked")
 public class TestPersistencia {
 	private static EntityManager manager;
@@ -48,7 +46,7 @@ public class TestPersistencia {
 	
 		imprimirTodo();
 	}
-	@SuppressWarnings("unchecked")
+
 	private static void imprimirTodo() {
 		
 		  List <Prenda> prendas = (List <Prenda>)
@@ -59,4 +57,3 @@ public class TestPersistencia {
 		
 	}
 }
-

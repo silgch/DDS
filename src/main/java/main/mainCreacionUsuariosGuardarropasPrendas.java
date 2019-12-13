@@ -10,7 +10,6 @@ package main;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import componentes.Categoria;
@@ -20,23 +19,18 @@ import componentes.Prenda;
 import componentes.PrendaNivel;
 import componentes.TipoDePrenda;
 import componentes.Trama;
-import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 import repositorio.Repositorio;
 import usuario.Usuario;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
-
 
 public class mainCreacionUsuariosGuardarropasPrendas {
 	
 	private static final String PERSISTENCE_UNIT_NAME = "ati1txh3yqvapdna";
 	private static EntityManagerFactory emFactory;
-	private static Repositorio repositorio;
-	
+	private static Repositorio repositorio;	
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -83,8 +77,7 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		tiposDeMaterialZapatilla.add(cuerina);
 		tiposDeMaterialZapatilla.add(cuero);
 		tiposDeMaterialZapatilla.add(lona);
-		tiposDeMaterialLentes.add(plastico);
-		
+		tiposDeMaterialLentes.add(plastico);		
 		
 		//Colores
 		Color colorBlanco=new Color("Blanco", 255,255,0);
@@ -123,15 +116,13 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		Prenda unasHavaianas = new Prenda("Ojotas Havaianas",ojotas,caucho, colorNegro,lisa);
 		Prenda unLenteNegro = new Prenda("Lentes de sol  negros", lentes, plastico, colorNegro, lisa);
 		
-				
 		/*Luego creamos los guardarropas y las personas */
 		Usuario ines = new Usuario("Ines");
 		ines.setPassword("ines123");
 		Guardarropa guardarropaInesUno = new Guardarropa();
 		Guardarropa guardarropaInesDos = new Guardarropa();
 		guardarropaInesUno.setNombre("Guardarropas Uno");
-		guardarropaInesDos.setNombre("Guardarropas Dos");
-		
+		guardarropaInesDos.setNombre("Guardarropas Dos");		
 		
 		System.out.println("Se creo el mundo inicial");
 		
@@ -144,17 +135,14 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		System.out.println("Arrancando");
 
 		ines.agregarGuardarropa(guardarropaInesUno); 
-		ines.agregarGuardarropa(guardarropaInesDos); 
-		
+		ines.agregarGuardarropa(guardarropaInesDos); 		
 		
 		guardarropaInesUno.agregarAGuardarropas(unaRemeraBlancaLisa);
 		guardarropaInesUno.agregarAGuardarropas(unaRemeraRoja);
 		guardarropaInesUno.agregarAGuardarropas(unPantalonNegro);
 		guardarropaInesUno.agregarAGuardarropas(unZapatoNegro);
 		guardarropaInesUno.agregarAGuardarropas(unaZapatillaLonaBlanca);
-		guardarropaInesDos.agregarAGuardarropas(unLenteNegro);
-		 
-	
+		guardarropaInesDos.agregarAGuardarropas(unLenteNegro);	
 	    
 	    //Persisto Colores
 	    repositorio.color().persistir(colorBlanco);
@@ -162,7 +150,6 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    repositorio.color().persistir(colorNegro);
 	    repositorio.color().persistir(colorVerde);
 	    repositorio.color().persistir(colorAzulTrafico);
-
 		
 		//Persisto Tramas
 	    repositorio.trama().persistir(lunares);
@@ -200,28 +187,21 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		repositorio.tipo().persistir(ojotas);
 		repositorio.tipo().persistir(pantalonCorto);
 		repositorio.tipo().persistir(pantalon);
-		repositorio.tipo().persistir(lentes);
-		 
+		repositorio.tipo().persistir(lentes);		 
 	    
 	    //Persisto Usuarios
-	    repositorio.usuario().persistir(ines);
+	    repositorio.usuario().persistir(ines);   
 	    
-
-	    
-	    //Persisto Prendas
-		
-		  repositorio.prenda().persistir(unaRemeraBlancaLisa);
-		  repositorio.prenda().persistir(unaRemeraRoja);
-		  repositorio.prenda().persistir(unPantalonNegro);
-		  repositorio.prenda().persistir(unZapatoNegro);
-		  repositorio.prenda().persistir(unaZapatillaLonaBlanca);
-		  repositorio.prenda().persistir(unLenteNegro);
-		 
-		
+	    //Persisto Prendas		
+		repositorio.prenda().persistir(unaRemeraBlancaLisa);
+		repositorio.prenda().persistir(unaRemeraRoja);
+		repositorio.prenda().persistir(unPantalonNegro);
+		repositorio.prenda().persistir(unZapatoNegro);
+		repositorio.prenda().persistir(unaZapatillaLonaBlanca);
+		repositorio.prenda().persistir(unLenteNegro);		
 		
 	    //Persisto Guardarropas
-		repositorio.guardarropa().persistir(guardarropaInesUno);
-		
+		repositorio.guardarropa().persistir(guardarropaInesUno);		
 		
 		//PROBANDO CALIFICAR SUGERENCIAS
     
@@ -240,12 +220,10 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	    ines.getPercepcion().modificarPercepcionCalzado(-1);
 	    ines.getPercepcion().modificarPercepcionTorso(-4);
 	    
-	   // repositorio.usuario().persistir(ines);
-	    
+	   // repositorio.usuario().persistir(ines);	    
    	    
 	    repositorio.cerrar();
-		emFactory.close();
-	    
+		emFactory.close();   
  
 	}
 	

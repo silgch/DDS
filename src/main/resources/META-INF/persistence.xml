@@ -5,6 +5,7 @@
 	version="2.0">
 
 	<persistence-unit name="ati1txh3yqvapdna">
+	
 		<description>
             Persistence unit for JPA with Hibernate
         </description>
@@ -14,10 +15,8 @@
         <class>guardarropas.Guardarropa</class>
         <class>componentes.Color</class>
 
-
-
 		<properties>
-			 <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" /> 
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" /> 
             <property name="hibernate.connection.url" value="jdbc:mysql://lg0qfa8hvol2dq92:g91blf9prfnalm04@h7xe2knj2qb6kxal.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/ati1txh3yqvapdna" /> 
             <property name="hibernate.connection.username" value="lg0qfa8hvol2dq92" /> 
             <property name="hibernate.connection.password" value="g91blf9prfnalm04" /> 
@@ -26,10 +25,9 @@
             <property name="hibernate.show_sql" value="true" /> 
             <!-- <property name="hibernate.format_sql" value="true" /> -->
             <property name="use_sql_comments" value="true" /> 
-            <property name="hibernate.hbm2ddl.auto" value="update" /> 
-
+            <property name="hibernate.hbm2ddl.auto" value="update" />
 		</properties> 
 
 	</persistence-unit>
-
+	
 </persistence>

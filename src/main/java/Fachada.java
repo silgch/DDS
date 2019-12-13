@@ -6,18 +6,17 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import componentes.Prenda;
 import repositorio.Repositorio;
-import spark.Request;
+
 
 public class Fachada {
-
+	//La base de datos se llama "ati1txh3yqvapdna" ya que asi viene por defecto la que nos da JawsDB Maria
 	private static final String PERSISTENCE_UNIT_NAME = "ati1txh3yqvapdna";
 	private static EntityManagerFactory emFactory;	
 	private static Repositorio repositorio;	
 	private static EntityManager entityManager;
 
-	  // Cause Fachada is a Singleton 
+	// Cause Fachada is a Singleton 
     private static Fachada single_instance = null; 
     private Fachada(){
     	this.inicializar();

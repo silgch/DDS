@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/*
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.Transient; 
+*/
 
 import componentes.Prenda;
 import guardarropas.Guardarropa;
@@ -32,12 +34,9 @@ public class CommandParaEventos /*implements ICommand*/ {
 	//private ClimaAdapter api1 = gestorDeAPIs.entregarAPI();
 	
 
-	private Usuario usuario;
-	
+	private Usuario usuario;	
 
-	private Set<Evento> colaEventosActivos = new HashSet<Evento>();
-
-	
+	private Set<Evento> colaEventosActivos = new HashSet<Evento>();	
 
 	private List<Prenda> listaDePrendasTemporal;
 
@@ -46,7 +45,6 @@ public class CommandParaEventos /*implements ICommand*/ {
 	private Evento eventoTemporal;
 
 	private GeneradorDeSugerencias sugiridor = new GeneradorDeSugerencias();
-
 	
 	public CommandParaEventos(Usuario miUsuario) {
 		usuario = miUsuario;

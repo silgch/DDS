@@ -2,7 +2,6 @@ package repositorio;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 public class Usuario extends Repositorio{
 	Usuario(EntityManager em) {

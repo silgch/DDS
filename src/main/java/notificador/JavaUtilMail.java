@@ -1,8 +1,6 @@
 package notificador;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.chrono.ChronoLocalDate;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -78,11 +76,4 @@ public class JavaUtilMail implements INotificador{
 			}
 		}
 		
-		
-		
-
-	
-	
-
-
 }

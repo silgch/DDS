@@ -14,12 +14,10 @@ public class Trama {
 	
 	private String nombre;
 
-
 	public Trama(String nombre) {
 	
 		this.nombre = nombre;
-	}
-	
+	}	
 	
 	public Trama() {}	
 	
