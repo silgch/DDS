@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -5,21 +6,20 @@ import spark.template.velocity.VelocityTemplateEngine;
 import spark.*;
 import static spark.Spark.*;
 
-
 public class SparkApp {
 
     public static void main(String[] args) throws Exception {
         staticFileLocation("/public");
         Fachada fachada = Fachada.getInstance();    
         port(getHerokuAssignedPort());
+        
 
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new VelocityTemplateEngine().render(
                 new ModelAndView(model, "templates/home.html")
             );
-        });
-        
+        });        
         
         get("/register", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -30,6 +30,12 @@ public class SparkApp {
         
         post("/register",(request, response) -> {   	
             Map<String, Object> model = new HashMap<>();
+            String inputtedFirstName = request.queryParams("first_name");
+            request.session().attribute("first_name", inputtedFirstName);
+            model.put("first_name", inputtedFirstName);
+            String inputtedLastName = request.queryParams("last_name");
+            request.session().attribute("last_name", inputtedLastName);
+            model.put("last_name", inputtedLastName);
             String inputtedUsername = request.queryParams("user");
             request.session().attribute("user", inputtedUsername);
             model.put("user", inputtedUsername);
@@ -42,7 +48,7 @@ public class SparkApp {
             
             System.out.println(inputtedUsername + inputtedPassword); 
             
-            fachada.registrarUsuarioCon(inputtedEmail,inputtedUsername,inputtedPassword);
+            fachada.registrarUsuarioCon(inputtedFirstName,inputtedLastName,inputtedEmail,inputtedUsername,inputtedPassword);
             
             return new VelocityTemplateEngine().render(
                     new ModelAndView(model, "templates/register.html")
@@ -68,10 +74,16 @@ public class SparkApp {
             
             System.out.println("User: "+inputtedUsername + " Pass: "+inputtedPassword); 
             
-            fachada.chequearSiExiste(inputtedUsername,inputtedPassword);
+            boolean existe = fachada.chequearSiExiste(inputtedUsername,inputtedPassword);
+            
+            String path;
+            
+            if(existe){
+            	path = "templates/home.html";
+            }else path = "templates/login.html";
             
             return new VelocityTemplateEngine().render(
-                    new ModelAndView(model, "templates/login.html")
+                    new ModelAndView(model, path)
             );
         }); 
         
@@ -132,7 +144,7 @@ public class SparkApp {
             request.session().attribute("B", B);
             request.session().attribute("trama", trama);
             
-            fachada.persistimeEsta(nombre,tipoDePrenda,material,R,G,B,trama);
+            fachada.persistimeEstaPrenda(nombre,tipoDePrenda,material,R,G,B,trama);
             
             return new VelocityTemplateEngine().render(
                     new ModelAndView(model, "templates/new-prenda.html")
@@ -179,6 +191,25 @@ public class SparkApp {
             model.put("sugerencia", sugerencia);
             return new VelocityTemplateEngine().render(
                     new ModelAndView(model, "templates/sugerencia.html")                     
+            );
+        });
+        
+        post("/sugerencia",(request, response) -> {  	
+            Map<String, Object> model = new HashMap<>();
+            System.out.println("1 2 3 4 6");
+            
+            List<String> sugerencia = fachada.devolverUnaSugerenciaParaUltimoEvento();
+            List<String> modificacion = new ArrayList<>();            
+     
+            for (int i = 0; i < sugerencia.size(); i++) {                
+            	//request.session().attribute("quantity", modificacion);
+            	modificacion.add(request.queryParams("quantity"));
+            }
+            
+            System.out.println("Calificacion: " + modificacion);
+            
+            return new VelocityTemplateEngine().render(
+                    new ModelAndView(model, "templates/sugerencia.html")
             );
         });
         

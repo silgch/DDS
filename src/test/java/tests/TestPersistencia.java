@@ -28,7 +28,7 @@ public class TestPersistencia {
 		
 		
 		//Creo una Prenda
-		Material algodon=new Material("Aldodon");
+		Material algodon=new Material("Algodon");
 		Color colorBlanco=new Color("Blanco", 255,255,0);
 		Trama lisa= new Trama("Lisa");
 		Set<Material> tiposDeMaterialRemera;

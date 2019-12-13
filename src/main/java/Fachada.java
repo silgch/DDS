@@ -15,6 +15,7 @@ public class Fachada {
 	private static EntityManagerFactory emFactory;	
 	private static Repositorio repositorio;	
 	private static EntityManager entityManager;
+	public String usarnameLoggedIn = ""; // current logged in username
 
 	// Cause Fachada is a Singleton 
     private static Fachada single_instance = null; 
@@ -55,15 +56,17 @@ public class Fachada {
 	
 	//PARA LOGIN/REGISTER
 	
-	public void registrarUsuarioCon(String inputtedEmail, String inputtedUsername, String inputtedPassword) {
+	public void registrarUsuarioCon(String inputtedEmail, String inputtedUsername, String inputtedPassword, String inputtedUsername2, String inputtedPassword2) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	public void chequearSiExiste(String inputtedUsername, String inputtedPassword) {
+	public boolean chequearSiExiste(String inputtedUsername, String inputtedPassword) {
+		return false;
 		//Nota: inputtedUsername es un campo donde el usuario puede elegir loguearse con mail o nombreDeUsuario 
 		// ( Puede ser cualquiera de los dos )
 		// TODO Auto-generated method stub
+		// Si existe, usarnameLoggedIn = inputtedUsername
 	}
 	
 	
@@ -96,7 +99,7 @@ public class Fachada {
 	}
 
 
-	public void persistimeEsta(String nombre, String tipoDePrenda, String material, String r, String g, String b,
+	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String r, String g, String b,
 			String trama) {
 		
 		//Prenda unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, algodon, colorBlanco, lisa );

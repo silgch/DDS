@@ -34,16 +34,17 @@
 
     <button type="submit" style="height: 50px; width: 50px ; color:blue;font-size:30px;"> &#128078; </button>
 
-    <div id="myDIV" style="display: none">
-        Considere que -2 es que se esta cagado de frio, y 2 que se esta cagando de calor #foreach($prenda in $sugerencia)
-        <p>
-            $prenda
-            <input type="number" name="quantity" min="-2" max="2">
-        </p>
-        #end.
-
-        <input type="submit" value="Submit Preferencias de Temperatura">
-    </div>
+    <form action="/sugerencia" id="SugerenciaForm" method="post">
+        <div id="myDIV" style="display: none">
+            Considere que -2 es que la prenda le produce mucho frio y 2 que le produce mucho calor 
+                #foreach($prenda in $sugerencia)
+                <p>
+                    $prenda <input type="number" name="quantity" min="-2" max="2">
+                </p>
+                #end.
+            <input type="submit" value="Submit Preferencias de Temperatura">
+        </div>
+    </form>
 
     <script>
         function myFunction() {

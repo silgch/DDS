@@ -1,5 +1,5 @@
 <!-- 
-    Material algodon=new Material("Aldodon");
+    Material algodon=new Material("Algodon");
     Set <Material> tiposDeMaterialRemera;
     Color colorBlanco=new Color("Blanco", 255,255,0);
     Trama lisa= new Trama("Lisa");
@@ -27,7 +27,8 @@
                 <option value="-1">-Seleccionar Material-</option>
                 #foreach( $material in $materialesDeTipoDePrenda )
                 	<option value="$material">$material</option>
-                #end</select>
+                #end
+            </select>
             <p>Color:&nbsp; &nbsp;&nbsp;
                 <input maxlength="5" name="R" type="text" value="" />
                 <input maxlength="5" name="G" type="text" value="" />
@@ -38,7 +39,8 @@
                     <option value="-1">-Seleccionar Trama-</option>
                     #foreach( $trama in $tramas )
                     	<option value="$trama">$trama</option>
-                    #end</select>
+                    #end
+                </select>
             </p>
             Selecciona una imagen para su prenda:
             <p>

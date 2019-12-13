@@ -32,41 +32,41 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 	private static EntityManagerFactory emFactory;
 	private static Repositorio repositorio;	
 	
-	public static void main(String[] args) throws Exception {
-		
+	public static void main(final String[] args) throws Exception {
+
 		/* Primero creamos los atributos basicos de las prendas */
-		
-		//Materiales
-		Material algodon=new Material("Aldodon");
-		Material jean=new Material("Jean");
-		Material lino=new Material("Lino");
-		Material gabardina=new Material("Gabardina");
-		Material seda=new Material("Seda");
-		Material cuero=new Material("Cuero");
-		Material plastico=new Material("Plastico");
-		Material cristal=new Material("Cristal");
-		Material oro=new Material("Oro");
-		Material cuerina=new Material("Cuerina");
-		Material plata=new Material("Plata");
-		Material lona=new Material("Lona");
-		Material lana=new Material("Lana");
-		Material poliester=new Material("Poliester");
-		Material acrilico=new Material("Acrilico");
-		Material corderoy=new Material("Corderoy");
-		Material bengalina=new Material("Bengalina");
-		Material caucho=new Material("Caucho");
-		
-		//Tipos de Materiales
-		Set <Material> tiposDeMaterialRemera;
-		Set <Material> tiposDeMaterialZapato;
-		Set <Material> tiposDeMaterialZapatilla;
-		Set <Material> tiposDeMaterialPantalon;
-		Set <Material> tiposDeMaterialLentes;	
+
+		// Materiales
+		final Material algodon = new Material("Algodon");
+		final Material jean = new Material("Jean");
+		final Material lino = new Material("Lino");
+		final Material gabardina = new Material("Gabardina");
+		final Material seda = new Material("Seda");
+		final Material cuero = new Material("Cuero");
+		final Material plastico = new Material("Plastico");
+		final Material cristal = new Material("Cristal");
+		final Material oro = new Material("Oro");
+		final Material cuerina = new Material("Cuerina");
+		final Material plata = new Material("Plata");
+		final Material lona = new Material("Lona");
+		final Material lana = new Material("Lana");
+		final Material poliester = new Material("Poliester");
+		final Material acrilico = new Material("Acrilico");
+		final Material corderoy = new Material("Corderoy");
+		final Material bengalina = new Material("Bengalina");
+		final Material caucho = new Material("Caucho");
+
+		// Tipos de Materiales
+		Set<Material> tiposDeMaterialRemera;
+		Set<Material> tiposDeMaterialZapato;
+		Set<Material> tiposDeMaterialZapatilla;
+		Set<Material> tiposDeMaterialPantalon;
+		Set<Material> tiposDeMaterialLentes;
 		tiposDeMaterialRemera = new HashSet<Material>();
 		tiposDeMaterialPantalon = new HashSet<Material>();
-		tiposDeMaterialZapato= new HashSet<Material>();
-		tiposDeMaterialZapatilla= new HashSet<Material>();
-		tiposDeMaterialLentes = new HashSet<Material>();		
+		tiposDeMaterialZapato = new HashSet<Material>();
+		tiposDeMaterialZapatilla = new HashSet<Material>();
+		tiposDeMaterialLentes = new HashSet<Material>();
 		tiposDeMaterialRemera.add(algodon);
 		tiposDeMaterialRemera.add(seda);
 		tiposDeMaterialPantalon.add(bengalina);
@@ -77,50 +77,57 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		tiposDeMaterialZapatilla.add(cuerina);
 		tiposDeMaterialZapatilla.add(cuero);
 		tiposDeMaterialZapatilla.add(lona);
-		tiposDeMaterialLentes.add(plastico);		
-		
-		//Colores
-		Color colorBlanco=new Color("Blanco", 255,255,0);
-		Color colorRojo=new Color ("Rojo", 255,0,0);
-		Color colorNegro=new Color("Negro", 10,10,10);
-		Color colorVerde=new Color("Verde", 0,255,0);
-		Color colorAzulTrafico=new Color("Azul Trafico", 006,47,113);
-				
-		//Tramas
-		Trama lisa= new Trama("Lisa");
-		Trama estampada= new Trama("Estampada");		
-		Trama rayada= new Trama("Rayada");	
-		Trama cuadros= new Trama("Cuadros");	
-		Trama lunares= new Trama("Lunares");	
-		
+		tiposDeMaterialLentes.add(plastico);
+
+		// Colores
+		final Color colorBlanco = new Color("Blanco", 255, 255, 0);
+		final Color colorRojo = new Color("Rojo", 255, 0, 0);
+		final Color colorNegro = new Color("Negro", 10, 10, 10);
+		final Color colorVerde = new Color("Verde", 0, 255, 0);
+		final Color colorAzulTrafico = new Color("Azul Trafico", 006, 47, 113);
+
+		// Tramas
+		final Trama lisa = new Trama("Lisa");
+		final Trama estampada = new Trama("Estampada");
+		final Trama rayada = new Trama("Rayada");
+		final Trama cuadros = new Trama("Cuadros");
+		final Trama lunares = new Trama("Lunares");
+
 		/* Luego creamos tipos de prendas particulares */
-		TipoDePrenda remera = new  TipoDePrenda("Remera",Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera,PrendaNivel.Nivel1);
-		TipoDePrenda buzo = new TipoDePrenda("Buzo",Categoria.PARTE_SUPERIOR, null,PrendaNivel.Nivel2);
-		TipoDePrenda campera = new TipoDePrenda("Campera",Categoria.PARTE_SUPERIOR, null,PrendaNivel.Nivel3);		
-		TipoDePrenda zapato= new TipoDePrenda("Zapato", Categoria.CALZADO, tiposDeMaterialZapato,PrendaNivel.Nivel2);
-		TipoDePrenda zapatilla = new TipoDePrenda("Zapatilla", Categoria.CALZADO, tiposDeMaterialZapatilla,PrendaNivel.Nivel2);
-		TipoDePrenda ojotas = new TipoDePrenda("Ojotas", Categoria.CALZADO, null,PrendaNivel.Nivel1);
-		TipoDePrenda pantalonCorto = new TipoDePrenda("Pantalon Corto",Categoria.PARTE_INFERIOR, tiposDeMaterialPantalon,PrendaNivel.Nivel2);
-		TipoDePrenda pantalon = new TipoDePrenda("Pantalon",Categoria.PARTE_INFERIOR, tiposDeMaterialPantalon,PrendaNivel.Nivel1);
-		TipoDePrenda lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIO, tiposDeMaterialLentes,PrendaNivel.Nivel1);
-		
-		/* Luego creamos las Prendas que estarán en los guardarropas*/
-		Prenda unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, algodon, colorBlanco, lisa );
-		Prenda unaRemeraRoja = new Prenda("Remera Roja a lunares", remera, seda, colorRojo, lunares);
-		Prenda unaRemeraNegra= new Prenda("Remera Negra Basica", remera, algodon, colorNegro, lisa);
-		Prenda unBuzoNegro = new Prenda("Buzo Negro", buzo, cuero, colorNegro, rayada);
-		Prenda unaCamperaNegra = new Prenda("Campera Negra", campera, cuero, colorNegro, estampada);
-		Prenda unPantalonNegro = new Prenda("Pantalon Negro", pantalon, corderoy, colorNegro, lisa);
-		Prenda unZapatoNegro = new Prenda("Zapatos Negros", zapato, cuero, colorNegro, lisa);
-		Prenda unaZapatillaLonaBlanca = new Prenda("Zapatillas de lona blancas", zapatilla, lona, colorBlanco,colorNegro, cuadros);
-		Prenda unasHavaianas = new Prenda("Ojotas Havaianas",ojotas,caucho, colorNegro,lisa);
-		Prenda unLenteNegro = new Prenda("Lentes de sol  negros", lentes, plastico, colorNegro, lisa);
-		
-		/*Luego creamos los guardarropas y las personas */
-		Usuario ines = new Usuario("Ines");
+		final TipoDePrenda remera = new TipoDePrenda("Remera", Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera,
+				PrendaNivel.Nivel1);
+		final TipoDePrenda buzo = new TipoDePrenda("Buzo", Categoria.PARTE_SUPERIOR, null, PrendaNivel.Nivel2);
+		final TipoDePrenda campera = new TipoDePrenda("Campera", Categoria.PARTE_SUPERIOR, null, PrendaNivel.Nivel3);
+		final TipoDePrenda zapato = new TipoDePrenda("Zapato", Categoria.CALZADO, tiposDeMaterialZapato,
+				PrendaNivel.Nivel2);
+		final TipoDePrenda zapatilla = new TipoDePrenda("Zapatilla", Categoria.CALZADO, tiposDeMaterialZapatilla,
+				PrendaNivel.Nivel2);
+		final TipoDePrenda ojotas = new TipoDePrenda("Ojotas", Categoria.CALZADO, null, PrendaNivel.Nivel1);
+		final TipoDePrenda pantalonCorto = new TipoDePrenda("Pantalon Corto", Categoria.PARTE_INFERIOR,
+				tiposDeMaterialPantalon, PrendaNivel.Nivel2);
+		final TipoDePrenda pantalon = new TipoDePrenda("Pantalon", Categoria.PARTE_INFERIOR, tiposDeMaterialPantalon,
+				PrendaNivel.Nivel1);
+		final TipoDePrenda lentes = new TipoDePrenda("Lentes de sol", Categoria.ACCESORIO, tiposDeMaterialLentes,
+				PrendaNivel.Nivel1);
+
+		/* Luego creamos las Prendas que estarán en los guardarropas */
+		final Prenda unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, algodon, colorBlanco, lisa);
+		final Prenda unaRemeraRoja = new Prenda("Remera Roja a lunares", remera, seda, colorRojo, lunares);
+		final Prenda unaRemeraNegra = new Prenda("Remera Negra Basica", remera, algodon, colorNegro, lisa);
+		final Prenda unBuzoNegro = new Prenda("Buzo Negro", buzo, cuero, colorNegro, rayada);
+		final Prenda unaCamperaNegra = new Prenda("Campera Negra", campera, cuero, colorNegro, estampada);
+		final Prenda unPantalonNegro = new Prenda("Pantalon Negro", pantalon, corderoy, colorNegro, lisa);
+		final Prenda unZapatoNegro = new Prenda("Zapatos Negros", zapato, cuero, colorNegro, lisa);
+		final Prenda unaZapatillaLonaBlanca = new Prenda("Zapatillas de lona blancas", zapatilla, lona, colorBlanco,
+				colorNegro, cuadros);
+		final Prenda unasHavaianas = new Prenda("Ojotas Havaianas", ojotas, caucho, colorNegro, lisa);
+		final Prenda unLenteNegro = new Prenda("Lentes de sol  negros", lentes, plastico, colorNegro, lisa);
+
+		/* Luego creamos los guardarropas y las personas */
+		final Usuario ines = new Usuario("Ines");
 		ines.setPassword("ines123");
-		Guardarropa guardarropaInesUno = new Guardarropa();
-		Guardarropa guardarropaInesDos = new Guardarropa();
+		final Guardarropa guardarropaInesUno = new Guardarropa();
+		final Guardarropa guardarropaInesDos = new Guardarropa();
 		guardarropaInesUno.setNombre("Guardarropas Uno");
 		guardarropaInesDos.setNombre("Guardarropas Dos");		
 		
