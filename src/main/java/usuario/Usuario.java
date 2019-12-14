@@ -49,8 +49,10 @@ public class Usuario{
 	@Transient 
 	private GestorDeCuentas gestorCuenta;
 	
-	@Transient //TODO cambiar, se debe persistir
+	@Transient 
 	private Cuenta tipoDeCuenta;
+	
+	private boolean usuario_premium = false;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "preferencias", referencedColumnName = "id")
@@ -113,6 +115,7 @@ public class Usuario{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	public void hacersePremium() {usuario_premium = true;}
 
 	
 	

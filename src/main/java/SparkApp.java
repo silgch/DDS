@@ -1,7 +1,7 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import spark.template.velocity.VelocityTemplateEngine;
 import spark.*;
 import static spark.Spark.*;
@@ -109,14 +109,9 @@ public class SparkApp {
             request.session().attribute("guardarropa", inputtedguardarropa); 
             
             List<String> prendas = fachada.devolverTodasLasPrendas(inputtedguardarropa);
-           // String duenio = fachada.devolverDuenioDeGuardarropa(inputtedguardarropa);	
-            
+           
             model.put("guardarropa", inputtedguardarropa);
             model.put("prendas", prendas);
-            //model.put("duenio", duenio);
-            
-           // System.out.println("KKK" + duenio); 
-
             
             return new VelocityTemplateEngine().render(
                 new ModelAndView(model, "templates/prendas.html")
@@ -170,30 +165,26 @@ public class SparkApp {
         
         get("/new-event",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            List<String> usuarios = fachada.devolverTodosLosUsuarios();
             List<String> guardarropas = fachada.devolverTodosLosGuardarropas();
-            model.put("users", usuarios);
             model.put("guardarropas", guardarropas);
             return new VelocityTemplateEngine().render(
                     new ModelAndView(model, "templates/new_event.html")                     
             );
         });
         
-        post("/new-event",(request, response) -> {  	
+        post("/new-event",(request, response) -> { 	
             Map<String, Object> model = new HashMap<>();
-            String usuario = request.queryParams("usuario");
             String guardarropa = request.queryParams("guardarropa");
             String place = request.queryParams("place");
             String description = request.queryParams("description");
             String when = request.queryParams("when");
 
-            request.session().attribute("usuario", usuario);
             request.session().attribute("guardarropa", guardarropa);
             request.session().attribute("place", place);
             request.session().attribute("description", description);
             request.session().attribute("when", when);
             
-            System.out.println(usuario+guardarropa+place+description+when);
+            System.out.println(guardarropa+place+description+when);
             fachada.persistimeEsteEvento(guardarropa,place,description,when);
             
             return new VelocityTemplateEngine().render(
@@ -212,30 +203,64 @@ public class SparkApp {
         
         post("/sugerencia",(request, response) -> {  	
             Map<String, Object> model = new HashMap<>();
-            System.out.println("1 2 3 4 6");
             
             List<String> sugerencia = fachada.devolverUnaSugerenciaParaUltimoEvento();
-            List<String> modificacion = new ArrayList<>();            
      
-            for (int i = 0; i < sugerencia.size(); i++) {                
-            	//request.session().attribute("quantity", modificacion);
-            	modificacion.add(request.queryParams("quantity"));
-            }
-            
-            System.out.println("Calificacion: " + modificacion);
-            
+            String percepcionCabeza = request.queryParams("percepcionCabeza");
+            String percepcionCuello = request.queryParams("percepcionCuello");
+            String percepcionTorso = request.queryParams("percepcionTorso");
+            String percepcionManos = request.queryParams("percepcionManos");
+            String percepcionPiernas = request.queryParams("percepcionPiernas");
+            String percepcionCalzado = request.queryParams("percepcionCalzado");
+            request.session().attribute("percepcionCabeza", percepcionCabeza);
+            request.session().attribute("percepcionCuello", percepcionCuello);
+            request.session().attribute("percepcionTorso", percepcionTorso);
+            request.session().attribute("percepcionManos", percepcionManos);
+            request.session().attribute("percepcionPiernas", percepcionPiernas);
+            request.session().attribute("percepcionCalzado", percepcionCalzado);            
+      
+            fachada.aceptarSugencia(sugerencia);
+            fachada.modificarPercepcion(percepcionCabeza,percepcionCuello,percepcionTorso,percepcionManos,percepcionPiernas,percepcionCalzado);
             return new VelocityTemplateEngine().render(
                     new ModelAndView(model, "templates/sugerencia.html")
             );
         });
         
         
-        get("/calendar",(request, response) -> {
+       /* get("/calendar",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            Query ids = (Query) fachada.todosLosIDSDeEventos();
+            model.put("ids", ids); 
+
             return new VelocityTemplateEngine().render(
                     new ModelAndView(model, "templates/calendar.html")                     
             );
-        }); 
+        }); */
+        
+        get("/calendar", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<String> eventos = fachada.devolverTodosLosEventos();
+            model.put("eventos", eventos);
+            return new VelocityTemplateEngine().render(
+                new ModelAndView(model, "templates/calendar.html")
+            );
+        });
+        
+        post("/calendar", (request, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            String inputtedEvento = request.queryParams("evento");
+            request.session().attribute("evento", inputtedEvento); 
+            
+            List<String> detalles = fachada.devolverTodasLasPrendas(inputtedEvento);
+           
+            model.put("evento", inputtedEvento);
+            model.put("detalles", detalles);
+            
+            return new VelocityTemplateEngine().render(
+                new ModelAndView(model, "templates/calendar.html")
+            );
+        });
+        
     
     }
     

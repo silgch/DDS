@@ -194,5 +194,6 @@ public class Evento {
 	}
 	public Guardarropa getGuardaropa() {
 		return guardarropa;
-	}
+	}	
+
 }
