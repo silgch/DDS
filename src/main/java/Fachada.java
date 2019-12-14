@@ -101,7 +101,6 @@ public class Fachada {
 		
 		//Nota: inputtedUsername es un campo donde el usuario puede elegir loguearse con mail o userName 
 		// ( Puede ser cualquiera de los dos )
-		// TODO Auto-generated method stub
 		// Si existe, usarnameLoggedIn = inputtedUsername
 	}
 	public boolean chequearSiExiste(String inputtedUsername) {
