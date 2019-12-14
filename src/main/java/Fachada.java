@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import componentes.Color;
 import componentes.Prenda;
 import eventos.Evento;
+import eventos.Sugerencia;
 import repositorio.Repositorio;
 import usuario.Usuario;
 
@@ -214,19 +215,28 @@ public class Fachada {
 	}*/
 	
 	public void aceptarSugencia(List<String> sugerencia) {
-		// TODO Auto-generated method stub
+		//TODO
 		
 	}
 	public void modificarPercepcion(String percepcionCabeza, String percepcionCuello, String percepcionTorso,
-			String percepcionManos, String percepcionPiernas, String percepcionCalzado) {
-		// TODO Auto-generated method stub
-		
+			String percepcionManos, String percepcionPiernas, String percepcionCalzado) 
+	{
+		usuarioLogueado.getPercepcion().modificarPercepcionCabeza(Integer.parseInt(percepcionCabeza));
+		usuarioLogueado.getPercepcion().modificarPercepcionCuello(Integer.parseInt(percepcionCuello));	
+		usuarioLogueado.getPercepcion().modificarPercepcionTorso(Integer.parseInt(percepcionTorso));
+		usuarioLogueado.getPercepcion().modificarPercepcionManos(Integer.parseInt(percepcionManos));
+		usuarioLogueado.getPercepcion().modificarPercepcionPiernas(Integer.parseInt(percepcionPiernas));
+		usuarioLogueado.getPercepcion().modificarPercepcionCalzado(Integer.parseInt(percepcionCalzado));
+		repositorio.usuario().actualizar(usuarioLogueado);
+
 	}
+	
 	public List<String> devolverTodosLosEventos() {
 		Query query = entityManager.createQuery("SELECT DISTINCT descripcion FROM Evento");
 	    List<String> list = query.getResultList();
 		return list;
 	}
+	
 	public List<String> devolverTodasLosDetalles(String inputtedEvento) {  
 	    Query query1 = entityManager.createQuery(
 	            "SELECT id FROM Evento e WHERE e.descripcion = :custName")
@@ -235,6 +245,7 @@ public class Fachada {
 		List<String> list = query2.getResultList();
 		return list;
 	}
+	
 	/*	public List<String> devolverTodosLosGuardarropas() {
 	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa");
 	    List<String> list = query.getResultList();
