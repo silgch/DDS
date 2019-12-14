@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
 
 import eventos.Evento;
 import repositorio.Repositorio;
@@ -45,8 +44,7 @@ public class Fachada {
 	public static void finalizar() {
 		repositorio.cerrar();
 		emFactory.close();
-	}	
-
+	}
 	
     /*boolean removeSessionAttrLoggedOut(Request _request) {
         Object loggedOut = _request.session().attribute("loggedOut");
@@ -68,45 +66,35 @@ public class Fachada {
 	
 	public void registrarUsuarioCon(String inputtedFirstName, String inputtedLastName, String inputtedEmail, String inputtedUsername, String inputtedPassword) {
 		
-		if(  chequearSiExiste(inputtedUsername)) {
+		if( chequearSiExiste(inputtedUsername)) {
 			// No permitir registrar
 		}
-		else {
-		
-		usarnameLoggedIn = inputtedUsername;
-		
-		
-		Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE  nombre= '"+inputtedUsername+"' ", Usuario.class);
-		query.setParameter("username", inputtedUsername);
-		usuarioLogueado = (Usuario) query.getResultList().get(0);
-	
-		
-		Usuario unUsuario = new Usuario(usarnameLoggedIn);
-		unUsuario.setApellido(inputtedLastName);
-		unUsuario.setMail(inputtedEmail);
-		unUsuario.setNombre(inputtedFirstName);
-		unUsuario.setPassword(inputtedPassword);			
-		repositorio.usuario().persistir(unUsuario);	
+		else {		
+			usarnameLoggedIn = inputtedUsername;		
+			
+			Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE  nombre= '"+inputtedUsername+"' ", Usuario.class);
+			query.setParameter("username", inputtedUsername);
+			usuarioLogueado = (Usuario) query.getResultList().get(0);	
+			
+			Usuario unUsuario = new Usuario(usarnameLoggedIn);
+			unUsuario.setApellido(inputtedLastName);
+			unUsuario.setMail(inputtedEmail);
+			unUsuario.setNombre(inputtedFirstName);
+			unUsuario.setPassword(inputtedPassword);			
+			repositorio.usuario().persistir(unUsuario);	
 		}
 	}
 	
 	public boolean chequearSiExiste(String inputtedUsername, String inputtedPassword) {
 	
 		Usuario busqueda = repositorio.usuario().buscarPorUsuarioContrasenia(inputtedUsername, inputtedPassword);
-		
-		 
-	
-		 
+				 
 		if(busqueda != null) {
 			usarnameLoggedIn = inputtedUsername;
 			Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE nombre= '"+inputtedUsername+"'", Usuario.class);
 			
 			usuarioLogueado = (Usuario) query.getResultList().get(0);
-		
-			
 			Usuario unUsuario = new Usuario(usarnameLoggedIn);
-			
-			
 			return true;
 		}else {return false;}
 
@@ -120,8 +108,7 @@ public class Fachada {
 		Query query = entityManager.createQuery("COUNT * FROM Usuario WHERE nombre= '"+ inputtedUsername+"'  ");
 		List<String> list = query.getResultList();
 		return ( list.size()>0);
-	}	
-	
+	}		
  
 	public List<String> devolverTodosLosGuardarropas() {
 	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa WHERE Usuario.nombre=usarnameLoggedIn");
@@ -150,7 +137,6 @@ public class Fachada {
 		return null;
 	}
 
-
 	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String r, String g, String b,
 			String trama) {
 		
@@ -158,21 +144,22 @@ public class Fachada {
 		// TODO Auto-generated method stub
 		
 	}
-	public void persistimeEsteEvento( String guardarropa, String place, String description,
-			String when) {
+
+	public void persistimeEsteEvento( String guardarropa, String place, String description, String when) {
 		LocalDate fecha = LocalDate.parse(when);
 		Usuario usuario = new Usuario ();
 		Evento unEvento = new Evento(fecha, description, usuarioLogueado, place);
 		repositorio.evento().persistir(unEvento);
 		
 	}
+
 	public List<String> devolverUnaSugerenciaParaUltimoEvento() {
 		 List<String> lista = new ArrayList<>(); 
 		 // TODO Actualmente está super hardcodeado
 		 lista.add("Remera Roja a lunares"); 
 		 lista.add("Pantalon Negro"); 
 		 lista.add("Zapatillas Converse"); 		
-	return lista;
+		return lista;
 	}
 	
 	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
@@ -192,4 +179,24 @@ public class Fachada {
 		return list;
 	}*/
 	
+	public Query todosLosIDSDeEventos() {		
+	    Query query1 = entityManager.createQuery(
+	            "SELECT id FROM Evento ORDER BY fechaEvento"); 
+		List<String> list = query1.getResultList();
+		return query1;
+	}	
+	
+	public void aceptarSugencia(List<String> sugerencia) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void modificarPercepcion(String percepcionCabeza, String percepcionCuello, String percepcionTorso,
+			String percepcionManos, String percepcionPiernas, String percepcionCalzado) {
+		// TODO Auto-generated method stub
+		
+	}
+	public List<String> devolverTodosLosEventos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

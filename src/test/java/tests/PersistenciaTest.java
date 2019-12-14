@@ -77,10 +77,7 @@ public class PersistenciaTest {
 	Guardarropa ropaJazul = new Guardarropa();
 	
 	aroco.agregarGuardarropa(ropaAroco);
-	jazul.agregarGuardarropa(ropaJazul);
-	
-	
-	
+	jazul.agregarGuardarropa(ropaJazul);	
 	
 	tiposDeMaterialRemera.add(algodon); tiposDeMaterialRemera.add(seda); tiposDeMaterialRemera.add(poliester); tiposDeMaterialRemera.add(lycra);
 	tiposDeMaterialSueter.add(algodon); tiposDeMaterialSueter.add(seda); tiposDeMaterialSueter.add(poliester); 
@@ -149,7 +146,7 @@ public class PersistenciaTest {
 	jazul.setApellido("Azul");
 	jazul.setMail("jazul@hotmail.com.ar");
 	jazul.setPassword("123456");
-	// Ver como cambiar de cuenta.
+	jazul.hacersePremium();
 	
 	ropaAroco.setNombre("Guardarropa de Aroco");
 	ropaJazul.setNombre("Guardarropa de J Azul");
@@ -199,7 +196,6 @@ public class PersistenciaTest {
 	repositorio.usuario().persistir(jazul);
 	
 	
-	
 	repositorio.guardarropa().persistir(ropaJazul);
 	repositorio.guardarropa().persistir(ropaAroco);
 	
@@ -214,11 +210,7 @@ public class PersistenciaTest {
 	repositorio.prenda().persistir(zapatosNegros);
 	
 	
-
-	
-
-	
-	repositorio.evento().persistir(eventoPedroUno);
+	repositorio.evento().persistir(eventoPedroUno);	
 	
 	
 	//Cambio unos parametros y verifico
