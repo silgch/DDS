@@ -4,8 +4,8 @@
 
     <h1>Crear un nuevo evento</h1>
 
-    <!-- <form action="." method="post" name="input"> -->
 
+    <form action="/new-event" id="EventForm" method="post">    
     <select name="guardarropa">
         <option value="-1">-Seleccionar Guardarropa-</option>
         #foreach( $guardarropa in $guardarropas )
@@ -24,7 +24,8 @@
         <input max="2020-11-06" min="2019-11-06" name="when" type="date" />
     </p>
     <input type="submit" value="Crear Evento" />
-    <!--</form>-->
+    </form>
+
 </div>
 
 </html>

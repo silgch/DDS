@@ -15,6 +15,7 @@
         <class>guardarropas.Guardarropa</class>
         <class>componentes.Color</class>
         <class>componentes.Trama</class>
+        <class>eventos.Evento</class>
 
 		<properties>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" /> 

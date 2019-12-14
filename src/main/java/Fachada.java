@@ -100,6 +100,8 @@ public class Fachada {
 		
 		
 		
+		Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE  nombre= '"+inputtedUsername+"' ", Usuario.class);
+		usuarioLogueado = (Usuario) query.getResultList().get(0);
 		
 		Usuario unUsuario = new Usuario(usarnameLoggedIn);
 		unUsuario.setApellido(inputtedLastName);
@@ -138,7 +140,15 @@ public class Fachada {
 	public List<String> devolverTodosLosGuardarropas() {
 	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa");
 	    List<String> list = query.getResultList();
-	  // "SELECT DISTINCT p  FROM Guardarropa p WHERE Usuario.nombre= '"+usarnameLoggedIn+"' 
+		return list;
+	}
+	
+	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
+	    Query query1 = entityManager.createQuery(
+	            "SELECT id FROM Guardarropa g WHERE g.Nombre = :custName")
+	            .setParameter("custName", inputtedguardarropas);    
+	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
+		List<String> list = query2.getResultList();
 		return list;
 	}
 	
@@ -166,9 +176,7 @@ public class Fachada {
 		return list;
 	}
 
-	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String r, String g, String b,
-			String trama) {
-		
+	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String r, String g, String b,	String trama) {		
 
 		componentes.TipoDePrenda unTipo=  repositorio.tipo().buscarTipoDePrendaPorNombre(tipoDePrenda);
 		Color unColor = new Color (Integer.parseInt(r),Integer.parseInt(g),Integer.parseInt(b));
@@ -177,17 +185,14 @@ public class Fachada {
 
 		Prenda unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor, unaTrama );
 				
-		repositorio.prenda().persistir(unaPrenda);	
-
-		
+		repositorio.prenda().persistir(unaPrenda);		
 	}
 
 	public void persistimeEsteEvento( String guardarropa, String place, String description, String when) {
 		LocalDate fecha = LocalDate.parse(when);
 		Usuario usuario = new Usuario ();
 		Evento unEvento = new Evento(fecha, description, usuarioLogueado, place);
-		repositorio.evento().persistir(unEvento);
-		
+		repositorio.evento().persistir(unEvento);		
 	}
 
 	public List<String> devolverUnaSugerenciaParaUltimoEvento() {
@@ -199,13 +204,6 @@ public class Fachada {
 		return lista;
 	}
 	
-	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
-	    Query query1 = entityManager.createQuery("SELECT id FROM Guardarropa WHERE Nombre = '"+inputtedguardarropas+"'");	    
-	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
-		List<String> list = query2.getResultList();
-		return list;
-	}
-
 	/*public String devolverDuenioDeGuardarropa(String inputtedguardarropas) {
 	    Query query1 = entityManager.createQuery(
 	            "SELECT miDuenio FROM Guardarropa g WHERE g.Nombre = :custName")
@@ -225,15 +223,30 @@ public class Fachada {
 		
 	}
 	public List<String> devolverTodosLosEventos() {
-	    Query query1 = entityManager.createQuery(
-	            "SELECT DISTINCT descripcion FROM Evento"); 
-		List<String> list = query1.getResultList();
+		Query query = entityManager.createQuery("SELECT DISTINCT descripcion FROM Evento");
+	    List<String> list = query.getResultList();
 		return list;
-		
 	}
 	public List<String> devolverTodasLosDetalles(String inputtedEvento) {  
-	    Query query2 = entityManager.createQuery("SELECT DISTINCT descripcion,fechaEvento,repeticion,ubicacionParaAPI FROM Evento WHERE descripcion = '"+inputtedEvento+"'" );
+	    Query query1 = entityManager.createQuery(
+	            "SELECT id FROM Evento e WHERE e.descripcion = :custName")
+	            .setParameter("custName", inputtedEvento);    
+	    Query query2 = entityManager.createQuery("SELECT fechaEvento, repeticion FROM Evento WHERE descripcion = '"+query1.setMaxResults(1).getSingleResult() +"'" );
 		List<String> list = query2.getResultList();
 		return list;
 	}
+	/*	public List<String> devolverTodosLosGuardarropas() {
+	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa");
+	    List<String> list = query.getResultList();
+		return list;
+	}
+	
+	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
+	    Query query1 = entityManager.createQuery(
+	            "SELECT id FROM Guardarropa g WHERE g.Nombre = :custName")
+	            .setParameter("custName", inputtedguardarropas);    
+	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
+		List<String> list = query2.getResultList();
+		return list;
+	}*/
 }
