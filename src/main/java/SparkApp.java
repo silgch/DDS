@@ -194,7 +194,7 @@ public class SparkApp {
             request.session().attribute("when", when);
             
             System.out.println(usuario+guardarropa+place+description+when);
-            fachada.persistimeEsteEvento(usuario,guardarropa,place,description,when);
+            fachada.persistimeEsteEvento(guardarropa,place,description,when);
             
             return new VelocityTemplateEngine().render(
                     new ModelAndView(model, "templates/sugerencia.html")

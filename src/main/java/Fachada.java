@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,7 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
+import eventos.Evento;
 import repositorio.Repositorio;
 import usuario.Usuario;
 
@@ -16,6 +19,7 @@ public class Fachada {
 	private static EntityManagerFactory emFactory;	
 	private static Repositorio repositorio;	
 	private static EntityManager entityManager;
+	private Usuario usuarioLogueado;
 	
 	public String usarnameLoggedIn = ""; // current logged in username
 
@@ -63,30 +67,60 @@ public class Fachada {
 	}
 	
 	public void registrarUsuarioCon(String inputtedFirstName, String inputtedLastName, String inputtedEmail, String inputtedUsername, String inputtedPassword) {
+		
+		if(  chequearSiExiste(inputtedUsername)) {
+			// No permitir registrar
+		}
+		else {
+		
 		usarnameLoggedIn = inputtedUsername;
+		
+		
+		Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE inputtedUsername = :username", Usuario.class);
+		query.setParameter("username", inputtedUsername);
+		usuarioLogueado = (Usuario) query.getResultList().get(0);
+	
+		
 		Usuario unUsuario = new Usuario(usarnameLoggedIn);
 		unUsuario.setApellido(inputtedLastName);
 		unUsuario.setMail(inputtedEmail);
 		unUsuario.setNombre(inputtedFirstName);
-		unUsuario.setPassword(inputtedPassword);
-		System.out.println(inputtedFirstName); 
-		System.out.println("El apellido es:" + unUsuario.getApellido());			
-		
-		repositorio.usuario().persistir(unUsuario);		
+		unUsuario.setPassword(inputtedPassword);			
+		repositorio.usuario().persistir(unUsuario);	
+		}
 	}
 	
 	public boolean chequearSiExiste(String inputtedUsername, String inputtedPassword) {
-		return false;
+	
+		repositorio.Usuario busqueda = repositorio.usuario().buscarPorMailContrasenia(inputtedUsername, inputtedPassword);
+		if(busqueda != null) {
+			usarnameLoggedIn = inputtedUsername;
+			Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE inputtedUsername = :username", Usuario.class);
+			query.setParameter("username", inputtedUsername);
+			usuarioLogueado = (Usuario) query.getResultList().get(0);
+		
+			
+			Usuario unUsuario = new Usuario(usarnameLoggedIn);
+			
+			
+			return true;
+		}else {return false;}
+
+		
 		//Nota: inputtedUsername es un campo donde el usuario puede elegir loguearse con mail o userName 
 		// ( Puede ser cualquiera de los dos )
 		// TODO Auto-generated method stub
 		// Si existe, usarnameLoggedIn = inputtedUsername
 	}
-	
+	public boolean chequearSiExiste(String inputtedUsername) {
+		Query query = entityManager.createQuery("COUNT * FROM Usuario WHERE inputtedUsername=userName");
+		List<String> list = query.getResultList();
+		return ( list.size()>0);
+	}	
 	
 
 	public List<String> devolverTodosLosGuardarropas() {
-	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa");
+	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa WHERE usuarioLogueado = userName");
 	    List<String> list = query.getResultList();
 		return list;
 	}
@@ -120,9 +154,12 @@ public class Fachada {
 		// TODO Auto-generated method stub
 		
 	}
-	public void persistimeEsteEvento(String usuario, String guardarropa, String place, String description,
+	public void persistimeEsteEvento( String guardarropa, String place, String description,
 			String when) {
-		// TODO Auto-generated method stub
+		LocalDate fecha = LocalDate.parse(when);
+		Usuario usuario = new Usuario ();
+		Evento unEvento = new Evento(fecha, description, usuarioLogueado, place);
+		repositorio.evento().persistir(unEvento);
 		
 	}
 	public List<String> devolverUnaSugerenciaParaUltimoEvento() {
