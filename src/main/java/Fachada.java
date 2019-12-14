@@ -76,7 +76,7 @@ public class Fachada {
 		usarnameLoggedIn = inputtedUsername;
 		
 		
-		Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE inputtedUsername = :username", Usuario.class);
+		Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE  nombre= '"+inputtedUsername+"' ", Usuario.class);
 		query.setParameter("username", inputtedUsername);
 		usuarioLogueado = (Usuario) query.getResultList().get(0);
 	
@@ -92,11 +92,15 @@ public class Fachada {
 	
 	public boolean chequearSiExiste(String inputtedUsername, String inputtedPassword) {
 	
-		repositorio.Usuario busqueda = repositorio.usuario().buscarPorMailContrasenia(inputtedUsername, inputtedPassword);
+		Usuario busqueda = repositorio.usuario().buscarPorUsuarioContrasenia(inputtedUsername, inputtedPassword);
+		
+		 
+	
+		 
 		if(busqueda != null) {
 			usarnameLoggedIn = inputtedUsername;
-			Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE inputtedUsername = :username", Usuario.class);
-			query.setParameter("username", inputtedUsername);
+			Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE nombre= '"+inputtedUsername+"'", Usuario.class);
+			
 			usuarioLogueado = (Usuario) query.getResultList().get(0);
 		
 			
@@ -113,14 +117,14 @@ public class Fachada {
 		// Si existe, usarnameLoggedIn = inputtedUsername
 	}
 	public boolean chequearSiExiste(String inputtedUsername) {
-		Query query = entityManager.createQuery("COUNT * FROM Usuario WHERE inputtedUsername=userName");
+		Query query = entityManager.createQuery("COUNT * FROM Usuario WHERE nombre= '"+ inputtedUsername+"'  ");
 		List<String> list = query.getResultList();
 		return ( list.size()>0);
 	}	
 	
-
+ 
 	public List<String> devolverTodosLosGuardarropas() {
-	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa WHERE usuarioLogueado = userName");
+	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa WHERE Usuario.nombre=usarnameLoggedIn");
 	    List<String> list = query.getResultList();
 		return list;
 	}

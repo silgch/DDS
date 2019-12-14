@@ -22,12 +22,12 @@ public class Usuario extends Repositorio{
 		return usuario;
 	}
 	
-	public Usuario buscarPorUsuarioContrasenia(String userName, String contrasenia) {
-		Query  query = em.createQuery("SELECT p FROM Usuario p WHERE userName = :userName and password = :contrasenia", Usuario.class);
+	public usuario.Usuario buscarPorUsuarioContrasenia(String userName, String contrasenia) {
+		Query  query = em.createQuery("SELECT p FROM Usuario p WHERE userName = :userName and password = :contrasenia", usuario.Usuario.class);
 		query.setParameter("userName", userName);
 		query.setParameter("contrasenia", contrasenia);
 	
-		Usuario usuario = (Usuario) query.getResultList().get(0);
+		usuario.Usuario usuario =  (usuario.Usuario) query.getResultList().get(0);
 		
 		return usuario;
 	}
