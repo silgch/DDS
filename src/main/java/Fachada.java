@@ -19,7 +19,7 @@ public class Fachada {
 	private static EntityManagerFactory emFactory;	
 	private static Repositorio repositorio;	
 	private static EntityManager entityManager;
-	private Usuario usuarioLogueado;
+	private Usuario usuarioLogueado = new Usuario();
 	
 	public String usarnameLoggedIn = ""; // current logged in username
 
@@ -77,7 +77,6 @@ public class Fachada {
 		
 		
 		Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE  nombre= '"+inputtedUsername+"' ", Usuario.class);
-		query.setParameter("username", inputtedUsername);
 		usuarioLogueado = (Usuario) query.getResultList().get(0);
 	
 		
@@ -95,16 +94,11 @@ public class Fachada {
 		Usuario busqueda = repositorio.usuario().buscarPorUsuarioContrasenia(inputtedUsername, inputtedPassword);
 		
 		 
-	
-		 
 		if(busqueda != null) {
 			usarnameLoggedIn = inputtedUsername;
 			Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE nombre= '"+inputtedUsername+"'", Usuario.class);
 			
 			usuarioLogueado = (Usuario) query.getResultList().get(0);
-		
-			
-			Usuario unUsuario = new Usuario(usarnameLoggedIn);
 			
 			
 			return true;
@@ -124,8 +118,9 @@ public class Fachada {
 	
  
 	public List<String> devolverTodosLosGuardarropas() {
-	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa WHERE Usuario.nombre=usarnameLoggedIn");
+	    Query query = entityManager.createQuery("SELECT DISTINCT p  FROM Guardarropa p");
 	    List<String> list = query.getResultList();
+	  // "SELECT DISTINCT p  FROM Guardarropa p WHERE Usuario.nombre= '"+usarnameLoggedIn+"' 
 		return list;
 	}
 	
