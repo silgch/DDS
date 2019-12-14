@@ -16,7 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import componentes.Prenda;
@@ -27,6 +27,7 @@ import guardarropas.Guardarropa;
 import usuario.Usuario;
 
 @Entity
+@Table(name = "evento")
 public class Evento {
 	
 	@Id

@@ -30,39 +30,27 @@ public class Prenda{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
 	
-	private String nombre;
-	
-	
+	private String nombre;	
 
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name = "color_ppal_id", referencedColumnName="id")
     private Color colorPrincipal;
 	
-	
-	
 	@ManyToOne (cascade=CascadeType.ALL)
 	@JoinColumn(name = "color_sec_id", referencedColumnName="id")
     private Color colorSecundario;
-	
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "material_id", referencedColumnName="id")
     private Material material;
 	
-	
-
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tipoPrenda_id", referencedColumnName = "id")
     private TipoDePrenda tipo;
 	
-	
-	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "trama_id", referencedColumnName = "id")
     private Trama trama;
-	
-	
-	
 	
 	@ManyToOne(cascade=CascadeType.ALL,optional = true)
 	@JoinColumn(name = "guardarropa_id", referencedColumnName = "id") 

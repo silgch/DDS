@@ -68,6 +68,10 @@ public class CommandParaEventos /*implements ICommand*/ {
 		this.generarSugerenciaPara(unGuardarropa, eventoTemporal);
 	}
 	
+	public Evento getEventoTemporal() {
+		return eventoTemporal;
+	}
+	
 	public void aceptarSugerencia(Sugerencia sugerencia) {
 		sugerencia.setEstado(EnumEstadoSugerencia.ACEPTADA);
 		eventoTemporal.setSugerencia(sugerencia);

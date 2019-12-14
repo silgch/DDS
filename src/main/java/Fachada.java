@@ -56,7 +56,12 @@ public class Fachada {
 	
 	//PARA LOGIN/REGISTER
 	
-	public void registrarUsuarioCon(String inputtedEmail, String inputtedUsername, String inputtedPassword, String inputtedUsername2, String inputtedPassword2) {
+	public boolean hayAlguienConectado() {
+		return !(usarnameLoggedIn == "");		
+	}
+	
+	public void registrarUsuarioCon(String inputtedFirstName, String inputtedLastName, String inputtedEmail, String inputtedUsername, String inputtedPassword) {
+		usarnameLoggedIn = inputtedUsername;
 		// TODO Auto-generated method stub
 		
 	}
@@ -124,6 +129,12 @@ public class Fachada {
 	    Query query1 = entityManager.createQuery("SELECT id FROM Guardarropa WHERE Nombre = '"+inputtedguardarropas+"'");	    
 	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
 		List<String> list = query2.getResultList();
+		return list;
+	}
+	public String devolverDuenioDeGuardarropa(String inputtedguardarropas) {
+	    Query query1 = entityManager.createQuery("SELECT miDuenio FROM Guardarropa WHERE Nombre = '"+inputtedguardarropas+"'");	    
+	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM usuario WHERE id = '"+query1.setMaxResults(1).getSingleResult() +"'" );
+		String list = (String) query2.setMaxResults(1).getSingleResult();
 		return list;
 	}	
 	

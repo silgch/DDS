@@ -212,23 +212,24 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		repositorio.guardarropa().persistir(guardarropaInesUno);		
 		
 		//PROBANDO CALIFICAR SUGERENCIAS
+		
+	    ines.crearEvento(LocalDate.now(), "Las Toninas", "3431608");
+	    ines.pedirSugerencia(guardarropaInesUno);	    
+	    Sugerencia sugerencia2 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
+	    ines.rechazarSugerencia(sugerencia2);
     
 	    ines.crearEvento(LocalDate.now(), "Miamiii", "4174383");
 	    ines.pedirSugerencia(guardarropaInesUno);
 	    Sugerencia sugerencia1 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
 	    ines.aceptarSugerencia(sugerencia1);
 	    
-	    ines.crearEvento(LocalDate.now(), "Las Toninas", "3431608");
-	    ines.pedirSugerencia(guardarropaInesUno);	    
-	    Sugerencia sugerencia2 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
-	    ines.rechazarSugerencia(sugerencia2);  
-	    
 	    System.out.println("Ines es friolenta, así que modifica su percepcionDeTemperatura");
 	    ines.getPercepcion().modificarPercepcionCabeza(-2);
 	    ines.getPercepcion().modificarPercepcionCalzado(-1);
 	    ines.getPercepcion().modificarPercepcionTorso(-4);
 	    
-	    repositorio.usuario().persistir(ines);	    
+	    repositorio.usuario().persistir(ines);
+	    repositorio.evento().persistir(ines.getManagerDeEventos().getEventoTemporal());
    	    
 	    repositorio.cerrar();
 		emFactory.close();   

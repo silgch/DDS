@@ -15,9 +15,15 @@ public class SparkApp {
         
 
         get("/", (req, res) -> {
+            String path;
+            
+            if(fachada.hayAlguienConectado()){
+            	path = "templates/home.html";
+            }else path = "templates/login.html";
+            
             Map<String, Object> model = new HashMap<>();
             return new VelocityTemplateEngine().render(
-                new ModelAndView(model, "templates/home.html")
+                new ModelAndView(model, path)
             );
         });        
         
@@ -100,13 +106,14 @@ public class SparkApp {
         post("/guardarropas", (request, res) -> {
             Map<String, Object> model = new HashMap<>();
             String inputtedguardarropa = request.queryParams("guardarropa");
-            request.session().attribute("guardarropa", inputtedguardarropa);
-            model.put("guardarropa", inputtedguardarropa);     
+            request.session().attribute("guardarropa", inputtedguardarropa); 
             
             List<String> prendas = fachada.devolverTodasLasPrendas(inputtedguardarropa);
+            String duenio = fachada.devolverDuenioDeGuardarropa(inputtedguardarropa);	
             
             model.put("guardarropa", inputtedguardarropa);
             model.put("prendas", prendas);
+            model.put("duenio", duenio);
             return new VelocityTemplateEngine().render(
                 new ModelAndView(model, "templates/prendas.html")
             );

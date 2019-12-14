@@ -27,23 +27,33 @@
                 </li>
             </ul>
             #end
-            <p/>
+        </p>
     </div>
 
     <button onclick="myFunction()" style="height: 50px; width: 50px ; color:blue;font-size:30px;"> &#128077; </button>
 
-    <button type="submit" style="height: 50px; width: 50px ; color:blue;font-size:30px;"> &#128078; </button>
+    <a href="/sugerencia" type="buttom" style="height: 50px; width: 50px ; color:blue; font-size:30px;"> &#128078; </a>
 
     <form action="/sugerencia" id="SugerenciaForm" method="post">
         <div id="myDIV" style="display: none">
-            Considere que -2 es que la prenda le produce mucho frio y 2 que le produce mucho calor 
-                #foreach($prenda in $sugerencia)
+            Considere poner -2 si la prenda sugerida (o la falta de misma) le produce mucho frio y 2 si le produce mucho calor
+            (0 = "la sugerencia se adapta perfectamente a usted", la opción por defecto)                 
                 <p>
-                    $prenda <input type="number" name="quantity" min="-2" max="2">
+                    Percepcion Cabeza: <input type="number" name="percepcionCabeza" value="0"> min="-2" max="2"<br>
+                </p><p>
+                    Percepcion Cuello: <input type="number" name="percepcionCuello" value="0"> min="-2" max="2"<br>
+                </p><p>
+                    Percepcion Torso: <input type="number" name="percepcionTorso" value="0"> min="-2" max="2"<br>
+                </p><p>
+                    Percepcion Manos: <input type="number" name="percepcionManos" value="0"> min="-2" max="2"<br>
+                </p><p>
+                    Percepcion Piernas: <input type="number" name="percepcionPiernas" value="0"> min="-2" max="2"<br>
+                </p><p>
+                    Percepcion Calzado: <input type="number" name="percepcionCalzado" value="0"> min="-2" max="2"<br>
                 </p>
-                #end.
-            <input type="submit" value="Submit Preferencias de Temperatura">
-        </div>
+                <input type="submit" value="Submit Percepcion de Prenda">                
+        </div>         
+        
     </form>
 
     <script>
