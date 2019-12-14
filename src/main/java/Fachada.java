@@ -115,7 +115,7 @@ public class Fachada {
 	}		
  
 	public List<String> devolverTodosLosGuardarropas() {
-	    Query query = entityManager.createQuery("SELECT DISTINCT p  FROM Guardarropa p");
+	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa");
 	    List<String> list = query.getResultList();
 	  // "SELECT DISTINCT p  FROM Guardarropa p WHERE Usuario.nombre= '"+usarnameLoggedIn+"' 
 		return list;
@@ -134,7 +134,7 @@ public class Fachada {
 	}
 	
 	public List<String> devolverTodosLasTramas() {
-	    Query query = entityManager.createQuery("SELECT DISTINCT nombre FROM Trama");
+	    Query query = entityManager.createQuery("SELECT DISTINCT nombre FROM trama");
 		List<String> list = query.getResultList();
 		return list;
 	}
@@ -172,13 +172,12 @@ public class Fachada {
 	}
 	
 	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
-	    Query query1 = entityManager.createQuery(
-	            "SELECT id FROM Guardarropa g WHERE g.Nombre = :custName")
-	            .setParameter("custName", inputtedguardarropas);    
+	    Query query1 = entityManager.createQuery("SELECT id FROM Guardarropa WHERE Nombre = '"+inputtedguardarropas+"'");	    
 	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
 		List<String> list = query2.getResultList();
 		return list;
 	}
+
 	/*public String devolverDuenioDeGuardarropa(String inputtedguardarropas) {
 	    Query query1 = entityManager.createQuery(
 	            "SELECT miDuenio FROM Guardarropa g WHERE g.Nombre = :custName")
@@ -187,13 +186,6 @@ public class Fachada {
 		String list = (String) query2.getSingleResult();
 		return list;
 	}*/
-	
-	public Query todosLosIDSDeEventos() {		
-	    Query query1 = entityManager.createQuery(
-	            "SELECT id FROM Evento ORDER BY fechaEvento"); 
-		List<String> list = query1.getResultList();
-		return query1;
-	}	
 	
 	public void aceptarSugencia(List<String> sugerencia) {
 		// TODO Auto-generated method stub
@@ -205,7 +197,15 @@ public class Fachada {
 		
 	}
 	public List<String> devolverTodosLosEventos() {
-		// TODO Auto-generated method stub
-		return null;
+	    Query query1 = entityManager.createQuery(
+	            "SELECT DISTINCT descripcion FROM Evento"); 
+		List<String> list = query1.getResultList();
+		return list;
+		
+	}
+	public List<String> devolverTodasLosDetalles(String inputtedEvento) {  
+	    Query query2 = entityManager.createQuery("SELECT DISTINCT descripcion,fechaEvento,repeticion,ubicacionParaAPI FROM Evento WHERE descripcion = '"+inputtedEvento+"'" );
+		List<String> list = query2.getResultList();
+		return list;
 	}
 }

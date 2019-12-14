@@ -1,14 +1,11 @@
-<HTML>
-    <BODY>
-    <table>
-    #foreach( $id in $ids )
-   
-    <tr>
-    <td>
-        ($id)
-        
-    </td>
-    </tr>
-    
-    #end
-    </table>
+<h1>Listado De Eventos</h1>
+
+<form action="/detallesEventos" id="eventosForm" method="post">
+    <div class="row row-3">
+        #foreach($evento in $eventos)
+        <p>
+            <input type="submit" value="$evento" name="evento">            
+        </p>
+        #end
+    </div>
+</form>

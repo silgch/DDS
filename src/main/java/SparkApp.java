@@ -34,6 +34,19 @@ public class SparkApp {
             );
         });
         
+       /* post("/prendas", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new VelocityTemplateEngine().render(
+                new ModelAndView(model, "templates/prendas.html")
+            );
+        });*/
+        put("/detallesEventos", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new VelocityTemplateEngine().render(
+                new ModelAndView(model, "templates/detallesEventos.html")
+            );
+        });
+        
         post("/register",(request, response) -> {   	
             Map<String, Object> model = new HashMap<>();
             String inputtedFirstName = request.queryParams("first_name");
@@ -251,16 +264,15 @@ public class SparkApp {
             String inputtedEvento = request.queryParams("evento");
             request.session().attribute("evento", inputtedEvento); 
             
-            List<String> detalles = fachada.devolverTodasLasPrendas(inputtedEvento);
+            List<String> detalles = fachada.devolverTodasLosDetalles(inputtedEvento);
            
             model.put("evento", inputtedEvento);
             model.put("detalles", detalles);
             
             return new VelocityTemplateEngine().render(
-                new ModelAndView(model, "templates/calendar.html")
+                new ModelAndView(model, "templates/detallesEventos.html")
             );
-        });
-        
+        });       
     
     }
     
