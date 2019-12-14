@@ -7,6 +7,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import repositorio.Repositorio;
+import usuario.Usuario;
 
 
 public class Fachada {
@@ -15,6 +16,7 @@ public class Fachada {
 	private static EntityManagerFactory emFactory;	
 	private static Repositorio repositorio;	
 	private static EntityManager entityManager;
+	
 	public String usarnameLoggedIn = ""; // current logged in username
 
 	// Cause Fachada is a Singleton 
@@ -62,8 +64,15 @@ public class Fachada {
 	
 	public void registrarUsuarioCon(String inputtedFirstName, String inputtedLastName, String inputtedEmail, String inputtedUsername, String inputtedPassword) {
 		usarnameLoggedIn = inputtedUsername;
-		// TODO Auto-generated method stub
+		Usuario unUsuario = new Usuario(usarnameLoggedIn);
+		unUsuario.setApellido(inputtedLastName);
+		unUsuario.setMail(inputtedEmail);
+		unUsuario.setNombre(inputtedFirstName);
+		unUsuario.setPassword(inputtedPassword);
+		System.out.println(inputtedFirstName); 
+		System.out.println("El apellido es:" + unUsuario.getApellido());			
 		
+		repositorio.usuario().persistir(unUsuario);		
 	}
 	
 	public boolean chequearSiExiste(String inputtedUsername, String inputtedPassword) {
@@ -126,16 +135,20 @@ public class Fachada {
 	}
 	
 	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
-	    Query query1 = entityManager.createQuery("SELECT id FROM Guardarropa WHERE Nombre = '"+inputtedguardarropas+"'");	    
+	    Query query1 = entityManager.createQuery(
+	            "SELECT id FROM Guardarropa g WHERE g.Nombre = :custName")
+	            .setParameter("custName", inputtedguardarropas);    
 	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
 		List<String> list = query2.getResultList();
 		return list;
 	}
-	public String devolverDuenioDeGuardarropa(String inputtedguardarropas) {
-	    Query query1 = entityManager.createQuery("SELECT miDuenio FROM Guardarropa WHERE Nombre = '"+inputtedguardarropas+"'");	    
-	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM usuario WHERE id = '"+query1.setMaxResults(1).getSingleResult() +"'" );
-		String list = (String) query2.setMaxResults(1).getSingleResult();
+	/*public String devolverDuenioDeGuardarropa(String inputtedguardarropas) {
+	    Query query1 = entityManager.createQuery(
+	            "SELECT miDuenio FROM Guardarropa g WHERE g.Nombre = :custName")
+	            .setParameter("custName", inputtedguardarropas);	    
+	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM Usuario WHERE id = '"+query1.setMaxResults(1) +"'" );
+		String list = (String) query2.getSingleResult();
 		return list;
-	}	
+	}*/
 	
 }

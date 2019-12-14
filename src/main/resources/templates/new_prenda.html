@@ -13,32 +13,40 @@
     <div>
         <form action="." method="post" name="input">
             <p>Nombre de prenda:&nbsp;
-                <input maxlength="100" name="nombre" type="text" value="" />
+                <input maxlength="100" name="nombre" type="text" value="" id="name" />
                 <label for="when"></label>
             </p>
             <p>
-                <select name="tipoDePrenda">
+                <select name="tipoDePrenda" id="tipo">
                     <option value="-1">-Seleccionar Tipo De Prenda-</option>
                     #foreach( $tipoDePrenda in $tipoDePrendas )
                     <option value="$tipoDePrenda">$tipoDePrenda</option>
                     #end</select>
             </p>
-            <select name="material">
+            <select name="material" id="material">
                 <option value="-1">-Seleccionar Material-</option>
                 #foreach( $material in $materialesDeTipoDePrenda )
                 	<option value="$material">$material</option>
                 #end
             </select>
             <p>Color:&nbsp; &nbsp;&nbsp;
-                <input maxlength="5" name="R" type="text" value="" />
-                <input maxlength="5" name="G" type="text" value="" />
-                <input maxlength="5" name="B" type="text" value="" />
+                <input maxlength="5" name="R" type="text" value="" id="r" />
+                <input maxlength="5" name="G" type="text" value="" id="g" />
+                <input maxlength="5" name="B" type="text" value="" id="b" />
             </p>
             <p>
-                <select name="trama">
+                <select name="trama" id="trama">
                     <option value="-1">-Seleccionar Trama-</option>
                     #foreach( $trama in $tramas )
                     	<option value="$trama">$trama</option>
+                    #end
+                </select>
+            </p>
+            <p>
+                <select name="guardarropas" id="guardarropa">
+                    <option value="-1">-Seleccionar el guardarropas donde se guardara-</option>
+                    #foreach( $guardarropa in $guardarropas )
+                    	<option value="$guardarropa">$guardarropa</option>
                     #end
                 </select>
             </p>
@@ -48,16 +56,22 @@
                 <br>
                 <br>
             </p>
-            <input type="submit" value="Crear Prenda" />
-            <button onclick="myFunction()">Try it</button>
+            <button onclick="mostrar(document.getElementById('name').value,
+            document.getElementById('tipo').value,
+            document.getElementById('r').value,document.getElementById('g').value,
+            document.getElementById('b').value,document.getElementById('trama').value,
+            document.getElementById('guardarropa').value)">
+            Crear Prenda1</button>
+        </form>  
 
             <script>
-            function myFunction() {
-            alert("Se creo la prenda con los siguientes valores:\n"+$tipoDePrenda);
-            }
-            </script>    
-
-
-        </form>
+              function mostrar(name,tipo,r,g,b,trama,guardarropa) {
+                var mensaje = "Se agrego al guardarropas: " + guardarropa 
+                + "\nLa prenda "+name+" de tipo: " +tipo + "\ncon trama" + trama
+                + "\ny terna RGB (" +r+ "," +g+ "," +b +")";
+                alert(mensaje);
+              }
+            </script> 
+        
     </div>
 </div>

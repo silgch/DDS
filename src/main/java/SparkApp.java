@@ -54,8 +54,8 @@ public class SparkApp {
             
             System.out.println(inputtedUsername + inputtedPassword); 
             
-            fachada.registrarUsuarioCon(inputtedFirstName,inputtedLastName,inputtedEmail,inputtedUsername,inputtedPassword);
-            
+            fachada.registrarUsuarioCon(inputtedFirstName,inputtedLastName,inputtedEmail,inputtedUsername,inputtedPassword);                
+
             return new VelocityTemplateEngine().render(
                     new ModelAndView(model, "templates/register.html")
             );
@@ -78,7 +78,7 @@ public class SparkApp {
             request.session().attribute("pass", inputtedPassword);
             model.put("pass", inputtedPassword); 
             
-            System.out.println("User: "+inputtedUsername + " Pass: "+inputtedPassword); 
+            System.out.println("User: "+inputtedUsername + " Pass: "+inputtedPassword);            
             
             boolean existe = fachada.chequearSiExiste(inputtedUsername,inputtedPassword);
             
@@ -109,11 +109,15 @@ public class SparkApp {
             request.session().attribute("guardarropa", inputtedguardarropa); 
             
             List<String> prendas = fachada.devolverTodasLasPrendas(inputtedguardarropa);
-            String duenio = fachada.devolverDuenioDeGuardarropa(inputtedguardarropa);	
+           // String duenio = fachada.devolverDuenioDeGuardarropa(inputtedguardarropa);	
             
             model.put("guardarropa", inputtedguardarropa);
             model.put("prendas", prendas);
-            model.put("duenio", duenio);
+            //model.put("duenio", duenio);
+            
+           // System.out.println("KKK" + duenio); 
+
+            
             return new VelocityTemplateEngine().render(
                 new ModelAndView(model, "templates/prendas.html")
             );
@@ -125,9 +129,11 @@ public class SparkApp {
             List<String> tipoDePrendas = fachada.devolverTodosLosTipoDePrendas();
             List<String> materiales = fachada.devolverTodosLosMateriales(); 
             List<String> tramas = fachada.devolverTodosLasTramas(); 
+            List<String> guardarropas = fachada.devolverTodosLosGuardarropas(); 
             model.put("tipoDePrendas", tipoDePrendas);
             model.put("materiales", materiales);
-            model.put("tramas", tramas);        
+            model.put("tramas", tramas);
+            model.put("guardarropas", guardarropas);
             
             return new VelocityTemplateEngine().render(
                     new ModelAndView(model, "templates/new_prenda.html")                     
@@ -143,6 +149,7 @@ public class SparkApp {
             String G = request.queryParams("G");
             String B = request.queryParams("B");
             String trama = request.queryParams("trama");
+            String guardarropa = request.queryParams("guardarropa");
             request.session().attribute("nombre", nombre);
             request.session().attribute("tipoDePrenda", tipoDePrenda);
             request.session().attribute("material", material);
@@ -150,6 +157,8 @@ public class SparkApp {
             request.session().attribute("G", G);
             request.session().attribute("B", B);
             request.session().attribute("trama", trama);
+            request.session().attribute("guardarropa", guardarropa);
+
             
             fachada.persistimeEstaPrenda(nombre,tipoDePrenda,material,R,G,B,trama);
             
