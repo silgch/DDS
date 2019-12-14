@@ -76,10 +76,30 @@ public class Fachada {
 		
 		usarnameLoggedIn = inputtedUsername;
 		
+				try{
+				
+					
+							Query resultado=  entityManager.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ inputtedUsername+"' ");
+							if(resultado.getResultList().size()>0){
+							
+									
+							usuarioLogueado = entityManager.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ inputtedUsername+"' ",
+									usuario.Usuario.class)
+									.getResultList().get(0);
+							}
+							
+						}
+						
+				catch(ArrayIndexOutOfBoundsException excepcion)
+				        {
+					        // ???
+				        }
+			
+						  
+
 		
-		Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE  nombre= '"+inputtedUsername+"' ", Usuario.class);
-		usuarioLogueado = (Usuario) query.getResultList().get(0);
-	
+		
+		
 		
 		Usuario unUsuario = new Usuario(usarnameLoggedIn);
 		unUsuario.setApellido(inputtedLastName);
@@ -110,7 +130,7 @@ public class Fachada {
 		// Si existe, usarnameLoggedIn = inputtedUsername
 	}
 	public boolean chequearSiExiste(String inputtedUsername) {
-		Query query = entityManager.createQuery("COUNT * FROM Usuario WHERE nombre= '"+ inputtedUsername+"'  ");
+		Query query = entityManager.createQuery("SELECT u FROM Usuario u WHERE nombre= '"+ inputtedUsername+"'  ");
 		List<String> list = query.getResultList();
 		return ( list.size()>0);
 	}		
