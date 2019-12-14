@@ -18,6 +18,12 @@ public class TipoDePrenda  extends Repositorio {
 		return prenda;
 	}
  	*/	
+	public componentes.TipoDePrenda buscarTipoDePrendaPorNombre(String nombre) {
+		
+		return  em.createQuery("SELECT t FROM TipoDePrenda  t WHERE nombre = '"+ nombre+"' ", componentes.TipoDePrenda.class)
+		.getResultList().get(0);
+		
+	}
 	public void persistir(componentes.TipoDePrenda tipo) {
 		em.getTransaction().begin();
 		em.persist(tipo);

@@ -1,5 +1,9 @@
 package repositorio;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -23,13 +27,31 @@ public class Usuario extends Repositorio{
 	}
 	
 	public usuario.Usuario buscarPorUsuarioContrasenia(String userName, String contrasenia) {
-		Query  query = em.createQuery("SELECT p FROM Usuario p WHERE userName = :userName and password = :contrasenia", usuario.Usuario.class);
-		query.setParameter("userName", userName);
-		query.setParameter("contrasenia", contrasenia);
-	
-		usuario.Usuario usuario =  (usuario.Usuario) query.getResultList().get(0);
+		//Query  query = em.createQuery("SELECT p FROM Usuario p WHERE userName = :userName and password = :contrasenia", usuario.Usuario.class);
 		
-		return usuario;
+		//List <Usuario> query= new ArrayList<Usuario>();
+		
+		try{
+			
+			Query resultado =  em.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ userName+"'  AND  password = '"+ contrasenia+"'");
+			if(resultado.getResultList().size()>0){
+			
+					
+			return	em.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ userName+"'  AND  password = '"+ contrasenia+"'",
+					usuario.Usuario.class)
+					.getResultList().get(0);
+			}
+			
+		}
+		
+		catch(ArrayIndexOutOfBoundsException excepcion)
+        {
+	        // ???
+        }
+		return null;
+		  
+
+		
 	}
 	
 	public Usuario buscarPorMail(String mail) {

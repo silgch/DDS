@@ -7,6 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import componentes.Color;
+import componentes.Prenda;
 import eventos.Evento;
 import repositorio.Repositorio;
 import usuario.Usuario;
@@ -96,12 +98,11 @@ public class Fachada {
 
 		if(busqueda != null) {
 			usarnameLoggedIn = inputtedUsername;
-			Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE nombre= '"+inputtedUsername+"'", Usuario.class);
-			
-			usuarioLogueado = (Usuario) query.getResultList().get(0);
-
-			return true;
-		}else {return false;}
+			usuarioLogueado = busqueda;
+			return true;			
+						
+		}
+		else {return false;}
 
 		
 		//Nota: inputtedUsername es un campo donde el usuario puede elegir loguearse con mail o userName 
@@ -148,9 +149,16 @@ public class Fachada {
 	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String r, String g, String b,
 			String trama) {
 		
-		//Prenda unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, algodon, colorBlanco, lisa );
-	
-		// TODO Auto-generated method stub
+
+		componentes.TipoDePrenda unTipo=  repositorio.tipo().buscarTipoDePrendaPorNombre(tipoDePrenda);
+		Color unColor = new Color (Integer.parseInt(r),Integer.parseInt(g),Integer.parseInt(b));
+		componentes.Material unMaterial=  repositorio.material().buscarMaterialPorNombre(material);
+		componentes.Trama unaTrama=  repositorio.trama().buscarTramaPorNombre(trama);
+
+		Prenda unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor, unaTrama );
+				
+		repositorio.prenda().persistir(unaPrenda);	
+
 		
 	}
 
