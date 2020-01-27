@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+#parse("/templates/layout.vm")
+#@mainLayout()
+
 <html>
 
 <head>
@@ -14,8 +16,7 @@
 </head>
 
 <body>
-    <h1>Bienvenidos a la app de QueMePongo!</h1>
-    <h3>TP de la materia DDS de la UTN FRBA</h3>
+    <h1>Welcome to QueMePongo!</h1>
     <blockquote>
         <p>"If anything can go wrong, it will go wrong."</p>
     </blockquote>
@@ -28,3 +29,5 @@
 </body>
 
 </html>
+
+#end

@@ -1,0 +1,5 @@
+#parse("/templates/layout.vm")
+#@mainLayout()
+    <h1>404 Page not found!</h1>
+    <h3>The URL you requested could not be found</h3>
+#end

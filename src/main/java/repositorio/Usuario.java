@@ -12,8 +12,7 @@ public class Usuario extends Repositorio{
 		super(em);
 	}
 	public Usuario buscarPorId(Long id) {
-		return em.find(Usuario.class, id);
-		
+		return em.find(Usuario.class, id);		
 	}
 	
 	public Usuario buscarPorMailContrasenia(String mail, String contrasenia) {
@@ -21,52 +20,39 @@ public class Usuario extends Repositorio{
 		query.setParameter("mail", mail);
 		query.setParameter("contrasenia", contrasenia);
 		//Suponemos que no se permite tener 2 usuarios con el mismo username (ver validaciones al crear el usuario)
-		Usuario usuario = (Usuario) query.getResultList().get(0);
-		
+		Usuario usuario = (Usuario) query.getResultList().get(0);		
 		return usuario;
 	}
 	
 	public usuario.Usuario buscarPorUsuarioContrasenia(String userName, String contrasenia) {
-		//Query  query = em.createQuery("SELECT p FROM Usuario p WHERE userName = :userName and password = :contrasenia", usuario.Usuario.class);
-		
+		//Query  query = em.createQuery("SELECT p FROM Usuario p WHERE userName = :userName and password = :contrasenia", usuario.Usuario.class);		
 		//List <Usuario> query= new ArrayList<Usuario>();
 		
-		try{
-			
+		try{			
 			Query resultado =  em.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ userName+"'  AND  password = '"+ contrasenia+"'");
-			if(resultado.getResultList().size()>0){
-			
-					
-			return	em.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ userName+"'  AND  password = '"+ contrasenia+"'",
-					usuario.Usuario.class)
-					.getResultList().get(0);
-			}
-			
-		}
-		
+			if(resultado.getResultList().size()>0){					
+				return	em.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ userName+"'  AND  password = '"+ contrasenia+"'",
+				usuario.Usuario.class).getResultList().get(0);
+			}			
+		}		
 		catch(ArrayIndexOutOfBoundsException excepcion)
         {
 	        // ???
         }
-		return null;
-		  
-
-		
+		return null;	
 	}
 	
 	public Usuario buscarPorMail(String mail) {
 		Query  query = em.createQuery("SELECT p FROM Usuario p WHERE mail = :mail", Usuario.class);
 		query.setParameter("mail", mail);
-		Usuario usuario = (Usuario) query.getResultList().get(0);
-		
+		Usuario usuario = (Usuario) query.getResultList().get(0);		
 		return usuario;
 	}
 	
 	public Usuario buscarPorNombre(String username) {
 		Query  query = em.createQuery("SELECT p FROM Usuario p WHERE username = :username", Usuario.class);
 		query.setParameter("username", username);
-		Usuario usuario = (Usuario) query.getResultList().get(0);
-		
+		Usuario usuario = (Usuario) query.getResultList().get(0);		
 		return usuario;
 	}
 	

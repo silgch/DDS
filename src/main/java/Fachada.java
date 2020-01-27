@@ -10,8 +10,8 @@ import javax.persistence.Query;
 import componentes.Color;
 import componentes.Prenda;
 import eventos.Evento;
-import eventos.Sugerencia;
 import repositorio.Repositorio;
+import spark.*;
 import usuario.Usuario;
 
 
@@ -21,9 +21,8 @@ public class Fachada {
 	private static EntityManagerFactory emFactory;	
 	private static Repositorio repositorio;	
 	private static EntityManager entityManager;
-	private Usuario usuarioLogueado = new Usuario();
-	
-	public String usarnameLoggedIn = ""; // current logged in username
+	//private Usuario usuarioLogueado = new Usuario();	
+	//public String usarnameLoggedIn = ""; // current logged in username
 
 	// Cause Fachada is a Singleton 
     private static Fachada single_instance = null; 
@@ -63,76 +62,63 @@ public class Fachada {
 	
 	//PARA LOGIN/REGISTER
 	
-	public boolean hayAlguienConectado() {
-		return !(usarnameLoggedIn == "");		
+	public void chequearQueHayaAlguienConectado(Request request, Response response) {
+        if (request.session().attribute("user") == null) {
+            request.session().attribute("loginRedirect", request.pathInfo());
+            response.redirect("login");
+        }        
 	}
 	
-	public void registrarUsuarioCon(String inputtedFirstName, String inputtedLastName, String inputtedEmail, String inputtedUsername, String inputtedPassword) {
+	public String buscarUserNameConectado(Request request) {
+		return request.session().attribute("user");			
+	}
+
+	private Usuario buscarUsuarioPorUsername(String userName){
+		Query query = entityManager.createQuery("SELECT p FROM Usuario p WHERE  nombre= '"+userName+"' ", Usuario.class);
+		return (Usuario) query.getResultList().get(0);
+	}
+	
+	public void registrarUsuarioCon(String inputtedFirstName, String inputtedLastName, String inputtedEmail, String inputtedUsername, String inputtedPassword)
+	{
 		
-		if( chequearSiExiste(inputtedUsername)) {
+		if (usuarioExiste(inputtedUsername)) {
 			// No permitir registrar
 		}
 
-		else {
-		
-		usarnameLoggedIn = inputtedUsername;
-		
-				try{
-				
-					
-							Query resultado=  entityManager.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ inputtedUsername+"' ");
-							if(resultado.getResultList().size()>0){
-							
-									
-							usuarioLogueado = entityManager.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ inputtedUsername+"' ",
-									usuario.Usuario.class)
-									.getResultList().get(0);
-							}
-							
-						}
+		/*else {		
+			try{					
+				Query resultado=  entityManager.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ inputtedUsername+"' ");
+				if(resultado.getResultList().size()>0){						
+					usuarioLogueado = entityManager.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ inputtedUsername+"' ",
+					usuario.Usuario.class).getResultList().get(0);
+				}						
+			}
 						
-				catch(ArrayIndexOutOfBoundsException excepcion)
-				        {
-					        // ???
-				        }
-			
-						  
-
+		catch(ArrayIndexOutOfBoundsException excepcion)
+	    {
+	        // ???
+	    }*/		
+	
+		//Query query = entityManager.createQuery("SELECT p FROM Usuario p WHERE  nombre= '"+inputtedUsername+"' ", Usuario.class);
+		//usuarioLogueado = (Usuario) query.getResultList().get(0);
 		
-		
-		
-		Query  query = entityManager.createQuery("SELECT p FROM Usuario p WHERE  nombre= '"+inputtedUsername+"' ", Usuario.class);
-		usuarioLogueado = (Usuario) query.getResultList().get(0);
-		
-		Usuario unUsuario = new Usuario(usarnameLoggedIn);
+		Usuario unUsuario = new Usuario(inputtedUsername);
+		unUsuario.setNombre(inputtedFirstName);
 		unUsuario.setApellido(inputtedLastName);
 		unUsuario.setMail(inputtedEmail);
-		unUsuario.setNombre(inputtedFirstName);
 		unUsuario.setPassword(inputtedPassword);			
 		repositorio.usuario().persistir(unUsuario);	
-		}
+	}
 
+	
+	//Si existe, usarnameLoggedIn = inputtedUsername
+	public boolean chequearSiExiste(String inputtedUsername, String inputtedPassword) {	
+		Usuario usuarioBuscado = repositorio.usuario().buscarPorUsuarioContrasenia(inputtedUsername, inputtedPassword);
 
+		return (usuarioBuscado != null);					
 	}
 	
-	public boolean chequearSiExiste(String inputtedUsername, String inputtedPassword) {
-	
-		Usuario busqueda = repositorio.usuario().buscarPorUsuarioContrasenia(inputtedUsername, inputtedPassword);
-
-		if(busqueda != null) {
-			usarnameLoggedIn = inputtedUsername;
-			usuarioLogueado = busqueda;
-			return true;			
-						
-		}
-		else {return false;}
-
-		
-		//Nota: inputtedUsername es un campo donde el usuario puede elegir loguearse con mail o userName 
-		// ( Puede ser cualquiera de los dos )
-		// Si existe, usarnameLoggedIn = inputtedUsername
-	}
-	public boolean chequearSiExiste(String inputtedUsername) {
+	public boolean usuarioExiste(String inputtedUsername) {
 		Query query = entityManager.createQuery("SELECT u FROM Usuario u WHERE nombre= '"+ inputtedUsername+"'  ");
 		List<String> list = query.getResultList();
 		return ( list.size()>0);
@@ -189,9 +175,9 @@ public class Fachada {
 		repositorio.prenda().persistir(unaPrenda);		
 	}
 
-	public void persistimeEsteEvento( String guardarropa, String place, String description, String when) {
-		LocalDate fecha = LocalDate.parse(when);
-		Usuario usuario = new Usuario ();
+	public void persistimeEsteEvento( String guardarropa, String place, String description, String when, Request request) {
+		LocalDate fecha = LocalDate.parse(when);		
+		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
 		Evento unEvento = new Evento(fecha, description, usuarioLogueado, place);
 		repositorio.evento().persistir(unEvento);		
 	}
@@ -219,8 +205,9 @@ public class Fachada {
 		
 	}
 	public void modificarPercepcion(String percepcionCabeza, String percepcionCuello, String percepcionTorso,
-			String percepcionManos, String percepcionPiernas, String percepcionCalzado) 
+			String percepcionManos, String percepcionPiernas, String percepcionCalzado,Request request) 
 	{
+		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
 		usuarioLogueado.getPercepcion().modificarPercepcionCabeza(Integer.parseInt(percepcionCabeza));
 		usuarioLogueado.getPercepcion().modificarPercepcionCuello(Integer.parseInt(percepcionCuello));	
 		usuarioLogueado.getPercepcion().modificarPercepcionTorso(Integer.parseInt(percepcionTorso));

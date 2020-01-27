@@ -1,3 +1,6 @@
+#parse("/templates/layout.vm")
+#@mainLayout()
+
 <h1>Listado De Guardarropas</h1>
 
 <form action="/guardarropas" id="guardarropasForm" method="post">
@@ -9,3 +12,5 @@
         #end
     </div>
 </form>
+
+#end

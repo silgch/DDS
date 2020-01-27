@@ -2,8 +2,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import spark.template.velocity.VelocityTemplateEngine;
-import spark.*;
+import spark.Request;
+import spark.Response;
+
 import static spark.Spark.*;
 
 public class SparkApp {
@@ -14,37 +15,29 @@ public class SparkApp {
         port(getHerokuAssignedPort());
         
 
-        get("/", (req, res) -> {
-            String path;
-            
-            if(fachada.hayAlguienConectado()){
-            	path = "templates/home.html";
-            }else path = "templates/login.html";
+        get("/", (request, response) -> {            
+            System.out.println(fachada.buscarUserNameConectado(request));           
+
+            fachada.chequearQueHayaAlguienConectado(request, response);            	
             
             Map<String, Object> model = new HashMap<>();
-            return new VelocityTemplateEngine().render(
-                new ModelAndView(model, path)
-            );
+            return ViewUtil.render(request, model, "templates/home.html");
         });        
         
-        get("/register", (req, res) -> {
+        get("/register", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            return new VelocityTemplateEngine().render(
-                new ModelAndView(model, "templates/register.html")
-            );
+            return ViewUtil.render(request, model, "templates/register.html");
         });
         
-       /* post("/prendas", (req, res) -> {
+       /* post("/prendas", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            return new VelocityTemplateEngine().render(
-                new ModelAndView(model, "templates/prendas.html")
-            );
+            return ViewUtil.render(request, model, "templates/prendas.html");
         });*/
-        put("/detallesEventos", (req, res) -> {
+
+        put("/detallesEventos", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            return new VelocityTemplateEngine().render(
-                new ModelAndView(model, "templates/detallesEventos.html")
-            );
+            return ViewUtil.render(request, model, "templates/detallesEventos.html");
+
         });
         
         post("/register",(request, response) -> {   	
@@ -69,54 +62,53 @@ public class SparkApp {
             
             fachada.registrarUsuarioCon(inputtedFirstName,inputtedLastName,inputtedEmail,inputtedUsername,inputtedPassword);                
 
-            return new VelocityTemplateEngine().render(
-                    new ModelAndView(model, "templates/register.html")
-            );
+            return ViewUtil.render(request, model, "templates/register.html");
+
         });    
         
         
         get("/login",(request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            return new VelocityTemplateEngine().render(
-                    new ModelAndView(model, "templates/login.html")
-            );
+            Map<String, Object> model = new HashMap<>();            
+            return ViewUtil.render(request, model, "templates/login.html");
         });    
         
         post("/login",(request, response) -> {  	
             Map<String, Object> model = new HashMap<>();
+
             String inputtedUsername = request.queryParams("user");
-            request.session().attribute("user", inputtedUsername);
-            model.put("user", inputtedUsername);  
             String inputtedPassword = request.queryParams("pass");
+
+            request.session().attribute("user", inputtedUsername);
             request.session().attribute("pass", inputtedPassword);
-            model.put("pass", inputtedPassword); 
+
+            //model.put("user", inputtedUsername);           
+            //model.put("pass", inputtedPassword); 
             
-            System.out.println("User: "+inputtedUsername + " Pass: "+inputtedPassword);            
-            
+            //System.out.println("User: "+inputtedUsername + " Pass: "+inputtedPassword);           
             boolean existe = fachada.chequearSiExiste(inputtedUsername,inputtedPassword);
             
             String path;
+            if(existe) {
+                model.put("authenticationSucceeded", true);
+                model.put("currentUser", inputtedUsername); 
+                path = "templates/home.html";                     
+            } else {
+                model.put("authenticationFailed", true); 
+                path = "templates/login.html";
+            }    
             
-            if(existe){
-            	path = "templates/home.html";
-            }else path = "templates/login.html";
-            
-            return new VelocityTemplateEngine().render(
-                    new ModelAndView(model, path)
-            );
+            return ViewUtil.render(request, model, path);
         }); 
         
         
-        get("/guardarropas", (req, res) -> {
+        get("/guardarropas", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<String> guardarropas = fachada.devolverTodosLosGuardarropas();
             model.put("guardarropas", guardarropas);
-            return new VelocityTemplateEngine().render(
-                new ModelAndView(model, "templates/guardarropas.html")
-            );
+            return ViewUtil.render(request, model, "templates/guardarropas.html");
         });
         
-        post("/guardarropas", (request, res) -> {
+        post("/guardarropas", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String inputtedguardarropa = request.queryParams("guardarropa");
             request.session().attribute("guardarropa", inputtedguardarropa); 
@@ -124,11 +116,9 @@ public class SparkApp {
             List<String> prendas = fachada.devolverTodasLasPrendas(inputtedguardarropa);
            
             model.put("guardarropa", inputtedguardarropa);
-            model.put("prendas", prendas);
-            
-            return new VelocityTemplateEngine().render(
-                new ModelAndView(model, "templates/prendas.html")
-            );
+            model.put("prendas", prendas);            
+
+            return ViewUtil.render(request, model, "templates/prendas.html");
         });
 
         
@@ -141,11 +131,9 @@ public class SparkApp {
             model.put("tipoDePrendas", tipoDePrendas);
             model.put("materiales", materiales);
             model.put("tramas", tramas);
-            model.put("guardarropas", guardarropas);
-            
-            return new VelocityTemplateEngine().render(
-                    new ModelAndView(model, "templates/new_prenda.html")                     
-            );
+            model.put("guardarropas", guardarropas);  
+
+            return ViewUtil.render(request, model, "templates/new_prenda.html");
         });
         
         post("/new-prenda",(request, response) -> {  	
@@ -168,11 +156,9 @@ public class SparkApp {
             request.session().attribute("guardarropa", guardarropa);
 
             
-            fachada.persistimeEstaPrenda(nombre,tipoDePrenda,material,R,G,B,trama);
-            
-            return new VelocityTemplateEngine().render(
-                    new ModelAndView(model, "templates/new-prenda.html")
-            );
+            fachada.persistimeEstaPrenda(nombre,tipoDePrenda,material,R,G,B,trama);            
+
+            return ViewUtil.render(request, model, "templates/new_prenda.html");
         }); 
         
         
@@ -180,9 +166,8 @@ public class SparkApp {
             Map<String, Object> model = new HashMap<>();
             List<String> guardarropas = fachada.devolverTodosLosGuardarropas();
             model.put("guardarropas", guardarropas);
-            return new VelocityTemplateEngine().render(
-                    new ModelAndView(model, "templates/new_event.html")                     
-            );
+            return ViewUtil.render(request, model, "templates/new_event.html");
+
         });
         
         post("/new-event",(request, response) -> { 	
@@ -198,20 +183,17 @@ public class SparkApp {
             request.session().attribute("when", when);
             
             System.out.println(guardarropa+place+description+when);
-            fachada.persistimeEsteEvento(guardarropa,place,description,when);
-            
-            return new VelocityTemplateEngine().render(
-                    new ModelAndView(model, "templates/sugerencia.html")
-            );
+            fachada.persistimeEsteEvento(guardarropa,place,description,when,request);            
+
+            return ViewUtil.render(request, model, "templates/sugerencia.html");
         }); 
         
         get("/sugerencia",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<String> sugerencia = fachada.devolverUnaSugerenciaParaUltimoEvento();
             model.put("sugerencia", sugerencia);
-            return new VelocityTemplateEngine().render(
-                    new ModelAndView(model, "templates/sugerencia.html")                     
-            );
+
+            return ViewUtil.render(request, model, "templates/sugerencia.html");
         });
         
         post("/sugerencia",(request, response) -> {  	
@@ -233,10 +215,8 @@ public class SparkApp {
             request.session().attribute("percepcionCalzado", percepcionCalzado);            
       
             fachada.aceptarSugencia(sugerencia);
-            fachada.modificarPercepcion(percepcionCabeza,percepcionCuello,percepcionTorso,percepcionManos,percepcionPiernas,percepcionCalzado);
-            return new VelocityTemplateEngine().render(
-                    new ModelAndView(model, "templates/sugerencia.html")
-            );
+            fachada.modificarPercepcion(percepcionCabeza,percepcionCuello,percepcionTorso,percepcionManos,percepcionPiernas,percepcionCalzado,request);
+            return ViewUtil.render(request, model, "templates/sugerencia.html");
         });
         
         
@@ -245,21 +225,19 @@ public class SparkApp {
             Query ids = (Query) fachada.todosLosIDSDeEventos();
             model.put("ids", ids); 
 
-            return new VelocityTemplateEngine().render(
-                    new ModelAndView(model, "templates/calendar.html")                     
-            );
+            return ViewUtil.render(request, model, "templates/calendar.html");
+
         }); */
         
-        get("/calendar", (req, res) -> {
+        get("/calendar", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<String> eventos = fachada.devolverTodosLosEventos();
             model.put("eventos", eventos);
-            return new VelocityTemplateEngine().render(
-                new ModelAndView(model, "templates/calendar.html")
-            );
+
+            return ViewUtil.render(request, model, "templates/calendar.html");            
         });
         
-        post("/calendar", (request, res) -> {
+        post("/calendar", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String inputtedEvento = request.queryParams("evento");
             request.session().attribute("evento", inputtedEvento); 
@@ -267,12 +245,12 @@ public class SparkApp {
             List<String> detalles = fachada.devolverTodasLosDetalles(inputtedEvento);
            
             model.put("evento", inputtedEvento);
-            model.put("detalles", detalles);
-            
-            return new VelocityTemplateEngine().render(
-                new ModelAndView(model, "templates/detallesEventos.html")
-            );
-        });       
+            model.put("detalles", detalles);            
+
+            return ViewUtil.render(request, model, "templates/detallesEventos.html");
+        });
+        
+        get("*",ViewUtil.notFound);
     
     }
     

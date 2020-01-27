@@ -1,3 +1,5 @@
+#parse("/templates/layout.vm")
+#@mainLayout()
 <h1>Listado De Eventos</h1>
 
 <form action="/calendar" id="eventosForm" method="post">
@@ -9,3 +11,4 @@
         #end
     </div>
 </form>
+#end

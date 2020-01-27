@@ -6,6 +6,8 @@
     TipoDePrenda remera = new  TipoDePrenda("Remera",Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera,PrendaNivel.Nivel1);
     Prenda unaRemeraBlancaLisa = new Prenda("Remera Blanca lisa", remera, algodon, colorBlanco, lisa );
 -->
+#parse("/templates/layout.vm")
+#@mainLayout()
 
 <h1>Agregar Nueva Prenda</h1>
 
@@ -75,3 +77,4 @@
         
     </div>
 </div>
+#end

@@ -1,0 +1,37 @@
+#macro(mainLayout)
+<html>
+<head>
+    <link rel="stylesheet" href="/main.css">  
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/" id="home">
+          <svg style="width:18px;height:18px;fill:rgb(255,255,255)" viewBox="0 -3 24 24">
+            <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"> </path> 
+          </svg>
+          Home 
+		</a>
+        <ul>
+            #if($currentUser)         
+									
+                    <form method="post" action="/logout">
+                         <button id="logout">$currentUser &nbsp &nbsp Log Out</button>
+                    </form>
+                
+            #else
+                <a id="menu" href="/login">Log In </a>
+            #end
+        </ul>
+    </nav>
+</header>
+<main>
+    <div id="content">
+        $bodyContent
+    </div>
+</main>
+</body>
+</html>
+#end
