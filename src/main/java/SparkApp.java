@@ -2,9 +2,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import spark.Request;
-import spark.Response;
-
 import static spark.Spark.*;
 
 public class SparkApp {
@@ -16,28 +13,22 @@ public class SparkApp {
         
 
         get("/", (request, response) -> {            
-            System.out.println(fachada.buscarUserNameConectado(request));           
-
-            fachada.chequearQueHayaAlguienConectado(request, response);            	
-            
+            System.out.println(fachada.buscarUserNameConectado(request));
+            fachada.chequearQueHayaAlguienConectado(request, response);           
             Map<String, Object> model = new HashMap<>();
             return ViewUtil.render(request, model, "templates/home.html");
-        });        
+        });
+        
+        get("/home", (request, response) -> {            
+            System.out.println(fachada.buscarUserNameConectado(request));
+            fachada.chequearQueHayaAlguienConectado(request, response);           
+            Map<String, Object> model = new HashMap<>();
+            return ViewUtil.render(request, model, "templates/home.html");
+        });   
         
         get("/register", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             return ViewUtil.render(request, model, "templates/register.html");
-        });
-        
-       /* post("/prendas", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            return ViewUtil.render(request, model, "templates/prendas.html");
-        });*/
-
-        put("/detallesEventos", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            return ViewUtil.render(request, model, "templates/detallesEventos.html");
-
         });
         
         post("/register",(request, response) -> {   	
@@ -58,36 +49,31 @@ public class SparkApp {
             request.session().attribute("pass", inputtedPassword);
             model.put("pass", inputtedPassword); 
             
-            System.out.println(inputtedUsername + inputtedPassword); 
+            //System.out.println(inputtedUsername + inputtedPassword); 
             
-            fachada.registrarUsuarioCon(inputtedFirstName,inputtedLastName,inputtedEmail,inputtedUsername,inputtedPassword);                
-
-            return ViewUtil.render(request, model, "templates/register.html");
-
-        });    
-        
+            fachada.registrarUsuarioCon(inputtedFirstName,inputtedLastName,inputtedEmail,inputtedUsername,inputtedPassword);
+            return ViewUtil.render(request, model, "templates/home.html");
+        });            
         
         get("/login",(request, response) -> {
             Map<String, Object> model = new HashMap<>();            
             return ViewUtil.render(request, model, "templates/login.html");
         });    
         
-        post("/login",(request, response) -> {  	
+        post("/login",(request, response) -> {
+        	String path;
             Map<String, Object> model = new HashMap<>();
 
             String inputtedUsername = request.queryParams("user");
             String inputtedPassword = request.queryParams("pass");
-
             request.session().attribute("user", inputtedUsername);
             request.session().attribute("pass", inputtedPassword);
-
             //model.put("user", inputtedUsername);           
             //model.put("pass", inputtedPassword); 
             
             //System.out.println("User: "+inputtedUsername + " Pass: "+inputtedPassword);           
-            boolean existe = fachada.chequearSiExiste(inputtedUsername,inputtedPassword);
+            boolean existe = fachada.chequearSiExiste(inputtedUsername,inputtedPassword);            
             
-            String path;
             if(existe) {
                 model.put("authenticationSucceeded", true);
                 model.put("currentUser", inputtedUsername); 
@@ -100,10 +86,19 @@ public class SparkApp {
             return ViewUtil.render(request, model, path);
         }); 
         
+       /* post("/prendas", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return ViewUtil.render(request, model, "templates/prendas.html");
+        });*/
+
+        put("/detallesEventos", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return ViewUtil.render(request, model, "templates/detallesEventos.html");
+        });       
         
         get("/guardarropas", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            List<String> guardarropas = fachada.devolverTodosLosGuardarropas();
+            List<String> guardarropas = fachada.devolverTodosLosGuardarropas(request);
             model.put("guardarropas", guardarropas);
             return ViewUtil.render(request, model, "templates/guardarropas.html");
         });
@@ -127,7 +122,7 @@ public class SparkApp {
             List<String> tipoDePrendas = fachada.devolverTodosLosTipoDePrendas();
             List<String> materiales = fachada.devolverTodosLosMateriales(); 
             List<String> tramas = fachada.devolverTodosLasTramas(); 
-            List<String> guardarropas = fachada.devolverTodosLosGuardarropas(); 
+            List<String> guardarropas = fachada.devolverTodosLosGuardarropas(request); 
             model.put("tipoDePrendas", tipoDePrendas);
             model.put("materiales", materiales);
             model.put("tramas", tramas);
@@ -141,30 +136,26 @@ public class SparkApp {
             String nombre = request.queryParams("nombre");
             String tipoDePrenda = request.queryParams("tipoDePrenda");
             String material = request.queryParams("material");
-            String R = request.queryParams("R");
-            String G = request.queryParams("G");
-            String B = request.queryParams("B");
+            String colorHEX = request.queryParams("colorHEX");
             String trama = request.queryParams("trama");
             String guardarropa = request.queryParams("guardarropa");
             request.session().attribute("nombre", nombre);
             request.session().attribute("tipoDePrenda", tipoDePrenda);
             request.session().attribute("material", material);
-            request.session().attribute("R", R);
-            request.session().attribute("G", G);
-            request.session().attribute("B", B);
+            request.session().attribute("colorHEX", colorHEX);
             request.session().attribute("trama", trama);
             request.session().attribute("guardarropa", guardarropa);
 
             
-            fachada.persistimeEstaPrenda(nombre,tipoDePrenda,material,R,G,B,trama);            
+            fachada.persistimeEstaPrenda(nombre,tipoDePrenda,material,colorHEX,trama,guardarropa);            
 
             return ViewUtil.render(request, model, "templates/new_prenda.html");
-        }); 
+        });
         
         
         get("/new-event",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            List<String> guardarropas = fachada.devolverTodosLosGuardarropas();
+            List<String> guardarropas = fachada.devolverTodosLosGuardarropas(request);
             model.put("guardarropas", guardarropas);
             return ViewUtil.render(request, model, "templates/new_event.html");
 

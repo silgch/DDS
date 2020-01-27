@@ -55,7 +55,7 @@ public class Color{
 	public String getternaColores() {
 		int[] colores = {rojo,verde,azul};
 		return  Arrays.toString(colores);
-	}
+	}	
 	
 	/* Setters
 	public void setRojo(int rojo) {

@@ -38,15 +38,15 @@ public class Guardarropa {
 	@JoinColumn(name = "prendas_id", referencedColumnName = "id") 	
 	private List<Prenda> prendas = new ArrayList<Prenda>();
 	
-	private String Nombre;
-	
-	
+	private String Nombre;	
 	
 	@ManyToOne(fetch=FetchType.LAZY) 
 	@JoinColumn(name="usuario_id")
 	private Usuario miDuenio= null;
-    
-    
+	
+	@ManyToOne(fetch=FetchType.LAZY) 
+	@JoinColumn(name="usuarioParasito")
+	private Usuario usuarioParasito = null;    
 	
     //Constructores:
     public void duenio(Usuario usuario){

@@ -13,7 +13,7 @@
 
 <div>
     <div>
-        <form action="." method="post" name="input">
+        <form action="/new-prenda" method="post" >
             <p>Nombre de prenda:&nbsp;
                 <input maxlength="100" name="nombre" type="text" value="" id="name" />
                 <label for="when"></label>
@@ -27,14 +27,12 @@
             </p>
             <select name="material" id="material">
                 <option value="-1">-Seleccionar Material-</option>
-                #foreach( $material in $materialesDeTipoDePrenda )
+                #foreach( $material in $materiales)
                 	<option value="$material">$material</option>
                 #end
             </select>
             <p>Color:&nbsp; &nbsp;&nbsp;
-                <input maxlength="5" name="R" type="text" value="" id="r" />
-                <input maxlength="5" name="G" type="text" value="" id="g" />
-                <input maxlength="5" name="B" type="text" value="" id="b" />
+                <input maxlength="5" name="colorHEX" type="color" value="#ff0000" id="colorHEX" />
             </p>
             <p>
                 <select name="trama" id="trama">
@@ -59,18 +57,19 @@
                 <br>
             </p>
             <button onclick="mostrar(document.getElementById('name').value,
-            document.getElementById('tipo').value,
-            document.getElementById('r').value,document.getElementById('g').value,
-            document.getElementById('b').value,document.getElementById('trama').value,
-            document.getElementById('guardarropa').value)">
-            Crear Prenda1</button>
+                document.getElementById('tipo').value,
+                document.getElementById('colorHEX').value,
+                document.getElementById('trama').value,
+                document.getElementById('guardarropa').value)">
+                Crear Prenda
+            </button>
         </form>  
 
             <script>
-              function mostrar(name,tipo,r,g,b,trama,guardarropa) {
-                var mensaje = "Se agrego al guardarropas: " + guardarropa 
-                + "\nLa prenda "+name+" de tipo: " +tipo + "\ncon trama" + trama
-                + "\ny terna RGB (" +r+ "," +g+ "," +b +")";
+              function mostrar(name,tipo,colorHEX,trama,guardarropa) {
+                var mensaje = "Se agregó al guardarropas " + guardarropa +
+                "\nla prenda "+name+" de tipo " +tipo + 
+                "\ncon trama " + trama + " y con el color "+colorHEX;
                 alert(mensaje);
               }
             </script> 

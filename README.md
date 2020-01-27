@@ -7,6 +7,7 @@
 ## Project Description:
 * Runtime Environment: **Java 8**
 * Build Automation Tool: **Maven**
+* ORM: **Hibernate + JPA**
 * Database: **JawsDB MySQL Database**
 * Web Framework: **Spark**
 * Template Engine: **Apache Velocity**
@@ -26,6 +27,7 @@ C:\**\GIT\DDS\SRC
 │   │   │   Fachada.java
 │   │   │   SparkApp.java
 │   │   │   VelocityTemplateEngine.java
+│   │   │   ViewUtil.java
 │   │   ├───climaAPI
 │   │   ├───componentes
 │   │   ├───eventos
@@ -39,19 +41,10 @@ C:\**\GIT\DDS\SRC
 │       ├───META-INF
 │       │       persistence.xml
 │       ├───public
+│       │   │  	main.css
 │       │   ├───images
 │       │   └───stylesheets
 │       └───templates
-│               calendar.html
-│               detallesEventos.html
-│               guardarropas.html
-│               home.html
-│               login.html
-│               new_event.html
-│               new_prenda.html
-│               prendas.html
-│               register.html
-│               sugerencia.html
 └───test
     └───java
         └───tests

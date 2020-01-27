@@ -19,11 +19,8 @@ public class Material extends Repositorio {
 	}
  	*/	
 	
-	public componentes.Material buscarMaterialPorNombre(String nombre) {
-		
-		return  em.createQuery("SELECT t FROM TipoDePrenda  t WHERE nombre = '"+ nombre+"' ", componentes.Material.class)
-		.getResultList().get(0);
-		
+	public componentes.Material buscarMaterialPorNombre(String nombre) {		
+		return em.createQuery("SELECT t FROM TipoDePrenda  t WHERE nombre = '"+ nombre+"' ", componentes.Material.class).getResultList().get(0);		
 	}
 	
 	public void persistir(componentes.Material material) {

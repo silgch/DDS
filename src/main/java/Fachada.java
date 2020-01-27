@@ -31,16 +31,16 @@ public class Fachada {
     }   
     public static Fachada getInstance(){ 
         if (single_instance == null) 
-            single_instance = new Fachada();  
+            single_instance = new Fachada();
         return single_instance; 
     }	
 	
 	private void inicializar(){
-        System.out.println("Inizializando la fachada...");
+        //System.out.println("Inizializando la fachada...");
 		emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		entityManager = emFactory.createEntityManager();
 		repositorio = new Repositorio(entityManager);
-        System.out.println("Ahora puede realizar consultas a la base de datos");
+        //System.out.println("Ahora puede realizar consultas a la base de datos");
 	}    
 
 	public static void finalizar() {
@@ -74,12 +74,12 @@ public class Fachada {
 	}
 
 	private Usuario buscarUsuarioPorUsername(String userName){
-		Query query = entityManager.createQuery("SELECT p FROM Usuario p WHERE  nombre= '"+userName+"' ", Usuario.class);
+		Query query = entityManager.createQuery("SELECT p FROM Usuario p WHERE nombre= '"+userName+"' ", Usuario.class);
 		return (Usuario) query.getResultList().get(0);
 	}
 	
-	public void registrarUsuarioCon(String inputtedFirstName, String inputtedLastName, String inputtedEmail, String inputtedUsername, String inputtedPassword)
-	{
+	public void registrarUsuarioCon(String inputtedFirstName, String inputtedLastName, String inputtedEmail, 
+			String inputtedUsername, String inputtedPassword){
 		
 		if (usuarioExiste(inputtedUsername)) {
 			// No permitir registrar
@@ -109,12 +109,10 @@ public class Fachada {
 		unUsuario.setPassword(inputtedPassword);			
 		repositorio.usuario().persistir(unUsuario);	
 	}
-
 	
 	//Si existe, usarnameLoggedIn = inputtedUsername
 	public boolean chequearSiExiste(String inputtedUsername, String inputtedPassword) {	
 		Usuario usuarioBuscado = repositorio.usuario().buscarPorUsuarioContrasenia(inputtedUsername, inputtedPassword);
-
 		return (usuarioBuscado != null);					
 	}
 	
@@ -124,16 +122,19 @@ public class Fachada {
 		return ( list.size()>0);
 	}		
  
-	public List<String> devolverTodosLosGuardarropas() {
-	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa");
-	    List<String> list = query.getResultList();
+	public List<String> devolverTodosLosGuardarropas(Request request) {
+		String usuarioConectado = this.buscarUserNameConectado(request);
+		Query queryIDUsuario = entityManager.createQuery("SELECT id FROM Usuario WHERE userName = '" + usuarioConectado +"'  ");
+		List<String> idDuenio = queryIDUsuario.getResultList();
+	    Query queryGuardarropas = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa WHERE usuario_id = '" + idDuenio.toString().substring(1, 4) +"'  ");
+	    List<String> list = queryGuardarropas.getResultList();
 		return list;
 	}
 	
 	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
 	    Query query1 = entityManager.createQuery(
 	            "SELECT id FROM Guardarropa g WHERE g.Nombre = :custName")
-	            .setParameter("custName", inputtedguardarropas);    
+	            .setParameter("custName", inputtedguardarropas);
 	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
 		List<String> list = query2.getResultList();
 		return list;
@@ -163,16 +164,26 @@ public class Fachada {
 		return list;
 	}
 
-	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String r, String g, String b,	String trama) {		
+	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String colorHEX,	String trama, String guardarropa) {		
 
-		componentes.TipoDePrenda unTipo=  repositorio.tipo().buscarTipoDePrendaPorNombre(tipoDePrenda);
-		Color unColor = new Color (Integer.parseInt(r),Integer.parseInt(g),Integer.parseInt(b));
-		componentes.Material unMaterial=  repositorio.material().buscarMaterialPorNombre(material);
-		componentes.Trama unaTrama=  repositorio.trama().buscarTramaPorNombre(trama);
+		//convertimos strings a objetos	
+		componentes.TipoDePrenda unTipo= repositorio.tipo().buscarTipoDePrendaPorNombre(tipoDePrenda);
+		Color unColor = this.hex2Rgb(colorHEX);
+		componentes.Material unMaterial= repositorio.material().buscarMaterialPorNombre(material);
+		componentes.Trama unaTrama= repositorio.trama().buscarTramaPorNombre(trama);
 
 		Prenda unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor, unaTrama );
+		
+        System.out.println(unaPrenda);
 				
 		repositorio.prenda().persistir(unaPrenda);		
+	}
+	
+	private Color hex2Rgb(String hex) {
+		int r= Integer.valueOf(hex.substring(1,3),16);
+		int g= Integer.valueOf(hex.substring(3,5),16);
+	    int b= Integer.valueOf(hex.substring(5,7),16);
+		return new Color(r,g,b);
 	}
 
 	public void persistimeEsteEvento( String guardarropa, String place, String description, String when, Request request) {
@@ -187,23 +198,23 @@ public class Fachada {
 		 // TODO Actualmente está super hardcodeado
 		 lista.add("Remera Roja a lunares"); 
 		 lista.add("Pantalon Negro"); 
-		 lista.add("Zapatillas Converse"); 		
+		 lista.add("Zapatillas Converse");
 		return lista;
 	}
 	
 	/*public String devolverDuenioDeGuardarropa(String inputtedguardarropas) {
 	    Query query1 = entityManager.createQuery(
 	            "SELECT miDuenio FROM Guardarropa g WHERE g.Nombre = :custName")
-	            .setParameter("custName", inputtedguardarropas);	    
+	            .setParameter("custName", inputtedguardarropas);
 	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM Usuario WHERE id = '"+query1.setMaxResults(1) +"'" );
 		String list = (String) query2.getSingleResult();
 		return list;
 	}*/
 	
 	public void aceptarSugencia(List<String> sugerencia) {
-		//TODO
-		
+		//TODO		
 	}
+
 	public void modificarPercepcion(String percepcionCabeza, String percepcionCuello, String percepcionTorso,
 			String percepcionManos, String percepcionPiernas, String percepcionCalzado,Request request) 
 	{
@@ -215,7 +226,6 @@ public class Fachada {
 		usuarioLogueado.getPercepcion().modificarPercepcionPiernas(Integer.parseInt(percepcionPiernas));
 		usuarioLogueado.getPercepcion().modificarPercepcionCalzado(Integer.parseInt(percepcionCalzado));
 		repositorio.usuario().actualizar(usuarioLogueado);
-
 	}
 	
 	public List<String> devolverTodosLosEventos() {
@@ -224,10 +234,10 @@ public class Fachada {
 		return list;
 	}
 	
-	public List<String> devolverTodasLosDetalles(String inputtedEvento) {  
+	public List<String> devolverTodasLosDetalles(String inputtedEvento) {
 	    Query query1 = entityManager.createQuery(
 	            "SELECT id FROM Evento e WHERE e.descripcion = :custName")
-	            .setParameter("custName", inputtedEvento);    
+	            .setParameter("custName", inputtedEvento);
 	    Query query2 = entityManager.createQuery("SELECT fechaEvento, repeticion FROM Evento WHERE descripcion = '"+query1.setMaxResults(1).getSingleResult() +"'" );
 		List<String> list = query2.getResultList();
 		return list;
@@ -242,7 +252,7 @@ public class Fachada {
 	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
 	    Query query1 = entityManager.createQuery(
 	            "SELECT id FROM Guardarropa g WHERE g.Nombre = :custName")
-	            .setParameter("custName", inputtedguardarropas);    
+	            .setParameter("custName", inputtedguardarropas);
 	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
 		List<String> list = query2.getResultList();
 		return list;

@@ -42,6 +42,9 @@ public class Usuario{
 	
 	@OneToMany(mappedBy= "miDuenio")
 	private List<Guardarropa> guardarropas = new ArrayList<>();
+	
+	@OneToMany(mappedBy= "usuarioParasito")
+	private List<Guardarropa> guardarropasCompartidos = new ArrayList<>();
 
 	/*El gestorDeCuentas es el asistente que entrega/upgredea la cuenta del usuario
 	 * no hace falta persistirlo*/
@@ -135,12 +138,13 @@ public class Usuario{
 		guardarropa.duenio(this);
 	}
 	
+	//un guardarropa solo se puede compartir con un usuario
 	public void compartirGuardarropasCon(Guardarropa guardarropa, Usuario otroUsuario) {
 		otroUsuario.agregarGuardarropaCompartido(guardarropa);
 	}
 	
-	public void agregarGuardarropaCompartido(Guardarropa guardarropa) {
-		guardarropas.add(requireNonNull(guardarropa));
+	private void agregarGuardarropaCompartido(Guardarropa guardarropa) {
+		guardarropasCompartidos.add(requireNonNull(guardarropa));
 	}
 	
 	public boolean tieneGuardarropaLleno(int cantidadDePrendas) {
