@@ -56,34 +56,39 @@ public class SparkApp {
         });            
         
         get("/login",(request, response) -> {
-            Map<String, Object> model = new HashMap<>();            
+            Map<String, Object> model = new HashMap<>();
+            model.put("loggedOut", ViewUtil.removeSessionAttrLoggedOut(request));
+            model.put("loginRedirect", ViewUtil.removeSessionAttrLoginRedirect(request));
             return ViewUtil.render(request, model, "templates/login.html");
         });    
         
-        post("/login",(request, response) -> {
-        	String path;
+        post("/login",(request, response) -> {        	
             Map<String, Object> model = new HashMap<>();
 
             String inputtedUsername = request.queryParams("user");
             String inputtedPassword = request.queryParams("pass");
-            request.session().attribute("user", inputtedUsername);
-            request.session().attribute("pass", inputtedPassword);
-            //model.put("user", inputtedUsername);           
-            //model.put("pass", inputtedPassword); 
-            
+                        
             //System.out.println("User: "+inputtedUsername + " Pass: "+inputtedPassword);           
             boolean existe = fachada.chequearSiExiste(inputtedUsername,inputtedPassword);            
             
-            if(existe) {
-                model.put("authenticationSucceeded", true);
-                model.put("currentUser", inputtedUsername); 
-                path = "templates/home.html";                     
-            } else {
-                model.put("authenticationFailed", true); 
-                path = "templates/login.html";
-            }    
-            
-            return ViewUtil.render(request, model, path);
+            if(!existe) {            	
+            	model.put("authenticationFailed", true);
+            	return ViewUtil.render(request, model, "templates/login.html");
+            }                       
+            model.put("authenticationSucceeded", true);
+            request.session().attribute("user", inputtedUsername);
+
+            if (request.queryParams("loginRedirect") != null) {
+                response.redirect(request.queryParams("loginRedirect"));
+            }
+            return ViewUtil.render(request, model, "templates/home.html");
+        });
+        
+        post("/logout",(request, response) -> {
+            request.session().removeAttribute("user");
+            request.session().attribute("loggedOut", true);
+            response.redirect("/login");
+            return null;
         }); 
         
        /* post("/prendas", (request, response) -> {

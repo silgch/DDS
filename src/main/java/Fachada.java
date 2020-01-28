@@ -14,7 +14,6 @@ import repositorio.Repositorio;
 import spark.*;
 import usuario.Usuario;
 
-
 public class Fachada {
 	//La base de datos se llama "ati1txh3yqvapdna" ya que asi viene por defecto la que nos da JawsDB Maria
 	private static final String PERSISTENCE_UNIT_NAME = "ati1txh3yqvapdna";
@@ -28,7 +27,8 @@ public class Fachada {
     private static Fachada single_instance = null; 
     private Fachada(){
     	this.inicializar();
-    }   
+    }
+    
     public static Fachada getInstance(){ 
         if (single_instance == null) 
             single_instance = new Fachada();
@@ -171,11 +171,8 @@ public class Fachada {
 		Color unColor = this.hex2Rgb(colorHEX);
 		componentes.Material unMaterial= repositorio.material().buscarMaterialPorNombre(material);
 		componentes.Trama unaTrama= repositorio.trama().buscarTramaPorNombre(trama);
-
-		Prenda unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor, unaTrama );
-		
-        System.out.println(unaPrenda);
-				
+		Prenda unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor, unaTrama );		
+        System.out.println(unaPrenda);				
 		repositorio.prenda().persistir(unaPrenda);		
 	}
 	
@@ -201,15 +198,6 @@ public class Fachada {
 		 lista.add("Zapatillas Converse");
 		return lista;
 	}
-	
-	/*public String devolverDuenioDeGuardarropa(String inputtedguardarropas) {
-	    Query query1 = entityManager.createQuery(
-	            "SELECT miDuenio FROM Guardarropa g WHERE g.Nombre = :custName")
-	            .setParameter("custName", inputtedguardarropas);
-	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM Usuario WHERE id = '"+query1.setMaxResults(1) +"'" );
-		String list = (String) query2.getSingleResult();
-		return list;
-	}*/
 	
 	public void aceptarSugencia(List<String> sugerencia) {
 		//TODO		
@@ -242,19 +230,5 @@ public class Fachada {
 		List<String> list = query2.getResultList();
 		return list;
 	}
-	
-	/*	public List<String> devolverTodosLosGuardarropas() {
-	    Query query = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa");
-	    List<String> list = query.getResultList();
-		return list;
-	}
-	
-	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
-	    Query query1 = entityManager.createQuery(
-	            "SELECT id FROM Guardarropa g WHERE g.Nombre = :custName")
-	            .setParameter("custName", inputtedguardarropas);
-	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
-		List<String> list = query2.getResultList();
-		return list;
-	}*/
+
 }

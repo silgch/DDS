@@ -25,6 +25,18 @@ public class ViewUtil {
         response.status(HttpStatus.NOT_FOUND_404);
         return render(request, new HashMap<>(), "templates/notFound.vm");
     };
+    
+    public static boolean removeSessionAttrLoggedOut(Request request) {
+        Object loggedOut = request.session().attribute("loggedOut");
+        request.session().removeAttribute("loggedOut");
+        return loggedOut != null;
+    }
+
+    public static String removeSessionAttrLoginRedirect(Request request) {
+        String loginRedirect = request.session().attribute("loginRedirect");
+        request.session().removeAttribute("loginRedirect");
+        return loginRedirect;
+    }
 
 
 }
