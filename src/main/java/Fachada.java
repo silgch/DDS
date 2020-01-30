@@ -48,18 +48,6 @@ public class Fachada {
 		emFactory.close();
 	}
 	
-    /*boolean removeSessionAttrLoggedOut(Request _request) {
-        Object loggedOut = _request.session().attribute("loggedOut");
-        _request.session().removeAttribute("loggedOut");
-        return loggedOut != null;
-    }
-
-    public static String removeSessionAttrLoginRedirect(Request _request) {
-        String loginRedirect = _request.session().attribute("loginRedirect");
-        _request.session().removeAttribute("loginRedirect");
-        return loginRedirect;
-    }*/
-	
 	//PARA LOGIN/REGISTER
 	
 	public void chequearQueHayaAlguienConectado(Request request, Response response) {
@@ -79,29 +67,7 @@ public class Fachada {
 	}
 	
 	public void registrarUsuarioCon(String inputtedFirstName, String inputtedLastName, String inputtedEmail, 
-			String inputtedUsername, String inputtedPassword){
-		
-		if (usuarioExiste(inputtedUsername)) {
-			// No permitir registrar
-		}
-
-		/*else {		
-			try{					
-				Query resultado=  entityManager.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ inputtedUsername+"' ");
-				if(resultado.getResultList().size()>0){						
-					usuarioLogueado = entityManager.createQuery("SELECT p FROM Usuario p WHERE userName = '"+ inputtedUsername+"' ",
-					usuario.Usuario.class).getResultList().get(0);
-				}						
-			}
-						
-		catch(ArrayIndexOutOfBoundsException excepcion)
-	    {
-	        // ???
-	    }*/		
-	
-		//Query query = entityManager.createQuery("SELECT p FROM Usuario p WHERE  nombre= '"+inputtedUsername+"' ", Usuario.class);
-		//usuarioLogueado = (Usuario) query.getResultList().get(0);
-		
+		String inputtedUsername, String inputtedPassword){
 		Usuario unUsuario = new Usuario(inputtedUsername);
 		unUsuario.setNombre(inputtedFirstName);
 		unUsuario.setApellido(inputtedLastName);
@@ -110,21 +76,21 @@ public class Fachada {
 		repositorio.usuario().persistir(unUsuario);	
 	}
 	
-	//Si existe, usarnameLoggedIn = inputtedUsername
 	public boolean chequearSiExiste(String inputtedUsername, String inputtedPassword) {	
 		Usuario usuarioBuscado = repositorio.usuario().buscarPorUsuarioContrasenia(inputtedUsername, inputtedPassword);
 		return (usuarioBuscado != null);					
 	}
 	
 	public boolean usuarioExiste(String inputtedUsername) {
-		Query query = entityManager.createQuery("SELECT u FROM Usuario u WHERE nombre= '"+ inputtedUsername+"'  ");
-		List<String> list = query.getResultList();
-		return ( list.size()>0);
+		String query = String.format("SELECT nombre FROM Usuario WHERE nombre= '%s'", inputtedUsername);
+		List<String> list = entityManager.createQuery(query).getResultList();
+		return (list.size()>0);
 	}		
  
 	public List<String> devolverTodosLosGuardarropas(Request request) {
 		String usuarioConectado = this.buscarUserNameConectado(request);
-		Query queryIDUsuario = entityManager.createQuery("SELECT id FROM Usuario WHERE userName = '" + usuarioConectado +"'  ");
+		String query = String.format("SELECT id FROM Usuario WHERE userName = '%s'", usuarioConectado);
+		Query queryIDUsuario = entityManager.createQuery(query);
 		List<String> idDuenio = queryIDUsuario.getResultList();
 	    Query queryGuardarropas = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa WHERE usuario_id = '" + idDuenio.toString().substring(1, 4) +"'  ");
 	    List<String> list = queryGuardarropas.getResultList();
@@ -132,34 +98,26 @@ public class Fachada {
 	}
 	
 	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
-	    Query query1 = entityManager.createQuery(
-	            "SELECT id FROM Guardarropa g WHERE g.Nombre = :custName")
-	            .setParameter("custName", inputtedguardarropas);
+	    Query query1 = entityManager.createQuery("SELECT id FROM Guardarropa g WHERE g.Nombre = :guardarropa").setParameter("guardarropa", inputtedguardarropas);
 	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
 		List<String> list = query2.getResultList();
 		return list;
 	}
 	
 	public List<String> devolverTodosLosTipoDePrendas() {
-	    Query query = entityManager.createQuery("SELECT DISTINCT nombre FROM TipoDePrenda");
-		List<String> list = query.getResultList();
-		return list;
-	}
-	
+		return devolverTodosLos("TipoDePrenda");
+	}	
 	public List<String> devolverTodosLosMateriales() {
-	    Query query = entityManager.createQuery("SELECT DISTINCT nombre FROM Material");
-		List<String> list = query.getResultList();
-		return list;
-	}
-	
+	    return devolverTodosLos("Material");
+	}	
 	public List<String> devolverTodosLasTramas() {
-	    Query query = entityManager.createQuery("SELECT DISTINCT nombre FROM trama");
-		List<String> list = query.getResultList();
-		return list;
-	}
-	
+	    return devolverTodosLos("trama");
+	}	
 	public List<String> devolverTodosLosUsuarios() {
-	    Query query = entityManager.createQuery("SELECT DISTINT nombre FROM usuario");
+		return devolverTodosLos("usuario");
+	}
+	private List<String> devolverTodosLos(String algo) {
+	    Query query = entityManager.createQuery("SELECT DISTINT nombre FROM "+ algo);
 		List<String> list = query.getResultList();
 		return list;
 	}
@@ -182,6 +140,8 @@ public class Fachada {
 	    int b= Integer.valueOf(hex.substring(5,7),16);
 		return new Color(r,g,b);
 	}
+
+	//Para trabajar con eventos
 
 	public void persistimeEsteEvento( String guardarropa, String place, String description, String when, Request request) {
 		LocalDate fecha = LocalDate.parse(when);		

@@ -15,16 +15,17 @@
         <h1>Register</h1>
         <br>
         <form action="/register" id="loginForm" method="post">
-            <input type="text" name="first_name" placeholder="First Name">
-            <input type="text" name="last_name" placeholder="Last Name">
-            <input type="text" name="user" placeholder="Username">
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="pass" placeholder="Password">
+            #if($registrationFailed)
+                <p class="bad notification">You already register.</p>          
+            #end
+            <input type="text" name="first_name" placeholder="First Name" required>
+            <input type="text" name="last_name" placeholder="Last Name" required>
+            <input type="text" name="user" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="pass" placeholder="Password" required>
             <input type="submit" name="register" class="register register-submit" value="Register">
         </form>
-
-        <div class="register-help">
-        </div>
+        <div class="register-help"> </div>
     </div>
 
     <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>
