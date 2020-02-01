@@ -90,6 +90,7 @@ public class SparkApp {
         get("/guardarropas", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<String> guardarropas = fachada.devolverTodosLosGuardarropas(request);
+            guardarropas.add("[Crear Nuevo Guardarropas]");
             model.put("guardarropas", guardarropas);
             return ViewUtil.render(request, model, "templates/guardarropas.html");
         });
@@ -97,10 +98,13 @@ public class SparkApp {
         post("/guardarropas", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String inputtedguardarropa = request.queryParams("guardarropa");
-            request.session().attribute("guardarropa", inputtedguardarropa); 
-            
-            List<String> prendas = fachada.devolverTodasLasPrendas(inputtedguardarropa);
-           
+            if(inputtedguardarropa.equals("[Crear Nuevo Guardarropas]")){
+            	fachada.crearGuardarropasAlPibe(request);
+            	response.redirect("/guardarropas");
+                return null;
+            }
+            request.session().attribute("guardarropa", inputtedguardarropa);            
+            List<String> prendas = fachada.devolverTodasLasPrendas(inputtedguardarropa);           
             model.put("guardarropa", inputtedguardarropa);
             model.put("prendas", prendas);            
 

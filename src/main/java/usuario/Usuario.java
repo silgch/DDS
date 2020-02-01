@@ -149,8 +149,7 @@ public class Usuario{
 	
 	public boolean tieneGuardarropaLleno(int cantidadDePrendas) {
 		return tipoDeCuenta.tieneGuardarropaLleno(cantidadDePrendas);
-	}
-	
+	}	
 
 	
 	//Métodos con Eventos

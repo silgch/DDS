@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import componentes.Color;
 import componentes.Prenda;
 import eventos.Evento;
+import guardarropas.Guardarropa;
 import repositorio.Repositorio;
 import spark.*;
 import usuario.Usuario;
@@ -20,8 +21,6 @@ public class Fachada {
 	private static EntityManagerFactory emFactory;	
 	private static Repositorio repositorio;	
 	private static EntityManager entityManager;
-	//private Usuario usuarioLogueado = new Usuario();	
-	//public String usarnameLoggedIn = ""; // current logged in username
 
 	// Cause Fachada is a Singleton 
     private static Fachada single_instance = null; 
@@ -62,18 +61,20 @@ public class Fachada {
 	}
 
 	private Usuario buscarUsuarioPorUsername(String userName){
-		Query query = entityManager.createQuery("SELECT p FROM Usuario p WHERE nombre= '"+userName+"' ", Usuario.class);
-		return (Usuario) query.getResultList().get(0);
+		String statement = String.format("SELECT id FROM Usuario WHERE userName = '%s'", userName);
+		Long id = Long.valueOf(listToString(listAndCast(statement)));
+        System.out.println("id: "+id);
+		return entityManager.find(Usuario.class, id);		
 	}
 	
 	public void registrarUsuarioCon(String inputtedFirstName, String inputtedLastName, String inputtedEmail, 
-		String inputtedUsername, String inputtedPassword){
-		Usuario unUsuario = new Usuario(inputtedUsername);
-		unUsuario.setNombre(inputtedFirstName);
-		unUsuario.setApellido(inputtedLastName);
-		unUsuario.setMail(inputtedEmail);
-		unUsuario.setPassword(inputtedPassword);			
-		repositorio.usuario().persistir(unUsuario);	
+		String inputtedUsername, String inputtedPassword) {
+			Usuario unUsuario = new Usuario(inputtedUsername);
+			unUsuario.setNombre(inputtedFirstName);
+			unUsuario.setApellido(inputtedLastName);
+			unUsuario.setMail(inputtedEmail);
+			unUsuario.setPassword(inputtedPassword);			
+			repositorio.usuario().persistir(unUsuario);	
 	}
 	
 	public boolean chequearSiExiste(String inputtedUsername, String inputtedPassword) {	
@@ -82,26 +83,46 @@ public class Fachada {
 	}
 	
 	public boolean usuarioExiste(String inputtedUsername) {
-		String query = String.format("SELECT nombre FROM Usuario WHERE nombre= '%s'", inputtedUsername);
-		List<String> list = entityManager.createQuery(query).getResultList();
+		String statement = String.format("SELECT nombre FROM Usuario WHERE nombre = '%s'", inputtedUsername);
+		List<String> list = listAndCast(statement);
 		return (list.size()>0);
 	}		
  
 	public List<String> devolverTodosLosGuardarropas(Request request) {
 		String usuarioConectado = this.buscarUserNameConectado(request);
-		String query = String.format("SELECT id FROM Usuario WHERE userName = '%s'", usuarioConectado);
-		Query queryIDUsuario = entityManager.createQuery(query);
-		List<String> idDuenio = queryIDUsuario.getResultList();
-	    Query queryGuardarropas = entityManager.createQuery("SELECT DISTINCT Nombre FROM Guardarropa WHERE usuario_id = '" + idDuenio.toString().substring(1, 4) +"'  ");
-	    List<String> list = queryGuardarropas.getResultList();
-		return list;
+		String statement_userID = String.format("SELECT id FROM Usuario WHERE userName = '%s'", usuarioConectado);
+		List<String> idDuenio = listAndCast(statement_userID);
+		String statement_Guardarropas = "SELECT DISTINCT Nombre FROM Guardarropa WHERE usuario_id = '" + listToString(idDuenio) +"'  ";
+	    return listAndCast(statement_Guardarropas);
+	}	
+	
+	private List<String> listAndCast(String statement) {
+	    Query queryIDUsuario = entityManager.createQuery(statement);
+		@SuppressWarnings("unchecked")
+		List<String> list = queryIDUsuario.getResultList();
+	    return list;
 	}
 	
-	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {		
-	    Query query1 = entityManager.createQuery("SELECT id FROM Guardarropa g WHERE g.Nombre = :guardarropa").setParameter("guardarropa", inputtedguardarropas);
-	    Query query2 = entityManager.createQuery("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = '"+query1.setMaxResults(1).getSingleResult() +"'" );
-		List<String> list = query2.getResultList();
-		return list;
+	private String listToString(List<String> list) {
+		int size = list.toString().length() - 1;
+		return list.toString().substring(1, size);
+	}
+	
+	public void crearGuardarropasAlPibe(Request request) {
+		String usuarioConectado = this.buscarUserNameConectado(request);
+		String cantidadGuardarropas = Integer.toString(devolverTodosLosGuardarropas(request).size());
+        String nuevoNombreDelGuardarropas = String.format("Guardarropas %s %s", usuarioConectado, cantidadGuardarropas);
+		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
+		Guardarropa guardarropa = new Guardarropa();
+		guardarropa.setNombre(nuevoNombreDelGuardarropas);
+		usuarioLogueado.agregarGuardarropa(guardarropa);
+		repositorio.guardarropa().persistir(guardarropa);
+	}
+	
+	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {
+	    Query idGuardarropas = entityManager.createQuery("SELECT id FROM Guardarropa g WHERE g.Nombre = :guardarropa").setParameter("guardarropa", inputtedguardarropas);
+	    String statement = ("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = " + idGuardarropas.setMaxResults(1).getSingleResult());
+		return listAndCast(statement);
 	}
 	
 	public List<String> devolverTodosLosTipoDePrendas() {
@@ -117,9 +138,8 @@ public class Fachada {
 		return devolverTodosLos("usuario");
 	}
 	private List<String> devolverTodosLos(String algo) {
-	    Query query = entityManager.createQuery("SELECT DISTINT nombre FROM "+ algo);
-		List<String> list = query.getResultList();
-		return list;
+	    String statement = ("SELECT DISTINT nombre FROM "+ algo);
+		return listAndCast(statement);
 	}
 
 	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String colorHEX,	String trama, String guardarropa) {		
@@ -177,18 +197,14 @@ public class Fachada {
 	}
 	
 	public List<String> devolverTodosLosEventos() {
-		Query query = entityManager.createQuery("SELECT DISTINCT descripcion FROM Evento");
-	    List<String> list = query.getResultList();
-		return list;
+		String statement = ("SELECT DISTINCT descripcion FROM Evento");
+	    return this.listAndCast(statement);
 	}
 	
 	public List<String> devolverTodasLosDetalles(String inputtedEvento) {
-	    Query query1 = entityManager.createQuery(
-	            "SELECT id FROM Evento e WHERE e.descripcion = :custName")
-	            .setParameter("custName", inputtedEvento);
-	    Query query2 = entityManager.createQuery("SELECT fechaEvento, repeticion FROM Evento WHERE descripcion = '"+query1.setMaxResults(1).getSingleResult() +"'" );
-		List<String> list = query2.getResultList();
-		return list;
+	    Query query1 = entityManager.createQuery("SELECT id FROM Evento e WHERE e.descripcion = " + inputtedEvento);
+	    String statement = ("SELECT fechaEvento, repeticion FROM Evento WHERE descripcion = " + query1.setMaxResults(1).getSingleResult());
+		return this.listAndCast(statement);
 	}
 
 }
