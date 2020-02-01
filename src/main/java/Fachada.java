@@ -8,7 +8,10 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import componentes.Color;
+import componentes.Material;
 import componentes.Prenda;
+import componentes.TipoDePrenda;
+import componentes.Trama;
 import eventos.Evento;
 import guardarropas.Guardarropa;
 import repositorio.Repositorio;
@@ -92,7 +95,7 @@ public class Fachada {
 		String usuarioConectado = this.buscarUserNameConectado(request);
 		String statement_userID = String.format("SELECT id FROM Usuario WHERE userName = '%s'", usuarioConectado);
 		List<String> idDuenio = listAndCast(statement_userID);
-		String statement_Guardarropas = "SELECT DISTINCT Nombre FROM Guardarropa WHERE usuario_id = '" + listToString(idDuenio) +"'  ";
+		String statement_Guardarropas = "SELECT DISTINCT Nombre FROM Guardarropa WHERE usuario_id = "+ listToString(idDuenio);
 	    return listAndCast(statement_Guardarropas);
 	}	
 	
@@ -104,8 +107,9 @@ public class Fachada {
 	}
 	
 	private String listToString(List<String> list) {
-		int size = list.toString().length() - 1;
-		return list.toString().substring(1, size);
+		//int size = list.toString().length() - 1;
+		//return list.toString().substring(1, size);
+		return String.valueOf(list.get(0));
 	}
 	
 	public void crearGuardarropasAlPibe(Request request) {
@@ -120,38 +124,56 @@ public class Fachada {
 	}
 	
 	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {
-	    Query idGuardarropas = entityManager.createQuery("SELECT id FROM Guardarropa g WHERE g.Nombre = :guardarropa").setParameter("guardarropa", inputtedguardarropas);
+	    Query idGuardarropas = entityManager.createQuery(String.format("SELECT id FROM Guardarropa g WHERE g.Nombre = '%s'",inputtedguardarropas));
 	    String statement = ("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = " + idGuardarropas.setMaxResults(1).getSingleResult());
 		return listAndCast(statement);
 	}
 	
 	public List<String> devolverTodosLosTipoDePrendas() {
 		return devolverTodosLos("TipoDePrenda");
-	}	
+	}
+	
 	public List<String> devolverTodosLosMateriales() {
 	    return devolverTodosLos("Material");
-	}	
+	}
+	
 	public List<String> devolverTodosLasTramas() {
 	    return devolverTodosLos("trama");
-	}	
+	}
+	
 	public List<String> devolverTodosLosUsuarios() {
 		return devolverTodosLos("usuario");
 	}
-	private List<String> devolverTodosLos(String algo) {
-	    String statement = ("SELECT DISTINT nombre FROM "+ algo);
+	
+	private List<String> devolverTodosLos(String columna) {
+	    String statement = (String.format("SELECT DISTINCT nombre FROM %s",columna));
 		return listAndCast(statement);
 	}
 
-	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String colorHEX,	String trama, String guardarropa) {		
-
+	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String colorHEX,	String trama, String guardarropa) {
+		//System.out.println("Guardarropas:" + guardarropa);
 		//convertimos strings a objetos	
-		componentes.TipoDePrenda unTipo= repositorio.tipo().buscarTipoDePrendaPorNombre(tipoDePrenda);
+		TipoDePrenda unTipo= convertirStringAObjeto(TipoDePrenda.class, "TipoDePrenda", tipoDePrenda);
 		Color unColor = this.hex2Rgb(colorHEX);
-		componentes.Material unMaterial= repositorio.material().buscarMaterialPorNombre(material);
-		componentes.Trama unaTrama= repositorio.trama().buscarTramaPorNombre(trama);
-		Prenda unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor, unaTrama );		
-        System.out.println(unaPrenda);				
-		repositorio.prenda().persistir(unaPrenda);		
+		Material unMaterial= convertirStringAObjeto(Material.class, "Material", material);
+		Trama unaTrama= convertirStringAObjeto(Trama.class, "trama", trama);
+		Prenda unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor, unaTrama );
+		System.out.println(unaPrenda);
+		Guardarropa unGuardarropa = convertirStringAObjeto(Guardarropa.class, "Guardarropa", guardarropa);
+		//try {
+			unGuardarropa.agregarAGuardarropas(unaPrenda);
+			repositorio.prenda().persistir(unaPrenda);
+		/*	
+		} catch (Exception e) {
+			System.out.println("LPQTP");
+		}*/					
+	}
+	
+	private <T> T convertirStringAObjeto(Class<T> entityClass, String columnaSQL, String aConvertir) {
+		String statement = String.format("SELECT id FROM %s WHERE nombre = '%s'", columnaSQL, aConvertir);
+		Long id = Long.valueOf(listToString(listAndCast(statement)));
+        //System.out.println("id: "+id);
+		return entityManager.find(entityClass, id);
 	}
 	
 	private Color hex2Rgb(String hex) {
@@ -183,16 +205,14 @@ public class Fachada {
 		//TODO		
 	}
 
-	public void modificarPercepcion(String percepcionCabeza, String percepcionCuello, String percepcionTorso,
-			String percepcionManos, String percepcionPiernas, String percepcionCalzado,Request request) 
-	{
+	public void modificarPercepcion(String cabeza, String cuello, String torso, String manos, String piernas, String calzado, Request request) {
 		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
-		usuarioLogueado.getPercepcion().modificarPercepcionCabeza(Integer.parseInt(percepcionCabeza));
-		usuarioLogueado.getPercepcion().modificarPercepcionCuello(Integer.parseInt(percepcionCuello));	
-		usuarioLogueado.getPercepcion().modificarPercepcionTorso(Integer.parseInt(percepcionTorso));
-		usuarioLogueado.getPercepcion().modificarPercepcionManos(Integer.parseInt(percepcionManos));
-		usuarioLogueado.getPercepcion().modificarPercepcionPiernas(Integer.parseInt(percepcionPiernas));
-		usuarioLogueado.getPercepcion().modificarPercepcionCalzado(Integer.parseInt(percepcionCalzado));
+		usuarioLogueado.getPercepcion().modificarPercepcionCabeza(Integer.parseInt(cabeza));
+		usuarioLogueado.getPercepcion().modificarPercepcionCuello(Integer.parseInt(cuello));	
+		usuarioLogueado.getPercepcion().modificarPercepcionTorso(Integer.parseInt(torso));
+		usuarioLogueado.getPercepcion().modificarPercepcionManos(Integer.parseInt(manos));
+		usuarioLogueado.getPercepcion().modificarPercepcionPiernas(Integer.parseInt(piernas));
+		usuarioLogueado.getPercepcion().modificarPercepcionCalzado(Integer.parseInt(calzado));
 		repositorio.usuario().actualizar(usuarioLogueado);
 	}
 	
@@ -202,7 +222,7 @@ public class Fachada {
 	}
 	
 	public List<String> devolverTodasLosDetalles(String inputtedEvento) {
-	    Query query1 = entityManager.createQuery("SELECT id FROM Evento e WHERE e.descripcion = " + inputtedEvento);
+	    Query query1 = entityManager.createQuery(String.format("SELECT id FROM Evento e WHERE e.descripcion = '%s'",inputtedEvento));
 	    String statement = ("SELECT fechaEvento, repeticion FROM Evento WHERE descripcion = " + query1.setMaxResults(1).getSingleResult());
 		return this.listAndCast(statement);
 	}

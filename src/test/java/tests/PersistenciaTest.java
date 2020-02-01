@@ -146,7 +146,7 @@ public class PersistenciaTest {
 	jazul.setApellido("Azul");
 	jazul.setMail("jazul@hotmail.com.ar");
 	jazul.setPassword("123456");
-	jazul.hacersePremium();
+	//jazul.hacersePremium();
 	
 	ropaAroco.setNombre("Guardarropa de Aroco");
 	ropaJazul.setNombre("Guardarropa de J Azul");

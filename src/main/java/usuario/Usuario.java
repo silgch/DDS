@@ -49,11 +49,11 @@ public class Usuario{
 	/*El gestorDeCuentas es el asistente que entrega/upgredea la cuenta del usuario
 	 * no hace falta persistirlo*/
 	
-	@Transient 
-	private GestorDeCuentas gestorCuenta;
+	/*@Transient 
+	private GestorDeCuentas gestorCuenta;*/
 	
-	@Transient 
-	private Cuenta tipoDeCuenta;
+	/*@Transient 
+	private Cuenta tipoDeCuenta;*/
 	
 	private boolean usuario_premium = false;
 	
@@ -69,10 +69,10 @@ public class Usuario{
 	
 	public Usuario(String name){
 		this.userName = name;
-		gestorCuenta = new GestorDeCuentas();
+		//gestorCuenta = new GestorDeCuentas();
 		percepcion = new PercepcionDeTemperatura();
 		managerDeEventos = new CommandParaEventos(this);
-		tipoDeCuenta = gestorCuenta.creameUnaCuenta();
+		//tipoDeCuenta = gestorCuenta.creameUnaCuenta();
 		//tipoDeUsuario = this.tipoDeCuenta.nombre;
 		}
 	
@@ -80,9 +80,7 @@ public class Usuario{
 	public List<Guardarropa> getGuardarropas() {
 		return guardarropas;
 	}
-	public Cuenta getTipoDeCuenta() {
-		return tipoDeCuenta;
-	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -102,12 +100,15 @@ public class Usuario{
 	public String getNombre() {
 		return nombre;
 	}
+	public boolean esPobre() {
+		return !(this.usuario_premium);
+	}
 
 	
 	// Setters
-	public void setTipoDeCuenta(Cuenta tipoDeCuenta) {
+	/*public void setTipoDeCuenta(Cuenta tipoDeCuenta) {
 		this.tipoDeCuenta = tipoDeCuenta;
-	}
+	}*/
 	public void setMail(String m) {this.mail = m;}
 	public void setPassword(String password) {
 		this.password = password;
@@ -118,7 +119,7 @@ public class Usuario{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public void hacersePremium() {usuario_premium = true;}
+	//public void hacersePremium() {usuario_premium = true;}
 
 	
 	
@@ -126,13 +127,11 @@ public class Usuario{
 	
 	/*
 	 * La idea es que cada usuario tenga guardarropas propio, con limite dado por su tipo
-	 * de cuenta, sin embargoun usario puede compartir su guardarropa con otra persona 
+	 * de cuenta, sin embargo un usario puede compartir su guardarropa con otra persona 
 	 * (algo así como el drive de google). Y lo que hace 
-	 * compartirGuardarropasCon(guardarropa,otroUsuario) es agregar un guardarropa propio 
-	 * a la lista de guardarropas de otrousario 
+	 * compartirGuardarropasCon(guardarropa,otroUsuario)
 	 */
-
-
+	
 	public void agregarGuardarropa(Guardarropa guardarropa) {
 		guardarropas.add(requireNonNull(guardarropa));
 		guardarropa.duenio(this);
@@ -147,9 +146,9 @@ public class Usuario{
 		guardarropasCompartidos.add(requireNonNull(guardarropa));
 	}
 	
-	public boolean tieneGuardarropaLleno(int cantidadDePrendas) {
+	/*public boolean tieneGuardarropaLleno(int cantidadDePrendas) {
 		return tipoDeCuenta.tieneGuardarropaLleno(cantidadDePrendas);
-	}	
+	}*/	
 
 	
 	//Métodos con Eventos

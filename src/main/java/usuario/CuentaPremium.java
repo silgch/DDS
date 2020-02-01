@@ -1,4 +1,4 @@
-package usuario;
+/*package usuario;
 
 public class CuentaPremium implements Cuenta{
 	public String nombre = "CuentaPremium";
@@ -7,4 +7,4 @@ public class CuentaPremium implements Cuenta{
 	public boolean tieneGuardarropaLleno(int n) {
 		return false;
 	}
-}
+}*/

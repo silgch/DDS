@@ -1,4 +1,4 @@
-package usuario;
+/*package usuario;
 
 
 public class CuentaGratuita implements Cuenta{
@@ -9,4 +9,4 @@ public class CuentaGratuita implements Cuenta{
 	public boolean tieneGuardarropaLleno(int cantidadDePrendas) {
 		return !(cantidadDePrendas < maximoDePrendas);
 	}
-}
+}*/

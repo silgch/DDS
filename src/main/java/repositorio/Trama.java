@@ -6,7 +6,7 @@ public class Trama extends Repositorio{
 	Trama(EntityManager em) {
 		super(em);
 	}
-	public componentes.Trama buscarTramaPorNombre(String nombre) {
+	public componentes.Trama convertirTipoDePrenda(String nombre) {
 		
 		return  em.createQuery("SELECT t FROM Trama  t WHERE nombre = '"+ nombre+"' ", componentes.Trama.class)
 		.getResultList().get(0);

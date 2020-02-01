@@ -142,7 +142,7 @@ public class SparkApp {
             
             fachada.persistimeEstaPrenda(nombre,tipoDePrenda,material,colorHEX,trama,guardarropa);            
 
-            return ViewUtil.render(request, model, "templates/new_prenda.html");
+            return ViewUtil.render(request, model, "templates/home.html");
         });        
         
         get("/new-event",(request, response) -> {

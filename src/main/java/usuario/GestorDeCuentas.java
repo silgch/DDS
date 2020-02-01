@@ -1,4 +1,4 @@
-package usuario;
+/*package usuario;
 
 public class GestorDeCuentas {
 	
@@ -8,4 +8,4 @@ public class GestorDeCuentas {
 	public void upgradear(Cuenta cuantaPobre) {
 		cuantaPobre = new CuentaPremium();
 	}
-}
+}*/

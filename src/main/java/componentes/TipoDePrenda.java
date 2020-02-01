@@ -85,7 +85,9 @@ public class TipoDePrenda{
 		//Si el material no se encuentra tiposDeMaterialesPermitidos tira excepción
 		if(tiposDeMaterialesPermitidos==null); //No se seleccionaron los tiposDeMaterialesPermitidos
 		else if (!tiposDeMaterialesPermitidos.contains(unMaterial)) { //&& ) {
-			throw new IllegalArgumentException("Material No Permitido");
+			//throw new IllegalArgumentException("Material No Permitido");
+            System.out.println("Material no Permitido");
+
 		}
 	}
 	
