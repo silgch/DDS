@@ -15,19 +15,19 @@ public class SparkApp {
             System.out.println(fachada.buscarUserNameConectado(request));
             fachada.chequearQueHayaAlguienConectado(request, response);           
             Map<String, Object> model = new HashMap<>();
-            return ViewUtil.render(request, model, "templates/home.html");
+            return ViewUtil.render(request, model, "templates/home.vm");
         });
         
         get("/home", (request, response) -> {            
             System.out.println(fachada.buscarUserNameConectado(request));
             fachada.chequearQueHayaAlguienConectado(request, response);           
             Map<String, Object> model = new HashMap<>();
-            return ViewUtil.render(request, model, "templates/home.html");
+            return ViewUtil.render(request, model, "templates/home.vm");
         });   
         
         get("/register", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            return ViewUtil.render(request, model, "templates/register.html");
+            return ViewUtil.render(request, model, "templates/register.vm");
         });
         
         post("/register",(request, response) -> {   	
@@ -40,20 +40,20 @@ public class SparkApp {
             
             if (fachada.usuarioExiste(inputtedUsername)) {
             	model.put("registrationFailed", true);
-            	return ViewUtil.render(request, model, "templates/register.html");
+            	return ViewUtil.render(request, model, "templates/register.vm");
     		}
             request.session().attribute("user", inputtedUsername);
             model.put("user", inputtedUsername);            
             //System.out.println(inputtedUsername + inputtedPassword);         
             fachada.registrarUsuarioCon(inputtedFirstName,inputtedLastName,inputtedEmail,inputtedUsername,inputtedPassword);
-            return ViewUtil.render(request, model, "templates/home.html");
+            return ViewUtil.render(request, model, "templates/home.vm");
         });            
         
         get("/login",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("loggedOut", ViewUtil.removeSessionAttrLoggedOut(request));
             model.put("loginRedirect", ViewUtil.removeSessionAttrLoginRedirect(request));
-            return ViewUtil.render(request, model, "templates/login.html");
+            return ViewUtil.render(request, model, "templates/login.vm");
         });    
         
         post("/login",(request, response) -> {        	
@@ -64,7 +64,7 @@ public class SparkApp {
             boolean existe = fachada.chequearSiExiste(inputtedUsername,inputtedPassword);
             if(!existe) {            	
             	model.put("authenticationFailed", true);
-            	return ViewUtil.render(request, model, "templates/login.html");
+            	return ViewUtil.render(request, model, "templates/login.vm");
             }                       
             model.put("authenticationSucceeded", true);
             request.session().attribute("user", inputtedUsername);
@@ -72,7 +72,7 @@ public class SparkApp {
             if (request.queryParams("loginRedirect") != null) {
                 response.redirect(request.queryParams("loginRedirect"));
             }
-            return ViewUtil.render(request, model, "templates/home.html");
+            return ViewUtil.render(request, model, "templates/home.vm");
         });
         
         post("/logout",(request, response) -> {
@@ -84,7 +84,7 @@ public class SparkApp {
         
         put("/detallesEventos", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            return ViewUtil.render(request, model, "templates/detallesEventos.html");
+            return ViewUtil.render(request, model, "templates/detallesEventos.vm");
         });       
         
         get("/guardarropas", (request, response) -> {
@@ -92,7 +92,7 @@ public class SparkApp {
             List<String> guardarropas = fachada.devolverTodosLosGuardarropas(request);
             guardarropas.add("[Crear Nuevo Guardarropas]");
             model.put("guardarropas", guardarropas);
-            return ViewUtil.render(request, model, "templates/guardarropas.html");
+            return ViewUtil.render(request, model, "templates/guardarropas.vm");
         });
         
         post("/guardarropas", (request, response) -> {
@@ -108,7 +108,7 @@ public class SparkApp {
             model.put("guardarropa", inputtedguardarropa);
             model.put("prendas", prendas);            
 
-            return ViewUtil.render(request, model, "templates/prendas.html");
+            return ViewUtil.render(request, model, "templates/prendas.vm");
         });
         
         get("/new-prenda",(request, response) -> {
@@ -122,7 +122,7 @@ public class SparkApp {
             model.put("tramas", tramas);
             model.put("guardarropas", guardarropas);  
 
-            return ViewUtil.render(request, model, "templates/new_prenda.html");
+            return ViewUtil.render(request, model, "templates/new_prenda.vm");
         });
         
         post("/new-prenda",(request, response) -> {  	
@@ -142,14 +142,14 @@ public class SparkApp {
             
             fachada.persistimeEstaPrenda(nombre,tipoDePrenda,material,colorHEX,trama,guardarropa);            
 
-            return ViewUtil.render(request, model, "templates/home.html");
+            return ViewUtil.render(request, model, "templates/home.vm");
         });        
         
         get("/new-event",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<String> guardarropas = fachada.devolverTodosLosGuardarropas(request);
             model.put("guardarropas", guardarropas);
-            return ViewUtil.render(request, model, "templates/new_event.html");
+            return ViewUtil.render(request, model, "templates/new_event.vm");
 
         });
         
@@ -166,18 +166,17 @@ public class SparkApp {
             request.session().attribute("when", when);
             
             System.out.println(guardarropa+place+description+when);
-            fachada.persistimeEsteEvento(guardarropa,place,description,when,request);            
-
-            return ViewUtil.render(request, model, "templates/sugerencia.html");
-        }); 
-        
-        get("/sugerencia",(request, response) -> {
-            Map<String, Object> model = new HashMap<>();
+            fachada.persistimeEsteEvento(guardarropa,place,description,when,request); 
+            
             List<String> sugerencia = fachada.devolverUnaSugerenciaParaUltimoEvento();
             model.put("sugerencia", sugerencia);
-
-            return ViewUtil.render(request, model, "templates/sugerencia.html");
-        });
+            return ViewUtil.render(request, model, "templates/sugerencia.vm");
+        }); 
+        
+        /*get("/sugerencia",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return ViewUtil.render(request, model, "templates/sugerencia.vm");
+        });*/
         
         post("/sugerencia",(request, response) -> {  	
             Map<String, Object> model = new HashMap<>();
@@ -199,7 +198,7 @@ public class SparkApp {
       
             fachada.aceptarSugencia(sugerencia);
             fachada.modificarPercepcion(percepcionCabeza,percepcionCuello,percepcionTorso,percepcionManos,percepcionPiernas,percepcionCalzado,request);
-            return ViewUtil.render(request, model, "templates/sugerencia.html");
+            return ViewUtil.render(request, model, "templates/sugerencia.vm");
         });
         
         
@@ -208,7 +207,7 @@ public class SparkApp {
             Query ids = (Query) fachada.todosLosIDSDeEventos();
             model.put("ids", ids); 
 
-            return ViewUtil.render(request, model, "templates/calendar.html");
+            return ViewUtil.render(request, model, "templates/calendar.vm");
 
         }); */
         
@@ -217,7 +216,7 @@ public class SparkApp {
             List<String> eventos = fachada.devolverTodosLosEventos();
             model.put("eventos", eventos);
 
-            return ViewUtil.render(request, model, "templates/calendar.html");            
+            return ViewUtil.render(request, model, "templates/calendar.vm");            
         });
         
         post("/calendar", (request, response) -> {
@@ -230,7 +229,7 @@ public class SparkApp {
             model.put("evento", inputtedEvento);
             model.put("detalles", detalles);            
 
-            return ViewUtil.render(request, model, "templates/detallesEventos.html");
+            return ViewUtil.render(request, model, "templates/detallesEventos.vm");
         });
         
         get("*",ViewUtil.notFound);

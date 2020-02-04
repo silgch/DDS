@@ -1,4 +1,4 @@
-package climaAPI.accuWheather;
+package climaAPI.accuWeather;
 
 import java.util.ArrayList;
 import java.util.List;

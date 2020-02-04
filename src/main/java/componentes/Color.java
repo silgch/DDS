@@ -18,6 +18,7 @@ public class Color{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
 	
+	@SuppressWarnings("unused")
 	private String nombre;
 	private int rojo;
 	private int verde;

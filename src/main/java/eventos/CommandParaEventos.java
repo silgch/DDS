@@ -5,35 +5,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/*
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient; 
-*/
-
 import componentes.Prenda;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
 
 
-//Asistente de eventos
 
 public class CommandParaEventos /*implements ICommand*/ {
-
 	
 	public CommandParaEventos() {}
 	
-	//private GestorDeClimaAPIs gestorDeAPIs;
-	//private ClimaAdapter api1 = gestorDeAPIs.entregarAPI();
-	
-
 	private Usuario usuario;	
 
 	private Set<Evento> colaEventosActivos = new HashSet<Evento>();	
@@ -77,8 +58,8 @@ public class CommandParaEventos /*implements ICommand*/ {
 		eventoTemporal.setSugerencia(sugerencia);
 		eventoTemporal.setGuardaropa(guardarropaTemporal);
 		System.out.println("La sugerencia: "+
-		sugerencia.devolverSugerenciaEnFormaDeString()+
-		" ha sido aceptada");
+				sugerencia.devolverSugerenciaEnFormaDeString()+
+				" ha sido aceptada");
 	}
 	
 	public void rechazarSugerencia(Sugerencia sugerencia) {
@@ -98,8 +79,7 @@ public class CommandParaEventos /*implements ICommand*/ {
 		listaDePrendasTemporal = null;
 		guardarropaTemporal = null;
 		eventoTemporal = null;		
-	}
-	
+	}	
 
 	public Set<Evento> getColaEventosActivos() {
 		return colaEventosActivos;
@@ -108,10 +88,4 @@ public class CommandParaEventos /*implements ICommand*/ {
 	public List<Prenda> getListaDePrendasTemporal() {
 		return listaDePrendasTemporal;
 	}
-	
-	
-	
-	
-	
-
 }

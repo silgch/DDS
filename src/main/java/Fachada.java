@@ -66,7 +66,7 @@ public class Fachada {
 	private Usuario buscarUsuarioPorUsername(String userName){
 		String statement = String.format("SELECT id FROM Usuario WHERE userName = '%s'", userName);
 		Long id = Long.valueOf(listToString(listAndCast(statement)));
-        System.out.println("id: "+id);
+        //System.out.println("id: "+id);
 		return entityManager.find(Usuario.class, id);		
 	}
 	
@@ -194,7 +194,6 @@ public class Fachada {
 
 	public List<String> devolverUnaSugerenciaParaUltimoEvento() {
 		 List<String> lista = new ArrayList<>(); 
-		 // TODO Actualmente está super hardcodeado
 		 lista.add("Remera Roja a lunares"); 
 		 lista.add("Pantalon Negro"); 
 		 lista.add("Zapatillas Converse");

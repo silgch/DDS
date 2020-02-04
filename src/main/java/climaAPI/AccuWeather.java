@@ -7,9 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import com.google.gson.Gson;
 
-import climaAPI.accuWheather.AWError;
-import climaAPI.accuWheather.ClimaCiudad;
-import climaAPI.accuWheather.RetornoAW;
+import climaAPI.accuWeather.AWError;
+import climaAPI.accuWeather.ClimaCiudad;
+import climaAPI.accuWeather.RetornoAW;
 import excepciones.NoConexionApiException;
 
 

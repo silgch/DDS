@@ -1,6 +1,14 @@
 /*
- * La idea es que cuando un usuario tenga un evento primero cargue todos los datos
- * del mismo; descripcion, lugar, fecha, etc. y luego lo encole
+ * DESCRIPCION DE COMO FUNCIONAN LOS EVENTOS:
+ * 
+ *   	ines.crearEvento(LocalDate.now(), "Miamiii", "4174383"); 											-USA EL CommandParaEventos-USA el Evento-
+	    ines.pedirSugerencia(guardarropaInesUno); 															-USA EL CommandParaEventos-
+	    Sugerencia sugerencia1 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());	-USA EL CommandParaEventos-
+	    -PEDIR OPINIÓN DE INES SOBRE LA SUGERENCIA-
+	    ines.aceptarSugerencia(sugerencia1);	    
+	    ines.getPercepcion().modificarPercepcion...;	    
+	    repositorio.percepcion_temperatura().actualizar(ines.preferencias); //o algo asi
+	    repositorio.evento().persistir(ines.getManagerDeEventos().getEventoTemporal());
  */
 
 package eventos;
@@ -33,8 +41,7 @@ public class Evento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
-	public Evento() {}
-	
+	public Evento() {}	
 	
 	private LocalDate fechaEvento;
 	private String descripcion;
@@ -45,7 +52,9 @@ public class Evento {
 	
 	@Transient
 	private Guardarropa guardarropa;
-	@Transient
+	
+	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name = "referencia_id", referencedColumnName="id")
 	private Sugerencia sugerencia;
 	private String repeticion;
 	

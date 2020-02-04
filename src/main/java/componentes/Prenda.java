@@ -55,7 +55,6 @@ public class Prenda{
 	@ManyToOne(cascade=CascadeType.ALL,optional = true)
 	@JoinColumn(name = "guardarropa_id", referencedColumnName = "id") 
 	private Guardarropa guardarropa;
-
 	
 	private String urlImagen;
 	

@@ -1,4 +1,4 @@
-package climaAPI.accuWheather;
+package climaAPI.accuWeather;
 
 public class DailyForecast {
 

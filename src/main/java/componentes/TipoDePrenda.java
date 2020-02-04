@@ -2,7 +2,7 @@ package componentes;
 
 import java.util.Set;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -34,6 +34,7 @@ public class TipoDePrenda{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;	
 	
+    @Column(nullable = false, unique = true, length = 20)
 	private String nombre;	
 	
 	@Enumerated(EnumType.STRING)

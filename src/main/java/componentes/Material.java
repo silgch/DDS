@@ -3,6 +3,7 @@ package componentes;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,19 +20,17 @@ public class Material {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long id;
+	Long id;	
 	
-	
+    @Column(nullable = false, unique = true, length = 20)
 	private String nombre;
 
 	@ManyToMany(mappedBy = "tiposDeMaterialesPermitidos")
-	 private Set<TipoDePrenda> tiposDePrenda=new HashSet();
+	private Set<TipoDePrenda> tiposDePrenda = new HashSet<TipoDePrenda>();
 	
-	public Material(String nombre) {
-	
+	public Material(String nombre) {	
 		this.nombre = nombre;
 	}
-	
 	
 	public Material() {}
 	
