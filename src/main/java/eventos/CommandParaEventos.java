@@ -36,7 +36,7 @@ public class CommandParaEventos /*implements ICommand*/ {
 		this.getColaEventosActivos().add(evento);
 		System.out.println("El usuario " + usuario.getNombre() +
 				" agregó el evento " + evento.getDescripcion()+
-				" a realizarse el " + evento.getFechaEvento());
+				" a realizarse el " + evento.getFecha());
 		eventoTemporal = evento;
 	}
 	public void generarSugerenciaPara(Guardarropa unGuardarropa,Evento evento) throws Exception {

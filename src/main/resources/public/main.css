@@ -228,3 +228,20 @@ a .bookCover img {
 .bad.notification {
     background: #bb0000;
 }
+
+
+thead th {
+    background: #35D380;
+    color: #fff;    
+    padding: 0px 5px;
+}
+  
+tr { background: #f1f1f1; }
+  
+tr:nth-child(2n) { background: #e0e0e0; }
+  
+th, td {
+    text-align: left;
+    padding: 0px 2px;
+    
+}

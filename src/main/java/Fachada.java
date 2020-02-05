@@ -26,7 +26,7 @@ public class Fachada {
 	private static EntityManager entityManager;
 
 	// Cause Fachada is a Singleton 
-    private static Fachada single_instance = null; 
+    private static Fachada single_instance = null;
     private Fachada(){
     	this.inicializar();
     }
@@ -215,10 +215,22 @@ public class Fachada {
 		repositorio.usuario().actualizar(usuarioLogueado);
 	}
 	
-	public List<String> devolverTodosLosEventos() {
-		String statement = ("SELECT DISTINCT descripcion FROM Evento");
-	    return this.listAndCast(statement);
+	
+	public List<Evento> devolverTodosLosEventos(Request request) {
+		String usuarioConectado = this.buscarUserNameConectado(request);
+		String statement_userID = String.format("SELECT id FROM Usuario WHERE userName = '%s'", usuarioConectado);
+		List<String> idDuenio = listAndCast(statement_userID);
+		String statement_Eventos = "SELECT DISTINCT id FROM Evento WHERE usuario_id = "+ listToString(idDuenio);
+		Query queryIDUsuario = entityManager.createQuery(statement_Eventos);
+		//@SuppressWarnings("unchecked")
+		//List<String> list_string = queryIDUsuario.getResultList();
+		List<Evento> list_event = new ArrayList<>(); 
+		for (Object i : queryIDUsuario.getResultList() ) {
+			list_event.add(entityManager.find(Evento.class, i)); 
+		}
+		return list_event;
 	}
+	
 	
 	public List<String> devolverTodasLosDetalles(String inputtedEvento) {
 	    Query query1 = entityManager.createQuery(String.format("SELECT id FROM Evento e WHERE e.descripcion = '%s'",inputtedEvento));

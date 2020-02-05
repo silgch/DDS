@@ -56,6 +56,7 @@ public class Evento {
 	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name = "referencia_id", referencedColumnName="id")
 	private Sugerencia sugerencia;
+	
 	private String repeticion;
 	
 	@Transient
@@ -189,7 +190,7 @@ public class Evento {
 	}
 	
 	//Getters
-	public LocalDate getFechaEvento() {
+	public LocalDate getFecha() {
 		return fechaEvento;
 	}
 	public String getDescripcion() {
@@ -203,6 +204,14 @@ public class Evento {
 	}
 	public Guardarropa getGuardaropa() {
 		return guardarropa;
-	}	
+	}
+	
+	public Sugerencia getSugerencia() {
+		return sugerencia;
+	}
+	
+	public String getRepeticion() {
+		return repeticion;
+	}
 
 }

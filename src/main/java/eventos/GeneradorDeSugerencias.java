@@ -47,7 +47,7 @@ public class GeneradorDeSugerencias{
     public List<Prenda> sugerirEnBaseAPersepcion(Guardarropa unGuardarropa,Usuario unUsuario,Evento evento) throws Exception{
     	
     	String codigoCiudad = evento.getUbicacion();
-		LocalDate fecha = evento.getFechaEvento();
+		LocalDate fecha = evento.getFecha();
     	
     	// ejemplo String codigoCiudad = "3433955";
     	tempReal = api1.obtenerClima(codigoCiudad);

@@ -23,6 +23,7 @@
             <p> <a href="/guardarropas">See your Wardrobes</a></p>
             <p> <a href="/new-prenda">Create a New Prenda</a></p>
             <p> <a href="/new-event">Create a New Event</a></p>
+            <p> <a href="/calendar">See your Events</a></p>
 </html>
 
 #end

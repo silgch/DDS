@@ -1,14 +1,61 @@
-#parse("/templates/layout.vm")
+#parse("/templates/layout.vm") 
 #@mainLayout()
-<h1>Listado De Eventos</h1>
 
-<form action="/calendar" id="eventosForm" method="post">
-    <div class="row row-3">
-        #foreach($evento in $eventos)
-        <p>
-            <input type="submit" value="$evento" name="evento">            
-        </p>
-        #end
-    </div>
-</form>
+<div style="overflow-x:auto;">
+    <table class="egt">
+
+        <caption>Detalles de Eventos</caption>
+
+        <thead>
+
+            <tr>
+
+                <th scope="col">Descripción</th>
+
+                <th>Fecha</th>
+
+                <th>ID_ubicación</th>
+
+                <th>Repeticion</th>
+
+                <th>Sugerencia</th>
+
+                <th>Generar sugerencia</th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+
+            #foreach($evento in $eventos)
+            <tr>
+
+                <th>$!evento.getDescripcion()</th>
+
+                <th>$!evento.getFecha()</th>
+
+                <th>$!evento.getUbicacion()</th>
+
+                <th>$!evento.getRepeticion()</th>
+
+                <th>
+                    #if ($evento.getSugerencia())
+                    <input type="submit" name="$evento" value="iD: $!evento.getSugerencia()"> 
+                    #end #if (!$evento.getSugerencia())
+                    <input type="submit" name="$evento" value="ID: NULL"> 
+                    #end
+
+                </th>
+
+                <th>
+                    <input type="submit" name="$evento" value="Solicitar Nueva Sugerencia">
+                </th>
+
+            </tr>
+            #end
+        </tbody>
+
+    </table>
+</div>
+
 #end

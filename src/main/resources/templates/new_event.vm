@@ -6,7 +6,6 @@
 
     <h1>Crear un nuevo evento</h1>
 
-
     <form action="/new-event" id="EventForm" method="post">    
     <select name="guardarropa">
         <option value="-1">-Seleccionar Guardarropa-</option>
@@ -14,8 +13,10 @@
         <option value="guardarropa">$guardarropa</option>
         #end
     </select>
-    <p>Ubicacion:&nbsp; &nbsp;&nbsp;
-        <input maxlength="100" name="place" type="text" value="" />
+    <p>GeonameID:&nbsp; &nbsp;&nbsp; 
+        <input maxlength="9" name="place" type="text" value="" placeholder="3433955" />
+        <a href="https://www.geonames.org/3433955/ciudad-autonoma-de-buenos-aires.html">(CABA Example)</a>
+        <a href="https://www.wikidata.org/wiki/Property:P1566">(More Info)</a>
     </p>
     <p>Descripcion:&nbsp;
         <input maxlength="200" name="description" type="text" value="" />

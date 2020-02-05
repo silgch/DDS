@@ -71,7 +71,7 @@ public class JavaUtilMail implements INotificador{
 	@Override	
 	public void notificaSiHayEventoHoy(Usuario usuario,CommandParaEventos managerDeEventos) throws AddressException, MessagingException{
 		for (Evento evento : managerDeEventos.getColaEventosActivos()) {
-			if(evento.getFechaEvento().compareTo(LocalDate.now()) == 0)
+			if(evento.getFecha().compareTo(LocalDate.now()) == 0)
 				this.enviarMail();
 			}
 		}

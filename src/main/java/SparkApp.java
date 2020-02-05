@@ -2,6 +2,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import eventos.Evento;
+
 import static spark.Spark.*;
 
 public class SparkApp {
@@ -213,8 +215,9 @@ public class SparkApp {
         
         get("/calendar", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            List<String> eventos = fachada.devolverTodosLosEventos();
-            model.put("eventos", eventos);
+            Iterable<Evento> eventos = fachada.devolverTodosLosEventos(request);
+            model.put("eventos", eventos);          
+            
 
             return ViewUtil.render(request, model, "templates/calendar.vm");            
         });
@@ -244,5 +247,6 @@ public class SparkApp {
         return 4567;   
   
     } 
-  
+    
+
 }  
