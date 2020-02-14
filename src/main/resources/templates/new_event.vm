@@ -7,12 +7,12 @@
     <h1>Crear un nuevo evento</h1>
 
     <form action="/new-event" id="EventForm" method="post">    
-    <select name="guardarropa">
-        <option value="-1">-Seleccionar Guardarropa-</option>
-        #foreach( $guardarropa in $guardarropas )
-        <option value="guardarropa">$guardarropa</option>
-        #end
-    </select>
+       <select name="guardarropa" id="guardarropa">
+            <option value="-1">-Seleccionar Guardarropa-</option>
+            #foreach( $guardarropa in $guardarropas )
+                <option value="$guardarropa">$guardarropa</option>
+            #end
+        </select>
     <p>GeonameID:&nbsp; &nbsp;&nbsp; 
         <input maxlength="9" name="place" type="text" value="" placeholder="3433955" />
         <a href="https://www.geonames.org/3433955/ciudad-autonoma-de-buenos-aires.html">(CABA Example)</a>

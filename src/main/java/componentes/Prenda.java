@@ -3,6 +3,7 @@ package componentes;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 
 /*import eventos.Evento;
@@ -12,6 +13,7 @@ import usuario.Usuario;*/
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,6 +22,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "prenda")
@@ -52,13 +55,17 @@ public class Prenda{
 	@JoinColumn(name = "trama_id", referencedColumnName = "id")
     private Trama trama;
 	
-	@ManyToOne(cascade=CascadeType.ALL,optional = true)
-	@JoinColumn(name = "guardarropa_id", referencedColumnName = "id") 
+	//@ManyToOne(cascade=CascadeType.ALL,optional = true)
+	//@JoinColumn(name = "guardarropa_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
 	private Guardarropa guardarropa;
 	
 	private String urlImagen;
 	
 	private int calificacion=0;
+	
+	@ManyToMany(mappedBy = "prendas_de_sugerencia")
+	private Set<Sugerencia> sugerencia;
 	
 	@Transient
 	private List<LocalDate> listaDeFechasReservadas;

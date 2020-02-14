@@ -13,6 +13,7 @@ import componentes.Prenda;
 import componentes.TipoDePrenda;
 import componentes.Trama;
 import eventos.Evento;
+import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 import repositorio.Repositorio;
 import spark.*;
@@ -158,7 +159,6 @@ public class Fachada {
 		Material unMaterial= convertirStringAObjeto(Material.class, "Material", material);
 		Trama unaTrama= convertirStringAObjeto(Trama.class, "trama", trama);
 		Prenda unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor, unaTrama );
-		System.out.println(unaPrenda);
 		Guardarropa unGuardarropa = convertirStringAObjeto(Guardarropa.class, "Guardarropa", guardarropa);
 		//try {
 			unGuardarropa.agregarAGuardarropas(unaPrenda);
@@ -172,7 +172,6 @@ public class Fachada {
 	private <T> T convertirStringAObjeto(Class<T> entityClass, String columnaSQL, String aConvertir) {
 		String statement = String.format("SELECT id FROM %s WHERE nombre = '%s'", columnaSQL, aConvertir);
 		Long id = Long.valueOf(listToString(listAndCast(statement)));
-        //System.out.println("id: "+id);
 		return entityManager.find(entityClass, id);
 	}
 	
@@ -185,23 +184,74 @@ public class Fachada {
 
 	//Para trabajar con eventos
 
-	public void persistimeEsteEvento( String guardarropa, String place, String description, String when, Request request) {
-		LocalDate fecha = LocalDate.parse(when);		
-		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
-		Evento unEvento = new Evento(fecha, description, usuarioLogueado, place);
-		repositorio.evento().persistir(unEvento);		
-	}
+	public String persistimeEsteEvento(String guardarropaNombre, String place, String description, String when, Request request) {
+		LocalDate fecha = LocalDate.parse(when);
+		String username = buscarUserNameConectado(request);
+		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(username);
+		Guardarropa guardarropa = this.buscarGuardarropa(guardarropaNombre,username);
+	
+		Evento unEvento = new Evento(fecha, description, usuarioLogueado, place, guardarropa);
 
-	public List<String> devolverUnaSugerenciaParaUltimoEvento() {
-		 List<String> lista = new ArrayList<>(); 
-		 lista.add("Remera Roja a lunares"); 
-		 lista.add("Pantalon Negro"); 
-		 lista.add("Zapatillas Converse");
+		repositorio.evento().persistir(unEvento);
+		return unEvento.getID();
+	}
+	
+	private Guardarropa buscarGuardarropa(String guardarropa, String userName){
+		String statement = String.format("SELECT id FROM Usuario WHERE userName = '%s'", userName);
+		Long id_user = Long.valueOf(listToString(listAndCast(statement)));
+		
+		String statement2 = String.format("SELECT id FROM Guardarropa WHERE usuario_id = '%s' and Nombre = '%s'", id_user, guardarropa);
+		Long id_guardarropa = Long.valueOf(listToString(listAndCast(statement2)));		
+
+		Guardarropa guardarropa_final = entityManager.find(Guardarropa.class, id_guardarropa);
+		String statement3 = String.format("SELECT p FROM prenda p WHERE p.guardarropa.id = '%s' ", id_guardarropa);
+
+		List<Prenda> prendas = entityManager.createQuery(statement3, Prenda.class).getResultList();
+		
+		guardarropa_final.setPrendas(prendas);
+		 
+		return guardarropa_final;
+	}
+	
+	 
+
+	public List<String> devolverUnaSugerenciaParaEvento(String eventoID, Request request) throws Exception {
+        
+		Evento evento = this.eventoID_A_Evento(eventoID);
+
+        //System.out.println("Evento: "+evento);
+
+		List<String> lista = new ArrayList<>();
+		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
+		List<Prenda> prendas = usuarioLogueado.pedirSugerencia2(evento);
+		 
+		for (Prenda prenda : prendas) {
+			lista.add(prenda.getNombre()); 
+		}
 		return lista;
 	}
 	
-	public void aceptarSugencia(List<String> sugerencia) {
-		//TODO		
+	public Evento eventoID_A_Evento(String eventoID) {	      
+		return entityManager.find(Evento.class, Long.parseLong(eventoID));
+	}
+	
+	/*public List<String> devolverUnaSugerenciaParaUltimoEvento(Request request) throws Exception {
+		List<String> lista = new ArrayList<>();
+		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
+		List<Prenda> prendas = usuarioLogueado.pedirSugerenciaUltimoEvento();
+		 
+		for (Prenda prenda : prendas) {
+			lista.add(prenda.getNombre()); 
+		}
+		return lista;
+	}*/
+	
+	
+	public void aceptarSugencia(String eventoID, Request request) {
+		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
+		Evento evento = this.eventoID_A_Evento(eventoID);
+		evento.setSugerencia(new Sugerencia(usuarioLogueado.sugerenciaTemporal));
+		repositorio.evento().actualizar(evento);
 	}
 
 	public void modificarPercepcion(String cabeza, String cuello, String torso, String manos, String piernas, String calzado, Request request) {
@@ -222,8 +272,6 @@ public class Fachada {
 		List<String> idDuenio = listAndCast(statement_userID);
 		String statement_Eventos = "SELECT DISTINCT id FROM Evento WHERE usuario_id = "+ listToString(idDuenio);
 		Query queryIDUsuario = entityManager.createQuery(statement_Eventos);
-		//@SuppressWarnings("unchecked")
-		//List<String> list_string = queryIDUsuario.getResultList();
 		List<Evento> list_event = new ArrayList<>(); 
 		for (Object i : queryIDUsuario.getResultList() ) {
 			list_event.add(entityManager.find(Evento.class, i)); 
@@ -236,6 +284,17 @@ public class Fachada {
 	    Query query1 = entityManager.createQuery(String.format("SELECT id FROM Evento e WHERE e.descripcion = '%s'",inputtedEvento));
 	    String statement = ("SELECT fechaEvento, repeticion FROM Evento WHERE descripcion = " + query1.setMaxResults(1).getSingleResult());
 		return this.listAndCast(statement);
+	}
+
+	public List<String> devolverTodasLasPrendasDeSugerencia(String idSugerencia) {
+	    //Query idGuardarropas = entityManager.createQuery(String.format("SELECT id FROM Guardarropa g WHERE g.Nombre = '%s'",idSugerencia));
+	    String statement = ("SELECT DISTINCT prenda.nombre FROM sugerencia s join s.prendas_de_sugerencia as prenda WHERE s.id = " + idSugerencia);
+	    /*List<String> prendasID = listAndCast(statement);
+	    List<String> prendasNombre = new ArrayList<>();
+	    for (String prendaID : prendasID) {
+	    	prendasNombre.add(entityManager.find(Prenda.class, Long.valueOf(prendaID)).getNombre());	    	
+        }*/
+	    return listAndCast(statement);
 	}
 
 }

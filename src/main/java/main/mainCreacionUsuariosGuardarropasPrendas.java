@@ -9,7 +9,6 @@
 
 package main;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -213,13 +212,13 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		
 		//PROBANDO CALIFICAR SUGERENCIAS
 		
-	    ines.crearEvento(LocalDate.now(), "Las Toninas", "3431608");
-	    ines.pedirSugerencia(guardarropaInesUno);	    
+	   //ines.crearEvento(LocalDate.now(), "Las Toninas", "3431608");
+	    ines.pedirSugerencia();	    
 	    Sugerencia sugerencia2 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
 	    ines.rechazarSugerencia(sugerencia2);
     
-	    ines.crearEvento(LocalDate.now(), "Miamiii", "4174383");
-	    ines.pedirSugerencia(guardarropaInesUno);
+	    //ines.crearEvento(LocalDate.now(), "Miamiii", "4174383");
+	    ines.pedirSugerencia();
 	    Sugerencia sugerencia1 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
 	    ines.aceptarSugerencia(sugerencia1);
 	    

@@ -24,6 +24,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -50,11 +51,12 @@ public class Evento {
 	@JoinColumn(name = "usuario_id", referencedColumnName="id")
 	private Usuario usuario;
 	
-	@Transient
+	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name = "guardarropa_id", referencedColumnName="id")
 	private Guardarropa guardarropa;
 	
-	@ManyToOne( cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name = "referencia_id", referencedColumnName="id")
+	@OneToOne( cascade=CascadeType.ALL)
+	@JoinColumn(name = "sugerencia_id", referencedColumnName="id")
 	private Sugerencia sugerencia;
 	
 	private String repeticion;
@@ -72,16 +74,17 @@ public class Evento {
 	}*/
 
 	
-	public Evento(LocalDate fechaEvento, String descripcion, Usuario usuario, String ubicacion) {
+	public Evento(LocalDate fechaEvento, String descripcion, Usuario usuario, String ubicacion, Guardarropa guardarropa) {
 		this.fechaEvento = fechaEvento;
 		this.descripcion = descripcion;
 		this.usuario = usuario;
 		this.ubicacionParaAPI = ubicacion;
-		this.repeticion = "UNICO";  //Averiguar como implementar calendario de google.		
+		this.repeticion = "UNICO";  //Averiguar como implementar calendario de google.
+		this.guardarropa = guardarropa;
 	}
 	
 	public Evento CrearSiguienteEvento() throws Exception {
-        return new Evento(this.calcularSiguienteFecha(), this.descripcion, this.usuario, this.ubicacionParaAPI);
+        return new Evento(this.calcularSiguienteFecha(), this.descripcion, this.usuario, this.ubicacionParaAPI, this.guardarropa);
     }
     
     private LocalDate calcularSiguienteFecha() throws Exception {
@@ -127,6 +130,7 @@ public class Evento {
                 return false;
         }
     }
+	
 	
 		/*switch(estado) {
 		case ACEPTADA : this.reservameTodasLasPrendas();
@@ -212,6 +216,10 @@ public class Evento {
 	
 	public String getRepeticion() {
 		return repeticion;
+	}
+	
+	public String getID() {
+		return Long.toString(this.id);
 	}
 
 }

@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name = "percepcion_temperatura")
@@ -12,8 +14,12 @@ import javax.persistence.Table;
 public class PercepcionDeTemperatura {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = true, nullable = false)
+	@Column(name = "id", nullable = false)
 	private Long id;
+	
+	@OneToOne
+    @JoinColumn(name = "usuario_id")
+	private Usuario usuario;
 	
 	private int percepcionCabeza = 0;
 	private int percepcionCuello = 0;

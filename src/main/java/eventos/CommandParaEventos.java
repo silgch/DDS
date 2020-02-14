@@ -1,6 +1,5 @@
 package eventos;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,22 +30,22 @@ public class CommandParaEventos /*implements ICommand*/ {
 		usuario = miUsuario;
 	}
 	
-	public void crearEvento(LocalDate fecha, String descripcion, String ubicacion) throws Exception{
+	/*public void crearEvento(LocalDate fecha, String descripcion, String ubicacion) throws Exception{
 		Evento evento = new Evento(fecha, descripcion, usuario, ubicacion);
 		this.getColaEventosActivos().add(evento);
 		System.out.println("El usuario " + usuario.getNombre() +
 				" agregó el evento " + evento.getDescripcion()+
 				" a realizarse el " + evento.getFecha());
 		eventoTemporal = evento;
-	}
+	}*/
 	public void generarSugerenciaPara(Guardarropa unGuardarropa,Evento evento) throws Exception {
 		//String codigoCiudad = "3433955" es para CABA;
 		listaDePrendasTemporal = sugiridor.sugerirEnBaseAPersepcion(unGuardarropa, usuario, evento);	
 		guardarropaTemporal = unGuardarropa;
 		eventoTemporal = evento;
 	}
-	public void generarSugerenciaParaUltimoEventoCreado(Guardarropa unGuardarropa) throws Exception {
-		this.generarSugerenciaPara(unGuardarropa, eventoTemporal);
+	public void generarSugerenciaParaUltimoEventoCreado() throws Exception {
+		this.generarSugerenciaPara(eventoTemporal.getGuardaropa(), eventoTemporal);
 	}
 	
 	public Evento getEventoTemporal() {
@@ -54,7 +53,7 @@ public class CommandParaEventos /*implements ICommand*/ {
 	}
 	
 	public void aceptarSugerencia(Sugerencia sugerencia) {
-		sugerencia.setEstado(EnumEstadoSugerencia.ACEPTADA);
+		//sugerencia.setEstado(EnumEstadoSugerencia.ACEPTADA);
 		eventoTemporal.setSugerencia(sugerencia);
 		eventoTemporal.setGuardaropa(guardarropaTemporal);
 		System.out.println("La sugerencia: "+
@@ -63,7 +62,7 @@ public class CommandParaEventos /*implements ICommand*/ {
 	}
 	
 	public void rechazarSugerencia(Sugerencia sugerencia) {
-		sugerencia.setEstado(EnumEstadoSugerencia.RECHAZADA);
+		//sugerencia.setEstado(EnumEstadoSugerencia.RECHAZADA);
 		System.out.println("La sugerencia: "+
 				sugerencia.devolverSugerenciaEnFormaDeString()+
 				" ha sido rechazada");
@@ -88,4 +87,15 @@ public class CommandParaEventos /*implements ICommand*/ {
 	public List<Prenda> getListaDePrendasTemporal() {
 		return listaDePrendasTemporal;
 	}
+
+	public List<Prenda> generarSugerenciaParaEvento(Evento evento) throws Exception {
+		//this.eventoTemporal = evento;
+		Guardarropa guardarropas = evento.getGuardaropa();
+		listaDePrendasTemporal = sugiridor.sugerirEnBaseAPersepcion(guardarropas, usuario, evento);	
+		return listaDePrendasTemporal;
+	}
+	
+	/*public List<Prenda> generarSugerenciaParaUltimoEvento() throws Exception {
+	return sugiridor.sugerirEnBaseAPersepcion(this.eventoTemporal.getGuardaropa(), usuario, this.eventoTemporal);
+	}*/
 }

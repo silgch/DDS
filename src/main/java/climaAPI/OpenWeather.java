@@ -25,9 +25,9 @@ public class OpenWeather implements ClimaAdapter{
 		
 		String url = "http://api.openweathermap.org/data/2.5/forecast?id="+codigoCiudad+"&APPID="+codigoUsuario;
 		
-		System.out.println("");
-        System.out.println("Inicio: Inicia GetClima");
-        System.out.println("Conectado a: " + url);
+		//System.out.println("");
+        //System.out.println("Inicio: Inicia GetClima");
+        //System.out.println("Conectado a: " + url);
         
         RetornoOW retorno = new RetornoOW();
         ClimaCiudad cc = new ClimaCiudad();
@@ -43,7 +43,7 @@ public class OpenWeather implements ClimaAdapter{
         String respuesta = "";
     	
        try{
-        	System.out.println("Entro al try");
+        	//System.out.println("Entro al try");
         	//hago conexion
             URL obj = new URL(url);
             con = (HttpURLConnection) obj.openConnection();
@@ -52,7 +52,7 @@ public class OpenWeather implements ClimaAdapter{
             con.setRequestMethod("GET");
 
              
-        	System.out.println("Paso los setRequestMethod");
+        	//System.out.println("Paso los setRequestMethod");
         
         	int responseCode = con.getResponseCode();
         	//codigoError = "" + con.getResponseCode();
@@ -69,13 +69,13 @@ public class OpenWeather implements ClimaAdapter{
             InputStream is = con.getInputStream();
 			InputStreamReader isr = new InputStreamReader(is, "UTF-8" );
 			
-        	System.out.println("Paso el inputStream");
+        	//System.out.println("Paso el inputStream");
 
 			//lectura del buffer
 			BufferedReader reader;
 			String line = null;
 			reader = new BufferedReader(isr);
-			System.out.println("Paso el buffer");
+			//System.out.println("Paso el buffer");
 			
 			while ((line = reader.readLine()) != null) {
 	        	System.out.println("Response: " + line);
@@ -100,14 +100,14 @@ public class OpenWeather implements ClimaAdapter{
                 StringBuilder responseError = new StringBuilder();
                 BufferedReader inError;
                 inError= new BufferedReader(isrError);
-                System.out.println("paso el buffer");
+                //System.out.println("paso el buffer");
                 
                 while ((inputLineError = inError.readLine()) != null) {
                 	responseError.append(inputLineError);
                 }
                 
                 respuesta = responseError.toString();
-                System.out.println("Asigno una respuesta");
+                //System.out.println("Asigno una respuesta");
                 inError.close();
                 
         		System.out.println(responseCode);

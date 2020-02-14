@@ -3,6 +3,7 @@ package guardarropas;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,9 +37,12 @@ public class Guardarropa {
 	@Transient
 	public static int maximoDePrendas = 10;
 	
-	@Transient
-	@OneToMany  
-	@JoinColumn(name = "prendas_id", referencedColumnName = "id") 	
+	//@JoinColumn(name = "prendas_id", referencedColumnName = "id")
+	@OneToMany(
+		        mappedBy = "guardarropa",
+		        cascade = CascadeType.ALL
+		        //,orphanRemoval = true
+		    ) 	 	
 	private List<Prenda> prendas = new ArrayList<Prenda>();
 	
 	private String Nombre;	
@@ -88,6 +92,10 @@ public class Guardarropa {
 
 	public void setNombre(String nombre) {
 		Nombre = nombre;
+	}
+	
+	public void setPrendas(List<Prenda> _prendas) {
+		this.prendas = _prendas;
 	}
 	
 	public boolean tieneElGuardarropasLLeno() {

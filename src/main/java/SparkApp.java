@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import eventos.Evento;
 
 import static spark.Spark.*;
@@ -13,15 +14,14 @@ public class SparkApp {
         Fachada fachada = Fachada.getInstance();    
         port(getHerokuAssignedPort());        
 
-        get("/", (request, response) -> {            
-            System.out.println(fachada.buscarUserNameConectado(request));
+        get("/", (request, response) -> {
             fachada.chequearQueHayaAlguienConectado(request, response);           
             Map<String, Object> model = new HashMap<>();
             return ViewUtil.render(request, model, "templates/home.vm");
         });
         
         get("/home", (request, response) -> {            
-            System.out.println(fachada.buscarUserNameConectado(request));
+            //System.out.println(fachada.buscarUserNameConectado(request));
             fachada.chequearQueHayaAlguienConectado(request, response);           
             Map<String, Object> model = new HashMap<>();
             return ViewUtil.render(request, model, "templates/home.vm");
@@ -45,8 +45,7 @@ public class SparkApp {
             	return ViewUtil.render(request, model, "templates/register.vm");
     		}
             request.session().attribute("user", inputtedUsername);
-            model.put("user", inputtedUsername);            
-            //System.out.println(inputtedUsername + inputtedPassword);         
+            model.put("user", inputtedUsername);        
             fachada.registrarUsuarioCon(inputtedFirstName,inputtedLastName,inputtedEmail,inputtedUsername,inputtedPassword);
             return ViewUtil.render(request, model, "templates/home.vm");
         });            
@@ -108,8 +107,7 @@ public class SparkApp {
             request.session().attribute("guardarropa", inputtedguardarropa);            
             List<String> prendas = fachada.devolverTodasLasPrendas(inputtedguardarropa);           
             model.put("guardarropa", inputtedguardarropa);
-            model.put("prendas", prendas);            
-
+            model.put("prendas", prendas);
             return ViewUtil.render(request, model, "templates/prendas.vm");
         });
         
@@ -161,30 +159,42 @@ public class SparkApp {
             String place = request.queryParams("place");
             String description = request.queryParams("description");
             String when = request.queryParams("when");
-
             request.session().attribute("guardarropa", guardarropa);
             request.session().attribute("place", place);
             request.session().attribute("description", description);
             request.session().attribute("when", when);
+            String eventoID = fachada.persistimeEsteEvento(guardarropa,place,description,when,request); 
             
-            System.out.println(guardarropa+place+description+when);
-            fachada.persistimeEsteEvento(guardarropa,place,description,when,request); 
+            request.session().attribute("eventoID", eventoID);
             
-            List<String> sugerencia = fachada.devolverUnaSugerenciaParaUltimoEvento();
+            List<String> sugerencia = fachada.devolverUnaSugerenciaParaEvento(eventoID, request);
             model.put("sugerencia", sugerencia);
+            
             return ViewUtil.render(request, model, "templates/sugerencia.vm");
         }); 
         
-        /*get("/sugerencia",(request, response) -> {
+        get("/sugerencia",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            String eventoID = request.session().attribute("eventoID");
+            
+            if (eventoID==null)System.out.println("Alguien puede pensar en los niños??");
+
+            List<String> sugerencia = fachada.devolverUnaSugerenciaParaEvento(eventoID, request);
+            model.put("sugerencia", sugerencia);
+            
             return ViewUtil.render(request, model, "templates/sugerencia.vm");
-        });*/
+        });
         
         post("/sugerencia",(request, response) -> {  	
             Map<String, Object> model = new HashMap<>();
             
-            List<String> sugerencia = fachada.devolverUnaSugerenciaParaUltimoEvento();
-     
+            String sugerenciaAceptada = request.queryParams("sugerenciaAceptada");      
+            
+            if(sugerenciaAceptada == "FALSE") {
+            	response.redirect("/sugerencia");
+                return null;
+            }            
+           
             String percepcionCabeza = request.queryParams("percepcionCabeza");
             String percepcionCuello = request.queryParams("percepcionCuello");
             String percepcionTorso = request.queryParams("percepcionTorso");
@@ -196,43 +206,34 @@ public class SparkApp {
             request.session().attribute("percepcionTorso", percepcionTorso);
             request.session().attribute("percepcionManos", percepcionManos);
             request.session().attribute("percepcionPiernas", percepcionPiernas);
-            request.session().attribute("percepcionCalzado", percepcionCalzado);            
+            request.session().attribute("percepcionCalzado", percepcionCalzado);   
+            
+            String eventoID = request.session().attribute("eventoID");
+            
+            //System.out.println("eventoID:"+eventoID);
       
-            fachada.aceptarSugencia(sugerencia);
+            fachada.aceptarSugencia(eventoID, request);
             fachada.modificarPercepcion(percepcionCabeza,percepcionCuello,percepcionTorso,percepcionManos,percepcionPiernas,percepcionCalzado,request);
-            return ViewUtil.render(request, model, "templates/sugerencia.vm");
+            
+            return ViewUtil.render(request, model, "templates/home.vm");
         });
-        
-        
-       /* get("/calendar",(request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            Query ids = (Query) fachada.todosLosIDSDeEventos();
-            model.put("ids", ids); 
-
-            return ViewUtil.render(request, model, "templates/calendar.vm");
-
-        }); */
-        
+  
         get("/calendar", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             Iterable<Evento> eventos = fachada.devolverTodosLosEventos(request);
-            model.put("eventos", eventos);          
-            
-
+            model.put("eventos", eventos);
             return ViewUtil.render(request, model, "templates/calendar.vm");            
         });
         
         post("/calendar", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            String inputtedEvento = request.queryParams("evento");
-            request.session().attribute("evento", inputtedEvento); 
-            
-            List<String> detalles = fachada.devolverTodasLosDetalles(inputtedEvento);
-           
-            model.put("evento", inputtedEvento);
-            model.put("detalles", detalles);            
+            String idSugerencia = request.queryParams("sugerencia");
+            request.session().attribute("sugerencia", idSugerencia);            
+            List<String> prendas = fachada.devolverTodasLasPrendasDeSugerencia(idSugerencia);           
+            model.put("guardarropa", "Sugerencia con ID: "+ idSugerencia);
+            model.put("prendas", prendas); 
+            return ViewUtil.render(request, model, "templates/prendas.vm");           
 
-            return ViewUtil.render(request, model, "templates/detallesEventos.vm");
         });
         
         get("*",ViewUtil.notFound);
@@ -244,9 +245,7 @@ public class SparkApp {
         if (processBuilder.environment().get("PORT") != null) {
             return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
-        return 4567;   
-  
-    } 
-    
+        return 4567;  
+    }    
 
 }  

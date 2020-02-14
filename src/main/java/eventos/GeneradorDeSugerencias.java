@@ -78,7 +78,7 @@ public class GeneradorDeSugerencias{
 		this.sugerirAlgunoDe(unGuardarropa,nivelCalzado,Categoria.CALZADO,fecha);
 		this.quizaAgregamosUnAccesorio(unGuardarropa);
     			
-		System.out.printf("Se genero la sugerencia para la temperatura: %1.2f \n", tempReal);
+		System.out.printf("Se genero la sugerencia para la temperatura: %1.2fº\n", tempReal);
 	
 		for(Prenda prenda : sugerencia ){
     		String nombre = prenda.getNombre();

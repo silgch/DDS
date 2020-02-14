@@ -2,6 +2,9 @@
 #@mainLayout()
 
 <div style="overflow-x:auto;">
+
+<form action="/calendar" id="calendarForm" method="post">
+
     <table class="egt">
 
         <caption>Detalles de Eventos</caption>
@@ -9,19 +12,12 @@
         <thead>
 
             <tr>
-
                 <th scope="col">Descripción</th>
-
                 <th>Fecha</th>
-
                 <th>ID_ubicación</th>
-
                 <th>Repeticion</th>
-
-                <th>Sugerencia</th>
-
+                <th>ID de Sugerencia</th>
                 <th>Generar sugerencia</th>
-
             </tr>
 
         </thead>
@@ -29,26 +25,19 @@
 
             #foreach($evento in $eventos)
             <tr>
-
                 <th>$!evento.getDescripcion()</th>
-
                 <th>$!evento.getFecha()</th>
-
                 <th>$!evento.getUbicacion()</th>
-
                 <th>$!evento.getRepeticion()</th>
-
                 <th>
-                    #if ($evento.getSugerencia())
-                    <input type="submit" name="$evento" value="iD: $!evento.getSugerencia()"> 
+                    <#if ($evento.getSugerencia())
+                        <input type="submit" name="sugerencia" value="$!evento.getSugerencia().getId()">
                     #end #if (!$evento.getSugerencia())
-                    <input type="submit" name="$evento" value="ID: NULL"> 
+                        <input type="submit" name="sugerencia" value="ID: NULL">
                     #end
-
                 </th>
-
                 <th>
-                    <input type="submit" name="$evento" value="Solicitar Nueva Sugerencia">
+                    <input type="submit" name="sugerencia" value="Solicitar Nueva Sugerencia">
                 </th>
 
             </tr>
@@ -56,6 +45,9 @@
         </tbody>
 
     </table>
+    
+</form>
+
 </div>
 
 #end

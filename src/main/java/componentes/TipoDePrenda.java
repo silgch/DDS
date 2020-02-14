@@ -41,9 +41,9 @@ public class TipoDePrenda{
 	private Categoria categoria;
 	
 	@ManyToMany
-	@JoinTable(name="rel_tipoprenda_material",
-			   joinColumns={@JoinColumn(name="TIPO_DE_PRENDA_ID")}, 
-			   inverseJoinColumns={@JoinColumn(name= "MATERIAL_ID")})
+	@JoinTable(name="tiposDePrendas_materiales",
+			   joinColumns={@JoinColumn(name="tipo_de_prenda_id")}, 
+			   inverseJoinColumns={@JoinColumn(name= "material_id")})
     private Set<Material> tiposDeMaterialesPermitidos;
 	
 	

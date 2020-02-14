@@ -2,7 +2,6 @@ package usuario;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +16,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import componentes.Prenda;
 import eventos.CommandParaEventos;
 import eventos.Evento;
+import eventos.GeneradorDeSugerencias;
 import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 
@@ -49,16 +50,16 @@ public class Usuario{
 	/*El gestorDeCuentas es el asistente que entrega/upgredea la cuenta del usuario
 	 * no hace falta persistirlo*/
 	
-	/*@Transient 
-	private GestorDeCuentas gestorCuenta;*/
+	@Transient 
+	public List<Prenda> sugerenciaTemporal;
 	
 	/*@Transient 
 	private Cuenta tipoDeCuenta;*/
 	
 	private boolean usuario_premium = false;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "preferencias", referencedColumnName = "id")
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "percepcion_id", referencedColumnName = "id")
 	private PercepcionDeTemperatura percepcion ;
 	
 	@Transient
@@ -152,9 +153,9 @@ public class Usuario{
 
 	
 	//Métodos con Eventos
-	public void crearEvento(LocalDate fecha, String descripcion, String ubicacion) throws Exception{
+	/*public void crearEvento(LocalDate fecha, String descripcion, String ubicacion) throws Exception{
 		managerDeEventos.crearEvento( fecha, descripcion, ubicacion);
-	}
+	}/*
 	
 	/*
 	public void procesarEvento(Evento evento) throws IOException {
@@ -176,9 +177,21 @@ public class Usuario{
 	 cagando de frio con eso y (+2) que se está cagando de calor 
 	 
 	 */
-	public void pedirSugerencia(Guardarropa unGuardarropa) throws Exception {
-		managerDeEventos.generarSugerenciaParaUltimoEventoCreado(unGuardarropa);
+	public void pedirSugerencia() throws Exception {
+		managerDeEventos.generarSugerenciaParaUltimoEventoCreado();
 	}
+	
+	public List<Prenda> pedirSugerencia2(Evento evento) throws Exception {
+		
+		List<Prenda> sugerencia = new GeneradorDeSugerencias().sugerirEnBaseAPersepcion(evento.getGuardaropa(), this, evento);
+		sugerenciaTemporal = sugerencia;
+		return sugerencia;
+	}
+	
+	/*public List<Prenda> pedirSugerenciaUltimoEvento() throws Exception {
+		return managerDeEventos.generarSugerenciaParaUltimoEvento();
+	}*/
+	
 	
 	public void aceptarSugerencia(Sugerencia sugerencia) {
 		managerDeEventos.aceptarSugerencia(sugerencia);
@@ -187,7 +200,8 @@ public class Usuario{
 	public void rechazarSugerencia(Sugerencia sugerencia) {
 		managerDeEventos.rechazarSugerencia(sugerencia);
 	}
-	
+
+
 
 	/*public void calificarSugerencia(Sugerencia unaSugerencia, int unaCalificacion) throws Exception {
 		System.out.println("El usuario " + this.getNombre() + " ha calificado con \"" +

@@ -23,4 +23,10 @@ public class Evento extends Repositorio {
 		em.persist(evento);
 		em.getTransaction().commit();
 	}
+
+	public void actualizar(eventos.Evento evento) {
+		em.getTransaction().begin();
+		em.merge(evento);
+		em.getTransaction().commit();
+	}	
 }

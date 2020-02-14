@@ -151,7 +151,7 @@ public class PersistenciaTest {
 	ropaAroco.setNombre("Guardarropa de Aroco");
 	ropaJazul.setNombre("Guardarropa de J Azul");
 	
-	Evento eventoPedroUno = new Evento(LocalDate.now(), "Ir al cine", pedro,"3433955");
+	Evento eventoPedroUno = new Evento(LocalDate.now(), "Ir al cine", pedro,"3433955", ropaAroco);
 	
 	
 	//Persisto 

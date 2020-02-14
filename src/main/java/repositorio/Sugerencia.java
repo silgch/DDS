@@ -1,13 +1,12 @@
 package repositorio;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 public class Sugerencia extends Repositorio{
 	Sugerencia(EntityManager em) {
 		super(em);
 	}
-	public Sugerencia buscarPorId(Long id) {
+	/*public Sugerencia buscarPorId(Long id) {
 		return em.find(Sugerencia.class, id);		
 	}
 	
@@ -36,7 +35,7 @@ public class Sugerencia extends Repositorio{
 	        // ???
         }
 		return null;	
-	}
+	}*/
 	
 
 	public void actualizar(eventos.Sugerencia sugerencia) {

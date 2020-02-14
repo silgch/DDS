@@ -63,8 +63,10 @@
             var x = document.getElementById("myDIV");
             if (x.style.display === "block") {
                 x.style.display = "none";
+                #set( $sugerenciaAceptada = "FALSE" )
             } else {
                 x.style.display = "block";
+                #set( $sugerenciaAceptada = $sugerencia )
             }
         }
     </script>

@@ -9,6 +9,7 @@ public class ViewUtil {
     // and see if a user is logged in
     public static String render(Request request, Map<String, Object> model, String path) {
         model.put("currentUser", request.session().attribute("user"));
+        model.put("eventoID", request.session().attribute("eventoID"));
         return strictVelocityEngine().render(new ModelAndView(model, path));
     }
     
