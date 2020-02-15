@@ -1,0 +1,14 @@
+#parse("/templates/layout.vm")
+#@mainLayout()
+
+<html>
+
+<body>
+
+    <h1>El evento fue creado correctamente!</h1>
+    <h2>Desgraciadamente no podemos brindarte una sugerencia ahora, vuelve a intentarlo cuando falten menos de 10 dias para el evento</h2>
+    
+</body>
+
+</html>
+#end

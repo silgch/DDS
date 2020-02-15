@@ -14,10 +14,10 @@
             <tr>
                 <th scope="col">Descripción</th>
                 <th>Fecha</th>
-                <th>ID_ubicación</th>
-                <th>Repeticion</th>
-                <th>ID de Sugerencia</th>
-                <th>Generar sugerencia</th>
+                <th>GeonameID</th>
+                <th>Repetición</th>
+                <th>Sugerencia</th>
+                <!-- <th>Generar sugerencia</th> -->
             </tr>
 
         </thead>
@@ -30,15 +30,15 @@
                 <th>$!evento.getUbicacion()</th>
                 <th>$!evento.getRepeticion()</th>
                 <th>
-                    <#if ($evento.getSugerencia())
+                    #if ($!evento.getSugerencia())
                         <input type="submit" name="sugerencia" value="$!evento.getSugerencia().getId()">
                     #end #if (!$evento.getSugerencia())
                         <input type="submit" name="sugerencia" value="ID: NULL">
                     #end
                 </th>
-                <th>
+                <!--<th>
                     <input type="submit" name="sugerencia" value="Solicitar Nueva Sugerencia">
-                </th>
+                </th>-->
 
             </tr>
             #end

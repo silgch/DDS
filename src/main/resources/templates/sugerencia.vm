@@ -8,7 +8,7 @@
     <style>
         #myDIV {
             width: 100%;
-            padding: 50px 0;
+            padding: 1px 0;
             text-align: center;
             background-color: lightblue;
             margin-top: 20px;
@@ -38,22 +38,22 @@
 
     <form action="/sugerencia" id="SugerenciaForm" method="post">
         <div id="myDIV" style="display: none">
-            Considere poner -2 si la prenda sugerida (o la falta de misma) le produce mucho frio y 2 si le produce mucho calor
-            (0 = "la sugerencia se adapta perfectamente a usted", la opción por defecto)                 
-                <p>
-                    Percepcion Cabeza: <input type="number" name="percepcionCabeza" value="0"> min="-2" max="2"<br>
+            <h2> Que tan feliz está con la sugerencia obtenida?</h2>
+            Considere poner -2 si la prenda sugerida (o la falta de misma) le produce mucho frio, 0 si se adapta perfectamente usted y 2 si la misma le produce mucho calor.
+              <p>
+                    Percepcion Cabeza: <input type="number" name="percepcionCabeza" value="0" min="-2" max="2"><br>
                 </p><p>
-                    Percepcion Cuello: <input type="number" name="percepcionCuello" value="0"> min="-2" max="2"<br>
+                    Percepcion Cuello: <input type="number" name="percepcionCuello" value="0" min="-2" max="2"><br>
                 </p><p>
-                    Percepcion Torso: <input type="number" name="percepcionTorso" value="0"> min="-2" max="2"<br>
+                    Percepcion Torso: <input type="number" name="percepcionTorso" value="0" min="-2" max="2"><br>
                 </p><p>
-                    Percepcion Manos: <input type="number" name="percepcionManos" value="0"> min="-2" max="2"<br>
+                    Percepcion Manos: <input type="number" name="percepcionManos" value="0" min="-2" max="2"><br>
                 </p><p>
-                    Percepcion Piernas: <input type="number" name="percepcionPiernas" value="0"> min="-2" max="2"<br>
+                    Percepcion Piernas: <input type="number" name="percepcionPiernas" value="0" min="-2" max="2"><br>
                 </p><p>
-                    Percepcion Calzado: <input type="number" name="percepcionCalzado" value="0"> min="-2" max="2"<br>
+                    Percepcion Calzado: <input type="number" name="percepcionCalzado" value="0" min="-2" max="2"><br>
                 </p>
-                <input type="submit" value="Submit Percepcion de Prenda">                
+                <input type="submit" value="Modificar percepcion del usuario">                
         </div>         
         
     </form>

@@ -12,7 +12,7 @@
           <svg style="width:18px;height:18px;fill:rgb(255,255,255)" viewBox="0 -3 24 24">
             <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"> </path> 
           </svg>
-          Home 
+          Inicio 
 		</a>
         <ul>
             #if($currentUser)         

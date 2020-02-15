@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ public class Fachada {
 	private static EntityManagerFactory emFactory;	
 	private static Repositorio repositorio;	
 	private static EntityManager entityManager;
-
+    
 	// Cause Fachada is a Singleton 
     private static Fachada single_instance = null;
     private Fachada(){
@@ -64,7 +66,7 @@ public class Fachada {
 		return request.session().attribute("user");			
 	}
 
-	private Usuario buscarUsuarioPorUsername(String userName){
+	public Usuario buscarUsuarioPorUsername(String userName){
 		String statement = String.format("SELECT id FROM Usuario WHERE userName = '%s'", userName);
 		Long id = Long.valueOf(listToString(listAndCast(statement)));
         //System.out.println("id: "+id);
@@ -101,10 +103,16 @@ public class Fachada {
 	}	
 	
 	private List<String> listAndCast(String statement) {
+		try {
 	    Query queryIDUsuario = entityManager.createQuery(statement);
 		@SuppressWarnings("unchecked")
 		List<String> list = queryIDUsuario.getResultList();
-	    return list;
+		return list;
+		}catch (Exception e){
+			System.out.println("Exception: "+e);
+			return null;
+		}	
+		
 	}
 	
 	private String listToString(List<String> list) {
@@ -147,7 +155,7 @@ public class Fachada {
 	}
 	
 	private List<String> devolverTodosLos(String columna) {
-	    String statement = (String.format("SELECT DISTINCT nombre FROM %s",columna));
+	    String statement = (String.format("SELECT DISTINCT nombre FROM %s ORDER BY nombre ASC",columna));
 		return listAndCast(statement);
 	}
 
@@ -168,6 +176,17 @@ public class Fachada {
 			System.out.println("LPQTP");
 		}*/					
 	}
+	
+	@SuppressWarnings("unused")
+	private byte[] convertingAnInputStreamToAByteArray_thenCorrect(InputStream initialStream) 
+			  throws IOException {
+			    //InputStream initialStream = new ByteArrayInputStream(new byte[] { 0, 1, 2 });
+			 
+			    byte[] targetArray = new byte[initialStream.available()];
+			    initialStream.read(targetArray);
+			    
+			    return targetArray;
+			}
 	
 	private <T> T convertirStringAObjeto(Class<T> entityClass, String columnaSQL, String aConvertir) {
 		String statement = String.format("SELECT id FROM %s WHERE nombre = '%s'", columnaSQL, aConvertir);

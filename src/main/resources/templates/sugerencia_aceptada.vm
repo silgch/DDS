@@ -1,0 +1,25 @@
+#parse("/templates/layout.vm")
+#@mainLayout()
+
+<html>
+
+<body>
+
+    <h1>Sugerencia aceptada correctamente!</h1>
+    <h2>Tu percepción respecto de la ropa ha quedado:</h2>
+                <p>
+                    Percepcion Cabeza: $!usuario.getPercepcion().getPercepcionCabeza();&nbsp; &nbsp;                  
+                    Percepcion Cuello: $!usuario.getPercepcion().getPercepcionCuello();&nbsp; &nbsp; 
+                    Percepcion Torso: $!usuario.getPercepcion().getPercepcionTorso();&nbsp; &nbsp; 
+                    Percepcion Manos: $!usuario.getPercepcion().getPercepcionManos();&nbsp; &nbsp; 
+                    Percepcion Piernas: $!usuario.getPercepcion().getPercepcionPiernas();&nbsp; &nbsp; 
+                    Percepcion Calzado: $!usuario.getPercepcion().getPercepcionCalzado()
+                </p> <p></p> <p></p>
+    <h4>Estos valores impactarán a la hora de hacer sugerencias futuras, por ejemplo si tu 
+        percepción de la cabeza fuera -10, se te sugerirá un gorrito inclusive aunque haga 30º
+        (solo en caso de que el mismo esté en tu guardarropas) </h4>            
+
+</body>
+
+</html>
+#end

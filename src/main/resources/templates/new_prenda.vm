@@ -19,14 +19,14 @@
                 <label for="when"></label>
             </p>
             <p>
-                <select name="tipoDePrenda" id="tipo">
-                    <option value="-1">-Seleccionar Tipo De Prenda-</option>
+                <select name="tipoDePrenda" id="tipo" required>
+                    <option value="-1">Seleccionar Tipo De Prenda</option>
                     #foreach( $tipoDePrenda in $tipoDePrendas )
                     <option value="$tipoDePrenda">$tipoDePrenda</option>
                     #end</select>
             </p>
-            <select name="material" id="material">
-                <option value="-1">-Seleccionar Material-</option>
+            <select name="material" id="material" required>
+                <option value="-1">Seleccionar Material</option>
                 #foreach( $material in $materiales)
                 	<option value="$material">$material</option>
                 #end
@@ -35,16 +35,16 @@
                 <input maxlength="5" name="colorHEX" type="color" value="#ff0000" id="colorHEX" />
             </p>
             <p>
-                <select name="trama" id="trama">
-                    <option value="-1">-Seleccionar Trama-</option>
+                <select name="trama" id="trama" required>
+                    <option value="-1">Seleccionar Trama</option>
                     #foreach( $trama in $tramas )
                     	<option value="$trama">$trama</option>
                     #end
                 </select>
             </p>
             <p>
-                <select name="guardarropa" id="guardarropa">
-                    <option value="-1">-Seleccionar el guardarropas donde se guardara-</option>
+                <select name="guardarropa" id="guardarropa" required>
+                    <option value="-1">Seleccionar el guardarropas donde se guardara</option>
                     #foreach( $guardarropa in $guardarropas )
                     	<option value="$guardarropa">$guardarropa</option>
                     #end
@@ -52,7 +52,7 @@
             </p>
             Selecciona una imagen para su prenda:
             <p>
-                <input type="file" name="myImage" accept="image/x-png,image/jpeg" />
+                <input type="file" name="myImage" accept='.png' />
                 <br>
                 <br>
             </p>

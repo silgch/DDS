@@ -7,24 +7,24 @@
     <h1>Crear un nuevo evento</h1>
 
     <form action="/new-event" id="EventForm" method="post">    
-       <select name="guardarropa" id="guardarropa">
-            <option value="-1">-Seleccionar Guardarropa-</option>
+       <select name="guardarropa" id="guardarropa" required>
+            <option selected disabled >Seleccionar Guardarropa</option>
             #foreach( $guardarropa in $guardarropas )
                 <option value="$guardarropa">$guardarropa</option>
             #end
         </select>
-    <p>GeonameID:&nbsp; &nbsp;&nbsp; 
+    <p>GeonameID:&nbsp; &nbsp; 
         <input maxlength="9" name="place" type="text" value="" placeholder="3433955" />
-        <a href="https://www.geonames.org/3433955/ciudad-autonoma-de-buenos-aires.html">(CABA Example)</a>
-        <a href="https://www.wikidata.org/wiki/Property:P1566">(More Info)</a>
+        (Por ej, <a href="https://www.geonames.org/3433955/ciudad-autonoma-de-buenos-aires.html">CABA</a> ID = 3433955)
+        <!-- <a href="https://www.wikidata.org/wiki/Property:P1566">(Mas Info sobre GeonameID )</a> -->
     </p>
-    <p>Descripcion:&nbsp;
-        <input maxlength="200" name="description" type="text" value="" />
+    <p>Descripcion:&nbsp; &nbsp;
+        <input maxlength="200" name="description" type="text" value="" required/>
         <label for="when"></label>
     </p>
     <p>
-        <label for="when">Date:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
-        <input max="2020-11-06" min="2019-11-06" name="when" type="date" />
+        <label for="when">Fecha:&nbsp; &nbsp;</label>
+        <input max="2021-02-14" min="2020-02-15" name="when" type="date" required/>        
     </p>
     <input type="submit" value="Crear Evento" />
     </form>

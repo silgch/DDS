@@ -4,6 +4,7 @@ import java.util.Map;
 
 
 import eventos.Evento;
+import usuario.Usuario;
 
 import static spark.Spark.*;
 
@@ -163,6 +164,13 @@ public class SparkApp {
             request.session().attribute("place", place);
             request.session().attribute("description", description);
             request.session().attribute("when", when);
+            
+            //
+            String i = request.queryParams("i");
+            request.session().attribute("i", i);
+            System.out.println("i:"+i);
+            //
+            
             String eventoID = fachada.persistimeEsteEvento(guardarropa,place,description,when,request); 
             
             request.session().attribute("eventoID", eventoID);
@@ -215,7 +223,11 @@ public class SparkApp {
             fachada.aceptarSugencia(eventoID, request);
             fachada.modificarPercepcion(percepcionCabeza,percepcionCuello,percepcionTorso,percepcionManos,percepcionPiernas,percepcionCalzado,request);
             
-            return ViewUtil.render(request, model, "templates/home.vm");
+            
+            Usuario usuario = fachada.buscarUsuarioPorUsername(fachada.buscarUserNameConectado(request));
+            model.put("usuario", usuario);
+            
+            return ViewUtil.render(request, model, "templates/sugerencia_aceptada.vm");
         });
   
         get("/calendar", (request, response) -> {
@@ -236,7 +248,12 @@ public class SparkApp {
 
         });
         
-        get("*",ViewUtil.notFound);
+        get("*",ViewUtil.notFound);        
+        
+        exception(Exception.class, (exception, request, response) -> {
+            response.status(404);
+        	response.redirect("/notFound");
+        });
     
     }
     

@@ -11,19 +11,21 @@
         }
     </style>
 
-    <h1>Welcome to QueMePongo!</h1>
-    <blockquote>
-        <p>"If anything can go wrong, it will go wrong."</p>
-    </blockquote>
+    <h1>Bienvenidos a QueMePongo!</h1>
+    <p>
+        <blockquote>
+            "Si algo puede salir mal, saldra mal."
+        </blockquote>
+    </p>
             <img src="https://i.imgur.com/kHPC7Tk.jpg" alt="Alf" style="width:200px">
             
             <br> <br> <hr>
 			
-			<h2> What do you want to do?</h2>
-            <p> <a href="/guardarropas">See your Wardrobes</a></p>
-            <p> <a href="/new-prenda">Create a New Prenda</a></p>
-            <p> <a href="/new-event">Create a New Event</a></p>
-            <p> <a href="/calendar">See your Events</a></p>
+			<h2> Que desea hacer?</h2>
+            <p> <a href="/guardarropas">Ver sus guardarropas</a></p>
+            <p> <a href="/new-prenda">Crear una nueva prenda</a></p>
+            <p> <a href="/new-event">Crear un nuevo evento</a></p>
+            <p> <a href="/calendar">Ver sus eventos</a></p>
 </html>
 
 #end

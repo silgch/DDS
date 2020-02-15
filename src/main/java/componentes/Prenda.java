@@ -22,6 +22,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -60,7 +61,8 @@ public class Prenda{
     @ManyToOne(fetch = FetchType.LAZY)
 	private Guardarropa guardarropa;
 	
-	private String urlImagen;
+    @Lob
+    private byte[] imagen;
 	
 	private int calificacion=0;
 	
@@ -148,9 +150,9 @@ public class Prenda{
 	public PrendaNivel getNivel() {
 		return tipo.getNivel();
 	}
-	public String getUrlImagen() {
+	/*public String getUrlImagen() {
 		return urlImagen;
-	}
+	}*/
 	public int getCalificacion() {
 		return calificacion;
 	}
