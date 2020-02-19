@@ -33,7 +33,9 @@ public class Usuario{
 	Long id;	
 
 	private String userName;
+	@SuppressWarnings("unused")
 	private String nombre;
+	@SuppressWarnings("unused")
 	private String apellido;
 	private String mail;
 	private String password;
@@ -95,12 +97,7 @@ public class Usuario{
 	public CommandParaEventos getManagerDeEventos() {
 		return managerDeEventos;
 	}
-	public String getApellido() {
-		return apellido;
-	}
-	public String getNombre() {
-		return nombre;
-	}
+
 	public boolean esPobre() {
 		return !(this.usuario_premium);
 	}

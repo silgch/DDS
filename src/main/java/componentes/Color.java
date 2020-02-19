@@ -22,8 +22,7 @@ public class Color{
 	private String nombre;
 	private int rojo;
 	private int verde;
-	private int azul;
-	
+	private int azul;	
 	
 	public Color() {}
 	
@@ -33,23 +32,16 @@ public class Color{
 		this.azul=az;
 	}
 	
-	public Color (String nombre, int ro, int ve, int az) {
-		this.nombre=nombre;
-		this.rojo=ro;
-		this.verde=ve;
-		this.azul=az;
-	}
-	
 	//Metodos
 	
 	//Getters
-	public int getRojo() {
+	public int getR() {
 		return rojo;
 	}
-	public int getVerde() {
+	public int getV() {
 		return verde;
 	}
-	public int getAzul() {
+	public int getA() {
 		return azul;
 	}
 	
@@ -58,14 +50,4 @@ public class Color{
 		return  Arrays.toString(colores);
 	}	
 	
-	/* Setters
-	public void setRojo(int rojo) {
-		this.rojo = rojo;
-	}
-	public void setAmarillo(int amarillo) {
-		this.amarillo = amarillo;
-	}
-	public void setAzul(int azul) {
-		this.azul = azul;
-	}*/
 }

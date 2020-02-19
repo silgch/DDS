@@ -31,9 +31,18 @@
                 	<option value="$material">$material</option>
                 #end
             </select>
-            <p>Color:&nbsp; &nbsp;&nbsp;
-                <input maxlength="5" name="colorHEX" type="color" value="#ff0000" id="colorHEX" />
+            <p>Color Primario:&nbsp; &nbsp;&nbsp;
+                <input maxlength="5" name="colorHEX_1" type="color" value="#ff0000" id="colorHEX_1" />
             </p>
+
+            <p> Usar color secundario
+              <input type="checkbox" id="usar_color_2" name="usar_color_2" onclick="mostrar_segundo_color()" />
+            </p>
+            
+            <p id="id_color" style="display:none"> Color Secundario:&nbsp; &nbsp;&nbsp;            
+                <input maxlength="5" name="colorHEX_2" type="color" value="#c0c0c0" id="colorHEX_2" />            
+            </p> 
+
             <p>
                 <select name="trama" id="trama" required>
                     <option value="-1">Seleccionar Trama</option>
@@ -50,30 +59,40 @@
                     #end
                 </select>
             </p>
-            Selecciona una imagen para su prenda:
+            <!-- Selecciona una imagen para su prenda:
             <p>
                 <input type="file" name="myImage" accept='.png' />
                 <br>
                 <br>
-            </p>
+            </p> -->
             <button onclick="mostrar(document.getElementById('name').value,
                 document.getElementById('tipo').value,
-                document.getElementById('colorHEX').value,
+                document.getElementById('colorHEX_1').value,
                 document.getElementById('trama').value,
                 document.getElementById('guardarropa').value)">
                 Crear Prenda
             </button>
-        </form>  
-
-            <script>
-              function mostrar(name,tipo,colorHEX,trama,guardarropa) {
-                var mensaje = "Se agregó al guardarropas " + guardarropa +
-                "\nla prenda "+name+" de tipo " +tipo + 
-                "\ncon trama " + trama + " y con el color "+colorHEX;
-                alert(mensaje);
-              }
-            </script> 
-        
+        </form>        
     </div>
 </div>
+
+            <script>
+              function mostrar(name,tipo,colorHEX_1,trama,guardarropa) {
+                var mensaje = "Se agregó al guardarropas " + guardarropa +
+                "\nla prenda "+name+" de tipo " +tipo + 
+                "\ncon trama " + trama + " y con el color "+colorHEX_1;
+                alert(mensaje);
+              }
+
+                function mostrar_segundo_color() {
+                    var checkBox = document.getElementById("usar_color_2");
+                    var text = document.getElementById("id_color");
+                    if (checkBox.checked == true){
+                        text.style.display = "block";
+                    } else {
+                        text.style.display = "none";
+                    }
+                }
+            </script>
+
 #end

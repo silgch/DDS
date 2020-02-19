@@ -98,7 +98,7 @@ public class Fachada {
 		String usuarioConectado = this.buscarUserNameConectado(request);
 		String statement_userID = String.format("SELECT id FROM Usuario WHERE userName = '%s'", usuarioConectado);
 		List<String> idDuenio = listAndCast(statement_userID);
-		String statement_Guardarropas = "SELECT DISTINCT Nombre FROM Guardarropa WHERE usuario_id = "+ listToString(idDuenio);
+		String statement_Guardarropas = "SELECT DISTINCT nombre FROM Guardarropa WHERE usuario_id = "+ listToString(idDuenio);
 	    return listAndCast(statement_Guardarropas);
 	}	
 	
@@ -133,7 +133,7 @@ public class Fachada {
 	}
 	
 	public List<String> devolverTodasLasPrendas(String inputtedguardarropas) {
-	    Query idGuardarropas = entityManager.createQuery(String.format("SELECT id FROM Guardarropa g WHERE g.Nombre = '%s'",inputtedguardarropas));
+	    Query idGuardarropas = entityManager.createQuery(String.format("SELECT id FROM Guardarropa g WHERE g.nombre = '%s'",inputtedguardarropas));
 	    String statement = ("SELECT DISTINCT nombre FROM prenda WHERE guardarropa = " + idGuardarropas.setMaxResults(1).getSingleResult());
 		return listAndCast(statement);
 	}
@@ -159,14 +159,27 @@ public class Fachada {
 		return listAndCast(statement);
 	}
 
-	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String colorHEX,	String trama, String guardarropa) {
+	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String color_1, String color_2, String trama, String guardarropa) {
 		//System.out.println("Guardarropas:" + guardarropa);
 		//convertimos strings a objetos	
 		TipoDePrenda unTipo= convertirStringAObjeto(TipoDePrenda.class, "TipoDePrenda", tipoDePrenda);
-		Color unColor = this.hex2Rgb(colorHEX);
+		Color unColor1 = this.hex2Rgb(color_1);
+		
 		Material unMaterial= convertirStringAObjeto(Material.class, "Material", material);
 		Trama unaTrama= convertirStringAObjeto(Trama.class, "trama", trama);
-		Prenda unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor, unaTrama );
+		
+		Prenda unaPrenda = null;
+		
+        System.out.println("color_2:"+color_2);
+
+		
+		if(color_2!=null) {
+			Color unColor2 = this.hex2Rgb(color_2);
+			unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor1, unColor2, unaTrama );
+		}else {
+			unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor1, unaTrama );
+		}
+		
 		Guardarropa unGuardarropa = convertirStringAObjeto(Guardarropa.class, "Guardarropa", guardarropa);
 		//try {
 			unGuardarropa.agregarAGuardarropas(unaPrenda);
@@ -219,7 +232,7 @@ public class Fachada {
 		String statement = String.format("SELECT id FROM Usuario WHERE userName = '%s'", userName);
 		Long id_user = Long.valueOf(listToString(listAndCast(statement)));
 		
-		String statement2 = String.format("SELECT id FROM Guardarropa WHERE usuario_id = '%s' and Nombre = '%s'", id_user, guardarropa);
+		String statement2 = String.format("SELECT id FROM Guardarropa WHERE usuario_id = '%s' and nombre = '%s'", id_user, guardarropa);
 		Long id_guardarropa = Long.valueOf(listToString(listAndCast(statement2)));		
 
 		Guardarropa guardarropa_final = entityManager.find(Guardarropa.class, id_guardarropa);
@@ -234,20 +247,21 @@ public class Fachada {
 	
 	 
 
-	public List<String> devolverUnaSugerenciaParaEvento(String eventoID, Request request) throws Exception {
+	public List<Prenda> devolverUnaSugerenciaParaEvento(String eventoID, Request request) throws Exception {
         
 		Evento evento = this.eventoID_A_Evento(eventoID);
 
         //System.out.println("Evento: "+evento);
 
-		List<String> lista = new ArrayList<>();
+		//List<String> lista = new ArrayList<>();
 		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
 		List<Prenda> prendas = usuarioLogueado.pedirSugerencia2(evento);
 		 
-		for (Prenda prenda : prendas) {
+		/*for (Prenda prenda : prendas) {
 			lista.add(prenda.getNombre()); 
 		}
-		return lista;
+		return lista;*/
+		return prendas;
 	}
 	
 	public Evento eventoID_A_Evento(String eventoID) {	      
@@ -306,14 +320,34 @@ public class Fachada {
 	}
 
 	public List<String> devolverTodasLasPrendasDeSugerencia(String idSugerencia) {
-	    //Query idGuardarropas = entityManager.createQuery(String.format("SELECT id FROM Guardarropa g WHERE g.Nombre = '%s'",idSugerencia));
 	    String statement = ("SELECT DISTINCT prenda.nombre FROM sugerencia s join s.prendas_de_sugerencia as prenda WHERE s.id = " + idSugerencia);
-	    /*List<String> prendasID = listAndCast(statement);
-	    List<String> prendasNombre = new ArrayList<>();
-	    for (String prendaID : prendasID) {
-	    	prendasNombre.add(entityManager.find(Prenda.class, Long.valueOf(prendaID)).getNombre());	    	
-        }*/
 	    return listAndCast(statement);
 	}
+	
+	public List<Prenda> devolverTodasLasPrendasDeSugerencia2(String idSugerencia) {
+	    String statement = ("SELECT DISTINCT prenda.id FROM sugerencia s join s.prendas_de_sugerencia as prenda WHERE s.id = " + idSugerencia);
+		Query queryIDUsuario = entityManager.createQuery(statement);
+		List<Prenda> list_prenda = new ArrayList<>(); 
+		for (Object i : queryIDUsuario.getResultList() ) {
+			list_prenda.add(entityManager.find(Prenda.class, i)); 
+		}
+		return list_prenda;
+	    
+	    
+	    
+	    
+	}
+
+	public List<Prenda> devolverTodasLasPrendasDeGuardarropas(String inputtedGuardarropa) {
+		Query idGuardarropas = entityManager.createQuery(String.format("SELECT id FROM Guardarropa g WHERE g.nombre = '%s'",inputtedGuardarropa));
+	    String statement_Guardarropa = ("SELECT DISTINCT id FROM prenda WHERE guardarropa = " + idGuardarropas.setMaxResults(1).getSingleResult());
+		Query queryIDUsuario = entityManager.createQuery(statement_Guardarropa);
+		List<Prenda> list_prenda = new ArrayList<>(); 
+		for (Object i : queryIDUsuario.getResultList() ) {
+			list_prenda.add(entityManager.find(Prenda.class, i)); 
+		}
+		return list_prenda;
+	}  
+	
 
 }

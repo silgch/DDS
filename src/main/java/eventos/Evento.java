@@ -151,7 +151,6 @@ public class Evento {
     		prenda.liberarPrenda(fechaEvento);
 		}	
 	}
-
 	
 		
 	//Setters

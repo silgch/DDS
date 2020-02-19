@@ -37,7 +37,6 @@ public class Guardarropa {
 	@Transient
 	public static int maximoDePrendas = 10;
 	
-	//@JoinColumn(name = "prendas_id", referencedColumnName = "id")
 	@OneToMany(
 		        mappedBy = "guardarropa",
 		        cascade = CascadeType.ALL
@@ -45,7 +44,7 @@ public class Guardarropa {
 		    ) 	 	
 	private List<Prenda> prendas = new ArrayList<Prenda>();
 	
-	private String Nombre;	
+	private String nombre;	
 	
 	@ManyToOne(fetch=FetchType.LAZY) 
 	@JoinColumn(name="usuario_id")
@@ -87,11 +86,11 @@ public class Guardarropa {
 	}
 
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		Nombre = nombre;
+	public void setNombre(String _nombre) {
+		nombre = _nombre;
 	}
 	
 	public void setPrendas(List<Prenda> _prendas) {

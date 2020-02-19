@@ -55,3 +55,6 @@ When running locally the webpage is located in [http://localhost:4567/](http://l
 
 SparkApp is also used by Heroku to host the webpage
 
+## For Deploying:
+1. Find project, right click in it: Run As -> Maven Build... -> goals: clean heroku:deploy, check "Skip Tests"
+

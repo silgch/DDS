@@ -92,9 +92,7 @@ public class Prenda{
     public Prenda(String nombre,TipoDePrenda tipo,  Material material, Color colorPrincipal, Color colorSecundario, Trama trama){
     	Validaciones.validarCreacionPrenda(nombre, tipo, material, colorPrincipal, colorSecundario, trama);
 		asignarValoresAPrenda(nombre, tipo, material, colorPrincipal,trama);
-		this.colorSecundario = colorSecundario;
-		//this.jpa_color_sec = colorSecundario.getternaColores();
-        
+		this.colorSecundario = colorSecundario;        
     }
     
     private void asignarValoresAPrenda(String nombre, TipoDePrenda tipo, Material material, Color cPpal, Trama trama) {
@@ -103,12 +101,6 @@ public class Prenda{
         this.material = material;
         this.colorPrincipal = cPpal;
         this.trama = trama;
-        ///
-		/*
-		 * this.jpa_material = material.name(); this.jpa_color_ppal =
-		 * cPpal.getternaColores(); this.jpa_categoria = tipo.getCategoria().name();
-		 * this.jpa_nivel = tipo.getNivel().name(); this.jpa_trama = trama.name();
-		 */
 	}
     
      //Lo unico que podriamos cambiar de una prenda es el nombre .
@@ -150,17 +142,10 @@ public class Prenda{
 	public PrendaNivel getNivel() {
 		return tipo.getNivel();
 	}
-	/*public String getUrlImagen() {
-		return urlImagen;
-	}*/
+
 	public int getCalificacion() {
 		return calificacion;
 	}
-	
-	/*
-	 * public Guardarropa getGuardarropa() { return guardarropa; }
-	 */
-	
 	
 	//Semáforos:
 
@@ -174,36 +159,5 @@ public class Prenda{
 		if(listaDeFechasReservadas==null) return false;
 			else return(listaDeFechasReservadas.contains(fecha));
 		
-	}
-	
-
-    
-    // Ver si vamos a usar los setter. 
-	/*
-	public void setColorPrincipal(Color colorPrincipal) {
-		this.colorPrincipal = colorPrincipal;
-	}
-	public void setColorSecundario(Color colorSecundario) {
-		this.colorSecundario = colorSecundario;
-	}
-	public void setMaterial(Material material) {
-		this.material = material;
-	}
-	public void setTipo(TipoDePrenda tipo) {
-		this.tipo = tipo;
-	}
-	public void setTrama(Trama trama) {
-		this.trama = trama;
-	}
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
-	}
-	public void setCalificacion(int unaCalificacion) {
-		this.calificacion=unaCalificacion;
-	}
-	
-	public void setNivel(PrendaNivel nivel) {
-		this.tipo.setNivel(nivel);
-	}*/
-	
+	}	
 }

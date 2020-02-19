@@ -2,6 +2,4 @@
 #@mainLayout()
     <h1>404 Pagina no encontrada!</h1>
     <h3>a menos que la pagina que estabas buscando sea esta página de error. En ese caso, ¡felicidades! No cabe duda de que la has encontrado.</h3>
-
-     
 #end

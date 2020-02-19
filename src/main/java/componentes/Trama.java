@@ -14,16 +14,12 @@ public class Trama {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
 	
-	@SuppressWarnings("unused")
 	private String nombre;
 
-	public Trama(String nombre) {
-	
-		this.nombre = nombre;
-	}	
-	
 	public Trama() {}	
 	
-	
+	public String getNombre() {
+		return this.nombre;
+	}
 	
 }

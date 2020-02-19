@@ -81,18 +81,18 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		tiposDeMaterialLentes.add(plastico);
 
 		// Colores
-		final Color colorBlanco = new Color("Blanco", 255, 255, 0);
-		final Color colorRojo = new Color("Rojo", 255, 0, 0);
-		final Color colorNegro = new Color("Negro", 10, 10, 10);
-		final Color colorVerde = new Color("Verde", 0, 255, 0);
-		final Color colorAzulTrafico = new Color("Azul Trafico", 006, 47, 113);
+		final Color colorBlanco = new Color( 255, 255, 0);
+		final Color colorRojo = new Color(255, 0, 0);
+		final Color colorNegro = new Color( 10, 10, 10);
+		final Color colorVerde = new Color( 0, 255, 0);
+		final Color colorAzulTrafico = new Color( 006, 47, 113);
 
 		// Tramas
-		final Trama lisa = new Trama("Lisa");
-		final Trama estampada = new Trama("Estampada");
-		final Trama rayada = new Trama("Rayada");
-		final Trama cuadros = new Trama("Cuadros");
-		final Trama lunares = new Trama("Lunares");
+		final Trama lisa = new Trama();
+		final Trama estampada = new Trama();
+		final Trama rayada = new Trama();
+		final Trama cuadros = new Trama();
+		final Trama lunares = new Trama();
 
 		/* Luego creamos tipos de prendas particulares */
 		final TipoDePrenda remera = new TipoDePrenda("Remera", Categoria.PARTE_SUPERIOR, tiposDeMaterialRemera,

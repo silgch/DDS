@@ -8,8 +8,6 @@ import componentes.Prenda;
 import guardarropas.Guardarropa;
 import usuario.Usuario;
 
-
-
 public class CommandParaEventos /*implements ICommand*/ {
 	
 	public CommandParaEventos() {}
@@ -30,16 +28,7 @@ public class CommandParaEventos /*implements ICommand*/ {
 		usuario = miUsuario;
 	}
 	
-	/*public void crearEvento(LocalDate fecha, String descripcion, String ubicacion) throws Exception{
-		Evento evento = new Evento(fecha, descripcion, usuario, ubicacion);
-		this.getColaEventosActivos().add(evento);
-		System.out.println("El usuario " + usuario.getNombre() +
-				" agregó el evento " + evento.getDescripcion()+
-				" a realizarse el " + evento.getFecha());
-		eventoTemporal = evento;
-	}*/
 	public void generarSugerenciaPara(Guardarropa unGuardarropa,Evento evento) throws Exception {
-		//String codigoCiudad = "3433955" es para CABA;
 		listaDePrendasTemporal = sugiridor.sugerirEnBaseAPersepcion(unGuardarropa, usuario, evento);	
 		guardarropaTemporal = unGuardarropa;
 		eventoTemporal = evento;
@@ -56,16 +45,12 @@ public class CommandParaEventos /*implements ICommand*/ {
 		//sugerencia.setEstado(EnumEstadoSugerencia.ACEPTADA);
 		eventoTemporal.setSugerencia(sugerencia);
 		eventoTemporal.setGuardaropa(guardarropaTemporal);
-		System.out.println("La sugerencia: "+
-				sugerencia.devolverSugerenciaEnFormaDeString()+
-				" ha sido aceptada");
+		System.out.println("La sugerencia: "+sugerencia.devolverSugerenciaEnFormaDeString()+" ha sido aceptada");
 	}
 	
 	public void rechazarSugerencia(Sugerencia sugerencia) {
 		//sugerencia.setEstado(EnumEstadoSugerencia.RECHAZADA);
-		System.out.println("La sugerencia: "+
-				sugerencia.devolverSugerenciaEnFormaDeString()+
-				" ha sido rechazada");
+		System.out.println("La sugerencia: "+sugerencia.devolverSugerenciaEnFormaDeString()+" ha sido rechazada");
 	}
 	
 	public void eliminarEvento(Evento evento) {

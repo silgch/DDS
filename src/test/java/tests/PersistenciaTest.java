@@ -54,15 +54,15 @@ public class PersistenciaTest {
 	Material nylon = new Material ("Nylon");
 	Material jean = new Material ("Jean");
 	
-	Color negro = new Color ("Negro", 0,0,0);
-	Color blanco = new Color ("Blanco", 255,255,255);
-	Color amarillo = new Color ("Amarillo", 250,255,51);
-	Color celeste = new Color ("Celeste", 51,255,255);
-	Color gris = new Color ("Gris", 140,150,150);
-	Color bordo = new Color ("Bordo", 210,50,0);
-	Color verde = new Color ("Verde", 30,210,0);
+	Color negro = new Color (0,0,0);
+	Color blanco = new Color (255,255,255);
+	Color amarillo = new Color (250,255,51);
+	Color celeste = new Color (51,255,255);
+	Color gris = new Color (140,150,150);
+	Color bordo = new Color (210,50,0);
+	Color verde = new Color (30,210,0);
 	
-	Trama lisa = new Trama("Lisa");
+	Trama lisa = new Trama();
 	
 	Set <Material> tiposDeMaterialRemera = new HashSet<Material>();
 	Set <Material> tiposDeMaterialSueter = new HashSet<Material>();	

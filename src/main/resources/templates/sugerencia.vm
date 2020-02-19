@@ -25,7 +25,7 @@
             #foreach($prenda in $sugerencia)
             <ul>
                 <li>
-                    $prenda
+                    $prenda.getTipo().getNombre() $prenda.getTrama().getNombre() de $prenda.getMaterial().getNombre()
                 </li>
             </ul>
             #end

@@ -1,0 +1,25 @@
+#parse("/templates/layout.vm") 
+#@mainLayout()
+
+<h1>Listado De Prendas de $guardarropa:</h1>
+
+<div class="grid-container">
+
+            #foreach($prenda in $prendas)
+            <div class="grid-item">
+                <img class="img" src="$!prenda.getTipo().getImagen()">
+                <div class="descripcionPrenda"> $!prenda.getTipo().getNombre() $!prenda.getTrama().getNombre() de $!prenda.getMaterial().getNombre()</div>
+                <div class="w3-row w3-center" style="margin:0 -16px;line-height:80px;color:white;">
+                    <div class="color" style="background-color:rgb($!prenda.getColor().getR(), $!prenda.getColor().getV(), $!prenda.getColor().getA());">Color Primario</div>
+                    #if($!prenda.getColorSecundario()) 
+                        <div class="color" style="background-color:rgb($!prenda.getColorSecundario().getR(), $!prenda.getColorSecundario().getV(), $!prenda.getColorSecundario().getA());">Color Secundario</div>
+                    #else
+                        <div class="color_transparente" style="background-color:rgba(0,0,0,0);">S/ Color Secundario</div>
+                    #end
+                </div>
+            </div>
+            #end
+
+</div>
+
+ #end

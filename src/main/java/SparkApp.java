@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+import componentes.Prenda;
 import eventos.Evento;
 import usuario.Usuario;
 
@@ -99,17 +99,20 @@ public class SparkApp {
         
         post("/guardarropas", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            String inputtedguardarropa = request.queryParams("guardarropa");
-            if(inputtedguardarropa.equals("[Crear Nuevo Guardarropas]")){
+            String inputtedGuardarropa = request.queryParams("guardarropa");
+            if(inputtedGuardarropa.equals("[Crear Nuevo Guardarropas]")){
             	fachada.crearGuardarropasAlPibe(request);
             	response.redirect("/guardarropas");
                 return null;
             }
-            request.session().attribute("guardarropa", inputtedguardarropa);            
-            List<String> prendas = fachada.devolverTodasLasPrendas(inputtedguardarropa);           
-            model.put("guardarropa", inputtedguardarropa);
+            request.session().attribute("guardarropa", inputtedGuardarropa);  
+            model.put("guardarropa", inputtedGuardarropa);
+            
+            //List<String> prendas = fachada.devolverTodasLasPrendas(inputtedGuardarropa);           
+            Iterable<Prenda> prendas = fachada.devolverTodasLasPrendasDeGuardarropas(inputtedGuardarropa);
+            
             model.put("prendas", prendas);
-            return ViewUtil.render(request, model, "templates/prendas.vm");
+            return ViewUtil.render(request, model, "templates/prendasV2.vm");
         });
         
         get("/new-prenda",(request, response) -> {
@@ -131,17 +134,28 @@ public class SparkApp {
             String nombre = request.queryParams("nombre");
             String tipoDePrenda = request.queryParams("tipoDePrenda");
             String material = request.queryParams("material");
-            String colorHEX = request.queryParams("colorHEX");
+            String colorHEX_1 = request.queryParams("colorHEX_1");
+            String colorHEX_2 = null;
             String trama = request.queryParams("trama");
             String guardarropa = request.queryParams("guardarropa");
             request.session().attribute("nombre", nombre);
             request.session().attribute("tipoDePrenda", tipoDePrenda);
             request.session().attribute("material", material);
-            request.session().attribute("colorHEX", colorHEX);
+            request.session().attribute("colorHEX_1", colorHEX_1);
             request.session().attribute("trama", trama);
             request.session().attribute("guardarropa", guardarropa);
             
-            fachada.persistimeEstaPrenda(nombre,tipoDePrenda,material,colorHEX,trama,guardarropa);            
+            String usar_color_2 = request.queryParams("usar_color_2");
+            System.out.println("usar_color_2:"+usar_color_2+"OK");
+            
+            if (usar_color_2 != null) {
+            	colorHEX_2 = request.queryParams("colorHEX_2");
+                request.session().attribute("colorHEX_2", colorHEX_2);
+                System.out.println("colorHEX_2:"+colorHEX_2);
+
+            }
+            
+            fachada.persistimeEstaPrenda(nombre,tipoDePrenda,material,colorHEX_1,colorHEX_2,trama,guardarropa);            
 
             return ViewUtil.render(request, model, "templates/home.vm");
         });        
@@ -175,7 +189,7 @@ public class SparkApp {
             
             request.session().attribute("eventoID", eventoID);
             
-            List<String> sugerencia = fachada.devolverUnaSugerenciaParaEvento(eventoID, request);
+            List<Prenda> sugerencia = fachada.devolverUnaSugerenciaParaEvento(eventoID, request);
             model.put("sugerencia", sugerencia);
             
             return ViewUtil.render(request, model, "templates/sugerencia.vm");
@@ -187,7 +201,7 @@ public class SparkApp {
             
             if (eventoID==null)System.out.println("Alguien puede pensar en los niños??");
 
-            List<String> sugerencia = fachada.devolverUnaSugerenciaParaEvento(eventoID, request);
+            List<Prenda> sugerencia = fachada.devolverUnaSugerenciaParaEvento(eventoID, request);
             model.put("sugerencia", sugerencia);
             
             return ViewUtil.render(request, model, "templates/sugerencia.vm");
@@ -221,8 +235,7 @@ public class SparkApp {
             //System.out.println("eventoID:"+eventoID);
       
             fachada.aceptarSugencia(eventoID, request);
-            fachada.modificarPercepcion(percepcionCabeza,percepcionCuello,percepcionTorso,percepcionManos,percepcionPiernas,percepcionCalzado,request);
-            
+            fachada.modificarPercepcion(percepcionCabeza,percepcionCuello,percepcionTorso,percepcionManos,percepcionPiernas,percepcionCalzado,request);            
             
             Usuario usuario = fachada.buscarUsuarioPorUsername(fachada.buscarUserNameConectado(request));
             model.put("usuario", usuario);
@@ -241,19 +254,22 @@ public class SparkApp {
             Map<String, Object> model = new HashMap<>();
             String idSugerencia = request.queryParams("sugerencia");
             request.session().attribute("sugerencia", idSugerencia);            
-            List<String> prendas = fachada.devolverTodasLasPrendasDeSugerencia(idSugerencia);           
+            //List<String> prendas = fachada.devolverTodasLasPrendasDeSugerencia(idSugerencia);           
             model.put("guardarropa", "Sugerencia con ID: "+ idSugerencia);
+            
+            Iterable<Prenda> prendas = fachada.devolverTodasLasPrendasDeSugerencia2(idSugerencia);        
             model.put("prendas", prendas); 
-            return ViewUtil.render(request, model, "templates/prendas.vm");           
+            
+            return ViewUtil.render(request, model, "templates/prendasV2.vm");           
 
         });
         
         get("*",ViewUtil.notFound);        
         
-        exception(Exception.class, (exception, request, response) -> {
+        /*exception(Exception.class, (exception, request, response) -> {
             response.status(404);
         	response.redirect("/notFound");
-        });
+        });*/
     
     }
     

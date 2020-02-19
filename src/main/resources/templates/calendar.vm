@@ -5,7 +5,7 @@
 
 <form action="/calendar" id="calendarForm" method="post">
 
-    <table class="egt">
+    <table class="egt" align="center">
 
         <caption>Detalles de Eventos</caption>
 

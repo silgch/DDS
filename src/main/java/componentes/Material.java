@@ -34,4 +34,8 @@ public class Material {
 	
 	public Material() {}
 	
+	public String getNombre() {
+		return this.nombre;
+	}
+	
 }
