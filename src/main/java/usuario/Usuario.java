@@ -20,7 +20,6 @@ import componentes.Prenda;
 import eventos.CommandParaEventos;
 import eventos.Evento;
 import eventos.GeneradorDeSugerencias;
-import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 
 
@@ -53,11 +52,8 @@ public class Usuario{
 	 * no hace falta persistirlo*/
 	
 	@Transient 
-	public List<Prenda> sugerenciaTemporal;
-	
-	/*@Transient 
-	private Cuenta tipoDeCuenta;*/
-	
+	public List<Prenda> sugerenciaTemporal;	
+
 	private boolean usuario_premium = false;
 	
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -66,24 +62,19 @@ public class Usuario{
 	
 	@Transient
 	private CommandParaEventos managerDeEventos;
-	//private String tipoDeUsuario;
 	
 	public Usuario() {}
 	
 	public Usuario(String name){
 		this.userName = name;
-		//gestorCuenta = new GestorDeCuentas();
 		percepcion = new PercepcionDeTemperatura();
 		managerDeEventos = new CommandParaEventos(this);
-		//tipoDeCuenta = gestorCuenta.creameUnaCuenta();
-		//tipoDeUsuario = this.tipoDeCuenta.nombre;
 		}
 	
 	// Getters
 	public List<Guardarropa> getGuardarropas() {
 		return guardarropas;
 	}
-
 	public String getUserName() {
 		return userName;
 	}
@@ -97,7 +88,6 @@ public class Usuario{
 	public CommandParaEventos getManagerDeEventos() {
 		return managerDeEventos;
 	}
-
 	public boolean esPobre() {
 		return !(this.usuario_premium);
 	}
@@ -117,8 +107,6 @@ public class Usuario{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	//public void hacersePremium() {usuario_premium = true;}
-
 	
 	
 	// Métodos con guardarropas
@@ -136,6 +124,7 @@ public class Usuario{
 	}
 	
 	//un guardarropa solo se puede compartir con un usuario
+	
 	public void compartirGuardarropasCon(Guardarropa guardarropa, Usuario otroUsuario) {
 		otroUsuario.agregarGuardarropaCompartido(guardarropa);
 	}
@@ -149,19 +138,7 @@ public class Usuario{
 	}*/	
 
 	
-	//Métodos con Eventos
-	/*public void crearEvento(LocalDate fecha, String descripcion, String ubicacion) throws Exception{
-		managerDeEventos.crearEvento( fecha, descripcion, ubicacion);
-	}/*
-	
-	/*
-	public void procesarEvento(Evento evento) throws IOException {
-		CommandParaEventos sugerenciaParaEvento = new CommandParaEventos();
-		sugerenciaParaEvento.execute(evento);
 
-	}/
-	
-	
 	//Métodos con Sugerencias
 	
 	/*
@@ -189,26 +166,5 @@ public class Usuario{
 		return managerDeEventos.generarSugerenciaParaUltimoEvento();
 	}*/
 	
-	
-	public void aceptarSugerencia(Sugerencia sugerencia) {
-		managerDeEventos.aceptarSugerencia(sugerencia);
-	}
-	
-	public void rechazarSugerencia(Sugerencia sugerencia) {
-		managerDeEventos.rechazarSugerencia(sugerencia);
-	}
 
-
-
-	/*public void calificarSugerencia(Sugerencia unaSugerencia, int unaCalificacion) throws Exception {
-		System.out.println("El usuario " + this.getNombre() + " ha calificado con \"" +
-				unaCalificacion+"\" la sugerencia" +
-				unaSugerencia.devolverSugerenciaEnFormaDeString());
-		if( unaSugerencia.getEstado() == EnumEstadoSugerencia.ACEPTADA) {
-			unaSugerencia.setCalificacion(unaCalificacion);
-		}else {
-			System.out.println("Solo se pueden calificar sugerencias ACEPTADAS");
-		}
-	}*/
-	
 }

@@ -61,6 +61,8 @@ public class Evento {
 	
 	private String repeticion;
 	
+	//private String tempEsperada;
+	
 	@Transient
 	private List<Evento> eventosConRepeticion;
 	private String ubicacionParaAPI;
@@ -169,6 +171,9 @@ public class Evento {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	/*public void setTempEsperada(String temp) {
+		this.tempEsperada = temp;
+	}*/
 	/*public void setSugerencias(List<String> unaLista) {
 		for(String elemento : unaLista) {
 			Sugerencia auxiliar = new Sugerencia(null);
@@ -220,5 +225,8 @@ public class Evento {
 	public String getID() {
 		return Long.toString(this.id);
 	}
+	/*public String getTempEsperada() {
+		return this.tempEsperada;
+	}*/
 
 }

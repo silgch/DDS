@@ -1,6 +1,8 @@
 #parse("/templates/layout.vm")
 #@mainLayout()
 
+<title>QueMePongo - Listado De Guardarropas</title>
+
 <h1>Listado De Guardarropas</h1>
 
 <form action="/guardarropas" id="guardarropasForm" method="post">

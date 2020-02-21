@@ -1,6 +1,8 @@
 #parse("/templates/layout.vm") 
 #@mainLayout()
 
+<title>QueMePongo - Calendario</title>
+
 <div style="overflow-x:auto;">
 
 <form action="/calendar" id="calendarForm" method="post">

@@ -19,7 +19,7 @@ import componentes.Prenda;
 import componentes.PrendaNivel;
 import componentes.TipoDePrenda;
 import componentes.Trama;
-import eventos.Sugerencia;
+//import eventos.Sugerencia;
 import guardarropas.Guardarropa;
 import repositorio.Repositorio;
 import usuario.Usuario;
@@ -214,13 +214,11 @@ public class mainCreacionUsuariosGuardarropasPrendas {
 		
 	   //ines.crearEvento(LocalDate.now(), "Las Toninas", "3431608");
 	    ines.pedirSugerencia();	    
-	    Sugerencia sugerencia2 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
-	    ines.rechazarSugerencia(sugerencia2);
+	    //Sugerencia sugerencia2 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
     
 	    //ines.crearEvento(LocalDate.now(), "Miamiii", "4174383");
 	    ines.pedirSugerencia();
-	    Sugerencia sugerencia1 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
-	    ines.aceptarSugerencia(sugerencia1);
+	    //Sugerencia sugerencia1 = new Sugerencia(ines.getManagerDeEventos().getListaDePrendasTemporal());
 	    
 	    System.out.println("Ines es friolenta, así que modifica su percepcionDeTemperatura");
 	    ines.getPercepcion().modificarPercepcionCabeza(-2);

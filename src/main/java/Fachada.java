@@ -159,8 +159,8 @@ public class Fachada {
 		return listAndCast(statement);
 	}
 
-	public void persistimeEstaPrenda(String nombre, String tipoDePrenda, String material, String color_1, String color_2, String trama, String guardarropa) {
-		//System.out.println("Guardarropas:" + guardarropa);
+	public void persistimeEstaPrenda(String tipoDePrenda, String material, String color_1, String color_2, String trama, String guardarropa) {
+    	String nombre = "Prenda";
 		//convertimos strings a objetos	
 		TipoDePrenda unTipo= convertirStringAObjeto(TipoDePrenda.class, "TipoDePrenda", tipoDePrenda);
 		Color unColor1 = this.hex2Rgb(color_1);
@@ -170,36 +170,30 @@ public class Fachada {
 		
 		Prenda unaPrenda = null;
 		
-        System.out.println("color_2:"+color_2);
+        //System.out.println("color_2:"+color_2);
 
-		
 		if(color_2!=null) {
 			Color unColor2 = this.hex2Rgb(color_2);
 			unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor1, unColor2, unaTrama );
 		}else {
 			unaPrenda = new Prenda(nombre, unTipo, unMaterial, unColor1, unaTrama );
 		}
-		
+
 		Guardarropa unGuardarropa = convertirStringAObjeto(Guardarropa.class, "Guardarropa", guardarropa);
-		//try {
-			unGuardarropa.agregarAGuardarropas(unaPrenda);
-			repositorio.prenda().persistir(unaPrenda);
-		/*	
-		} catch (Exception e) {
-			System.out.println("LPQTP");
-		}*/					
+		unGuardarropa.agregarAGuardarropas(unaPrenda);
+		repositorio.prenda().persistir(unaPrenda);			
 	}
 	
 	@SuppressWarnings("unused")
 	private byte[] convertingAnInputStreamToAByteArray_thenCorrect(InputStream initialStream) 
-			  throws IOException {
-			    //InputStream initialStream = new ByteArrayInputStream(new byte[] { 0, 1, 2 });
-			 
-			    byte[] targetArray = new byte[initialStream.available()];
-			    initialStream.read(targetArray);
-			    
-			    return targetArray;
-			}
+		throws IOException {
+		//InputStream initialStream = new ByteArrayInputStream(new byte[] { 0, 1, 2 });
+		
+		byte[] targetArray = new byte[initialStream.available()];
+		initialStream.read(targetArray);
+		
+		return targetArray;
+	}
 	
 	private <T> T convertirStringAObjeto(Class<T> entityClass, String columnaSQL, String aConvertir) {
 		String statement = String.format("SELECT id FROM %s WHERE nombre = '%s'", columnaSQL, aConvertir);
@@ -248,19 +242,10 @@ public class Fachada {
 	 
 
 	public List<Prenda> devolverUnaSugerenciaParaEvento(String eventoID, Request request) throws Exception {
-        
-		Evento evento = this.eventoID_A_Evento(eventoID);
-
+       	Evento evento = this.eventoID_A_Evento(eventoID);
         //System.out.println("Evento: "+evento);
-
-		//List<String> lista = new ArrayList<>();
 		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
-		List<Prenda> prendas = usuarioLogueado.pedirSugerencia2(evento);
-		 
-		/*for (Prenda prenda : prendas) {
-			lista.add(prenda.getNombre()); 
-		}
-		return lista;*/
+		List<Prenda> prendas = usuarioLogueado.pedirSugerencia2(evento);		 
 		return prendas;
 	}
 	
@@ -268,17 +253,10 @@ public class Fachada {
 		return entityManager.find(Evento.class, Long.parseLong(eventoID));
 	}
 	
-	/*public List<String> devolverUnaSugerenciaParaUltimoEvento(Request request) throws Exception {
-		List<String> lista = new ArrayList<>();
-		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
-		List<Prenda> prendas = usuarioLogueado.pedirSugerenciaUltimoEvento();
-		 
-		for (Prenda prenda : prendas) {
-			lista.add(prenda.getNombre()); 
-		}
-		return lista;
+	/*public String tempEvento(String eventoID) {		
+		Evento evento = this.eventoID_A_Evento(eventoID);
+		return evento.getTempEsperada();
 	}*/
-	
 	
 	public void aceptarSugencia(String eventoID, Request request) {
 		Usuario usuarioLogueado = this.buscarUsuarioPorUsername(buscarUserNameConectado(request));
@@ -298,7 +276,6 @@ public class Fachada {
 		repositorio.usuario().actualizar(usuarioLogueado);
 	}
 	
-	
 	public List<Evento> devolverTodosLosEventos(Request request) {
 		String usuarioConectado = this.buscarUserNameConectado(request);
 		String statement_userID = String.format("SELECT id FROM Usuario WHERE userName = '%s'", usuarioConectado);
@@ -310,19 +287,7 @@ public class Fachada {
 			list_event.add(entityManager.find(Evento.class, i)); 
 		}
 		return list_event;
-	}
-	
-	
-	public List<String> devolverTodasLosDetalles(String inputtedEvento) {
-	    Query query1 = entityManager.createQuery(String.format("SELECT id FROM Evento e WHERE e.descripcion = '%s'",inputtedEvento));
-	    String statement = ("SELECT fechaEvento, repeticion FROM Evento WHERE descripcion = " + query1.setMaxResults(1).getSingleResult());
-		return this.listAndCast(statement);
-	}
-
-	public List<String> devolverTodasLasPrendasDeSugerencia(String idSugerencia) {
-	    String statement = ("SELECT DISTINCT prenda.nombre FROM sugerencia s join s.prendas_de_sugerencia as prenda WHERE s.id = " + idSugerencia);
-	    return listAndCast(statement);
-	}
+	}	
 	
 	public List<Prenda> devolverTodasLasPrendasDeSugerencia2(String idSugerencia) {
 	    String statement = ("SELECT DISTINCT prenda.id FROM sugerencia s join s.prendas_de_sugerencia as prenda WHERE s.id = " + idSugerencia);
@@ -331,11 +296,7 @@ public class Fachada {
 		for (Object i : queryIDUsuario.getResultList() ) {
 			list_prenda.add(entityManager.find(Prenda.class, i)); 
 		}
-		return list_prenda;
-	    
-	    
-	    
-	    
+		return list_prenda;	    
 	}
 
 	public List<Prenda> devolverTodasLasPrendasDeGuardarropas(String inputtedGuardarropa) {
@@ -347,7 +308,6 @@ public class Fachada {
 			list_prenda.add(entityManager.find(Prenda.class, i)); 
 		}
 		return list_prenda;
-	}  
-	
+	}  	
 
 }

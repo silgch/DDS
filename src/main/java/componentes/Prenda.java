@@ -22,7 +22,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -61,8 +60,8 @@ public class Prenda{
     @ManyToOne(fetch = FetchType.LAZY)
 	private Guardarropa guardarropa;
 	
-    @Lob
-    private byte[] imagen;
+    //@Lob
+    //private byte[] imagen;
 	
 	private int calificacion=0;
 	

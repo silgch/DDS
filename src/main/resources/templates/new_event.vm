@@ -4,6 +4,8 @@
 <html>
 <div>
 
+    <title>QueMePongo - Crear un nuevo evento</title>
+
     <h1>Crear un nuevo evento</h1>
 
     <form action="/new-event" id="EventForm" method="post">    
@@ -24,7 +26,7 @@
     </p>
     <p>
         <label for="when">Fecha:&nbsp; &nbsp;</label>
-        <input max="2021-02-14" min="2020-02-15" name="when" type="date" required/>        
+        <input max="2021-02-14" min="2020-02-19" name="when" type="date" required/>        
     </p>
     <input type="submit" value="Crear Evento" />
     </form>

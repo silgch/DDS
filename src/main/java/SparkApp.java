@@ -82,12 +82,7 @@ public class SparkApp {
             request.session().attribute("loggedOut", true);
             response.redirect("/login");
             return null;
-        }); 
-        
-        put("/detallesEventos", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            return ViewUtil.render(request, model, "templates/detallesEventos.vm");
-        });       
+        });  
         
         get("/guardarropas", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
@@ -155,7 +150,7 @@ public class SparkApp {
 
             }
             
-            fachada.persistimeEstaPrenda(nombre,tipoDePrenda,material,colorHEX_1,colorHEX_2,trama,guardarropa);            
+            fachada.persistimeEstaPrenda(tipoDePrenda,material,colorHEX_1,colorHEX_2,trama,guardarropa);            
 
             return ViewUtil.render(request, model, "templates/home.vm");
         });        
@@ -165,7 +160,6 @@ public class SparkApp {
             List<String> guardarropas = fachada.devolverTodosLosGuardarropas(request);
             model.put("guardarropas", guardarropas);
             return ViewUtil.render(request, model, "templates/new_event.vm");
-
         });
         
         post("/new-event",(request, response) -> { 	
@@ -179,37 +173,31 @@ public class SparkApp {
             request.session().attribute("description", description);
             request.session().attribute("when", when);
             
-            //
             String i = request.queryParams("i");
             request.session().attribute("i", i);
-            System.out.println("i:"+i);
-            //
             
-            String eventoID = fachada.persistimeEsteEvento(guardarropa,place,description,when,request); 
-            
-            request.session().attribute("eventoID", eventoID);
-            
+            String eventoID = fachada.persistimeEsteEvento(guardarropa,place,description,when,request);             
+            request.session().attribute("eventoID", eventoID);            
             List<Prenda> sugerencia = fachada.devolverUnaSugerenciaParaEvento(eventoID, request);
-            model.put("sugerencia", sugerencia);
-            
+            model.put("sugerencia", sugerencia);            
             return ViewUtil.render(request, model, "templates/sugerencia.vm");
         }); 
         
         get("/sugerencia",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            String eventoID = request.session().attribute("eventoID");
-            
-            if (eventoID==null)System.out.println("Alguien puede pensar en los niños??");
+            String eventoID = request.session().attribute("eventoID");            
 
             List<Prenda> sugerencia = fachada.devolverUnaSugerenciaParaEvento(eventoID, request);
             model.put("sugerencia", sugerencia);
+            
+           // String tempEsperada = fachada.tempEvento(eventoID);
+           // model.put("tempEsperada", tempEsperada);
             
             return ViewUtil.render(request, model, "templates/sugerencia.vm");
         });
         
         post("/sugerencia",(request, response) -> {  	
-            Map<String, Object> model = new HashMap<>();
-            
+            Map<String, Object> model = new HashMap<>();            
             String sugerenciaAceptada = request.queryParams("sugerenciaAceptada");      
             
             if(sugerenciaAceptada == "FALSE") {
@@ -230,10 +218,8 @@ public class SparkApp {
             request.session().attribute("percepcionPiernas", percepcionPiernas);
             request.session().attribute("percepcionCalzado", percepcionCalzado);   
             
-            String eventoID = request.session().attribute("eventoID");
-            
-            //System.out.println("eventoID:"+eventoID);
-      
+            String eventoID = request.session().attribute("eventoID");            
+            //System.out.println("eventoID:"+eventoID);      
             fachada.aceptarSugencia(eventoID, request);
             fachada.modificarPercepcion(percepcionCabeza,percepcionCuello,percepcionTorso,percepcionManos,percepcionPiernas,percepcionCalzado,request);            
             
@@ -266,10 +252,10 @@ public class SparkApp {
         
         get("*",ViewUtil.notFound);        
         
-        /*exception(Exception.class, (exception, request, response) -> {
+        exception(Exception.class, (exception, request, response) -> {
             response.status(404);
         	response.redirect("/notFound");
-        });*/
+        });
     
     }
     

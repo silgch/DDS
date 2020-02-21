@@ -9,24 +9,26 @@
 #parse("/templates/layout.vm")
 #@mainLayout()
 
-<h1>Agregar Nueva Prenda</h1>
+<title>QueMePongo - Crear una nueva prenda</title>
+
+<h1>Crear una nueva prenda</h1>
 
 <div>
     <div>
         <form action="/new-prenda" method="post" >
-            <p>Nombre de prenda:&nbsp;
+            <!--<p>Nombre de prenda:&nbsp;
                 <input maxlength="100" name="nombre" type="text" value="" id="name" />
                 <label for="when"></label>
-            </p>
+            </p>-->
             <p>
                 <select name="tipoDePrenda" id="tipo" required>
-                    <option value="-1">Seleccionar Tipo De Prenda</option>
+                    <option selected disabled >Seleccionar Tipo De Prenda</option>
                     #foreach( $tipoDePrenda in $tipoDePrendas )
                     <option value="$tipoDePrenda">$tipoDePrenda</option>
                     #end</select>
             </p>
             <select name="material" id="material" required>
-                <option value="-1">Seleccionar Material</option>
+                <option selected disabled >Seleccionar Material</option>
                 #foreach( $material in $materiales)
                 	<option value="$material">$material</option>
                 #end
@@ -45,7 +47,7 @@
 
             <p>
                 <select name="trama" id="trama" required>
-                    <option value="-1">Seleccionar Trama</option>
+                    <option selected disabled >Seleccionar Trama</option>
                     #foreach( $trama in $tramas )
                     	<option value="$trama">$trama</option>
                     #end
@@ -53,7 +55,7 @@
             </p>
             <p>
                 <select name="guardarropa" id="guardarropa" required>
-                    <option value="-1">Seleccionar el guardarropas donde se guardara</option>
+                    <option selected disabled >Seleccionar el guardarropas donde se guardara</option>
                     #foreach( $guardarropa in $guardarropas )
                     	<option value="$guardarropa">$guardarropa</option>
                     #end
@@ -65,7 +67,7 @@
                 <br>
                 <br>
             </p> -->
-            <button onclick="mostrar(document.getElementById('name').value,
+            <button onclick="mostrar(
                 document.getElementById('tipo').value,
                 document.getElementById('colorHEX_1').value,
                 document.getElementById('trama').value,
@@ -77,12 +79,12 @@
 </div>
 
             <script>
-              function mostrar(name,tipo,colorHEX_1,trama,guardarropa) {
-                var mensaje = "Se agregó al guardarropas " + guardarropa +
-                "\nla prenda "+name+" de tipo " +tipo + 
-                "\ncon trama " + trama + " y con el color "+colorHEX_1;
-                alert(mensaje);
-              }
+                function mostrar(tipo,colorHEX_1,trama,guardarropa) {
+                    var mensaje = "Se agregó al guardarropas " + guardarropa +
+                    "\nla prenda " + " de tipo " + tipo + 
+                    "\ncon trama " + trama + " y con el color "+ colorHEX_1;
+                    alert(mensaje);
+                }
 
                 function mostrar_segundo_color() {
                     var checkBox = document.getElementById("usar_color_2");

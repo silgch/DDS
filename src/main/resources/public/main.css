@@ -90,7 +90,8 @@
     padding: 15px;
     background: #fff;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-    width: 900px;
+    min-width: fit-content;
+    max-width: -webkit-fill-available;
   }
   
   nav ul, nav li {
@@ -149,42 +150,7 @@
   .col img {
     display: block;
     width: 100%;
-  }
-  
-  /* Book related stuff */
-  
-  a.book {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    color: #333;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  a.book:hover {
-    background: #e2e9f5;
-  }
-  
-  a .bookCover {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  a .bookCover img {
-    border-radius: 5px;
-    min-height: 200px;
-    max-height: 200px;
-    width: auto;
-  }
-  
-  .bookCover img {
-    margin-top: 20px;
-    border-radius: 10px;
-    width: 100%;
-  }
+  }  
   
   /* Login Form */
   
@@ -270,6 +236,8 @@
   .img {
     width: auto;
     height: 200px;
+    transform: scale(1.3);
+    padding-top: 4px;
   }
   
   .color {

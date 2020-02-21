@@ -1,6 +1,8 @@
 #parse("/templates/layout.vm") 
 #@mainLayout()
 
+<title>QueMePongo - Lista de Prendas</title>
+
 <h1>Listado De Prendas de $guardarropa:</h1>
 
 <div class="grid-container">
